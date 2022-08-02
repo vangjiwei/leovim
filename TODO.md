@@ -1,0 +1,33 @@
+## TODO
+- [x] fixed GetPyxVerion when not has 'execute'
+- [x] `tab drop problem` in legacy vim
+- [x] better lightline schemes
+- [x] leaderf popup ratio
+- [x] leaderf grep postion keeped on right if not has `popup` or `floating window`
+- [x] Better register insert
+- [x] Easymotion, within line jump
+- [x] far.vim
+- [x] fern.vim as tree_browser
+- [x] search_tool using leaderf or fzf
+- [x] auto choose yes to kill job when confirm quit termina
+- [x] install plunins in to $INSTALL_PATH by default
+- [x] leaderf as default fuzzy_finder when with +python3 support, otherwise fzf or ctrlp
+- [x] fix coc.nvim vsplitly open definition declaration etc.
+- [x] Copy && Paste using tmux
+- [x] fzf yank
+- [x] leaderf jumps
+- [x] optimize search_tool
+- [x] coc-explorer keep in buffer when opened.
+- [x] sidebar-manager intergrated.
+- [x] trace_code for coc.nvim according to gitter chat.
+- [x] vscode-neovim intergration
+- [x] GrepperSearch, with the best search tool
+- [x] better message when <leader>g 
+- [x] leaderf paste/yank
+- [x] rewrite gitgetroot getfile functions
+- [x] nvim-dap
+- [x] dir diff config
+- [ ] telescope registers
+- [ ] telescope tabs 
+- [ ] format
+- [ ] rewrite readme

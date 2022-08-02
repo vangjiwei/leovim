@@ -1,0 +1,16 @@
+{
+  "configurations": {
+    "python: Launch": {
+      "adapter": "debugpy",
+      "configuration": {
+        "name": "python",
+        "type": "python",
+        "python": "python",
+        "request": "launch",
+        "stopOnEntry": true,
+        "console": "externalTerminal",
+        "program": "${workspaceRoot}/${mainPyfile}"
+      }
+    }
+  }
+}

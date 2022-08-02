@@ -1,0 +1,223 @@
+[
+  // tags
+  {
+    "key": "ctrl+t",
+    "command": "outline-map-view.focus"
+  },
+  {
+    "key": "alt+t",
+    "command": "workbench.action.gotoSymbol"
+  },
+  // timeline
+  {
+    "key": "ctrl+g",
+    "command": "timeline.focus"
+  },
+  // browser and find
+  {
+    "key": "ctrl+b",
+    "command": "workbench.action.toggleSidebarVisibility"
+  },
+  {
+    "key": "ctrl+f",
+    "command": "actions.find"
+  },
+  // ctrl n
+  {
+    "key": "ctrl+n",
+    "command": "-workbench.action.files.newUntitledFile"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "editor.action.addSelectionToNextFindMatch",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+alt+n",
+    "command": "welcome.showNewFileEntries"
+  },
+  {
+    "key": "ctrl+alt+meta+n",
+    "command": "-welcome.showNewFileEntries"
+  },
+  {
+    "key": "ctrl+alt+r",
+    "command": "code-runner.run"
+  },
+  {
+    "key": "ctrl+alt+n",
+    "command": "-code-runner.run"
+  },
+  // ctrl o
+  {
+    "key": "ctrl+alt+o",
+    "command": "workbench.action.files.openFile"
+  },
+  {
+    "key": "ctrl+o",
+    "command": "-workbench.action.files.openFile"
+  },
+  {
+    "key": "ctrl+shift+alt+o",
+    "command": "workbench.action.files.openFolder"
+  },
+  // quit
+  {
+    "key": "alt+q",
+    "command": "workbench.action.closeActiveEditor"
+  },
+  {
+    "key": "alt+w",
+    "command": "workbench.action.closeAllGroups"
+  },
+  {
+    "key": "shift+alt+w",
+    "command": "workbench.action.closeEditorsInGroup"
+  },
+  {
+    "key": "shift+alt+q",
+    "command": "workbench.action.closeAllEditors"
+  },
+  // some remap
+  {
+    "key": "ctrl+shift+alt+i",
+    "command": "tabnine.snippet-suggestion",
+    "when": "tabnine.snippet-suggestion:enabled"
+  },
+  {
+    "key": "alt+.",
+    "command": "-tabnine.snippet-suggestion",
+    "when": "tabnine.snippet-suggestion:enabled"
+  },
+  {
+    "key": "alt+.",
+    "command": "-auto-close-tag.closeTag"
+  },
+  // callhierarchy
+  {
+    "key": "alt+'",
+    "command": "references-view.showCallHierarchy",
+    "when": "editorHasTypeDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+  },
+  // definition
+  {
+    "key": "ctrl+]",
+    "command": "editor.action.goToDefinition",
+    "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
+  },
+  {
+    "key": "alt+;",
+    "command": "editor.action.revealDefinitionAside",
+    "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
+  },
+  {
+    "key": "alt+/",
+    "command": "editor.action.peekDefinition",
+    "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+  },
+  // implementation
+  {
+    "key": "shift+alt+;",
+    "command": "editor.action.goToImplementation",
+    "when": "editorHasImplementationProvider && editorTextFocus && !isInEmbeddedEditor"
+  },
+  // typeDefinition
+  {
+    "key": "alt+,",
+    "command": "editor.action.goToTypeDefinition",
+    "when": "editorHasReferenceProvider && editorTextFocus && !isInEmbeddedEditor"
+  },
+  {
+    "key": "alt+\\",
+    "command": "editor.action.peekTypeDefinition",
+    "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+  },
+  // declaration
+  {
+    "key": "alt+.",
+    "command": "editor.action.revealDeclaration",
+    "when": "editorTextFocus && !isInEmbeddedEditor"
+  },
+  {
+    "key": "shift+alt+\\",
+    "command": "editor.action.peekDeclaration",
+    "when": "editorTextFocus && !isInEmbeddedEditor"
+  },
+  // References
+  {
+    "key": "shift+alt+/",
+    "command": "editor.action.goToReferences",
+    "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+  },
+  {
+    "key": "shift+alt+,",
+    "command": "references-view.prev",
+    "when": "reference-list.hasResult && references-view.canNavigate"
+  },
+  {
+    "key": "shift+alt+.",
+    "command": "references-view.next",
+    "when": "reference-list.hasResult && references-view.canNavigate"
+  },
+  // insert mode up/down
+  {
+    "key": "ctrl+n",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "down",
+    "command": "-selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "up",
+    "command": "-selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  // navigation
+  {
+    "key": "ctrl+; h",
+    "command": "workbench.action.navigateLeft"
+  },
+  {
+    "key": "ctrl+; l",
+    "command": "workbench.action.navigateRight"
+  },
+  {
+    "key": "ctrl+; k",
+    "command": "workbench.action.navigateUp"
+  },
+  {
+    "key": "ctrl+; j",
+    "command": "workbench.action.navigateDown"
+  },
+  // panel
+  {
+    "key": "ctrl+; p",
+    "command": "workbench.actions.view.problems"
+  },
+  {
+    "key": "ctrl+; o",
+    "command": "workbench.action.output.toggleOutput"
+  },
+  {
+    "key": "ctrl+; r",
+    "command": "workbench.debug.action.toggleRepl"
+  },
+  {
+    "key": "ctrl+; g",
+    "command": "workbench.view.scm"
+  },
+  // contextMenu, as right mouse click
+  {
+    "key": "alt+enter",
+    "command": "editor.action.showContextMenu",
+    "when": "editorTextFocus"
+  },
+]
