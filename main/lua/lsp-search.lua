@@ -40,10 +40,15 @@ mason_lspconfig.setup_handlers({
       }
     }
   end,
-  ["rust_analyzer"] = function ()
-    require("rust-tools").setup {}
-  end,
 })
+if vim.fn['Installed']('rust-tools.nvim') >= 0 then
+  local rust_tools = require('rust-tools')
+  mason_lspconfig.setup_handlers({
+    ["rust_analyzer"] = function ()
+      rust_tools.setup({})
+    end,
+  })
+end
 map('n', '<leader>I', [[<cmd>Mason<CR>]], opts)
 --------------------------------
 -- aerial
