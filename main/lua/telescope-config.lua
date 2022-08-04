@@ -90,6 +90,9 @@ if vim.fn['Installed']('telescope-floaterm.nvim') > 0 then
   telescope.load_extension('floaterm')
   vim.api.nvim_set_keymap('n', '<leader>w', [[<cmd>Telescope floaterm<CR>]], { noremap = true, silent = true })
 end
+if vim.fn['Installed']('telescope-ui-select.nvim') > 0 then
+  telescope.load_extension("ui-select")
+end
 if vim.fn['Installed']('telescope-buffer-lines.nvim') > 0 then
   telescope.load_extension('buffer_lines')
   vim.api.nvim_set_keymap('i', '<C-x><C-l>', [[<ESC><cmd>Telescope buffer_lines<CR>]], { noremap = true, silent = true })

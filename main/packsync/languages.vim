@@ -23,7 +23,7 @@ endif
 if Require('rust') && v:version >= 800
     PackAdd 'rust-lang/rust.vim', {'for': 'rust'}
     if has('nvim')
-        PackAdd 'simrat39/rust-tools.nvim', {'for': 'rust'}
+        PackAdd 'simrat39/rust-tools.nvim'
     endif
 endif
 " --------------------------

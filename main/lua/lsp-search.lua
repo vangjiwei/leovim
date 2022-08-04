@@ -17,6 +17,8 @@ mason.setup({
     }
   }
 })
+map('n', '<leader>I', [[<cmd>Mason<CR>]], opts)
+-- mason_lspconfig
 mason_lspconfig.setup({
   automatic_installation = true,
   ensure_installed = vim.g.lsp_installer_servers,
@@ -49,7 +51,6 @@ if vim.fn['Installed']('rust-tools.nvim') >= 0 then
     end,
   })
 end
-map('n', '<leader>I', [[<cmd>Mason<CR>]], opts)
 --------------------------------
 -- aerial
 --------------------------------
