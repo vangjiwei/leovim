@@ -10,7 +10,7 @@ elseif g:advanced_complete_engine
         PackAdd 'mfussenegger/nvim-dap'
                     \| PackAdd 'mfussenegger/nvim-dap-python'
                     \| PackAdd 'rcarriga/nvim-dap-ui'
-        if get(g:, 'nvim_treesitter_install', 0) > 0
+        if get(g:, 'nvim_treesitter_install', 0) > 0 && g:complete_engine == 'cmp'
             PackAdd 'theHamsta/nvim-dap-virtual-text'
         endif
     elseif (has('nvim') || v:version >= 802) && (Require('debug') || Require('vimspector')) && g:python_version > 3.6
