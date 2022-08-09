@@ -52,30 +52,16 @@ if vim.fn['Installed']('rust-tools.nvim') >= 0 then
   })
 end
 --------------------------------
--- aerial
---------------------------------
-local aerial = require('aerial')
-aerial.setup({
-  backends = {"lsp", "treesitter", "markdown"},
-  default_direction = "prefer_left",
-})
-local attach_aerial = function(client)
-    aerial.on_attach(client)
-end
-for _, name in pairs(mason_lspconfig.get_installed_servers()) do
-  lspconfig[name].setup {
-    on_attach = attach_aerial,
-  }
-end
---------------------------------
 -- telescope
 --------------------------------
 local telescope = require('telescope')
-telescope.load_extension('aerial')
 map('n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]], opts)
 map('n', 'T<Cr>', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
 map('n', '<M-t>', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
-map('n', 'f<Cr>', [[<cmd>Telescope aerial<CR>]], opts)
+map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols ignore_symbols=variable<CR>]], opts)
+if vim.fn['Installed']('telescope-symbols.nvim') > 0 then
+  map('n', 'sy', [[<cmd>Telescope symbols<CR>]], opts)
+end
 if vim.fn['Installed']('telescope-lsp-handlers.nvim') > 0 then
   telescope.load_extension('lsp_handlers')
   telescope.setup({

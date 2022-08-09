@@ -14,9 +14,8 @@ endfunction
 " sidebar symbols
 " ------------------------------
 if g:complete_engine == 'cmp'
-    PackAdd 'stevearc/aerial.nvim'
-                \| PackAdd 'glepnir/lspsaga.nvim'
-                \| PackAdd 'gbrlsnchs/telescope-lsp-handlers.nvim'
+    PackAdd 'glepnir/lspsaga.nvim'
+      \| PackAdd 'gbrlsnchs/telescope-lsp-handlers.nvim'
 else
     if get(g:, 'ctags_type', '') != ''
         if Planned('leaderf')

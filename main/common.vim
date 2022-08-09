@@ -144,7 +144,6 @@ function! InstalledLsp()
                 \ 'mason-lspconfig.nvim',
                 \ 'nvim-lspconfig',
                 \ 'lspsaga.nvim',
-                \ 'aerial.nvim',
                 \ )
 endfunction
 function! InstalledCmp()
