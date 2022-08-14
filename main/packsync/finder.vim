@@ -18,6 +18,7 @@ if has('nvim-0.7') && g:complete_engine == 'cmp'
                 \| PackAdd 'nvim-neo-tree/neo-tree.nvim'
                 \| PackAdd 'nvim-telescope/telescope.nvim'
                 \| PackAdd 'nvim-telescope/telescope-ui-select.nvim'
+                \| PackAdd 'nvim-telescope/telescope-symbols.nvim'
                 \| PackAdd 'jeetsukumaran/telescope-buffer-lines.nvim'
     if UNIX() && executable('make')
         let g:telescope_fzf_make_cmd = get(g:, 'telescope_fzf_make_cmd', 'make')
