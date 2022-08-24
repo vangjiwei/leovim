@@ -50,9 +50,7 @@ local cmp_opts = {
       c = cmp.mapping.close(),
       i = cmp.mapping.abort(),
     },
-    ['<C-y>'] = {
-      i = cmp.mapping.close(),
-    },
+    ['<C-y'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
     ["<S-Tab>"] = cmp.mapping({
       c = function()
         if cmp.visible() then
@@ -69,14 +67,13 @@ local cmp_opts = {
         end
       end,
     }),
-    -- NOTE: Tab Cr
     ['<Cr>'] = {
       c = cmp.mapping.confirm({
         select = false,
       }),
       i = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
-        select = false,
+        select = true,
       }),
     },
     ['<Tab>'] = cmp.mapping({
