@@ -10,7 +10,7 @@ if Installed('ZFVimIM')
         autocmd FileType * if ZFVimIME_started() | setlocal omnifunc= | endif
     augroup END
     " map
-    nnoremap <M-z><M-z> :call ZFVimIME_keymap_toggle_n() \| echo g:ZFVimIME_IMEName()<Cr>
+    nnoremap <M-z>      :call ZFVimIME_keymap_toggle_n() \| echo g:ZFVimIME_IMEName()<Cr>
     nnoremap <M-m><M-m> :call ZFVimIME_keymap_next_n() \| echo g:ZFVimIME_IMEName()<Cr>
     inoremap <expr><M-z> ZFVimIME_keymap_toggle_i()
     inoremap <expr><M-m> ZFVimIME_keymap_next_i()

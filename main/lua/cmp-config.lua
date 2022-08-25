@@ -6,7 +6,7 @@ local lspkind = require('lspkind')
 -- snippets
 local snippets = {{ name = 'nvim_lsp' }}
 local snippets_opts = {}
-if vim.fn['Installed']('ultisnips') > 0 then
+if installed('ultisnips') then
   table.insert(snippets, { name = 'ultisnips' })
   snippets_opts = {
     snippet = {
@@ -15,9 +15,9 @@ if vim.fn['Installed']('ultisnips') > 0 then
       end
     }
   }
-elseif vim.fn['Installed']('luasnip') > 0 then
+elseif installed('luasnip') then
   table.insert(snippets, { name = 'luasnip' })
-  if vim.fn['Installed']('friendly-snippets') > 0 then
+  if installed('friendly-snippets') then
     require("luasnip.loaders.from_vscode").lazy_load()
   end
   snippets_opts = {
@@ -134,7 +134,7 @@ cmp.setup.filetype('gitcommit', {
 ---------------------------
 -- autopairs
 ---------------------------
-if vim.fn['Installed']('nvim-autopairs') > 0 then
+if installed('nvim-autopairs') then
   local autopairs = require("nvim-autopairs")
   autopairs.setup({
     disable_filetype = {"TelescopePrompt"},
@@ -144,7 +144,7 @@ if vim.fn['Installed']('nvim-autopairs') > 0 then
   'confirm_done',
   cmp_autopairs.on_confirm_done()
   )
-  if vim.fn['Installed']('nvim-treesitter') > 0 then
+  if installed('nvim-treesitter') then
     autopairs.setup({
       -- treesitter
       check_ts = true,

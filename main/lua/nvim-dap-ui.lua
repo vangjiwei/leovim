@@ -53,7 +53,7 @@ dap.listeners.after.event_initialized["dapui_config"] = function()
     print('dapui is already opened')
   end
 end
-if vim.fn['Installed']('nvim-dap-virtual-text') > 0 then
+if installed('nvim-dap-virtual-text') then
   local dap_virtual_text = require('nvim-dap-virtual-text')
   dap_virtual_text.setup({
     commented = true,

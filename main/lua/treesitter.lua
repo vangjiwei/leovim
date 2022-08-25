@@ -23,7 +23,7 @@ require 'nvim-treesitter.configs'.setup {
     }
 }
 require 'nvim-treesitter.install'.prefer_git = true
-if vim.fn['Installed']('nvim-treehopper') > 0 then
+if installed('nvim-treehopper') then
     vim.api.nvim_set_keymap('o', '<C-s>', [[<cmd>lua require('tsht').nodes()<CR>]], { noremap = true, silent = true })
     vim.api.nvim_set_keymap('x', '<C-s>', [[<cmd>lua require('tsht').nodes()<CR>]], { noremap = true, silent = true })
     vim.api.nvim_set_keymap('n', '<C-s>', [[<cmd>lua require('tsht').nodes()<CR>]], { noremap = true, silent = true })

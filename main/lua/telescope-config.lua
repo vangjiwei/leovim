@@ -1,12 +1,8 @@
 local telescope     = require('telescope')
 local actions       = require("telescope.actions")
 local action_layout = require("telescope.actions.layout")
--- local pickers = require("telescope.pickers")
--- local sorters = require("telescope.sorters")
--- local finders = require("telescope.finders")
--- local previewers    = require("telescope.previewers")
 -- fzf core
-if vim.fn['Installed']('telescope-fzf-native.nvim') > 0 then
+if installed('telescope-fzf-native.nvim') then
   telescope.setup {
     extensions = {
       fzf = {
@@ -75,33 +71,33 @@ telescope.setup {
 -- keymaps
 vim.api.nvim_set_keymap('n', '<leader>T', [[:Telescope ]], { noremap = true, silent = false })
 vim.api.nvim_set_keymap('n', '<M-l><M-l>', [[<cmd>Telescope current_buffer_fuzzy_find<Cr>]], { noremap = true, silent = true })
-if vim.fn['Installed']('telescope-ultisnips.nvim') > 0 then
+if installed('telescope-ultisnips.nvim') then
   telescope.load_extension('ultisnips')
   vim.api.nvim_set_keymap('i', '<C-x><C-x>', [[<ESC><cmd>Telescope ultisnips<CR>]], { noremap = true, silent = true })
-elseif vim.fn['Installed']('telescope-luasnip.nvim') > 0 then
+elseif installed('telescope-luasnip.nvim') then
   telescope.load_extension('luasnip')
   vim.api.nvim_set_keymap('i', '<C-x><C-x>', [[<ESC><cmd>Telescope luasnip<CR>]], { noremap = true, silent = true })
 end
-if vim.fn['Installed']('telescope-changes.nvim') > 0 then
+if installed('telescope-changes.nvim') then
   telescope.load_extension('changes')
   vim.api.nvim_set_keymap('n', '<M-z>', [[<cmd>Telescope changes<CR>]], { noremap = true, silent = true })
 end
-if vim.fn['Installed']('telescope-floaterm.nvim') > 0 then
+if installed('telescope-floaterm.nvim') then
   telescope.load_extension('floaterm')
   vim.api.nvim_set_keymap('n', '<leader>w', [[<cmd>Telescope floaterm<CR>]], { noremap = true, silent = true })
 end
-if vim.fn['Installed']('telescope-ui-select.nvim') > 0 then
+if installed('telescope-ui-select.nvim') then
   telescope.load_extension("ui-select")
 end
-if vim.fn['Installed']('telescope-buffer-lines.nvim') > 0 then
+if installed('telescope-buffer-lines.nvim') then
   telescope.load_extension('buffer_lines')
   vim.api.nvim_set_keymap('i', '<C-x><C-l>', [[<ESC><cmd>Telescope buffer_lines<CR>]], { noremap = true, silent = true })
 end
-if vim.fn['Installed']('telescope-tele-tabby.nvim') > 0 then
+if installed('telescope-tele-tabby.nvim') then
   vim.api.nvim_set_keymap('n', '<leader>t', [[<cmd>lua require('telescope').extensions.tele_tabby.list()<Cr>]], { noremap = true, silent = true })
 end
 -- find_files
-if vim.fn.executable('fd') > 0 then
+if vim.fn.executable('fd') then
   telescope.setup {
     pickers = {
       find_files = {
@@ -112,7 +108,7 @@ if vim.fn.executable('fd') > 0 then
 end
 vim.api.nvim_set_keymap('n', ',<Tab>', [[<cmd>Telescope find_files<CR>]], { noremap = true, silent = true })
 -- notify
-if vim.fn['Installed']('nvim-notify') > 0 then
+if installed('nvim-notify') then
   telescope.load_extension('notify')
   vim.api.nvim_set_keymap('n', ',N', [[<cmd>Telescope notify<CR>]], { noremap = true, silent = true })
 end

@@ -43,7 +43,7 @@ mason_lspconfig.setup_handlers({
     }
   end,
 })
-if vim.fn['Installed']('rust-tools.nvim') > 0 then
+if installed('rust-tools.nvim') then
   local rust_tools = require('rust-tools')
   mason_lspconfig.setup_handlers({
     ["rust_analyzer"] = function ()
@@ -59,10 +59,10 @@ map('n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]], opts)
 map('n', 'T<Cr>', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
 map('n', '<M-t>', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
 map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
-if vim.fn['Installed']('telescope-symbols.nvim') > 0 then
+if installed('telescope-symbols.nvim') then
   map('n', 'sy', [[<cmd>Telescope symbols<CR>]], opts)
 end
-if vim.fn['Installed']('telescope-lsp-handlers.nvim') > 0 then
+if installed('telescope-lsp-handlers.nvim') then
   telescope.load_extension('lsp_handlers')
   telescope.setup({
     extensions = {

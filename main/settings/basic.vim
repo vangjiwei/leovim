@@ -702,6 +702,7 @@ else
 endif
 if has('nvim')
     let $INSTALL_PATH .= ".nvim"
+    luafile $LUA_PATH/utils.lua
 else
     let $INSTALL_PATH .= ".vim"
 endif
@@ -852,9 +853,6 @@ source $SETTINGS_PATH/sidebar.vim
 source $SETTINGS_PATH/run-conf.vim
 source $SETTINGS_PATH/marks.vim
 source $SETTINGS_PATH/query.vim
-if has('nvim')
-    luafile $LUA_PATH/utils.lua
-endif
 if g:complete_engine == 'cmp'
     if InstalledTelescope() && InstalledLsp() && InstalledCmp()
         luafile $LUA_PATH/lsp-search.lua
