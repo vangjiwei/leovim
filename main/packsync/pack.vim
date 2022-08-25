@@ -82,15 +82,6 @@ elseif g:complete_engine != 'coc' && v:version >= 800
     PackAdd 'tmsvg/pear-tree'
 endif
 " ------------------------------
-" undotool
-" ------------------------------
-if has("persistent_undo")
-    PackAdd 'mbbill/undotree'
-    let g:undotree_SetFocusWhenToggle = 1
-    let g:undotree_CustomUndotreeCmd  = 'topleft vertical 60 new'
-    let g:undotree_CustomDiffpanelCmd = 'belowright 30 new'
-endif
-" ------------------------------
 " translate && document
 " ------------------------------
 if Require('query') && v:version >= 800
@@ -104,8 +95,13 @@ if Require('query') && v:version >= 800
     endif
 endif
 " ------------------------------
-" zfvimim
+" zfvim
 " ------------------------------
+" zfvimdirdiff
+PackAdd 'ZSaberLv0/ZFVimDirDiff'
+PackAdd 'ZSaberLv0/ZFVimIgnore'
+PackAdd 'ZSaberLv0/ZFVimJob'
+" zfvimim
 if (Require('wubi') || Require('pinyin')) && g:has_terminal
     PackAdd 'ZSaberLv0/ZFVimIM'
     if Require('wubi')
@@ -114,5 +110,5 @@ if (Require('wubi') || Require('pinyin')) && g:has_terminal
     else
         let g:input_method = 'zfvim_pinyin'
     endif
-    PackAdd 'ZSaberLv0/ZFVimIM_pinyin_base'
+    PackAdd 'ZSaberLv0/ZFVimIM_pinyin'
 endif

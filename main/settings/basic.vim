@@ -295,9 +295,6 @@ cmap <M-O> <ESC>
 nmap <M-O> :tabonly<Cr>
 xmap <M-O> <ESC>:tabonly<Cr>
 smap <M-O> <ESC>:tabonly<Cr>
-nmap <leader>O :tabonly<Cr>
-xmap <leader>O <ESC>:tabonly<Cr>
-smap <leader>O <ESC>:tabonly<Cr>
 " ------------------------
 " second window
 " ------------------------
@@ -855,7 +852,9 @@ source $SETTINGS_PATH/sidebar.vim
 source $SETTINGS_PATH/run-conf.vim
 source $SETTINGS_PATH/marks.vim
 source $SETTINGS_PATH/query.vim
-source $SETTINGS_PATH/zfvim.vim
+if has('nvim')
+    luafile $LUA_PATH/utils.lua
+endif
 if g:complete_engine == 'cmp'
     if InstalledTelescope() && InstalledLsp() && InstalledCmp()
         luafile $LUA_PATH/lsp-search.lua
@@ -915,7 +914,6 @@ elseif has('patch-7.4.330')
     nnoremap <M-j> :WhichKey '<lt>M-j>'<Cr>
     nnoremap <M-k> :WhichKey '<lt>M-k>'<Cr>
     nnoremap <M-l> :WhichKey '<lt>M-l>'<Cr>
-    nnoremap <M-y> :WhichKey '<lt>M-y>'<Cr>
     nnoremap <M-c> :WhichKey       '<lt>M-c>'<Cr>
     xnoremap <M-c> :WhichKeyVisual '<lt>M-c>'<Cr>
     if index(['nvim-dap', 'termdebug', 'vimspector'], get(g:, 'debug_tool', '')) >= 0
@@ -1226,3 +1224,4 @@ endif
 " set filetype unix and trim \r
 " ------------------------
 nnoremap <leader>ef :set ff=unix<Cr>:%s/\r//g<Cr>
+source $SETTINGS_PATH/zfvim.vim

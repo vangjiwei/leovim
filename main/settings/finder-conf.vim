@@ -169,8 +169,7 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     nnoremap <M-l>a     :Leaderf line --all --no-sort<Cr>
     nnoremap <M-l>n     :Leaderf line --no-sort<Cr>
     " jumps
-    nnoremap <M-h><M-h> :Leaderf jumps --fullScreen<cr>
-    nnoremap ZJ :Leaderf jumps<cr>
+    nnoremap <M-h><M-h> :Leaderf jumps<cr>
     " leader-filer
     let g:Lf_FilerShowPromptPath = 1
     " normal mode
@@ -399,9 +398,9 @@ endif
 " changes
 " --------------------------
 if Installed('leaderf-changes')
-    nnoremap <silent><M-z> :Leaderf changes<Cr>
+    nnoremap <silent><M-y> :Leaderf changes<Cr>
 elseif Installed('coc.nvim')
-    nnoremap <silent><M-z> :CocFzfList changes<Cr>
+    nnoremap <silent><M-y> :CocFzfList changes<Cr>
 endif
 " --------------------
 " browser files all

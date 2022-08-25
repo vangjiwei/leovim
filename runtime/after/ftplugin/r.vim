@@ -45,10 +45,10 @@ xnoremap cn :call SendLineToR("down")<CR>
 nnoremap cL :call RClearConsole()<Cr>
 nnoremap cO :call RClearAll()<Cr>
 
-nnoremap <M-y>b :call SendAboveLinesToR()<CR>
-nnoremap <M-y>e VG:call SendLineToR('down')<CR>
-nnoremap <M-y>i :call SendLineToRAndInsertOutput()<CR>0
-nnoremap <M-y>v :call RAction('viewobj')<CR>
+nnoremap <leader>C :call SendAboveLinesToR()<CR>
+nnoremap <leader>E VG:call SendLineToR('down')<CR>
+nnoremap <leader>O :call SendLineToRAndInsertOutput()<CR>0
+nnoremap <leader>V :call RAction('viewobj')<CR>
 " input
 inoremap >> <space>%>%<space>
 inoremap << <space><-<space>

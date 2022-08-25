@@ -1,7 +1,7 @@
-vim.g.symbol_tool  = 'lspsaga-aerial-lsp'
+vim.g.symbol_tool  = 'lspsaga-lsp'
 vim.g.symbol_group = nil
 local map  = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+local opts = {noremap = true, silent = true}
 -----------------
 -- mason/lspconfig
 -----------------
@@ -58,7 +58,7 @@ local telescope = require('telescope')
 map('n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]], opts)
 map('n', 'T<Cr>', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
 map('n', '<M-t>', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
-map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols ignore_symbols=variable<CR>]], opts)
+map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
 if vim.fn['Installed']('telescope-symbols.nvim') > 0 then
   map('n', 'sy', [[<cmd>Telescope symbols<CR>]], opts)
 end

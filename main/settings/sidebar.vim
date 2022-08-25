@@ -111,19 +111,6 @@ else
                 \ }
 endif
 nnoremap <silent><C-b> :call sidebar#toggle('tree_browser')<CR>
-" undotree
-if Installed('undotree')
-    function! s:check_undotree(nr) abort
-        return s:check_buf_ft('undotree', a:nr)
-    endfunction
-    let g:sidebars.undotree = {
-                \ 'position': 'left',
-                \ 'check_win': function('s:check_undotree'),
-                \ 'open': 'UndotreeShow',
-                \ 'close': 'UndotreeHide'
-                \ }
-    nnoremap <silent> <leader>U :call sidebar#toggle('undotree')<CR>
-endif
 " downside
 if exists('*win_getid') && has('quickfix')
     function! s:check_quickfix(nr)
