@@ -75,10 +75,11 @@ elseif g:complete_engine == 'coc'
             \ 'coc-vimlsp',
             \ 'coc-pyright',
             \ ]
-    if Require('c') || Require('ccls') || Require('clangd')
-        if executable('ccls') && (Require('ccls') || Require('c'))
+    if Require('c')
+        if executable('ccls')
             let g:coc_global_extensions += ['coc-ccls']
-        else
+        endif
+        if executable('clangd')
             let g:coc_global_extensions += ['coc-clangd']
         endif
     endif
@@ -109,9 +110,6 @@ elseif g:complete_engine == 'coc'
     if Require('java')
         let g:coc_global_extensions += ['coc-java', 'coc-java-intellicode']
     endif
-    if Require('tabnine')
-        let g:coc_global_extensions += ['coc-tabnine']
-    endif
 elseif g:complete_engine == 'cmp'
     PackAdd 'williamboman/mason.nvim'
                 \| PackAdd 'williamboman/mason-lspconfig.nvim'
@@ -127,15 +125,7 @@ elseif g:complete_engine == 'cmp'
                 \| PackAdd 'hrsh7th/cmp-nvim-lsp-document-symbol'
                 \| PackAdd 'uga-rosa/cmp-dictionary'
                 \| PackAdd 'onsails/lspkind-nvim'
-    if Require('tabnine')
-        if WINDOWS()
-            PackAdd 'tzachar/cmp-tabnine', {'do': 'powershell ./install.ps1'}
-        else
-            PackAdd 'tzachar/cmp-tabnine', {'do': './install.sh'}
-        endif
-    endif
 endif
-
 " ------------------------------
 " lint tool
 " ------------------------------
