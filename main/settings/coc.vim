@@ -93,7 +93,7 @@ autocmd BufRead acwrite set ma
 " ----------------------------
 " codeLens and codeaction
 " ----------------------------
-if has('nvim') && has('patch-9.0.0067')
+if has('nvim') || has('patch-9.0.0067')
     hi! link CocCodeLens CocListBgGrey
     call coc#config('codeLens.enable', v:true)
     call coc#config('codeLens.separator', "# \\\\")
