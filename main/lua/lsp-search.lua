@@ -284,7 +284,7 @@ if executable('pylsp') then
     settings = {
       pylsp = {
         plugins = {
-          pylint = { enabled = true, executable='pylint' },
+          pylint = { enabled = true, executable='pylint', args = pylsp_args},
           pyflakes = { enabled = false },
           pycodestyle = { enabled = false },
           jedi_completion = { fuzzy = false },
