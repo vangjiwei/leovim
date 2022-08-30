@@ -1,3 +1,6 @@
+if g:python_version > 3
+  PackAdd 'jmcantrell/vim-virtualenv'
+endif
 " ------------------------------
 " ps1
 " ------------------------------

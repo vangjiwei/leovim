@@ -214,13 +214,23 @@ command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport
 " ----------------------------
 " codeLens and codeaction
 " ----------------------------
+let g:coc_codelens_enable = 0
+hi! link CocCodeLens CocListBgGrey
+call coc#config('codeLens.enable', v:false)
+call coc#config('codeLens.separator', "# \\\\")
 if has('nvim')
-    call coc#config('codeLens.enable', v:true)
-    call coc#config('codeLens.separator', "# \\\\")
-    nnoremap <M-"> :call CocAction('codeLensAction')<Cr>
-    hi! link CocCodeLens CocListBgGrey
-else
-    call coc#config('codeLens.enable', v:false)
+    function! s:toggle_codelens() abort
+        if g:coc_codelens_enable == 0
+            let g:coc_codelens_enable = 1
+            call coc#config('codeLens.enable', v:true)
+        else
+            let g:coc_codelens_enable = 0
+            call coc#config('codeLens.enable', v:false)
+        endif
+        echo "CocCodeLensEnable==" . g:coc_codelens_enable
+    endfunction
+    command! CocCodeLensToggle call s:toggle_codelens()
+    nnoremap <M-"> :CocCodeLensToggle<Cr>
 endif
 nmap <silent><leader>a<Cr> <Plug>(coc-codeaction-line)
 xmap <silent><leader>a<Cr> <Plug>(coc-codeaction-selected)
