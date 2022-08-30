@@ -137,30 +137,9 @@ autocmd FileType javascript let b:coc_root_patterns = ['.jsproject'] + g:root_pa
 autocmd FileType java let b:coc_root_patterns = ['.javasproject'] + g:root_patterns
 autocmd FileType python let b:coc_root_patterns = ['.pyproject'] + g:root_patterns
 autocmd FileType c,cpp let b:coc_root_patterns = ['.htaccess', '.cproject'] + g:root_patterns
-" ------------------------
-" coc clang
-" ------------------------
-if index(g:coc_global_extensions, 'coc-ccls') >= 0 && executable('ccls')
-    call coc#config('languageserver.ccls', { "command": "ccls", "filetypes": c_filetypes, "rootPatterns": g:root_patterns, "initializationOptions": { "cache": { "directory": $HOME . "/.leovim.d/coc-ccls" } } })
-elseif index(g:coc_global_extensions, 'coc-clangd') >= 0
-    " TODO: coc-clangd
-endif
-" ------------------------
-" coc fzf
-" ------------------------
-if Installed('coc-fzf') && InstalledFzf()
-    if WINDOWS()
-        let g:coc_fzf_preview='right:30%'
-    else
-        let g:coc_fzf_preview='right:60%'
-    endif
-endif
 " ----------------------------
-" semanticTokens
+" map
 " ----------------------------
-let g:coc_default_semantic_highlight_groups = 1
-" semanticTokensFiletypes
-call coc#config('coc.preferences.semanticTokensFiletypes',  g:highlight_filetypes)
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#stop() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <TAB>
     \ coc#pum#visible() ? coc#_select_confirm() :
@@ -283,9 +262,9 @@ autocmd FileType java let b:coc_root_patterns = ['.javasproject'] + g:root_patte
 autocmd FileType python let b:coc_root_patterns = ['.pyproject'] + g:root_patterns
 autocmd FileType c,cpp let b:coc_root_patterns = ['.htaccess', '.cproject'] + g:root_patterns
 " ------------------------
-" coc clang
+" coc c
 " ------------------------
-if index(g:coc_global_extensions, 'coc-ccls') >= 0 && executable('ccls')
+if index(g:coc_global_extensions, 'coc-ccls') >= 0
     call coc#config('languageserver.ccls', {
                 \ "command": "ccls",
                 \ "filetypes": c_filetypes,
@@ -296,7 +275,8 @@ if index(g:coc_global_extensions, 'coc-ccls') >= 0 && executable('ccls')
                         \ }
                     \ }
                 \ })
-elseif index(g:coc_global_extensions, 'coc-clangd') >= 0
+endif
+if index(g:coc_global_extensions, 'coc-clangd') >= 0
     " TODO: coc-clangd
 endif
 " ------------------------
