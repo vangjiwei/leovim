@@ -2,7 +2,6 @@
 " repl
 " --------------------------
 if g:has_terminal
-    au Filetype python imap <M-m> import ipdb; ipdb.set_trace()
     imap <M-e> # %%
     imap <M-y> # %% STEP
 endif
