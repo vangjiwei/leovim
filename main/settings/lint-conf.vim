@@ -1,4 +1,3 @@
-let s:pythonlint_ignore = "E101,E302,E251,E231,E226,E221,E127,E126,E123,E501,W291,F405,F403"
 if Installed('ale')
     " basic settings
     let g:ale_disable_lsp                    = 1
@@ -35,7 +34,7 @@ if Installed('ale')
                 \ 'vue': ['vls'],
                 \ 'zsh': ['shell']
                 \ }
-    let g:ale_python_flake8_options = "--max-line-length=160 --ignore=" . s:pythonlint_ignore
+    let g:ale_python_flake8_options = "--max-line-length=160 --ignore=" . g:python_lint_ignore
     function! s:showLint() abort
         ALELint
         if UNIX() && g:has_popup_float
@@ -81,10 +80,10 @@ elseif Installed('coc.nvim')
     " config ignore
     call coc#config('python.linting.flake8Args', [
                 \ "--max-line-length=160",
-                \ "--ignore=" . s:pythonlint_ignore,
+                \ "--ignore=" . g:python_lint_ignore,
                 \ ])
     call coc#config('python.linting.pylintArgs', [
                 \ "--max-line-length=160",
-                \ "--ignore=" . s:pythonlint_ignore,
+                \ "--ignore=" . g:python_lint_ignore,
                 \ ])
 endif

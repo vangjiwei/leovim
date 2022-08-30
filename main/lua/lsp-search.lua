@@ -271,3 +271,32 @@ map('n', '<M-/>', [[<cmd>Lspsaga preview_definition<CR>]], opts)
 -- TODO: use lspsaga declaration, type_definition
 map('n', '<M-,>', [[<cmd>lua vim.lsp.buf.type_definition()<CR>]], opts)
 map('n', '<M-.>', [[<cmd>lua vim.lsp.buf.declaration()<CR>]], opts)
+--------------------------------
+-- each lsp server config
+--------------------------------
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+local pylsp_args = {'--max-line-length=160', '--ignore=' . vim.g.python_lint_ignore}
+if executable('pylsp') then
+  lspconfig.pylsp.setup({
+    settings = {
+      pylsp = {
+        plugins = {
+          pylint = { enabled = true, executable='pylint' },
+          pyflakes = { enabled = false },
+          pycodestyle = { enabled = false },
+          jedi_completion = { fuzzy = false },
+          pyls_isort = { enabled = false },
+          pyls_flake8 = { enabled = true, executable='flake8', args = pylsp_args},
+          pylrp_mypy = { enabled = false },
+        },
+      },
+    },
+    flags = {
+      debounce_text_changes = 200,
+    },
+    capabilities = capabilities,
+  })
+end
