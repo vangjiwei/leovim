@@ -40,7 +40,6 @@ xmap <silent><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\%"
 xmap <silent><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\g%"
 " basic map
 nnoremap <M-l>c :Coc
-nnoremap <leader>I :CocInstall coc-
 nnoremap <silent><M-l>e :CocList extensions<Cr>
 nnoremap <silent><M-l>. :CocFzfListResume<Cr>
 nnoremap <silent><M-l>; :CocNext<CR>
@@ -97,7 +96,7 @@ if has('nvim') || has('patch-9.0.0067')
     hi! link CocCodeLens CocListBgGrey
     call coc#config('codeLens.enable', v:true)
     call coc#config('codeLens.separator', "# \\\\")
-    nnoremap <M-"> :CocCommand document.toggleInlayHint<Cr>
+    nnoremap <leader>I :CocCommand document.toggleInlayHint<Cr>
 endif
 nmap <silent><leader>a<Cr> <Plug>(coc-codeaction-line)
 xmap <silent><leader>a<Cr> <Plug>(coc-codeaction-selected)

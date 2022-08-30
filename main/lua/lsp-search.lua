@@ -17,7 +17,7 @@ mason.setup({
     }
   }
 })
-map('n', '<leader>I', [[<cmd>Mason<CR>]], opts)
+map('n', '<leader>P', [[<cmd>Mason<CR>]], opts)
 -- mason_lspconfig
 mason_lspconfig.setup({
   automatic_installation = true,
