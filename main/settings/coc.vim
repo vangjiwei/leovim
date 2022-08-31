@@ -106,11 +106,17 @@ autocmd BufRead acwrite set ma
 " ----------------------------
 " codeLens and codeaction
 " ----------------------------
-if has('nvim') || has('patch-9.0.0067')
+if has('nvim') || has('patch-9.0.0252')
     hi! link CocCodeLens CocListBgGrey
     call coc#config('codeLens.enable', v:true)
     call coc#config('codeLens.separator', "# \\\\")
     nnoremap <leader>I :CocCommand document.toggleInlayHint<Cr>
+    call coc#config("typescript.inlayHints.variableTypes.enabled", v:true)
+    call coc#config("typescript.inlayHints.parameterNames.enabled", "all")
+    call coc#config("typescript.inlayHints.enumMemberValues.enabled", v:true)
+    call coc#config("typescript.inlayHints.parameterTypes.enabled", v:true)
+    call coc#config("typescript.inlayHints.functionLikeReturnTypes.enabled", v:true)
+    call coc#config("typescript.inlayHints.propertyDeclarationTypes.enabled", v:true)
 else
     call coc#config('codeLens.enable', v:false)
 endif
@@ -136,6 +142,7 @@ if has('nvim')
     endfunction
     command! CocToggleDiagMessageTarget call s:toggle_messagetarget()
     nnoremap <M-"> :CocToggleDiagMessageTarget<Cr>
+
 endif
 " ------------------------
 " Create mappings for function text object, requires document symbols feature of languageserver.
