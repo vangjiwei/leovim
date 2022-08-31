@@ -34,10 +34,6 @@ else
     let g:coc_data_home = expand("~/AppData/Local/nvim-data/coc")
 endif
 let g:coc_config_home = expand("$MAIN_PATH")
-imap <silent><expr> <C-j> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<C-j>"
-imap <silent><expr> <C-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<C-k>"
-xmap <silent><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\%"
-xmap <silent><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\g%"
 " basic map
 nnoremap <M-l>c :Coc
 nnoremap <silent><M-l>e :CocList extensions<Cr>
@@ -46,6 +42,24 @@ nnoremap <silent><M-l>; :CocNext<CR>
 nnoremap <silent><M-l>, :CocPrev<CR>
 nnoremap <silent><M-h>c :CocFzfList commands<Cr>
 nnoremap <silent><M-h>. :call CocAction('repeatCommand')<Cr>
+" completion map
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#stop() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <TAB>
+    \ coc#pum#visible() ? coc#_select_confirm() :
+        \ coc#expandableOrJumpable() ?
+            \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+                \ Has_Back_Space() ? "\<TAB>" :
+                    \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr> <C-y> coc#pum#visible() ? coc#pum#stop() : "\<C-y>"
+inoremap <silent><expr> <C-e> coc#pum#visible() ? coc#pum#cancel() : "\<C-e>"
+inoremap <silent><expr> <C-space> coc#refresh()
+inoremap <silent><expr> <C-@> coc#refresh()
+" scroll check
+imap <silent><expr> <C-j> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<C-j>"
+imap <silent><expr> <C-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<C-k>"
+xmap <silent><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\%"
+xmap <silent><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\g%"
 " --------------------------
 " coc snippets
 " --------------------------
@@ -104,6 +118,21 @@ nmap <silent><leader>aa    <Plug>(coc-codeaction)
 nmap <silent><leader>ar    <Plug>(coc-rename)
 nmap <silent><leader>A     :CocFzfList actions<Cr>
 " ------------------------
+" diagnostic
+" ------------------------
+nmap <leader>ad <Plug>(coc-diagnostic-info)
+let g:coc_diagnostic_messageTarget = "float"
+function! s:toggle_messagetarget() abort
+    if g:coc_diagnostic_messageTarget == "float"
+        let g:coc_diagnostic_messageTarget = "echo"
+    else
+        let g:coc_diagnostic_messageTarget = "float"
+    endif
+    echo "coc.diagnostic.messageTarget is " . g:coc_diagnostic_messageTarget
+    call coc#config("diagnostic.messageTarget", g:coc_diagnostic_messageTarget)
+endfunction
+command! CocToggleDiagMessageTarget call s:toggle_messagetarget()
+" ------------------------
 " Create mappings for function text object, requires document symbols feature of languageserver.
 " ------------------------
 xmap if <Plug>(coc-funcobj-i)
@@ -132,23 +161,8 @@ omap ag <Plug>(coc-git-chunk-outer)
 xmap ag <Plug>(coc-git-chunk-outer)
 nmap <leader>vg vig
 nmap <leader>vG vag
-" ----------------------------
-" map
-" ----------------------------
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#stop() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-inoremap <silent><expr> <TAB>
-    \ coc#pum#visible() ? coc#_select_confirm() :
-        \ coc#expandableOrJumpable() ?
-            \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-                \ Has_Back_Space() ? "\<TAB>" :
-                    \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-inoremap <silent><expr> <C-y> coc#pum#visible() ? coc#pum#stop() : "\<C-y>"
-inoremap <silent><expr> <C-e> coc#pum#visible() ? coc#pum#cancel() : "\<C-e>"
-inoremap <silent><expr> <C-space> coc#refresh()
-inoremap <silent><expr> <C-@> coc#refresh()
 " ------------------------
-" coc
+" coc c language
 " ------------------------
 if index(g:coc_global_extensions, 'coc-ccls') >= 0
     call coc#config('languageserver.ccls', {

@@ -45,7 +45,7 @@
     "suggest.floatConfig": {
         "winblend": 8
     },
-    "diagnostic.messageTarget": "echo",
+    "diagnostic.messageTarget": "float",
     "diagnostic.errorSign": "x",
     "diagnostic.warningSign": "!",
     "diagnostic.infoSign": ">",
