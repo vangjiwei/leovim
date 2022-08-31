@@ -111,6 +111,8 @@ if has('nvim') || has('patch-9.0.0067')
     call coc#config('codeLens.enable', v:true)
     call coc#config('codeLens.separator', "# \\\\")
     nnoremap <leader>I :CocCommand document.toggleInlayHint<Cr>
+else
+    call coc#config('codeLens.enable', v:false)
 endif
 nmap <silent><leader>a<Cr> <Plug>(coc-codeaction-line)
 xmap <silent><leader>a<Cr> <Plug>(coc-codeaction-selected)
