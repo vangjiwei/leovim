@@ -35,6 +35,7 @@ if Installed('ale')
                 \ 'zsh': ['shell']
                 \ }
     let g:ale_python_flake8_options = "--max-line-length=160 --ignore=" . g:python_lint_ignore
+    " map
     function! s:showLint() abort
         ALELint
         if UNIX() && g:has_popup_float
@@ -45,19 +46,11 @@ if Installed('ale')
         endif
     endfunction
     command! -bang -nargs=* ShowLint call s:showLint()
-    if g:complete_engine == 'coc'
-        call coc#config('diagnostic.enable', v:false)
-        call coc#config('diagnostic.displayByAle', v:true)
-    else
-        nnoremap <silent> <leader>D :ShowLint<Cr>
-        nmap ]d <Plug>(ale_next_error)
-        nmap [d <Plug>(ale_previous_error)
-        nmap <leader>d :ALEToggle<Cr>
-    endif
+    nnoremap <silent> <leader>D :ShowLint<Cr>
+    nmap ]d <Plug>(ale_next_error)
+    nmap [d <Plug>(ale_previous_error)
+    nmap <leader>d :ALEToggle<Cr>
 elseif Installed('coc.nvim')
-    " TODO: config signs
-    call coc#config('diagnostic.displayByAle', v:false)
-    call coc#config('diagnostic.enable', v:true)
     if WINDOWS()
         if has('nvim') || !has('nvim') && !Installed('leaderf')
             nnoremap <silent> <leader>D :CocDiagnostics<CR>

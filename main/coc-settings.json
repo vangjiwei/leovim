@@ -45,6 +45,9 @@
     "suggest.floatConfig": {
         "winblend": 8
     },
+
+    "diagnostic.enable": true,
+    "diagnostic.displayByAle": false,
     "diagnostic.messageTarget": "float",
     "diagnostic.errorSign": "x",
     "diagnostic.warningSign": "!",
@@ -66,10 +69,13 @@
         "maxWidth": 100,
         "focusable": false
     },
+
     "dialog.floatHighlight": "Normal",
     "dialog.floatBorderHighlight": "Normal",
+
     "git.enableGutters":   false,
     "git.realtimeGutters": false,
+
     "languageserver": {
         "dockerfile": {
             "command": "docker-langserver",
@@ -107,6 +113,7 @@
     "yaml.validate": true,
     "yaml.format.singleQuote": true,
     "yaml.completion": true,
+
     "snippets.ultisnips.enable": true,
     "snippets.loadFromExtensions": true,
     "snippets.enableStatusItem": false,
@@ -116,6 +123,7 @@
         "cpp": ["c"],
         "typescript": ["javascript"]
     },
+
     "explorer.keyMappings.global":{
         ",":       "actionMenu",
         "<tab>":   "toggleSelection",

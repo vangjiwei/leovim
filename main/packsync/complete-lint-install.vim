@@ -129,13 +129,14 @@ endif
 " ------------------------------
 " lint tool
 " ------------------------------
-if get(g:, 'lint_tool', '') == 'ale' && g:python_version > 3.6 && g:advanced_complete_engine
-    PackAdd 'maximbaz/lightline-ale'
-        \| PackAdd 'dense-analysis/ale'
-elseif g:complete_engine == 'coc'
+if g:complete_engine == 'coc'
     let g:lint_tool = 'coc'
 elseif g:complete_engine == 'cmp'
     let g:lint_tool = 'cmp'
+elseif g:python_version > 3.6 && v:version >= 800
+    let g:lint_tool = 'ale'
+    PackAdd 'dense-analysis/ale'
+    PackAdd 'maximbaz/lightline-ale'
 else
     let g:lint_tool = ''
 endif
