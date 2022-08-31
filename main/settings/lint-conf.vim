@@ -1,4 +1,33 @@
-if Installed('ale')
+if Installed('coc.nvim')
+    if WINDOWS()
+        if has('nvim') || !has('nvim') && !Installed('leaderf')
+            nnoremap <silent> <leader>D :CocDiagnostics<CR>
+        elseif Installed('leaderf')
+            nnoremap <silent> <leader>D :CocDiagnostics<CR>:lclose<Cr>:LeaderfLocList<Cr>
+        else
+            nnoremap <silent> <leader>D :CocFzfList diagnostics<CR>
+        endif
+    else
+        nnoremap <silent> <leader>D :CocFzfList diagnostics<CR>
+    endif
+    nmap <silent>]d <Plug>(coc-diagnostic-next-error)
+    nmap <silent>[d <Plug>(coc-diagnostic-prev-error)
+    nmap <silent><leader>d :call CocAction('diagnosticToggleBuffer')<Cr>
+    highlight def CocUnderLine cterm=NONE gui=NONE
+    highlight def link CocErrorHighlight   CocUnderLine
+    highlight def link CocWarningHighlight NONE
+    highlight def link CocInfoHighlight    NONE
+    highlight def link CocHintHighlight    NONE
+    " config ignore
+    call coc#config('python.linting.flake8Args', [
+                \ "--max-line-length=160",
+                \ "--ignore=" . g:python_lint_ignore,
+                \ ])
+    call coc#config('python.linting.pylintArgs', [
+                \ "--max-line-length=160",
+                \ "--ignore=" . g:python_lint_ignore,
+                \ ])
+elseif Installed('ale')
     " basic settings
     let g:ale_disable_lsp                    = 1
     let g:ale_completion_enabled             = 0
@@ -50,33 +79,4 @@ if Installed('ale')
     nmap ]d <Plug>(ale_next_error)
     nmap [d <Plug>(ale_previous_error)
     nmap <leader>d :ALEToggle<Cr>
-elseif Installed('coc.nvim')
-    if WINDOWS()
-        if has('nvim') || !has('nvim') && !Installed('leaderf')
-            nnoremap <silent> <leader>D :CocDiagnostics<CR>
-        elseif Installed('leaderf')
-            nnoremap <silent> <leader>D :CocDiagnostics<CR>:lclose<Cr>:LeaderfLocList<Cr>
-        else
-            nnoremap <silent> <leader>D :CocFzfList diagnostics<CR>
-        endif
-    else
-        nnoremap <silent> <leader>D :CocFzfList diagnostics<CR>
-    endif
-    nmap <silent>]d <Plug>(coc-diagnostic-next-error)
-    nmap <silent>[d <Plug>(coc-diagnostic-prev-error)
-    nmap <silent><leader>d :call CocAction('diagnosticToggle')<Cr>
-    highlight def CocUnderLine cterm=NONE gui=NONE
-    highlight def link CocErrorHighlight   CocUnderLine
-    highlight def link CocWarningHighlight NONE
-    highlight def link CocInfoHighlight    NONE
-    highlight def link CocHintHighlight    NONE
-    " config ignore
-    call coc#config('python.linting.flake8Args', [
-                \ "--max-line-length=160",
-                \ "--ignore=" . g:python_lint_ignore,
-                \ ])
-    call coc#config('python.linting.pylintArgs', [
-                \ "--max-line-length=160",
-                \ "--ignore=" . g:python_lint_ignore,
-                \ ])
 endif
