@@ -7,7 +7,6 @@
         "listOfWorkspaceEdit": "location",
         "hoverTarget": "float",
         "enableFloatHighlight": true,
-        "semanticTokensHighlights": true
     },
     "coc.source.file.triggerCharacters": ["/"],
     "coc.source.buffer.disableSyntaxes": [],
