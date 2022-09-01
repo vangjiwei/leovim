@@ -206,4 +206,4 @@ endif
 " ----------------------------
 let g:coc_default_semantic_highlight_groups = 1
 " semanticTokensFiletypes
-call coc#config('coc.preferences.semanticTokensFiletypes',  g:highlight_filetypes)
+call coc#config('semanticTokens.filetypes',  g:highlight_filetypes)
