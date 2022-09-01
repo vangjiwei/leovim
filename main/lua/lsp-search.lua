@@ -96,8 +96,8 @@ lspsaga.init_lsp_saga({
     split       = "<C-x>",
     tabe        = "<C-t>",
     quit        = {"<M-q>", "<C-c>", "<ESC>"},
-    scroll_down = "<C-d>",
-    scroll_up   = "<C-u>",
+    scroll_down = "<C-j>",
+    scroll_up   = "<C-k>",
   },
   code_action_keys = {
     quit = {"<M-q>", "<C-c>", "<ESC>"},
@@ -130,8 +130,6 @@ map('x', "<leader>a<cr>", [[:<C-u>Lspsaga range_code_action<CR>]], opts)
 map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<C-h>', [[<cmd>Lspsaga preview_definition<Cr>]], opts)
 map('n', '<BS>', [[<cmd>Lspsaga preview_definition<Cr>]], opts)
-map('n', '<C-j>', [[<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(1,  '%')<Cr>]], opts)
-map('n', '<C-k>', [[<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1, 'g%')<Cr>]], opts)
 -- Show symbols in winbar need neovim 0.8+
 if vim.fn.has('nvim-0.8') > 0 then
   lspsaga.init_lsp_saga({
@@ -220,21 +218,15 @@ function _G.toggle_diagnostics()
     print("diagnostics off")
     vim.g.diagnostics_enable = false
     vim.diagnostic.disable()
-    -- vim.diagnostic.config({
-    --   virtual_text = false
-    -- })
   else
     print("diagnostics on")
     vim.g.diagnostics_enable = true
     vim.diagnostic.enable()
-    -- vim.diagnostic.config({
-    --   virtual_text = true
-    -- })
   end
 end
 vim.api.nvim_set_keymap('n', '<Leader>d', [[<cmd>lua toggle_diagnostics()<Cr>]], opts)
 vim.api.nvim_set_keymap('n', '<Leader>D', [[<cmd>Telescope diagnostics<Cr>]], opts)
--- toggle diagnostic virtual text
+-- toggle diagnostic virtual text && underline
 vim.g.diagnostics_virtualtext = true
 function _G.toggle_diagnostics_virtualtext()
   if vim.g.diagnostics_virtualtext then
@@ -242,14 +234,14 @@ function _G.toggle_diagnostics_virtualtext()
     vim.g.diagnostics_virtualtext = false
     vim.diagnostic.config({
       virtual_text = false,
-      underline = true,
+      underline = false,
     })
   else
     print("virtual_text on")
     vim.g.diagnostics_virtualtext = true
     vim.diagnostic.config({
       virtual_text = true,
-      underline = false,
+      underline = true,
     })
   end
 end
