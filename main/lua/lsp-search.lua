@@ -204,12 +204,15 @@ end
 --------------------------------
 -- lint settings
 --------------------------------
-vim.keymap.set('n', '[e', function()
-  require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
-end, opts)
-vim.keymap.set('n', ']e', function()
-  require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
-end, opts)
+function _G.LspsagaJumpError(direction)
+  if direction > 0 then
+    require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+  else
+    require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+  end
+end
+map('n', '[e', [[<cmd>lua LspsagaJumpError(0)<Cr>]], opts)
+map('n', ']e', [[<cmd>lua LspsagaJumpError(1)<Cr>]], opts)
 map('n', '[d', [[<cmd>Lspsaga diagnostic_jump_prev<Cr>]], opts)
 map('n', ']d', [[<cmd>Lspsaga diagnostic_jump_next<Cr>]], opts)
 map('n', '<leader>al', [[<cmd>Lspsaga show_line_diagnostics<Cr>]], opts)

@@ -57,7 +57,11 @@ function! which_key#mappings#parse(key, dict, visual) " {{{
       let mapd.rhs = mapd.desc
       unlet mapd.desc
     endif
-    let mapd.display = call(g:WhichKeyFormatFunc, [mapd.rhs])
+    try
+      let mapd.display = call(g:WhichKeyFormatFunc, [mapd.rhs])
+    catch
+      let g:mapd_temp = mapd
+    endtry
     let mapd.lhs = substitute(mapd.lhs, key, '', '')
     " NOTE:  <Plug>(easymotion-prefix)
     if mapd.lhs ==? '<Space>'
