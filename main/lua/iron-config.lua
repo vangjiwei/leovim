@@ -15,10 +15,11 @@ iron.setup ({
         command = {"ipython", "--no-autoindent"}
       }
     },
-    repl_open_cmd = require('iron.view').split.vertical.botright(function()
-        return math.floor(vim.o.columns / 2)
-    end),
-    buflisted = false,
+    repl_open_cmd = require('iron.view').split.vertical.botright('44%',{
+      winfixwidth = false,
+      winfixheight = true,
+      number = true
+    }),
   },
   -- Iron doesn't set keymaps by default anymore. Set them here
   -- or use `should_map_plug = true` and map from you vim files
