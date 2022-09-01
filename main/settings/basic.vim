@@ -200,27 +200,8 @@ else
     let g:has_truecolor = 0
 endif
 " --------------------------
-" Alt_to_meta
+" Mkey map
 " --------------------------
-function! MetaCode(key)
-    if !has('nvim') && g:gui_running == 0
-        exec "set <M-".a:key.">=\e".a:key
-    endif
-    exec "imap <M-".a:key."> <Nop>"
-    exec "smap <M-".a:key."> <Nop>"
-endfunction
-for i in range(26)
-    " 97 is ascii of a
-    call MetaCode(nr2char(97 + i))
-    " 65 is ascii of A
-    call MetaCode(nr2char(65 + i))
-endfor
-for i in range(10)
-    call MetaCode(nr2char(char2nr('0') + i))
-endfor
-for c in [',', '.', ';', ':', '/', '?', '-', '_', '{', '}', '=', '+', "'"]
-    call MetaCode(c)
-endfor
 imap <M-,> <C-o><M-,>
 imap <M-.> <C-o><M-.>
 imap <M-/> <C-o><M-/>
