@@ -10,8 +10,10 @@ if Installed('coc.nvim')
     else
         nnoremap <silent> <leader>D :CocFzfList diagnostics<CR>
     endif
-    nmap <silent>]d <Plug>(coc-diagnostic-next-error)
-    nmap <silent>[d <Plug>(coc-diagnostic-prev-error)
+    nmap <silent>]d <Plug>(coc-diagnostic-next)
+    nmap <silent>[d <Plug>(coc-diagnostic-prev)
+    nmap <silent>]e <Plug>(coc-diagnostic-next-error)
+    nmap <silent>[e <Plug>(coc-diagnostic-prev-error)
     nmap <silent><leader>d :call CocAction('diagnosticToggleBuffer')<Cr>
     highlight def CocUnderLine cterm=NONE gui=NONE
     highlight def link CocErrorHighlight   CocUnderLine

@@ -183,14 +183,11 @@ if vim.fn.has('nvim-0.8') > 0 then
     if sym ~= nil then win_val = win_val .. sym end
     vim.wo.winbar = win_val
   end
-
   local events = { 'CursorHold', 'BufEnter', 'BufWinEnter', 'CursorMoved', 'WinLeave', 'User LspasgaUpdateSymbol' }
-
   local exclude = {
     ['teminal'] = true,
     ['prompt'] = true
   }
-
   vim.api.nvim_create_autocmd(events, {
     pattern = '*',
     callback = function()
@@ -207,6 +204,12 @@ end
 --------------------------------
 -- lint settings
 --------------------------------
+map('n', '[e', function()
+  require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end, opts)
+map('n', ']e', function()
+  require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+end, opts)
 map('n', '[d', [[<cmd>Lspsaga diagnostic_jump_prev<Cr>]], opts)
 map('n', ']d', [[<cmd>Lspsaga diagnostic_jump_next<Cr>]], opts)
 map('n', '<leader>al', [[<cmd>Lspsaga show_line_diagnostics<Cr>]], opts)
@@ -227,24 +230,28 @@ end
 vim.api.nvim_set_keymap('n', '<Leader>d', [[<cmd>lua toggle_diagnostics()<Cr>]], opts)
 vim.api.nvim_set_keymap('n', '<Leader>D', [[<cmd>Telescope diagnostics<Cr>]], opts)
 -- toggle diagnostic virtual text && underline
-vim.g.diagnostics_virtualtext = true
 function _G.toggle_diagnostics_virtualtext()
-  if vim.g.diagnostics_virtualtext then
+  if vim.g.diagnostic_virtualtext_underline then
     print("virtual_text off")
-    vim.g.diagnostics_virtualtext = false
+    vim.g.diagnostic_virtualtext_underline = false
     vim.diagnostic.config({
       virtual_text = false,
       underline = false,
     })
   else
     print("virtual_text on")
-    vim.g.diagnostics_virtualtext = true
+    vim.g.diagnostic_virtualtext_underline = true
     vim.diagnostic.config({
       virtual_text = true,
       underline = true,
     })
   end
 end
+vim.g.diagnostic_virtualtext_underline = false
+vim.diagnostic.config({
+  virtual_text = false,
+  underline = false,
+})
 vim.api.nvim_set_keymap('n', '<M-">', [[<cmd>lua toggle_diagnostics_virtualtext()<Cr>]], {silent = true, noremap = true})
 --------------------------------
 -- lsp-handlers
