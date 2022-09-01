@@ -15,7 +15,7 @@ iron.setup ({
         command = {"ipython", "--no-autoindent"}
       }
     },
-    repl_open_cmd = require('iron.view').curry.right(function()
+    repl_open_cmd = require('iron.view').split.vertical.botright(function()
         return math.floor(vim.o.columns / 2)
     end),
     buflisted = false,
@@ -39,6 +39,6 @@ iron.setup ({
   -- If the highlight is on, you can change how it looks
   -- For the available options, check nvim_set_hl
   highlight = {
-    italic = true
+    italic = false
   }
 })
