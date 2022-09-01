@@ -123,7 +123,7 @@ core.repl_restart = function()
 
       return new_meta
     else
-      vim.api.nvim_err_writeln('No repl found in current buffer; cannot restart')
+      error('No repl found in current buffer; cannot restart')
     end
   end
 end
@@ -552,7 +552,8 @@ core.setup = function(opts)
       bold = true
     }
 
-    vim.api.nvim__set_hl_ns(config.namespace)
+
+    (vim.api.nvim__set_hl_ns or vim.api.nvim_set_hl_ns)(config.namespace)
     vim.api.nvim_set_hl(config.namespace, config.highlight_last, hl_cfg)
   end
 
@@ -561,8 +562,7 @@ core.setup = function(opts)
   end
 
   if config.should_map_plug then
-    vim.notify("iron.nvim: Mapping to <plug>.. is deprecated and will be removed in a later version", vim.log.levels.WARN)
-    vim.notify("Please configure your mappings through iron.core.setup{keymaps = ...}", vim.log.levels.WARN)
+    vim.deprecate("config.should_map_plug", "core.setup{keymaps = {...}}", "3.1", "iron.nvim")
     for key, keymap in pairs(named_maps) do
       local mapping = vim.deepcopy(keymap)
       table.insert(mapping, 2, "<plug>(iron-" .. snake_to_kebab(key) .. ")")
