@@ -2,7 +2,7 @@
 " fuzzy_finder
 " ------------------------------
 if has('patch-7.4.330') && g:python_version > 2
-    PackAdd 'Yggdroot/LeaderF', {'do': ':LeaderfInstallCExtension'}
+    PackAdd 'Yggdroot/LeaderF', {'do': ':LeaderfInstallCExtension', 'opt': 0}
                 \| PackAdd 'leoatchina/leaderf-registers'
                 \| PackAdd 'leoatchina/leaderf-tabs'
                 \| PackAdd 'Yggdroot/LeaderF-marks'
@@ -24,7 +24,7 @@ if has('nvim-0.7') && g:complete_engine == 'cmp'
         let g:telescope_fzf_make_cmd = get(g:, 'telescope_fzf_make_cmd', 'make')
     endif
     if get(g:, 'telescope_fzf_make_cmd', '') != ''
-        PackAdd 'nvim-telescope/telescope-fzf-native.nvim', {'do': g:telescope_fzf_make_cmd}
+        PackAdd 'nvim-telescope/telescope-fzf-native.nvim', {'do': g:telescope_fzf_make_cmd, 'opt': 0}
     endif
     if !Planned('leaderf')
         PackAdd 'LinArcX/telescope-changes.nvim'

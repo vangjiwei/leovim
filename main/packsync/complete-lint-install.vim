@@ -51,9 +51,9 @@ if g:complete_engine == 'mcm'
     endif
 elseif g:complete_engine == 'coc'
     if g:node_version == 'advanced'
-        PackAdd 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+        PackAdd 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile', 'opt': 0}
     else
-        PackAdd 'neoclide/coc.nvim', {'branch': 'release'}
+        PackAdd 'neoclide/coc.nvim', {'branch': 'release', 'opt':0}
     endif
     PackAdd 'leoatchina/coc-fzf', {'branch': 'empty_check'}
     let g:coc_global_extensions = [
