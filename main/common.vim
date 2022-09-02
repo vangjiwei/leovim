@@ -98,6 +98,9 @@ function! PackAdd(repo, ...)
             if a:0 == 0
                 call plug#(repo)
             else
+                if has_key(a:1, "opt")
+                    call remove(a:1, "opt")
+                endif
                 call plug#(repo, a:1)
             endif
         endif
