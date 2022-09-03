@@ -492,8 +492,9 @@ nnoremap <M-k>i :set invrelativenumber<Cr>
 nnoremap <M-k>s :colorscheme<Space>
 nnoremap <M-k>t :setfiletype<Space>
 nnoremap <M-k>c :command<Cr>
-nnoremap <M-k>r :registers<Cr>
-nnoremap <M-k>R :set relativenumber \| set number<Cr>
+nnoremap <M-k>r :set relativenumber \| set number<Cr>
+" registers
+nnoremap <M-v> :registers<Cr>
 " ------------------------
 " list buffers and mark
 " ------------------------
