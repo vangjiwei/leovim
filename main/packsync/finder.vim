@@ -64,9 +64,3 @@ endif
 if v:version >= 802 || has('nvim') && g:complete_engine != 'cmp'
     PackAdd 'skywind3000/vim-quickui'
 endif
-" ------------------------------
-" zfvimdirdiff
-" ------------------------------
-PackAdd 'ZSaberLv0/ZFVimDirDiff'
-PackAdd 'ZSaberLv0/ZFVimIgnore'
-PackAdd 'ZSaberLv0/ZFVimJob'

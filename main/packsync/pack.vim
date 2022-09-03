@@ -103,7 +103,7 @@ PackAdd 'ZSaberLv0/ZFVimIgnore'
 PackAdd 'ZSaberLv0/ZFVimJob'
 " zfvimim
 if (Require('wubi') || Require('pinyin')) && g:has_terminal
-    PackAdd 'ZSaberLv0/ZFVimIM'
+    PackAdd 'ZSaberLv0/ZFVimIM', {'opt': 0}
     if Require('wubi')
         PackAdd 'ZSaberLv0/ZFVimIM_wubi_base'
         let g:input_method = 'zfvim_wubi'
