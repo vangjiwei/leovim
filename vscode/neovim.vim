@@ -26,13 +26,13 @@ xnoremap <C-S-P> <Cmd>call VSCodeNotifyVisual('workbench.action.showCommands', 1
 " ------------------------
 " Find in files for word under cursor in vscode
 " ------------------------
-nnoremap s<Tab> <Cmd>call VSCodeNotify('workbench.action.findInFiles', {'query': expand('<cword>')})<CR>
+nnoremap s/     <Cmd>call VSCodeNotify('workbench.action.findInFiles', {'query': expand('<cword>')})<CR>
 nnoremap s<Cr>  <Cmd>call VSCodeNotify('actions.find')<Cr>
 nnoremap f<Tab> <Cmd>call VSCodeNotify('editor.action.startFindReplaceAction')<Cr>
 nnoremap f<cr>  <Cmd>call VSCodeNotify('azALDevTools.SymbolsTreeProvider.focus')<Cr>
-nnoremap <C-.>  <Cmd>call VSCodeNotify('keyboard-quickfix.openQuickFix')<CR>
-nnoremap <C-a>  <Cmd>call VSCodeNotify('editor.action.selectAll')<Cr>
-xnoremap <C-x>  <Cmd>call VSCodeNotifyVisual('editor.action.clipboardCutAction', 1)<Cr>
+nnoremap <C-.> <Cmd>call VSCodeNotify('keyboard-quickfix.openQuickFix')<CR>
+nnoremap <C-a> <Cmd>call VSCodeNotify('editor.action.selectAll')<Cr>
+xnoremap <C-x> <Cmd>call VSCodeNotifyVisual('editor.action.clipboardCutAction', 1)<Cr>
 " enhanced
 nnoremap <leader>w <Cmd>call VSCodeNotify('workbench.action.openView')<Cr>
 nnoremap <leader>m <Cmd>call VSCodeNotify('workbench.action.openRecent')<Cr>
