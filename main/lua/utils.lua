@@ -1,5 +1,6 @@
 local fn = vim.fn
 
+
 function _G.inspect(item)
   vim.pretty_print(item)
 end

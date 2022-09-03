@@ -29,7 +29,6 @@ if InstalledTelescope() && InstalledLsp()
     luafile $LUA_PATH/telescope-config.lua
     nnoremap m<tab> <cmd>Telescope keymaps<Cr>
     nnoremap <M-l>. :Telescope resume<Cr>
-    nnoremap <silent> <leader>fs :lua project_files()<cr>
     if Installed('leaderf')
         nnoremap <silent>q; :Telescope<Cr>
     endif
@@ -109,7 +108,7 @@ elseif InstalledFzf()
         endif
     endfunction
     command! FilesSearch call s:files_search()
-    nnoremap <silent> <leader>fs :FilesSearch<Cr>
+    nnoremap <silent> <leader>fg :FilesSearch<Cr>
 endif
 " --------------------------
 " using leaderf cache dir
