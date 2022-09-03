@@ -73,16 +73,16 @@ telescope.setup {
 -- keymaps
 map('n', '<leader>T', [[:Telescope ]], { noremap = true, silent = false })
 map('n', '<M-l><M-l>', [[<cmd>Telescope current_buffer_fuzzy_find<Cr>]], opts)
+if installed('telescope-changes.nvim') then
+  telescope.load_extension('changes')
+  map('n', '<M-y>', [[<cmd>Telescope changes<CR>]], opts)
+end
 if installed('telescope-ultisnips.nvim') then
   telescope.load_extension('ultisnips')
   map('i', '<C-x><C-x>', [[<ESC><cmd>Telescope ultisnips<CR>]], opts)
 elseif installed('telescope-luasnip.nvim') then
   telescope.load_extension('luasnip')
   map('i', '<C-x><C-x>', [[<ESC><cmd>Telescope luasnip<CR>]], opts)
-end
-if installed('telescope-changes.nvim') then
-  telescope.load_extension('changes')
-  map('n', '<M-z>', [[<cmd>Telescope changes<CR>]], opts)
 end
 if installed('telescope-floaterm.nvim') then
   telescope.load_extension('floaterm')
