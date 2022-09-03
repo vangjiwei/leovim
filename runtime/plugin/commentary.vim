@@ -98,16 +98,14 @@ nnoremap <silent> <Plug>ChangeCommentary c:<C-U>call <SID>textobject(1)<CR>
 nmap <silent> <Plug>CommentaryUndo :echoerr "Change your <Plug>CommentaryUndo map to <Plug>Commentary<Plug>Commentary"<CR>
 
 if !hasmapto('<Plug>Commentary') || maparg('gc','n') ==# ''
-  omap gc    <Plug>Commentary
-  xmap gc    <Plug>Commentary
-  nmap gc    <Plug>Commentary
-  omap <leader>cc <Plug>Commentary
-  xmap <leader>cc <Plug>Commentary
+  omap gc <Plug>Commentary
+  xmap gc <Plug>Commentary
+  nmap gc <Plug>Commentary
   nmap <leader>cc <Plug>CommentaryLine
+  nmap <C-/>      <Plug>CommentaryLine
   if maparg('c','n') ==# ''
-    nmap cgc <Plug>ChangeCommentary
+    nmap <leader>cm <Plug>ChangeCommentary
   endif
-  nmap gcu <Plug>Commentary<Plug>Commentary
+  nmap <leader>cu <Plug>Commentary<Plug>Commentary
 endif
-autocmd FileType java,c,cpp,rust set commentstring=//\ %s
 " vim:set et sw=2:
