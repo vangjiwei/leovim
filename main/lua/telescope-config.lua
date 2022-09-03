@@ -70,9 +70,21 @@ telescope.setup {
     }
   }
 }
+-- find_files
+if executable('fd') then
+  telescope.setup {
+    pickers = {
+      find_files = {
+        find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
+      }
+    }
+  }
+end
 -- keymaps
+map('n', ',<Tab>', [[<cmd>Telescope find_files<CR>]], opts)
 map('n', '<leader>T', [[:Telescope ]], { noremap = true, silent = false })
 map('n', '<M-l><M-l>', [[<cmd>Telescope current_buffer_fuzzy_find<Cr>]], opts)
+-- extensions
 if installed('telescope-changes.nvim') then
   telescope.load_extension('changes')
   map('n', '<M-y>', [[<cmd>Telescope changes<CR>]], opts)
@@ -98,18 +110,6 @@ end
 if installed('telescope-tele-tabby.nvim') then
   map('n', '<leader>t', [[<cmd>lua require('telescope').extensions.tele_tabby.list()<Cr>]], opts)
 end
--- find_files
-if executable('fd') then
-  telescope.setup {
-    pickers = {
-      find_files = {
-        find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
-      }
-    }
-  }
-end
-map('n', ',<Tab>', [[<cmd>Telescope find_files<CR>]], opts)
--- notify
 if installed('nvim-notify') then
   telescope.load_extension('notify')
   map('n', ',N', [[<cmd>Telescope notify<CR>]], opts)
