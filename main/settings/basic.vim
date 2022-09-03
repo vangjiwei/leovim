@@ -68,6 +68,7 @@ map <F10> <Nop>
 map <F11> <Nop>
 map <F12> <Nop>
 map <M-B> <Nop>
+map <M-O> <Nop>
 map <C-n> <Nop>
 map <C-q> <Nop>
 map <C-s> <Nop>
@@ -77,12 +78,8 @@ nmap <C-j> %
 nmap <C-k> g%
 xmap <C-j> %
 xmap <C-k> g%
-nmap q:   <Nop>
-nmap q/   <Nop>
-nnoremap <C-b> <Home>
 nnoremap <C-l> <Tab>
 nnoremap S <Nop>
-nnoremap S<CR> S
 " ------------------------------
 " node_version
 " ------------------------------
