@@ -27,6 +27,14 @@ else
 endif
 if InstalledTelescope() && InstalledLsp()
     luafile $LUA_PATH/telescope-config.lua
+    lua << EOF
+    _G.project_files = function()
+      local search_opts = {}
+      local ok = pcall(require"telescope.builtin".git_files, search_opts)
+      if not ok then require"telescope.builtin".find_files(search_opts) end
+    end
+EOF
+    nnoremap <leader>fg :lua project_files()<Cr>
     nnoremap m<tab> <cmd>Telescope keymaps<Cr>
     nnoremap <M-l>. :Telescope resume<Cr>
     if Installed('leaderf')

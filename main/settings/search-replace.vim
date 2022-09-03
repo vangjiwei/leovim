@@ -108,6 +108,13 @@ endif
 " searchall in telescope or fzf
 " --------------------------
 if InstalledTelescope()
+    lua << EOF
+    _G.search_all = function()
+      local opts = {} -- define here if you want to define something
+      local ok = pcall(require"telescope.builtin".grep_string, opts)
+      if not ok then require"telescope.builtin".live_grep(opts) end
+    end
+EOF
     let g:search_tool = 'grepper-telescope'
     function! s:telescope_search(...) abort
         " a:0 代表参数数量, a1 代表第一个参数
