@@ -444,23 +444,6 @@ imap <M-f> <C-o>w
 cmap <M-b> <C-left>
 cmap <M-f> <C-right>
 " ------------------------
-" map for fold
-" ------------------------
-nmap <leader>zz za
-nmap ,zz        za
-nmap <leader>zo zfi{
-nmap ,zo        zfa{
-nmap <leader>zi zfii
-nmap ,zi        zfai
-nmap <leader>zc zfic
-nmap ,zc        zfac
-nmap <leader>zf zfif
-nmap ,zf        zfaf
-nmap <leader>zb zfiB
-nmap ,zb        zfaB
-" fold others rows and keep only the rows contain the search results
-nmap <leader>zr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=manual<CR><CR>
-" ------------------------
 " tab is used as a leaderkey
 " ------------------------
 nnoremap <Tab><Tab> <Tab>
@@ -832,6 +815,7 @@ source $SETTINGS_PATH/sidebar.vim
 source $SETTINGS_PATH/run-conf.vim
 source $SETTINGS_PATH/marks.vim
 source $SETTINGS_PATH/query.vim
+source $SETTINGS_PATH/fold.vim
 if g:complete_engine == 'cmp'
     if InstalledTelescope() && InstalledLsp() && InstalledCmp()
         luafile $LUA_PATH/lsp-search.lua
