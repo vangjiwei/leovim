@@ -1,3 +1,4 @@
+local map  = vim.api.nvim_set_keymap
 require 'nvim-treesitter.configs'.setup {
     ensure_installed = vim.g.highlight_filetypes,
     sync_install = false,
@@ -24,7 +25,7 @@ require 'nvim-treesitter.configs'.setup {
 }
 require 'nvim-treesitter.install'.prefer_git = true
 if installed('nvim-treehopper') then
-    vim.api.nvim_set_keymap('o', '<C-s>', [[<cmd>lua require('tsht').nodes()<CR>]], { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('x', '<C-s>', [[<cmd>lua require('tsht').nodes()<CR>]], { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<C-s>', [[<cmd>lua require('tsht').nodes()<CR>]], { noremap = true, silent = true })
+    map('o', '<C-s>', [[<cmd>lua require('tsht').nodes()<CR>]], { noremap = true, silent = true })
+    map('x', '<C-s>', [[<cmd>lua require('tsht').nodes()<CR>]], { noremap = true, silent = true })
+    map('n', '<C-s>', [[<cmd>lua require('tsht').nodes()<CR>]], { noremap = true, silent = true })
 end
