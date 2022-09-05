@@ -9,8 +9,8 @@ PackAdd 'eregex.vim'
 " --------------------------
 " vimgrep in current file
 " --------------------------
-nnoremap <leader>S :vimgrep <C-r><C-w> % \| copen<Cr>
-xnoremap <leader>S :vimgrep <C-r>=GetVisualSelection()<Cr> % \| copen<Cr>
+nnoremap \| :vimgrep <C-r><C-w> % \| copen<Cr>
+xnoremap \| :vimgrep <C-r>=GetVisualSelection()<Cr> % \| copen<Cr>
 " --------------------------
 " vim-grepper
 " --------------------------
@@ -164,10 +164,10 @@ EOF
     command! -nargs=1 TeleSearchAll call s:telescope_search(2, <f-args>)
     " searchall
     let g:search_all_cmd = 'TeleSearchAll'
-    nnoremap <silent>\| :TeleSearchAll <C-r><C-w><Cr>
-    xnoremap <silent>\| :<C-u>TeleSearchAll <C-r>=GetVisualSelection()<Cr><Cr>
-    nnoremap s/ :TeleSearchAll <C-r><C-w>
-    xnoremap s/ :<C-u>TeleSearchAll <C-r>=GetVisualSelection()<Cr>
+    nnoremap s/ :TeleSearchAll <C-r><C-w><Cr>
+    xnoremap s/ :<C-u>TeleSearchAll <C-r>=GetVisualSelection()<Cr><Cr>
+    nnoremap s? :TeleSearchAll <C-r><C-w>
+    xnoremap s? :<C-u>TeleSearchAll <C-r>=GetVisualSelection()<Cr>
     nnoremap <silent>s. :TeleSearchAllLast<Cr>
 elseif InstalledFzf() && exists('*systemlist')
     if get(g:, 'search_tool', '') == 'grepper'
@@ -224,18 +224,18 @@ elseif InstalledFzf() && exists('*systemlist')
     command! -nargs=1 FZFSearchAll call s:fzf_search(2, <f-args>)
     " searchall
     let g:search_all_cmd = 'FZFSearchAll'
-    nnoremap <silent>\| :FZFSearchAll <C-R><C-W><Cr>
-    xnoremap <silent>\| :<C-u>FZFSearchAll <C-r>=GetVisualSelection()<Cr><Cr>
-    nnoremap s/ :FZFSearchAll <C-r><C-w>
-    xnoremap s/ :<C-u>FZFSearchAll <C-r>=GetVisualSelection()<Cr>
+    nnoremap s/ :FZFSearchAll <C-R><C-W><Cr>
+    xnoremap s/ :<C-u>FZFSearchAll <C-r>=GetVisualSelection()<Cr><Cr>
+    nnoremap s? :FZFSearchAll <C-r><C-w>
+    xnoremap s? :<C-u>FZFSearchAll <C-r>=GetVisualSelection()<Cr>
     nnoremap <silent>s. :FZFSearchAllLast<Cr>
 elseif get(g:, 'search_tool', '') =~ 'grepper'
     " searchall
     let g:search_all_cmd = 'GrepperSearchAll'
-    nnoremap <silent>\| :GrepperSearchAll <C-R><C-W><Cr>
-    xnoremap <silent>\| :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr><Cr>
-    nnoremap s/ :GrepperSearchAll <C-r><C-w><Cr>
+    nnoremap s/ :GrepperSearchAll <C-R><C-W><Cr>
     xnoremap s/ :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr><Cr>
+    nnoremap s? :GrepperSearchAll <C-r><C-w><Cr>
+    xnoremap s? :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr><Cr>
     nnoremap s. :GrepperSearchAllLast<Cr>
 endif
 " --------------------------
@@ -311,8 +311,8 @@ elseif get(g:, 'search_tool', '') == 'grepper'
     xnoremap <leader>? :<C-u>GrepperSearch <C-r>=GetVisualSelection()<Cr>
 else
     let g:search_tool = 'vimgrep'
-    nnoremap \| :vimgrep "<C-r><C-w>" * \| copen<Cr>
-    xnoremap \| :<C-u>vimgrep "<C-r>=GetVisualSelection()" * \| copen<Cr>
+    nnoremap s/ :vimgrep "<C-r><C-w>" * \| copen<Cr>
+    xnoremap s/ :<C-u>vimgrep "<C-r>=GetVisualSelection()" * \| copen<Cr>
 endif
 " ----------------------------
 " bqf && quickui

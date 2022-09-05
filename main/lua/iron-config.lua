@@ -26,7 +26,7 @@ iron.setup ({
   keymaps = {
     send_motion = "c<tab>",
     visual_send = "cl",
-    send_file = "<leader>R",
+    send_file = "<leader>S",
     send_line = "cl",
     send_mark = "c.",
     mark_motion = "cm",
