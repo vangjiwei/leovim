@@ -92,10 +92,10 @@ elseif InstalledFzf()
     " --------------------------
     "  fzf maps
     " --------------------------
-    nmap ,m <plug>(fzf-maps-n)
-    xmap ,m <plug>(fzf-maps-x)
-    omap ,m <plug>(fzf-maps-o)
-    " --------------------------
+    nmap m<tab> <plug>(fzf-maps-n)
+    xmap m<tab> <plug>(fzf-maps-x)
+    omap m<tab> <plug>(fzf-maps-o)
+    " -------------------------
     "  fzf files
     " --------------------------
     if UNIX() | nnoremap <leader>fl :FZFLocate<Space> | endif
@@ -362,17 +362,18 @@ endif
 " notify
 " --------------------------
 if Installed("nvim-notify")
-    function! s:notify_messages() abort
+    function! Notify_messages() abort
         let g:notify_messages=split(execute('messages'), "\n")
         if empty(g:notify_messages)
             echo "No messages"
+            return
         endif
         lua require('notify')(vim.g.notify_messages, 'info', {title = 'messages'})
         unlet g:notify_messages
     endfunction
-    nnoremap <silent>,m :call <SID>notify_messages()<Cr>
+    nnoremap <silent>,m :call Notify_messages()<Cr>
     if !InstalledTelescope()
-        nnoremap <silent>,N <cmd>lua require("notify").history()<Cr>
+        nnoremap <silent>,N :lua require("notify").history()<Cr>
     endif
 endif
 " --------------------------

@@ -4,8 +4,8 @@
 if v:version < 704 && !has('nvim')
     echoe 'vim 7.4 is at least required when uing leovim.'
     finish
-elseif !has('nvim-0.6') && has('nvim')
-    echoe 'neovim 0.6 is at least required when using leovim.'
+elseif !has('nvim-0.6.1') && has('nvim')
+    echoe 'neovim 0.6.1 is at least required when using leovim.'
     finish
 elseif !exists('*system')
     echoe 'function system() is required when using leovim.'

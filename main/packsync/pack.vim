@@ -29,6 +29,7 @@ endif
 if get(g:, 'header_field_author', '') != ''
     PackAdd 'alpertuna/vim-header'
     let g:header_auto_add_header = 0
+    let g:header_auto_update_header = 1
     let g:header_field_timestamp_format = '%Y.%m.%d'
     nnoremap <leader>ea :AddHeader<Cr>
 endif
@@ -93,6 +94,12 @@ if Require('query') && v:version >= 800
     elseif !CYGWIN()
         PackAdd 'KabbAmine/zeavim.vim'
     endif
+endif
+" ------------------------------
+" fold
+" ------------------------------
+if has('nvim')
+    PackAdd 'kevinhwang91/nvim-ufo' | PackAdd 'kevinhwang91/promise-async'
 endif
 " ------------------------------
 " zfvim
