@@ -21,19 +21,11 @@ if Installed('nvim-ufo', 'promise-async')
         lua require('ufo').setup()
     elseif Installed('nvim-treesitter') && !Installed('mason.nvim')
         let s:map_ufo = 1
-        lua << EOF
-        require('ufo').setup({
-          provider_selector = function(bufnr, filetype, buftype)
-            return {'treesitter', 'indent'}
-          end
-        })
-EOF
+        lua require('ufo').setup({provider_selector = function(bufnr, filetype, buftype) return {'treesitter', 'indent'} end})
     endif
     if get(s:, 'map_ufo', 0) > 0
-        lua << EOF
-        vim.keymap.set('n', '<leader>zo', require('ufo').openAllFolds)
-        vim.keymap.set('n', '<leader>zm', require('ufo').closeAllFolds)
-EOF
+        nnoremap <leader>zo :lua require('ufo').openAllFolds()<Cr>
+        nnoremap <leader>zm :lua require('ufo').closeAllFolds()<Cr>
         unlet s:map_ufo
     endif
 endif
