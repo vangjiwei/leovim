@@ -119,9 +119,9 @@ if Installed('vim-gutentags')
     endif
     nnoremap ,g<Cr> :GutentagsUpdate<Cr>
     if WINDOWS()
-        nnoremap ,G :!del "%HOME%\\.leovim.d\\.LfCache\\*.*" /a /q<Cr><Cr>
+        nnoremap ,G :!del ~<Tab>\.leovim.d\.LfCache\gtags\*.* /a /q<Cr><Cr>
     else
-        nnoremap ,G :!rm -rf ~/.leovim.d/.LfCache/* <Cr>
+        nnoremap ,G :!rm -rf ~/.leovim.d/.LfCache/gtags/* <Cr>
     endif
 endif
 " --------------------------
@@ -180,7 +180,7 @@ endif
 " reference
 " --------------------------
 if Installed("coc.nvim")
-    nmap <silent>gh    :call LspOrTagOrSearch("jumpReferences")<Cr>
+    nmap <silent>gh :call LspOrTagOrSearch("jumpReferences")<Cr>
     nmap <silent><M-?> <Plug>(coc-refactor)
 else
     if get(g:, 'symbol_tool', '') =~ 'leaderfgtags'
@@ -267,28 +267,28 @@ if g:complete_engine == 'coc'
         return ret
     endfunction
     " jumpDefinition
-    nnoremap <silent><C-]> :call LspOrTagOrSearch("jumpDefinition")<Cr>
     nnoremap <silent><M-;> :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
+    nnoremap <silent><C-]> :call LspOrTagOrSearch("jumpDefinition")<Cr>
     nnoremap <silent>gl    :call LspOrTagOrSearch("jumpDefinition", "split")<Cr>
     nnoremap <silent>g<Cr> :call LspOrTagOrSearch("jumpDefinition", "tabe")<Cr>
     " jumpImplementation
-    nnoremap <silent><leader><M-:>      :call LspOrTagOrSearch("jumpImplementation")<Cr>
     nnoremap <silent><M-:>              :call LspOrTagOrSearch("jumpImplementation", "vsplit")<Cr>
+    nnoremap <silent><leader><M-:>      :call LspOrTagOrSearch("jumpImplementation")<Cr>
     nnoremap <silent>,<M-:>             :call LspOrTagOrSearch("jumpImplementation", "split")<Cr>
     nnoremap <silent><localleader><M-:> :call LspOrTagOrSearch("jumpImplementation", "tabe")<Cr>
     " jumpDeclaration
-    nnoremap <silent><leader><M-.>      :call LspOrTagOrSearch("jumpDeclaration")<Cr>
     nnoremap <silent><M-.>              :call LspOrTagOrSearch("jumpDeclaration", "vsplit")<Cr>
+    nnoremap <silent><leader><M-.>      :call LspOrTagOrSearch("jumpDeclaration")<Cr>
     nnoremap <silent>,<M-.>             :call LspOrTagOrSearch("jumpDeclaration", "split")<Cr>
     nnoremap <silent><localleader><M-.> :call LspOrTagOrSearch("jumpDeclaration", "tabe")<Cr>
     " jumpTypeDefinition
-    nnoremap <silent><leader><M-,>      :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
     nnoremap <silent><M-,>              :call LspOrTagOrSearch("jumpTypeDefinition", "vsplit")<Cr>
+    nnoremap <silent><leader><M-,>      :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
     nnoremap <silent>,<M-,>             :call LspOrTagOrSearch("jumpTypeDefinition", "split")<Cr>
     nnoremap <silent><localleader><M-,> :call LspOrTagOrSearch("jumpTypeDefinition", "tabe")<Cr>
 else
-    nnoremap <silent><C-]> :call LspOrTagOrSearch("")<Cr>
     nnoremap <silent><M-;> :call LspOrTagOrSearch("", "vsplit")<Cr>
+    nnoremap <silent><C-]> :call LspOrTagOrSearch("")<Cr>
     nnoremap <silent>gl    :call LspOrTagOrSearch("", "split")<Cr>
     nnoremap <silent>g<Cr> :call LspOrTagOrSearch("", "tabe")<Cr>
 endif
