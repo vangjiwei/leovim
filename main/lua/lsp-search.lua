@@ -76,6 +76,20 @@ if installed('telescope-lsp-handlers.nvim') then
   })
 end
 --------------------------------
+-- lsp-handlers
+--------------------------------
+-- format
+map('n', '<C-q>', [[<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>]], opts)
+map('x', '<C-q>', [[<cmd>lua vim.lsp.buf.range_formatting()<CR><ESC>]], opts)
+-- call hierrachy
+map('n', '<leader>i', [[<cmd>lua vim.lsp.buf.incoming_calls()<CR>]], opts)
+map('n', '<leader>o', [[<cmd>lua vim.lsp.buf.outgoing_calls()<CR>]], opts)
+-- definition type_definition declaration implementation
+map('n', '<C-]>', [[<cmd>lua vim.lsp.buf.definition()<CR>]], opts)
+map('n', '<M-,>', [[<cmd>lua vim.lsp.buf.type_definition()<CR>]], opts)
+map('n', '<M-.>', [[<cmd>lua vim.lsp.buf.declaration()<CR>]], opts)
+map('n', '<M-:>', [[<cmd>lua vim.lsp.buf.implementation()<CR>]], opts)
+--------------------------------
 -- lspsaga
 --------------------------------
 local lspsaga = require('lspsaga')
@@ -125,11 +139,11 @@ lspsaga.init_lsp_saga({
 -- actions
 map('n', '<leader>A', [[:Lspsaga ]], { noremap = true, silent = false })
 map('n', 'K', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
+map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)
+map('n', '<M-/>', [[<cmd>Lspsaga preview_definition<CR>]], opts)
 map('n', "<leader>a<cr>", [[<cmd>Lspsaga code_action<Cr>]], opts)
 map('x', "<leader>a<cr>", [[:<C-u>Lspsaga range_code_action<CR>]], opts)
 map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
-map('n', '<C-h>', [[<cmd>Lspsaga preview_definition<Cr>]], opts)
-map('n', '<BS>', [[<cmd>Lspsaga preview_definition<Cr>]], opts)
 -- Show symbols in winbar need neovim 0.8+
 if vim.fn.has('nvim-0.8') > 0 then
   lspsaga.init_lsp_saga({
@@ -200,23 +214,6 @@ if vim.fn.has('nvim-0.8') > 0 then
     end,
   })
 end
---------------------------------
--- lsp-handlers
---------------------------------
--- format
-map('n', '<C-q>', [[<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>]], opts)
-map('x', '<C-q>', [[<cmd>lua vim.lsp.buf.range_formatting()<CR><ESC>]], opts)
--- call hierrachy
-map('n', '<leader>i', [[<cmd>lua vim.lsp.buf.incoming_calls()<CR>]], opts)
-map('n', '<leader>o', [[<cmd>lua vim.lsp.buf.outgoing_calls()<CR>]], opts)
--- definition and reference
-map('n', '<C-]>', [[<cmd>lua vim.lsp.buf.definition()<CR>]], opts)
-map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)
-map('n', '<M-:>', [[<cmd>Lspsaga implement<Cr>]], opts)
-map('n', '<M-/>', [[<cmd>Lspsaga preview_definition<CR>]], opts)
--- TODO: use lspsaga declaration, type_definition
-map('n', '<M-,>', [[<cmd>lua vim.lsp.buf.type_definition()<CR>]], opts)
-map('n', '<M-.>', [[<cmd>lua vim.lsp.buf.declaration()<CR>]], opts)
 --------------------------------
 -- each lsp server config
 --------------------------------

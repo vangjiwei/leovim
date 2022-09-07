@@ -22,11 +22,11 @@ if Installed('coc.nvim')
     highlight def link CocHintHighlight    NONE
     " config ignore
     call coc#config('python.linting.flake8Args', [
-                \ "--max-line-length=160",
+                \ "--max-line-length=200",
                 \ "--ignore=" . g:python_lint_ignore,
                 \ ])
     call coc#config('python.linting.pylintArgs', [
-                \ "--max-line-length=160",
+                \ "--max-line-length=200",
                 \ "--ignore=" . g:python_lint_ignore,
                 \ ])
 elseif Installed('lspsaga.nvim')
@@ -122,7 +122,7 @@ elseif Installed('ale')
                 \ 'vue': ['vls'],
                 \ 'zsh': ['shell']
                 \ }
-    let g:ale_python_flake8_options = "--max-line-length=160 --ignore=" . g:python_lint_ignore
+    let g:ale_python_flake8_options = "--max-line-length=200 --ignore=" . g:python_lint_ignore
     " map
     function! s:showLint() abort
         ALELint
