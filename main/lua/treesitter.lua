@@ -6,21 +6,17 @@ require 'nvim-treesitter.configs'.setup {
         enable = true,
         additional_vim_regex_highlighting = false,
     },
-    indent = {
-        enable = false,
+    matchup = {
+        enable = true,
     },
     fold = {
         enable = false,
     },
-    incrcmental_selection = {
-        enable = true,
-        init_selection = "gnn",
-        node_incremental = "grn",
-        scope_incremental = "grc",
-        node_decremental = "grm",
+    indent = {
+        enable = false,
     },
-    matchup = {
-        enable = true,
+    incrcmental_selection = {
+        enable = false,
     }
 }
 require 'nvim-treesitter.install'.prefer_git = true

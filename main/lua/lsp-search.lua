@@ -220,6 +220,7 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- using ufo for folding
 capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
   lineFoldingOnly = true
@@ -228,6 +229,9 @@ for _, lsp in ipairs(mason_lspconfig.get_installed_servers()) do
   lspconfig[lsp].setup({
     capabilities = capabilities
   })
+end
+if installed('nvim-ufo') and installed('promise-async') then
+  require('ufo').setup()
 end
 -- set pylsp args
 local pylsp_args = {'--max-line-length=160', '--ignore=' .. vim.g.python_lint_ignore}
