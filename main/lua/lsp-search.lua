@@ -62,6 +62,9 @@ map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<C
 if installed('telescope-symbols.nvim') then
   map('n', 'sy', [[<cmd>Telescope symbols<CR>]], opts)
 end
+--------------------------------
+-- lsp-handlers
+--------------------------------
 if installed('telescope-lsp-handlers.nvim') then
   telescope.load_extension('lsp_handlers')
   telescope.setup({
@@ -75,9 +78,6 @@ if installed('telescope-lsp-handlers.nvim') then
     },
   })
 end
---------------------------------
--- lsp-handlers
---------------------------------
 -- format
 map('n', '<C-q>', [[<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>]], opts)
 map('x', '<C-q>', [[<cmd>lua vim.lsp.buf.range_formatting()<CR><ESC>]], opts)
