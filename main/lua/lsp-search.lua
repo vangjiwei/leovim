@@ -210,9 +210,10 @@ mason_lspconfig.setup_handlers({
   end,
 })
 if installed('rust-tools.nvim') then
+  local rust_tools = require('rust-tools')
   mason_lspconfig.setup_handlers({
     ["rust_analyzer"] = function ()
-      require('rust_tools').setup({})
+      rust_tools.setup({})
     end,
   })
 end
