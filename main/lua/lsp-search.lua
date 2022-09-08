@@ -2,93 +2,14 @@ vim.g.symbol_tool  = 'lspsaga-lsp'
 vim.g.symbol_group = nil
 local map  = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
------------------
--- mason/lspconfig
------------------
-local mason           = require('mason')
-local lspconfig       = require('lspconfig')
-local mason_lspconfig = require('mason-lspconfig')
-mason.setup({
-  ui = {
-    icons = {
-      server_installed = "✓",
-      server_pending = "➜",
-      server_uninstalled = "✗"
-    }
-  }
-})
-map('n', '<leader>P', [[<cmd>Mason<CR>]], opts)
--- mason_lspconfig
-mason_lspconfig.setup({
-  automatic_installation = true,
-  ensure_installed = vim.g.lsp_installer_servers,
-})
-mason_lspconfig.setup_handlers({
-  -- The first entry (without a key) will be the default handler
-  -- and will be called for each installed server that doesn't have
-  -- a dedicated handler.
-  function (server_name) -- default handler (optional)
-    lspconfig[server_name].setup {}
-  end,
-  -- Next, you can provide targeted overrides for specific servers.
-  ["sumneko_lua"] = function ()
-    lspconfig.sumneko_lua.setup {
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { "vim" }
-          }
-        }
-      }
-    }
-  end,
-})
-if installed('rust-tools.nvim') then
-  local rust_tools = require('rust-tools')
-  mason_lspconfig.setup_handlers({
-    ["rust_analyzer"] = function ()
-      rust_tools.setup({})
-    end,
-  })
-end
 --------------------------------
 -- telescope
 --------------------------------
 local telescope = require('telescope')
-map('n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]], opts)
-map('n', 'T<Cr>', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
-map('n', '<M-t>', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
-map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
-if installed('telescope-symbols.nvim') then
-  map('n', 'sy', [[<cmd>Telescope symbols<CR>]], opts)
-end
---------------------------------
--- lsp-handlers
---------------------------------
 if installed('telescope-lsp-handlers.nvim') then
   telescope.load_extension('lsp_handlers')
-  telescope.setup({
-    extensions = {
-      lsp_handlers = {
-        disable = {
-          ['textDocument/definition']     = true,
-          ['textDocument/implementation'] = true,
-        },
-      },
-    },
-  })
+  telescope.setup({})
 end
--- format
-map('n', '<C-q>', [[<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>]], opts)
-map('x', '<C-q>', [[<cmd>lua vim.lsp.buf.range_formatting()<CR><ESC>]], opts)
--- call hierrachy
-map('n', '<leader>i', [[<cmd>lua vim.lsp.buf.incoming_calls()<CR>]], opts)
-map('n', '<leader>o', [[<cmd>lua vim.lsp.buf.outgoing_calls()<CR>]], opts)
--- definition type_definition declaration implementation
-map('n', '<C-]>', [[<cmd>lua vim.lsp.buf.definition()<CR>]], opts)
-map('n', '<M-,>', [[<cmd>lua vim.lsp.buf.type_definition()<CR>]], opts)
-map('n', '<M-.>', [[<cmd>lua vim.lsp.buf.declaration()<CR>]], opts)
-map('n', '<M-:>', [[<cmd>lua vim.lsp.buf.implementation()<CR>]], opts)
 --------------------------------
 -- lspsaga
 --------------------------------
@@ -136,14 +57,6 @@ lspsaga.init_lsp_saga({
       auto_refresh = true,
   },
 })
--- actions
-map('n', '<leader>A', [[:Lspsaga ]], { noremap = true, silent = false })
-map('n', 'K', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
-map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)
-map('n', '<M-/>', [[<cmd>Lspsaga preview_definition<CR>]], opts)
-map('n', "<leader>a<cr>", [[<cmd>Lspsaga code_action<Cr>]], opts)
-map('x', "<leader>a<cr>", [[:<C-u>Lspsaga range_code_action<CR>]], opts)
-map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
 -- Show symbols in winbar need neovim 0.8+
 if vim.fn.has('nvim-0.8') > 0 then
   lspsaga.init_lsp_saga({
@@ -214,28 +127,97 @@ if vim.fn.has('nvim-0.8') > 0 then
     end,
   })
 end
+-----------------
+-- on attach
+-----------------
+local on_attach = function()
+  -- format
+  map('n', '<C-q>', [[<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>]], opts)
+  map('x', '<C-q>', [[<cmd>lua vim.lsp.buf.range_formatting()<CR><ESC>]], opts)
+  -- call hierrachy
+  map('n', '<leader>i', [[<cmd>lua vim.lsp.buf.incoming_calls()<CR>]], opts)
+  map('n', '<leader>o', [[<cmd>lua vim.lsp.buf.outgoing_calls()<CR>]], opts)
+  -- definition type_definition declaration implementation
+  map('n', '<C-]>', [[<cmd>lua vim.lsp.buf.definition()<CR>]], opts)
+  map('n', '<M-,>', [[<cmd>lua vim.lsp.buf.type_definition()<CR>]], opts)
+  map('n', '<M-.>', [[<cmd>lua vim.lsp.buf.declaration()<CR>]], opts)
+  map('n', '<M-:>', [[<cmd>lua vim.lsp.buf.implementation()<CR>]], opts)
+  map('n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]], opts)
+  map('n', 'T<Cr>', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
+  map('n', '<M-t>', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
+  map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
+  -- lspsaga maps
+  map('n', 'K', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
+  map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]],         opts)
+  map('n', '<M-/>', [[<cmd>Lspsaga preview_definition<CR>]], opts)
+  map('n', "<leader>a<cr>", [[<cmd>Lspsaga  code_action<Cr>]],       opts)
+  map('x', "<leader>a<cr>", [[:<C-u>Lspsaga range_code_action<CR>]], opts)
+  map('n', '<leader>ar',    [[<cmd>Lspsaga  rename<Cr>]],             opts)
+  map('n', '<leader>A', [[:Lspsaga ]], { noremap = true, silent = false })
+end
 --------------------------------
 -- each lsp server config
 --------------------------------
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
--- using ufo for folding
 capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
   lineFoldingOnly = true
 }
-for _, lsp in ipairs(mason_lspconfig.get_installed_servers()) do
-  lspconfig[lsp].setup({
-    capabilities = capabilities
+-----------------
+-- mason/lspconfig
+-----------------
+local mason           = require('mason')
+local lspconfig       = require('lspconfig')
+local mason_lspconfig = require('mason-lspconfig')
+mason.setup({
+  ui = {
+    icons = {
+      server_installed = "✓",
+      server_pending = "➜",
+      server_uninstalled = "✗"
+    }
+  }
+})
+map('n', '<leader>P', [[<cmd>Mason<CR>]], opts)
+-- mason_lspconfig
+mason_lspconfig.setup({
+  automatic_installation = true,
+  ensure_installed = vim.g.lsp_installer_servers,
+})
+mason_lspconfig.setup_handlers({
+  -- The first entry (without a key) will be the default handler
+  -- and will be called for each installed server that doesn't have
+  -- a dedicated handler.
+  function (server_name) -- default handler (optional)
+    lspconfig[server_name].setup {
+      on_attach = on_attach(),
+      capabilities = capabilities
+    }
+  end,
+  -- Next, you can provide targeted overrides for specific servers.
+  ["sumneko_lua"] = function ()
+    lspconfig.sumneko_lua.setup {
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { "vim", "lua" }
+          }
+        }
+      }
+    }
+  end,
+})
+if installed('rust-tools.nvim') then
+  mason_lspconfig.setup_handlers({
+    ["rust_analyzer"] = function ()
+      require('rust_tools').setup({})
+    end,
   })
 end
-if installed('nvim-ufo') and installed('promise-async') then
-  require('ufo').setup()
-end
--- set pylsp args
-local pylsp_args = {'--max-line-length=160', '--ignore=' .. vim.g.python_lint_ignore}
 if executable('pylsp') then
+  local pylsp_args = {'--max-line-length=160', '--ignore=' .. vim.g.python_lint_ignore}
   lspconfig.pylsp.setup({
     settings = {
       pylsp = {
@@ -254,4 +236,8 @@ if executable('pylsp') then
       debounce_text_changes = 200,
     },
   })
+end
+-- ufo
+if installed('nvim-ufo') and installed('promise-async') then
+  require('ufo').setup()
 end
