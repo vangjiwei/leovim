@@ -122,9 +122,9 @@ if exists('*win_getid') && has('quickfix')
                 \ 'open': 'OpenQuickfix',
                 \ 'close': 'CloseQuickfix'
                 \ }
-    nnoremap <silent> <M-d> :call sidebar#toggle('quickfix')<CR>
+    nnoremap <silent> <M-e> :call sidebar#toggle('quickfix')<CR>
     if g:has_terminal
-        tnoremap <silent> <M-d> <C-\><C-n>:call sidebar#toggle('quickfix')<CR>
+        tnoremap <silent> <M-e> <C-\><C-n>:call sidebar#toggle('quickfix')<CR>
     endif
 endif
 if Installed('vim-terminal-help')

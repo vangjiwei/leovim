@@ -11,14 +11,13 @@ if Installed('leaderf')
     endif
     nnoremap <silent><C-p> :Leaderf self<Cr>
     nnoremap <leader>F :Leaderf
+    nnoremap <M-u>. :Leaderf --recall<Cr>
 elseif Installed('coc.nvim')
     let g:fuzzy_finder = 'coc-fzf'
     nnoremap <silent><C-p> :CocFzfList<Cr>
-    nnoremap <leader>F :CocFzfList<Space>
 elseif InstalledTelescope()
     let g:fuzzy_finder = 'telescope'
     nnoremap <silent><C-p> :Telescope<Cr>
-    nnoremap <leader>F :Telescope<Space>
 elseif InstalledFzf()
     let g:fuzzy_finder = 'fzf'
     nnoremap <silent><C-p> :FZFFiles .<Cr>
@@ -27,16 +26,10 @@ else
 endif
 if InstalledTelescope() && InstalledLsp()
     luafile $LUA_PATH/telescope-config.lua
-    lua << EOF
-    _G.project_files = function()
-      local search_opts = {}
-      local ok = pcall(require"telescope.builtin".git_files, search_opts)
-      if not ok then require"telescope.builtin".find_files(search_opts) end
-    end
-EOF
     nnoremap <leader>fg :lua project_files()<Cr>
     nnoremap m<tab> <cmd>Telescope keymaps<Cr>
-    nnoremap <M-l>. :Telescope resume<Cr>
+    nnoremap <M-u>q <cmd>Telescope quickfixhistory<Cr>
+    nnoremap <M-u>r <cmd>Telescope resume<Cr>
     if Installed('leaderf')
         nnoremap <silent>q; :Telescope<Cr>
     endif
@@ -159,8 +152,8 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     nnoremap <leader>B :LeaderfTabBufferAll<Cr>
     nnoremap <leader>m :LeaderfMru<Cr>
     nnoremap <leader>M :LeaderfMruCwd<Cr>
-    nnoremap q/ :Leaderf searchHistory<Cr>
-    nnoremap q: :Leaderf cmdHistory<Cr>
+    nnoremap <M-u>s :Leaderf searchHistory<Cr>
+    nnoremap <M-u>c :Leaderf cmdHistory<Cr>
     nnoremap ,; :Leaderf --next<Cr>
     nnoremap ,, :Leaderf --previous<Cr>
     nnoremap ,. :Leaderf --recall<Cr>
@@ -176,7 +169,7 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     nnoremap <M-l>a     :Leaderf line --all --no-sort<Cr>
     nnoremap <M-l>n     :Leaderf line --no-sort<Cr>
     " jumps
-    nnoremap <M-h><M-h> :Leaderf jumps<cr>
+    nnoremap <M-u>j :Leaderf jumps<cr>
     " leader-filer
     let g:Lf_FilerShowPromptPath = 1
     " normal mode
@@ -251,11 +244,11 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     nnoremap Z<S-Cr> :CloseQuickfix<Cr>:Leaderf quickfix<Cr>
     nnoremap Z<Cr>   :CloseQuickfix<Cr>:Leaderf loclist<Cr>
 elseif InstalledTelescope()
-    nnoremap <M-h><M-h> <cmd>Telescope jumplist<cr>
     nnoremap <leader>b <cmd>Telescope buffers<Cr>
     nnoremap <leader>m <cmd>Telescope oldfiles<Cr>
-    nnoremap q/ <cmd>Telescope search_history<Cr>
-    nnoremap q: <cmd>Telescope command_history<Cr>
+    nnoremap <M-u>j <cmd>Telescope jumplist<cr>
+    nnoremap <M-u>s <cmd>Telescope search_history<Cr>
+    nnoremap <M-u>c <cmd>Telescope command_history<Cr>
     " replace origin command
     nnoremap <M-k>s <cmd>Telescope colorscheme<Cr>
     nnoremap <M-k>t <cmd>Telescope filetypes<Cr>
@@ -267,8 +260,8 @@ elseif InstalledFzf()
     let g:fuzzy_finder = get(g:, 'fuzzy_finder', 'fzf')
     nnoremap <leader>b :FzfBuffers<CR>
     nnoremap <leader>m :FZFMru<CR>
-    nnoremap q/ :FZFHistory/<CR>
-    nnoremap q: :FZFHistory:<CR>
+    nnoremap <M-u>s    :FZFHistory/<CR>
+    nnoremap <M-u>c    :FZFHistory:<CR>
     " replace origin command
     nnoremap <M-k>s :FzfColors<CR>
     nnoremap <M-k>t :FzfFiletypes<CR>
@@ -348,7 +341,7 @@ elseif InstalledFzf()
             endif
         endfunction
         command! -bang -nargs=* FZFJumps call s:FZFJumps()
-        nnoremap <M-h><M-h> :FZFJumps<cr>
+        nnoremap <M-u>j :FZFJumps<cr>
     catch
         " pass
     endtry
@@ -406,9 +399,9 @@ endif
 " changes
 " --------------------------
 if Installed('leaderf-changes')
-    nnoremap <silent><M-y> :Leaderf changes<Cr>
+    nnoremap <silent><M-u><M-u> :Leaderf changes<Cr>
 elseif Installed('coc.nvim')
-    nnoremap <silent><M-y> :CocFzfList changes<Cr>
+    nnoremap <silent><M-u><M-u> :CocFzfList changes<Cr>
 endif
 " --------------------
 " browser files all

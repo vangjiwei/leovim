@@ -78,10 +78,13 @@ endif
 let g:floaterm_keymap_new  = '<Nop>'
 let g:floaterm_keymap_prev = '<M-{>'
 let g:floaterm_keymap_next = '<M-}>'
-nnoremap <M-h>k :FloatermKill<Cr>
-nnoremap <M-h>n :FloatermNew<Space>
-nnoremap <M-h>f :Floaterm<Tab>
-nnoremap <M-h>1 :FloatermFirst<Cr>
-nnoremap <M-h>0 :FloatermLast<Cr>
+nnoremap <M-j>k :FloatermKill<Cr>
+nnoremap <M-j>n :FloatermNew<Space>
+nnoremap <M-j>o :Floaterm<Tab>
+nnoremap <M-j>u :FloatermUpdate<Tab>
+nnoremap <M-j>f :FloatermFirst<Cr>
+nnoremap <M-j>l :FloatermLast<Cr>
+nnoremap <M-j>n :FloatermNext<Cr>
+nnoremap <M-j>p :FloatermPrev<Cr>
 nnoremap <silent> <M-=> :FloatermToggle<CR>
 tnoremap <silent> <M-=> <C-\><C-n>:FloatermToggle<CR>

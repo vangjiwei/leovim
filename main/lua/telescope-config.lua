@@ -114,3 +114,9 @@ if installed('nvim-notify') then
   telescope.load_extension('notify')
   map('n', ',N', [[<cmd>Telescope notify<CR>]], opts)
 end
+-- project_files
+_G.project_files = function()
+  local search_opts = {}
+  local ok = pcall(require"telescope.builtin".git_files, search_opts)
+  if not ok then require"telescope.builtin".find_files(search_opts) end
+end

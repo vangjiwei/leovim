@@ -270,9 +270,7 @@ imap <M-W> <Esc><C-w><C-o>
 cmap <M-W> <ESC>
 imap <M-O> <C-o>O
 cmap <M-O> <ESC>
-nmap <M-O> :tabonly<Cr>
-xmap <M-O> <ESC>:tabonly<Cr>
-smap <M-O> <ESC>:tabonly<Cr>
+nmap <leader>O :tabonly<Cr>
 " ------------------------
 " second window
 " ------------------------
@@ -438,9 +436,9 @@ inoremap <M-k> <Up>
 nmap <M-b> b
 xmap <M-b> b
 imap <M-b> <C-o>b
-nmap <M-f> w
-xmap <M-f> w
-imap <M-f> <C-o>w
+nmap <M-f> e
+xmap <M-f> e
+imap <M-f> <C-o>e
 cmap <M-b> <C-left>
 cmap <M-f> <C-right>
 " ------------------------

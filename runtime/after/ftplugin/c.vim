@@ -1,31 +1,31 @@
 set commentstring=//\ %s
 " cpp-mode
 if Installed('cpp-mode')
-    nnoremap \y :CopyCode<cr>
-    nnoremap \p :PasteCode<cr>
-    nnoremap \g :GoToFunImpl<cr>
-    nnoremap \s :Switch<cr>
-    nnoremap \f :FormatFunParam<cr>
-    nnoremap \i :FormatIf<cr>
-    nnoremap \t :GenTryCatch<cr>
-    xnoremap \t :GenTryCatch<cr>
+    nnoremap <M-h>y :CopyCode<cr>
+    nnoremap <M-h>p :PasteCode<cr>
+    nnoremap <M-h>g :GoToFunImpl<cr>
+    nnoremap <M-h>s :Switch<cr>
+    nnoremap <M-h>f :FormatFunParam<cr>
+    nnoremap <M-h>i :FormatIf<cr>
+    nnoremap <M-h>t :GenTryCatch<cr>
+    xnoremap <M-h>t :GenTryCatch<cr>
 endif
 " ccls
 if Installed('vim-ccls')
-    nnoremap \l  :Ccls<Tab>
-    nnoremap \b  :CclsBase<Cr>
-    nnoremap \hb :CclsBaseHierarchy<Cr>
-    nnoremap \d  :CclsDerived<Cr>
-    nnoremap \hd :CclsDerivedHierarchy<Cr>
-    nnoremap \c  :CclsCallers<Cr>
-    nnoremap \hc :CclsCallHierarchy<Cr>
-    nnoremap \e  :CclsCallees<Cr>
-    nnoremap \he :CclsCalleeHierarchy<Cr>
-    xnoremap \v  :CclsVars<Cr>
-    nnoremap \mm :CclsMembers<Cr>
-    nnoremap \hm :CclsMemberHierarchy<Cr>
-    nnoremap \mf :CclsMemberFunctions<Cr>
-    nnoremap \hf :CclsMemberFunctionHierarchy<Cr>
-    nnoremap \mt :CclsMemberTypes<Cr>
-    nnoremap \ht :CclsMemberTypeHierarchy<Cr>
+    nnoremap <M-h>l :Ccls<Tab>
+    nnoremap <M-h>b :CclsBase<Cr>
+    nnoremap <M-h>B :CclsBaseHierarchy<Cr>
+    nnoremap <M-h>d :CclsDerived<Cr>
+    nnoremap <M-h>D :CclsDerivedHierarchy<Cr>
+    nnoremap <M-h>c :CclsCallers<Cr>
+    nnoremap <M-h>C :CclsCallHierarchy<Cr>
+    nnoremap <M-h>e :CclsCallees<Cr>
+    nnoremap <M-h>E :CclsCalleeHierarchy<Cr>
+    xnoremap <M-h>v :CclsVars<Cr>
+    nnoremap <M-h>mb :CclsMembers<Cr>
+    nnoremap <M-h>Mb :CclsMemberHierarchy<Cr>
+    nnoremap <M-h>mf :CclsMemberFunctions<Cr>
+    nnoremap <M-h>Mf :CclsMemberFunctionHierarchy<Cr>
+    nnoremap <M-h>mt :CclsMemberTypes<Cr>
+    nnoremap <M-h>Mt :CclsMemberTypeHierarchy<Cr>
 endif

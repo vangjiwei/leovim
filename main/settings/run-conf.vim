@@ -296,19 +296,3 @@ if has('nvim') || has('timers') && has('channel') && has('job') && has('patch-7.
         endif
     endif
 endif
-function! ConfirmStopJob()
-    OpenQuickfix
-    sleep 100m
-    echo 'Do you want to Stop the job(Yy for Yes/other keys for No)?'
-    try
-        let l:answer = tolower(nr2char(getchar()))
-    catch
-        let l:answer = 'n'
-    endtry
-    if l:answer == 'y'
-        AsyncStop!
-    endif
-    CloseQuickfix
-    redraw
-endfunction
-nnoremap <silent> <M-e> :call ConfirmStopJob()<Cr>

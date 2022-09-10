@@ -6,12 +6,7 @@ nmap <M-o> :set nopaste! nopaste?<CR>
 " --------------------
 " registers
 " --------------------
-if InstalledTelescope()
-    nnoremap <silent> <M-v> :Telescope registers<Cr>
-    inoremap <silent> <M-v> <C-o>:Telescope registers<Cr>
-    xnoremap <silent> <M-v> :<C-u>Telescope registers<Cr>
-    nnoremap <M-a> ggVG
-elseif Installed('leaderf-registers')
+if Installed('leaderf-registers')
     nnoremap <silent> <M-v> :LeaderfPaste<Cr>
     inoremap <silent> <M-v> <C-o>:LeaderfPasteI<Cr>
     xnoremap <silent> <M-v> :<C-u>LeaderfPasteV<Cr>
@@ -25,6 +20,11 @@ elseif Installed('fzf-registers')
     nnoremap <silent> <M-a> :FZFRegisterAppend<Cr>
     inoremap <silent> <M-a> <C-o>:FZFRegisterAppend<Cr>
     xnoremap <silent> <M-a> :<C-u>FZFRegisterAppendV<Cr>
+elseif InstalledTelescope()
+    nnoremap <silent> <M-v> :Telescope registers<Cr>
+    inoremap <silent> <M-v> <C-o>:Telescope registers<Cr>
+    xnoremap <silent> <M-v> :<C-u>Telescope registers<Cr>
+    nnoremap <M-a> ggVG
 endif
 " ------------------------
 " copy to register
@@ -55,40 +55,48 @@ if has('clipboard')
         if WINDOWS()
             nnoremap <silent><M-x> "+x:let  @+=trim(@+)<Cr>
             xnoremap <silent><M-x> "+x:let  @+=trim(@+)<Cr>
-            nnoremap <silent><M-X> "+X:let  @+=trim(@+)<Cr>
-            nnoremap <silent><M-X> "+X:let  @+=trim(@+)<Cr>
+            nnoremap <silent><M-y> "+X:let  @+=trim(@+)<Cr>
+            nnoremap <silent><M-y> "+X:let  @+=trim(@+)<Cr>
             nnoremap <silent><M-C> "+yy:let @+=trim(@+)<Cr>:echo "Yank the line"<Cr>
             nnoremap <silent>Y     "+y$:let @+=trim(@+)<Cr>:echo "Yank to line ending"<Cr>
+            nnoremap <M-X> "+dd
+            xnoremap <M-X> "+dd
         else
             nnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
             xnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
-            nnoremap <silent><M-X> "*X:let  @*=trim(@*)<Cr>
-            nnoremap <silent><M-X> "*X:let  @*=trim(@*)<Cr>
+            nnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
+            nnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
             nnoremap <silent><M-C> "*yy:let @*=trim(@*)<Cr>:echo "Yank the line"<Cr>
             nnoremap <silent>Y     "*y$:let @*=trim(@*)<Cr>:echo "Yank to line ending"<Cr>
+            nnoremap <M-X> "*dd
+            xnoremap <M-X> "*dd
         endif
     else
         nnoremap <silent><M-x> "*x
         xnoremap <silent><M-x> "*x
-        nnoremap <silent><M-X> "*X
-        xnoremap <silent><M-X> "*X
+        nnoremap <silent><M-y> "*X
+        xnoremap <silent><M-y> "*X
         nnoremap <silent><M-C> "*yy:echo "Yank the line"<Cr>
         nnoremap <silent>Y     "*y$:echo "Yank to line ending"<Cr>
+        nnoremap <M-X> "*dd
+        xnoremap <M-X> "*dd
     endif
 else
     nnoremap <silent><M-x> x
     xnoremap <silent><M-x> x
-    nnoremap <silent><M-X> X
-    xnoremap <silent><M-X> X
+    nnoremap <silent><M-y> X
+    xnoremap <silent><M-y> X
     nnoremap <silent><M-C> yy:echo "Yank the line"<Cr>
     nnoremap <silent>Y     y$:echo "Yank to line ending"<Cr>
+    nnoremap <M-X> S
+    xnoremap <M-X> S
 endif
 inoremap <M-x> <Del>
-inoremap <M-X> <BS>
+inoremap <M-y> <BS>
 " ----------------------
 " switch 2 words
 " ----------------------
-xnoremap <M-V> <C-c>`.``gvp``P
+xnoremap <M-V> <Esc>`.``gvp``P
 " ----------------------
 " coc yank
 " ----------------------

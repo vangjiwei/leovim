@@ -3,7 +3,6 @@
 " --------------------------
 if g:has_terminal
     imap <M-e> # %%
-    imap <M-y> # %% STEP
 endif
 if Installed('sniprun')
     luafile $LUA_PATH/sniprun-config.lua
@@ -103,18 +102,18 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> ,b <cmd>lua require("dap").toggle_breakpoint()<CR>
     nnoremap <silent> ,B <cmd>lua require("dap").toggle_breakpoint({"all"})<CR>
     nnoremap <silent> ,l <cmd>lua require("dap").list_breakpoints("")<Cr>
-    nnoremap <silent> <M-u>s <cmd>lua require("dap").set_exception_breakpoints("")<left><left>
-    nnoremap <silent> <M-u>l <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints log: '))<CR>
-    nnoremap <silent> <M-u>b <cmd>lua require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+    nnoremap <silent> <M-d>s <cmd>lua require("dap").set_exception_breakpoints("")<left><left>
+    nnoremap <silent> <M-d>l <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints log: '))<CR>
+    nnoremap <silent> <M-d>b <cmd>lua require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
     " debug
-    nnoremap <silent> <M-u>q <cmd>lua require("dap").disconnect({ terminateDebuggee = true });require"dap".close()<CR>
-    nnoremap <silent> <M-u>u <cmd>lua require("dap").up()<Cr>
-    nnoremap <silent> <M-u>d <cmd>lua require("dap").down()<Cr>
-    nnoremap <silent> <M-u>p <cmd>lua require("dap").pause()<Cr>
-    nnoremap <silent> <M-u>g <cmd>lua require("dap").launch(vim.fn.input('Get config: '))<Cr>
+    nnoremap <silent> <M-d>q <cmd>lua require("dap").disconnect({ terminateDebuggee = true });require"dap".close()<CR>
+    nnoremap <silent> <M-d>u <cmd>lua require("dap").up()<Cr>
+    nnoremap <silent> <M-d>d <cmd>lua require("dap").down()<Cr>
+    nnoremap <silent> <M-d>p <cmd>lua require("dap").pause()<Cr>
+    nnoremap <silent> <M-d>g <cmd>lua require("dap").launch(vim.fn.input('Get config: '))<Cr>
     " repl
-    nnoremap <silent> <M-u>o <cmd>lua require("dap").repl.open({}, 'vsplit')<CR>
-    nnoremap <silent> <M-u>c <cmd>lua require("dap").repl.close()<CR>
+    nnoremap <silent> <M-d>o <cmd>lua require("dap").repl.open({}, 'vsplit')<CR>
+    nnoremap <silent> <M-d>c <cmd>lua require("dap").repl.close()<CR>
     " autocomplete
     au FileType dap-repl lua require('dap.ext.autocompl').attach()
     " --------------------------------------
@@ -148,14 +147,6 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
             execute windowNr . 'wincmd w'
         endif
     endfunction
-    " ---------------------------------------
-    " nvim-dap-python
-    " ---------------------------------------
-    if Installed('nvim-dap-python')
-        nnoremap <silent> ,dm <cmd>lua require('dap-python').test_method()<CR>
-        nnoremap <silent> ,dc <cmd>lua require('dap-python').test_class()<CR>
-        vnoremap <silent> ,dv <ESC><cmd>lua require('dap-python').debug_selection()<CR>
-    endif
 elseif Installed('vimspector')
     let g:debug_tool = "vimspector"
     let g:vimspector_enable_mappings = 'HUMAN'
@@ -194,11 +185,11 @@ elseif Installed('vimspector')
     nmap <silent> ,B :call vimspector#ClearBreakpoints()<Cr>
     nmap <silent> ,l :call vimspector#ListBreakpoints()<Cr>
     " debug
-    nmap <silent> <M-u>u :call vimspector#UpFrame()<Cr>
-    nmap <silent> <M-u>d :call vimspector#DownFrame()<Cr>
-    nmap <silent> <M-u>b <Plug>VimspectorBalloonEval
-    nmap <silent> <M-u>f <Plug>VimspectorAddFunctionBreakpoint
-    nmap <silent> <M-u>c <Plug>VimspectorToggleConditionalBreakpoint
+    nmap <silent> <M-d>u :call vimspector#UpFrame()<Cr>
+    nmap <silent> <M-d>d :call vimspector#DownFrame()<Cr>
+    nmap <silent> <M-d>b <Plug>VimspectorBalloonEval
+    nmap <silent> <M-d>f <Plug>VimspectorAddFunctionBreakpoint
+    nmap <silent> <M-d>c <Plug>VimspectorToggleConditionalBreakpoint
     nmap <silent> <F7>   <Plug>VimspectorToggleConditionalBreakpoint
     " other commands
     nnoremap ,di :VimspectorInstall <Tab>
@@ -259,8 +250,8 @@ elseif get(g:, 'debug_tool', '') == 'termdebug'
     nnoremap ,a :Arguments<Space>
     nnoremap ,e :Evaluate<Space>
     nnoremap ,R :Run<Space>
-    nnoremap <M-u>p :Program<Cr>
-    nnoremap <M-u>o :Source<Cr>
-    nnoremap <M-u>g :Gdb<Cr>
-    nnoremap <M-u>a :Asm<Cr>
+    nnoremap <M-d>p :Program<Cr>
+    nnoremap <M-d>o :Source<Cr>
+    nnoremap <M-d>g :Gdb<Cr>
+    nnoremap <M-d>a :Asm<Cr>
 endif

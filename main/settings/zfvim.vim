@@ -9,9 +9,26 @@ if Installed('ZFVimIM')
         autocmd!
         autocmd FileType * if ZFVimIME_started() | setlocal omnifunc= | endif
     augroup END
-    " map
-    imap <expr><M-z> ZFVimIME_keymap_toggle_i()
-    nmap <M-z>      :call ZFVimIME_keymap_toggle_n() \| echo g:ZFVimIME_IMEName()<Cr>
-    imap <M-m> <C-o>:call ZFVimIME_keymap_next_n() \| echo g:ZFVimIME_IMEName()<Cr>
-    nmap <M-m><M-m> :call ZFVimIME_keymap_next_n() \| echo g:ZFVimIME_IMEName()<Cr>
+    function! ZFVimIMELoop()
+        if ZFVimIME_IMEName() == ''
+            call ZFVimIME_keymap_toggle_n()
+        elseif Installed('ZFVimIM_wubi_base')
+            if ZFVimIME_IMEName() == 'wubi'
+                call ZFVimIME_keymap_next_n()
+            else
+                call ZFVimIME_keymap_next_n()
+                call ZFVimIME_keymap_toggle_n()
+            endif
+        else
+            call ZFVimIME_keymap_toggle_n()
+        endif
+        let l:ime_name = ZFVimIME_IMEName()
+        if l:ime_name == ''
+            echo "nochs input"
+        else
+            echo l:ime_name . " input"
+        end
+    endfunction
+    imap <M-z> <C-o>:call ZFVimIMELoop()<Cr>
+    nmap <M-z>      :call ZFVimIMELoop()<Cr>
 endif
