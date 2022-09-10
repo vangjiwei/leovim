@@ -47,7 +47,7 @@ nnoremap cO :call RClearAll()<Cr>
 
 nnoremap <leader>C :call SendAboveLinesToR()<CR>
 nnoremap <leader>E VG:call SendLineToR('down')<CR>
-nnoremap <leader>X :call SendLineToRAndInsertOutput()<CR>0
+nnoremap <leader>O :call SendLineToRAndInsertOutput()<CR>0
 nnoremap <leader>V :call RAction('viewobj')<CR>
 " input
 inoremap >> <space>%>%<space>

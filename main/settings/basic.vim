@@ -269,8 +269,9 @@ xmap <M-W> <ESC><C-w><C-o>
 imap <M-W> <Esc><C-w><C-o>
 cmap <M-W> <ESC>
 imap <M-O> <C-o>O
-cmap <M-O> <ESC>
-nmap <leader>O :tabonly<Cr>
+nmap <M-A> :tabonly<Cr>
+xmap <M-A> <ESC>:tabonly<Cr>
+imap <M-A> <ESC>:tabonly<Cr>
 " ------------------------
 " second window
 " ------------------------
@@ -454,10 +455,6 @@ nnoremap <Tab>K <C-w>K
 nnoremap <Tab>L <C-w>L
 nnoremap <Tab>v :vsplit<Space>
 nnoremap <Tab>s :split<Space>
-" ------------------------
-" select buffer
-" ------------------------
-nnoremap <M-A> ggVG
 " ------------------------
 " basic toggle and show
 " ------------------------
