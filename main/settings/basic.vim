@@ -78,7 +78,6 @@ nmap <C-j> %
 nmap <C-k> g%
 xmap <C-j> %
 xmap <C-k> g%
-nnoremap <C-l> <Tab>
 nnoremap S <Nop>
 " ------------------------------
 " node_version
@@ -269,9 +268,7 @@ xmap <M-W> <ESC><C-w><C-o>
 imap <M-W> <Esc><C-w><C-o>
 cmap <M-W> <ESC>
 imap <M-O> <C-o>O
-nmap <M-A> :tabonly<Cr>
-xmap <M-A> <ESC>:tabonly<Cr>
-imap <M-A> <ESC>:tabonly<Cr>
+nmap <M-A> ggVG
 " ------------------------
 " second window
 " ------------------------
@@ -442,6 +439,7 @@ cmap <M-f> <C-right>
 " tab is used as a leaderkey
 " ------------------------
 nnoremap <Tab><Tab> <Tab>
+nnoremap <C-l> <Tab>
 " ------------------------
 " panel jump
 " ------------------------
@@ -477,6 +475,7 @@ nnoremap ,m        :messages<Cr>
 " ------------------------
 set tabpagemax=10
 set showtabline=2
+nnoremap <leader>O :tabonly<Cr>
 nnoremap <silent> <Tab>1 :tabm 0<Cr>
 nnoremap <silent> <Tab>0 :tabm<Cr>
 nnoremap <silent> <M-1>  :tabn1<Cr>
