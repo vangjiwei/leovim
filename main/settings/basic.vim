@@ -280,9 +280,7 @@ function! Tools_PreviousCursor(mode)
         return
     endif
     noautocmd silent! wincmd p
-    if a:mode == 'zz'
-        exec "normal! zz"
-    elseif a:mode == 'quit'
+    if a:mode == 'quit'
         exec "normal! \<C-w>q"
     elseif a:mode == 'ctrlo'
         exec "normal! \<C-o>"
@@ -311,13 +309,11 @@ function! Tools_PreviousCursor(mode)
     endif
     noautocmd silent! wincmd p
 endfunction
-nnoremap <silent><M-Z> :call Tools_PreviousCursor('zz')<Cr>
 nnoremap <silent><M-Q> :call Tools_PreviousCursor('quit')<Cr>
 nnoremap <silent><M-U> :call Tools_PreviousCursor('ctrlu')<Cr>
 nnoremap <silent><M-D> :call Tools_PreviousCursor('ctrld')<Cr>
 nnoremap <silent><M-E> :call Tools_PreviousCursor('ctrle')<Cr>
 nnoremap <silent><M-Y> :call Tools_PreviousCursor('ctrly')<Cr>
-inoremap <silent><M-Z> <C-o>:call Tools_PreviousCursor('zz')<Cr>
 inoremap <silent><M-Q> <C-o>:call Tools_PreviousCursor('quit')<Cr>
 inoremap <silent><M-U> <C-o>:call Tools_PreviousCursor('ctrlu')<Cr>
 inoremap <silent><M-D> <C-o>:call Tools_PreviousCursor('ctrld')<Cr>
@@ -870,11 +866,12 @@ elseif has('patch-7.4.330')
     nnoremap <M-j> :WhichKey '<lt>M-j>'<Cr>
     nnoremap <M-k> :WhichKey '<lt>M-k>'<Cr>
     nnoremap <M-l> :WhichKey '<lt>M-l>'<Cr>
+    nnoremap <M-u> :WhichKey '<lt>M-u>'<Cr>
     nnoremap <M-c> :WhichKey       '<lt>M-c>'<Cr>
     xnoremap <M-c> :WhichKeyVisual '<lt>M-c>'<Cr>
     if index(['nvim-dap', 'termdebug', 'vimspector'], get(g:, 'debug_tool', '')) >= 0
         nnoremap <M-m> :WhichKey '<lt>M-m>'<Cr>
-        nnoremap <M-u> :WhichKey '<lt>M-u>'<Cr>
+        nnoremap <M-d> :WhichKey '<lt>M-d>'<Cr>
     endif
 else
     let g:which_key_type = ''

@@ -51,42 +51,28 @@ if has('clipboard')
         au ModeChanged *:s set clipboard=
         au ModeChanged s:* set clipboard=unnamedplus
     endif
-    if has('nvim') && !InstalledTelescope()
-        if WINDOWS()
-            nnoremap <silent><M-x> "+x:let  @+=trim(@+)<Cr>
-            xnoremap <silent><M-x> "+x:let  @+=trim(@+)<Cr>
-            nnoremap <silent><M-y> "+X:let  @+=trim(@+)<Cr>
-            nnoremap <silent><M-y> "+X:let  @+=trim(@+)<Cr>
-            nnoremap <silent><M-C> "+yy:let @+=trim(@+)<Cr>:echo "Yank the line"<Cr>
-            nnoremap <silent>Y     "+y$:let @+=trim(@+)<Cr>:echo "Yank to line ending"<Cr>
-            nnoremap <M-X> "+dd
-            xnoremap <M-X> "+dd
-        else
-            nnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
-            xnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
-            nnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
-            nnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
-            nnoremap <silent><M-C> "*yy:let @*=trim(@*)<Cr>:echo "Yank the line"<Cr>
-            nnoremap <silent>Y     "*y$:let @*=trim(@*)<Cr>:echo "Yank to line ending"<Cr>
-            nnoremap <M-X> "*dd
-            xnoremap <M-X> "*dd
-        endif
-    else
-        nnoremap <silent><M-x> "*x
-        xnoremap <silent><M-x> "*x
-        nnoremap <silent><M-y> "*X
-        xnoremap <silent><M-y> "*X
-        nnoremap <silent><M-C> "*yy:echo "Yank the line"<Cr>
-        nnoremap <silent>Y     "*y$:echo "Yank to line ending"<Cr>
+    if has('nvim') && !InstalledTelescope() && LINUX() || !has('nvim')
+        nnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
+        xnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
+        nnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
+        xnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
+        nnoremap <silent>Y     "*y$:let @*=trim(@*)<Cr>:echo "Yank to line ending"<Cr>
         nnoremap <M-X> "*dd
         xnoremap <M-X> "*dd
+    else
+        nnoremap <silent><M-x> "+x:let  @+=trim(@+)<Cr>
+        xnoremap <silent><M-x> "+x:let  @+=trim(@+)<Cr>
+        nnoremap <silent><M-y> "+X:let  @+=trim(@+)<Cr>
+        xnoremap <silent><M-y> "+X:let  @+=trim(@+)<Cr>
+        nnoremap <silent>Y     "+y$:let @+=trim(@+)<Cr>:echo "Yank to line ending"<Cr>
+        nnoremap <M-X> "+dd
+        xnoremap <M-X> "+dd
     endif
 else
     nnoremap <silent><M-x> x
     xnoremap <silent><M-x> x
     nnoremap <silent><M-y> X
     xnoremap <silent><M-y> X
-    nnoremap <silent><M-C> yy:echo "Yank the line"<Cr>
     nnoremap <silent>Y     y$:echo "Yank to line ending"<Cr>
     nnoremap <M-X> S
     xnoremap <M-X> S

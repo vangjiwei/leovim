@@ -9,10 +9,11 @@ if Installed('ZFVimIM')
         autocmd!
         autocmd FileType * if ZFVimIME_started() | setlocal omnifunc= | endif
     augroup END
-    function! ZFVimIMELoop()
+    function! ZFVimIMELoop(type)
+        let type = a:type
         if ZFVimIME_IMEName() == ''
             call ZFVimIME_keymap_toggle_n()
-        elseif Installed('ZFVimIM_wubi_base')
+        elseif Installed('ZFVimIM_wubi_base') && a:type > 0
             if ZFVimIME_IMEName() == 'wubi'
                 call ZFVimIME_keymap_next_n()
             else
@@ -24,11 +25,13 @@ if Installed('ZFVimIM')
         endif
         let l:ime_name = ZFVimIME_IMEName()
         if l:ime_name == ''
-            echo "nochs input"
+            echo "english input"
         else
             echo l:ime_name . " input"
         end
     endfunction
-    imap <M-z> <C-o>:call ZFVimIMELoop()<Cr>
-    nmap <M-z>      :call ZFVimIMELoop()<Cr>
+    imap <M-Z> <C-o>:call ZFVimIMELoop(1)<Cr>
+    nmap <M-Z>      :call ZFVimIMELoop(1)<Cr>
+    imap <M-z> <C-o>:call ZFVimIMELoop(0)<Cr>
+    nmap <M-z>      :call ZFVimIMELoop(0)<Cr>
 endif
