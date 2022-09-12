@@ -15,25 +15,25 @@ end
 --------------------------------
 local lspsaga = require('lspsaga')
 lspsaga.init_lsp_saga({
-  diagnostic_header       = { '😡', '😥', '😤', '😐' },
-  code_action_icon        = '💡',
-  definition_preview_icon = '',
-  finder_icons = {
-    def = '  ',
-    ref = '諭 ',
-    link = '  ',
-  },
-  move_in_saga       = { prev = '<C-k>', next = '<C-j>' },
+  diagnostic_header = { '😡', '😥', '😤', '😐' },
+  code_action_icon  = '💡',
+  finder_icons      = { def = '  ', ref = '諭 ', link = '  '},
   max_preview_lines  = 32,
   finder_action_keys = {
-    open        = "<Cr>",
-    vsplit      = "<C-v>",
-    split       = "<C-x>",
-    tabe        = "<C-t>",
-    quit        = {"<M-q>", "<C-c>", "<ESC>"},
-    scroll_down = "<C-j>",
-    scroll_up   = "<C-k>",
+    open   = "<Cr>",
+    vsplit = "<C-v>",
+    split  = "<C-x>",
+    tabe   = "<C-t>",
+    quit   = {"<M-q>", "<C-c>", "<ESC>"},
   },
+  definition_action_keys = {
+    edit   = '<Cr>',
+    vsplit = '<C-v>',
+    split  = '<C-x>',
+    tabe   = '<C-t>',
+    quit   = {"<M-q>", "<C-c>", "<ESC>"},
+  },
+  move_in_saga = { prev = '<C-k>', next = '<C-j>'},
   code_action_keys = {
     quit = {"<M-q>", "<C-c>", "<ESC>"},
     exec = "<Cr>",
@@ -149,7 +149,9 @@ local on_attach = function()
   -- lspsaga maps
   map('n', 'K', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
   map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]],         opts)
-  map('n', '<M-/>', [[<cmd>Lspsaga preview_definition<CR>]], opts)
+  map('n', '<C-h>', [[<cmd>Lspsaga preview_definition<CR>]], opts)
+  map('n', '<BS>',  [[<cmd>Lspsaga preview_definition<CR>]], opts)
+  map('n', '<M-/>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
   map('n', "<leader>a<cr>", [[<cmd>Lspsaga  code_action<Cr>]],       opts)
   map('x', "<leader>a<cr>", [[:<C-u>Lspsaga range_code_action<CR>]], opts)
   map('n', '<leader>ar',    [[<cmd>Lspsaga  rename<Cr>]],             opts)
