@@ -1176,4 +1176,4 @@ endif
 " set filetype unix and trim \r
 " ------------------------
 nnoremap <leader>ef :set ff=unix<Cr>:%s/\r//g<Cr>
-source $SETTINGS_PATH/zfvim.vim
+source $SETTINGS_PATH/zfvime.vim

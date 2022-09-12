@@ -14,10 +14,12 @@ if Installed('ZFVimIM')
         if ZFVimIME_IMEName() == ''
             call ZFVimIME_keymap_toggle_n()
         elseif Installed('ZFVimIM_wubi_base') && a:type > 0
-            if ZFVimIME_IMEName() == 'wubi'
+            if ZFVimIME_IMEName() == 'pinyin'
+                call ZFVimIME_keymap_next_n()
+                call ZFVimIME_keymap_toggle_n()
+            elseif ZFVimIME_IMEName() == 'wubi'
                 call ZFVimIME_keymap_next_n()
             else
-                call ZFVimIME_keymap_next_n()
                 call ZFVimIME_keymap_toggle_n()
             endif
         else
