@@ -6,7 +6,7 @@
         "messageLevel": "error",
         "listOfWorkspaceEdit": "location",
         "hoverTarget": "float",
-        "enableFloatHighlight": true,
+        "enableFloatHighlight": true
     },
     "coc.source.file.triggerCharacters": ["/"],
     "coc.source.buffer.disableSyntaxes": [],
