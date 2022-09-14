@@ -153,7 +153,7 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     nnoremap <leader>m :LeaderfMru<Cr>
     nnoremap <leader>M :LeaderfMruCwd<Cr>
     nnoremap <M-u>s :Leaderf searchHistory<Cr>
-    nnoremap <M-u>c :Leaderf cmdHistory<Cr>
+    nnoremap <M-u>h :Leaderf cmdHistory<Cr>
     nnoremap ,; :Leaderf --next<Cr>
     nnoremap ,, :Leaderf --previous<Cr>
     nnoremap ,. :Leaderf --recall<Cr>
@@ -163,11 +163,10 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     nnoremap <M-k>t :Leaderf filetype<Cr>
     nnoremap <M-k>c :Leaderf command<Cr>
     " help tags
-    nnoremap <M-k><M-k> :LeaderfHelp<Cr>
     " line
-    nnoremap <M-l><M-l> :Leaderf line --no-sort --regexMode<Cr>
-    nnoremap <M-l>a     :Leaderf line --all --no-sort<Cr>
-    nnoremap <M-l>n     :Leaderf line --no-sort<Cr>
+    nnoremap <M-l>l :Leaderf line --no-sort --regexMode<Cr>
+    nnoremap <M-l>a :Leaderf line --all     --no-sort<Cr>
+    nnoremap <M-l>n :Leaderf line --no-sort<Cr>
     " jumps
     nnoremap <M-u>j :Leaderf jumps<cr>
     " leader-filer
@@ -248,31 +247,27 @@ elseif InstalledTelescope()
     nnoremap <leader>m <cmd>Telescope oldfiles<Cr>
     nnoremap <M-u>j <cmd>Telescope jumplist<cr>
     nnoremap <M-u>s <cmd>Telescope search_history<Cr>
-    nnoremap <M-u>c <cmd>Telescope command_history<Cr>
+    nnoremap <M-u>h <cmd>Telescope command_history<Cr>
     " replace origin command
     nnoremap <M-k>s <cmd>Telescope colorscheme<Cr>
     nnoremap <M-k>t <cmd>Telescope filetypes<Cr>
     nnoremap <M-k>c <cmd>Telescope commands<cr>
     nnoremap Z<S-Cr> :CloseQuickfix<Cr>:Telescope quickfix<CR>
     nnoremap Z<Cr>   :CloseQuickfix<Cr>:Telescope loclist<CR>
-    nnoremap <M-k><M-k> <cmd>Telescope help_tags<CR>
+    nnoremap <leader>h <cmd>Telescope help_tags<CR>
 elseif InstalledFzf()
     let g:fuzzy_finder = get(g:, 'fuzzy_finder', 'fzf')
     nnoremap <leader>b :FzfBuffers<CR>
     nnoremap <leader>m :FZFMru<CR>
-    nnoremap <M-u>s    :FZFHistory/<CR>
-    nnoremap <M-u>c    :FZFHistory:<CR>
+    nnoremap <M-u>s :FZFHistory/<CR>
+    nnoremap <M-u>h :FZFHistory:<CR>
     " replace origin command
     nnoremap <M-k>s :FzfColors<CR>
     nnoremap <M-k>t :FzfFiletypes<CR>
     nnoremap <M-k>c :FzfCommands<CR>
     nnoremap Z<S-Cr> :CloseQuickfix<Cr>:FZFQuickFix<CR>
     nnoremap Z<Cr>   :CloseQuickfix<Cr>:FZFLocList<CR>
-    nnoremap <M-l><M-l> :FZFBLines<CR>
-    " helptags
-    if executable('perl')
-        nnoremap <M-k><M-k> :FzfHelptags<CR>
-    endif
+    nnoremap <M-l>l  :FZFBLines<CR>
     " FZF jumps
     try
         " if fail l:jl, jumps cannot be used
@@ -399,9 +394,9 @@ endif
 " changes
 " --------------------------
 if Installed('leaderf-changes')
-    nnoremap <silent><M-u><M-u> :Leaderf changes<Cr>
+    nnoremap <silent><M-u>c :Leaderf changes<Cr>
 elseif Installed('coc.nvim')
-    nnoremap <silent><M-u><M-u> :CocFzfList changes<Cr>
+    nnoremap <silent><M-u>c :CocFzfList changes<Cr>
 endif
 " --------------------
 " browser files all

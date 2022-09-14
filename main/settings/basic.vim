@@ -254,15 +254,9 @@ else
         tnoremap <C-w><C-w> <C-\><C-n><C-w><C-w>
     endif
 endif
-nmap <M-j><M-h> <C-w><C-h>
-nmap <M-j><M-l> <C-w><C-l>
-nmap <M-j><M-j> <C-w><C-j>
-nmap <M-j><M-k> <C-w><C-k>
-nmap <M-j><M-w> <C-w><C-w>
-nmap <M-j><M-o> <C-w><C-o>
-nmap <M-j><M-s> <C-w>f
-nmap <M-j><M-f> <C-w>f<C-w>T
-nmap <M-j><M-v> <C-w>f<C-w>L
+nmap <M-j>s <C-w>f
+nmap <M-j>t <C-w>f<C-w>T
+nmap <M-j>v <C-w>f<C-w>L
 nmap <M-W> <C-w><C-o>
 xmap <M-W> <ESC><C-w><C-o>
 imap <M-W> <Esc><C-w><C-o>
