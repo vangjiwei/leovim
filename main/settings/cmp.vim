@@ -22,5 +22,4 @@ endif
 if Require('java') && executable('java')
     let g:lsp_installer_servers += ['jdtls']
 endif
-nnoremap <M-l>l :Lsp<Tab>
 luafile $LUA_PATH/cmp-config.lua

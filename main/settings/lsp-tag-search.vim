@@ -272,20 +272,20 @@ if g:complete_engine == 'coc'
     nnoremap <silent>gl    :call LspOrTagOrSearch("jumpDefinition", "split")<Cr>
     nnoremap <silent>g<Cr> :call LspOrTagOrSearch("jumpDefinition", "tabe")<Cr>
     " jumpImplementation
-    nnoremap <silent><M-:>              :call LspOrTagOrSearch("jumpImplementation", "vsplit")<Cr>
-    nnoremap <silent><leader><M-:>      :call LspOrTagOrSearch("jumpImplementation")<Cr>
-    nnoremap <silent>,<M-:>             :call LspOrTagOrSearch("jumpImplementation", "split")<Cr>
-    nnoremap <silent><localleader><M-:> :call LspOrTagOrSearch("jumpImplementation", "tabe")<Cr>
+    nnoremap <silent><M-:>       :call LspOrTagOrSearch("jumpImplementation", "vsplit")<Cr>
+    nnoremap <silent><leader>lie :call LspOrTagOrSearch("jumpImplementation")<Cr>
+    nnoremap <silent><leader>lis :call LspOrTagOrSearch("jumpImplementation", "split")<Cr>
+    nnoremap <silent><leader>lit :call LspOrTagOrSearch("jumpImplementation", "tabe")<Cr>
     " jumpDeclaration
-    nnoremap <silent><M-.>              :call LspOrTagOrSearch("jumpDeclaration", "vsplit")<Cr>
-    nnoremap <silent><leader><M-.>      :call LspOrTagOrSearch("jumpDeclaration")<Cr>
-    nnoremap <silent>,<M-.>             :call LspOrTagOrSearch("jumpDeclaration", "split")<Cr>
-    nnoremap <silent><localleader><M-.> :call LspOrTagOrSearch("jumpDeclaration", "tabe")<Cr>
+    nnoremap <silent><M-.>       :call LspOrTagOrSearch("jumpDeclaration", "vsplit")<Cr>
+    nnoremap <silent><leader>lde :call LspOrTagOrSearch("jumpDeclaration")<Cr>
+    nnoremap <silent><leader>lds :call LspOrTagOrSearch("jumpDeclaration", "split")<Cr>
+    nnoremap <silent><leader>ldt :call LspOrTagOrSearch("jumpDeclaration", "tabe")<Cr>
     " jumpTypeDefinition
-    nnoremap <silent><M-,>              :call LspOrTagOrSearch("jumpTypeDefinition", "vsplit")<Cr>
-    nnoremap <silent><leader><M-,>      :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
-    nnoremap <silent>,<M-,>             :call LspOrTagOrSearch("jumpTypeDefinition", "split")<Cr>
-    nnoremap <silent><localleader><M-,> :call LspOrTagOrSearch("jumpTypeDefinition", "tabe")<Cr>
+    nnoremap <silent><M-,>       :call LspOrTagOrSearch("jumpTypeDefinition", "vsplit")<Cr>
+    nnoremap <silent><leader>lte :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
+    nnoremap <silent><leader>lts :call LspOrTagOrSearch("jumpTypeDefinition", "split")<Cr>
+    nnoremap <silent><leader>ltt :call LspOrTagOrSearch("jumpTypeDefinition", "tabe")<Cr>
 else
     nnoremap <silent><M-;> :call LspOrTagOrSearch("", "vsplit")<Cr>
     nnoremap <silent><C-]> :call LspOrTagOrSearch("")<Cr>
