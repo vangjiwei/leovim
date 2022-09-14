@@ -44,27 +44,27 @@ nmap <space>/  :action Find<cr>
 nmap <space>ff :action FindInPath<cr>
 
 " Navigation
-nnoremap <A-/> :action FileStructurePopup<cr>
-nnoremap <A-S-/> :action StructureViewPopupMenu<cr>
-nnoremap <A-.> :action FindUsages<cr>
-nnoremap <A-,> :action ShowUsages<cr>
-nnoremap <A-S-.> :action Forward<CR>
-nnoremap <A-S-,> :action Back<CR>
-nnoremap <A-;> :action ShowPopupMenu<Cr>
-nnoremap <A-S-;> :<C-u>action ShowBookmarks<cr>
-nnoremap <A-\> :action NavBarToolBar<cr>
+nnoremap <C-]>   :action GotoDefinition<cr>
+nnoremap <A-,>   :action GotoTypeDeclaration<cr>
+nnoremap <A-.>   :action GotoDeclaration<cr>
+nnoremap <A-S-;> :action GotoImplementation<cr>
+nnoremap f<cr> :action FileStructurePopup<cr>
+nnoremap t<cr> :action StructureViewPopupMenu<cr>
+nnoremap K     :action FindUsages<cr>
+nnoremap <A-;>   :action ShowPopupMenu<Cr>
+nnoremap <A-/>   :action ShowUsages<cr>
+nnoremap <A-S-/> :action GotoSymbol<cr>
+nnoremap <A-\>   :action NavBarToolBar<cr>
+nnoremap <A-S-\> :action ShowBookmarks<cr>
 nnoremap ga :action GotoAction<CR>
-nnoremap gy :action GotoTypeDeclaration<cr>
-nnoremap gh :action GotoDefinition<cr>
-nnoremap gl :action GotoDeclaration<cr>
 nnoremap gf :action GotoFile<cr>
 nnoremap gc :action GotoClass<cr>
-nnoremap gs :action GotoSymbol<cr>
-nnoremap gi :action GotoImplementation<cr>
 nnoremap gt :action GotoTest<cr>
-nnoremap gT :action JumpToLastChange<CR>
-nnoremap gm :action SuperMethod<cr>
+nnoremap gl :action JumpToLastChange<CR>
+nnoremap gs :action SuperMethod<cr>
 nnoremap gr :action RecentFiles<CR>
+nnoremap <A-S-,> :action Back<CR>
+nnoremap <A-S-.> :action Forward<CR>
 
 " Terminal
 nnoremap <A--> :action ActivateTerminalToolWindow<cr>
