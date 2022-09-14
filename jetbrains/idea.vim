@@ -40,7 +40,7 @@ nnoremap <C-l> <C-i>
 xnoremap <C-l> <C-i>
 
 " Search
-nmap <space>/ :action Find<cr>
+nmap <space>/  :action Find<cr>
 nmap <space>ff :action FindInPath<cr>
 
 " Navigation
@@ -134,18 +134,15 @@ nmap [o <Plug>PreviousOccurrence
 xmap [o <Plug>PreviousOccurrence
 " easymotion
 set easymotion
-source ~/.leovim.conf/settings/easymotion.vim
+source ~/.leovim.conf/main/settings/easymotion.vim
 " which-key
 set which-key
 set notimeout
 set timeoutlen=500
 " set input switch
 set keep-english-in-normal-and-restore-in-insert
-" matchif
+" other extensions
 set match.it
-nnoremap <Cr> %
-xnoremap <Cr> %
-
 set argtextobj.vim
 set vim-textobj-entire
 set ReplaceWithRegister
