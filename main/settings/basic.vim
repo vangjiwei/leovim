@@ -221,6 +221,7 @@ set timeoutlen=300
 set updatetime=200
 if g:gui_running == 0 && executable('tmux') && !exists('g:vscode')
     let g:tmux_navigator_no_mappings = 1
+    PackAdd 'vim-tmux-navigator'
     nnoremap <silent><M-H> :TmuxNavigateLeft<cr>
     nnoremap <silent><M-L> :TmuxNavigateRight<cr>
     nnoremap <silent><M-J> :TmuxNavigateDown<cr>
@@ -236,7 +237,6 @@ if g:gui_running == 0 && executable('tmux') && !exists('g:vscode')
         tnoremap <silent><M-K> <C-\><C-n>:TmuxNavigateUp<cr>
         tnoremap <silent><C-w><C-w> <C-\><C-n>:TmuxNavigatePrevious<cr>
     endif
-    PackAdd 'vim-tmux-navigator'
 else
     nnoremap <M-H> <C-w><C-h>
     nnoremap <M-L> <C-w><C-l>
