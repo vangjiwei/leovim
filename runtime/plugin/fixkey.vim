@@ -734,11 +734,7 @@ endif
 
 " special keys alt map
 function! s:metacode(key)
-    if !has('nvim') && g:gui_running == 0
-        exec "set <M-".a:key.">=\e".a:key
-    endif
-    exec "imap <M-".a:key."> <Nop>"
-    exec "smap <M-".a:key."> <Nop>"
+    exec "set <M-".a:key.">=\e".a:key
 endfunction
 for c in [',', '.', ';', ':', '/', '?', '-', '_', '{', '}', '=', '+', "'"]
     call s:metacode(c)
