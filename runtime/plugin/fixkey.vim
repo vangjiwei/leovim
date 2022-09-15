@@ -710,7 +710,7 @@ endfunction
 if !exists("g:Fixkey_setupDelay")
     " User testing suggests that any value greater than zero is sufficient, and
     " that 10 ms would provide some margin.
-    let g:Fixkey_setupDelay = 10
+    let g:Fixkey_setupDelay = 0
 endif
 
 if g:Fixkey_setupDelay == 0

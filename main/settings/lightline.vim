@@ -57,6 +57,7 @@ let g:lightline = {
               \ 'gitbranch': 'Gitbranch',
               \ 'rootpath':  'Rootpath',
               \ 'filename':  'RootFilename',
+              \ 'function':  'GetFunction',
             \ },
             \ 'active': {}
           \ }
@@ -74,7 +75,6 @@ function! GetFunction()
         return ""
     endif
 endfunction
-let g:lightline.component_function.function = 'GetFunction'
 let g:lightline.active.left = [['gitbranch', 'readonly', 'paste' ], ['rootpath'], ['filename', 'modified', 'function']]
 "------------------------
 " right part
