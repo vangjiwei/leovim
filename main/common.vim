@@ -233,11 +233,15 @@ nnoremap gy :call YankFromBeginning()<Cr>:echo "Yank from line beginning"<Cr>
 " ctrl c / ctrl v
 " ------------------------
 if has('clipboard')
-    xmap <C-c> "*y
-    imap <C-v> <C-r>*
+    nnoremap Y  "*y$:echo "Yank to line ending"<Cr>
+    nnoremap yy "*yy:echo "Yank the line"<Cr>
+    xnoremap y  "*y:echo  "Yank selected"<Cr>
+    xnoremap <C-c> "*y:echo "Yank selected"<Cr>
+    inoremap <C-v> <C-r>*
 else
-    xmap <C-c> y
-    imap <C-v> <C-o>gP
+    nnoremap Y y$:echo "Yank to line ending"<Cr>
+    xnoremap <C-c> y
+    inoremap <C-v> <C-o>gP
 endif
 " some enhanced shortcuts
 nmap gI 2g;a

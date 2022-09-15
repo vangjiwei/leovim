@@ -8,10 +8,10 @@ nmap <M-o> :set nopaste! nopaste?<CR>
 " --------------------
 if Installed('leaderf-registers')
     nnoremap <silent> <M-v> :LeaderfPaste<Cr>
-    inoremap <silent> <M-v> <C-o>:LeaderfPasteI<Cr>
+    inoremap <silent> <M-v> <ESC>:LeaderfPasteI<Cr>
     xnoremap <silent> <M-v> :<C-u>LeaderfPasteV<Cr>
     nnoremap <silent> <M-a> :LeaderfAppend<Cr>
-    inoremap <silent> <M-a> <C-o>:LeaderfAppendI<Cr>
+    inoremap <silent> <M-a> <ESC>:LeaderfAppendI<Cr>
     xnoremap <silent> <M-a> :<C-u>LeaderfAppendV<Cr>
 elseif Installed('fzf-registers')
     nnoremap <silent> <M-v> :FZFRegisterPaste<Cr>
