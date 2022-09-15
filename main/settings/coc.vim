@@ -16,9 +16,6 @@ autocmd FileType c,cpp let b:coc_root_patterns = ['.htaccess', '.cproject'] + g:
 " ----------------------------
 " basic config
 " ----------------------------
-if Installed('leaderf')
-    nnoremap <silent>q; :CocFzfList<Cr>
-endif
 augroup cocgroup
     autocmd!
     " Setup formatexpr specified filetype(s).

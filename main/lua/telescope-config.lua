@@ -82,7 +82,6 @@ if executable('fd') then
 end
 -- keymaps
 map('n', ',<Tab>', [[<cmd>Telescope find_files<CR>]], opts)
-map('n', '<leader>T', [[:Telescope ]], { noremap = true, silent = false })
 map('n', '<M-l><M-l>', [[<cmd>Telescope current_buffer_fuzzy_find<Cr>]], opts)
 -- extensions
 if installed('telescope-changes.nvim') then

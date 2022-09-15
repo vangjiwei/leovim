@@ -4,8 +4,6 @@
 if Installed('leaderf')
     if Installed('coc.nvim')
         let g:fuzzy_finder = 'leaderf-coc-fzf'
-    elseif InstalledTelescope()
-        let g:fuzzy_finder = 'leaderf-telescope'
     else
         let g:fuzzy_finder = 'leaderf-fzf'
     endif
@@ -20,26 +18,35 @@ elseif InstalledTelescope()
     nnoremap <silent><C-p> :Telescope<Cr>
 elseif InstalledFzf()
     let g:fuzzy_finder = 'fzf'
-    nnoremap <silent><C-p> :FZFFiles .<Cr>
+    nnoremap <silent><C-p> :FZF<Tab>
 else
     let g:fuzzy_finder = ''
 endif
 if InstalledTelescope() && InstalledLsp()
     luafile $LUA_PATH/telescope-config.lua
     nnoremap <leader>fg :lua project_files()<Cr>
+    nnoremap <leader>T  :Telescope<Space>
     nnoremap m<tab> <cmd>Telescope keymaps<Cr>
     nnoremap <M-u>q <cmd>Telescope quickfixhistory<Cr>
     nnoremap <M-u>r <cmd>Telescope resume<Cr>
     if Installed('leaderf')
-        nnoremap <silent>q; :Telescope<Cr>
+        nnoremap <M-C> :Telescope<Cr>
+    else
+        nnoremap <M-C> yy:echo "Yank the line" <Cr>
+        xnoremap <M-C> yy:echo "Yank the line" <Cr>
     endif
 elseif InstalledFzf()
     " --------------------------
     "  fzf basic settings
     " --------------------------
-    nnoremap q, :FZF<Tab>
-    if !Installed('coc.nvim')
-        nnoremap q; :Fzf<Tab>
+    if Installed('leaderf')
+        if Installed('coc.nvim')
+            nnoremap <M-C> :CocFzfList<Cr>
+        else
+            nnoremap <M-C> :FZF<Tab>
+        endif
+    else
+        nnoremap <M-C> :Fzf<Tab>
     endif
     if WINDOWS()
         let $FZF_DEFAULT_OPTS = '--layout=reverse-list'
