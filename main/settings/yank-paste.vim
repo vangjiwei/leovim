@@ -84,12 +84,6 @@ inoremap <M-y> <BS>
 " ----------------------
 xnoremap <M-V> <Esc>`.``gvp``P
 " ----------------------
-" coc yank
-" ----------------------
-if Installed('coc.nvim')
-    nnoremap <silent> <M-V> :CocFzfList yank<Cr>
-endif
-" ----------------------
 " osc52 yankpost
 " ----------------------
 if exists("##TextYankPost") && UNIX() && exists('*trim')

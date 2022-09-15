@@ -84,7 +84,7 @@ elseif Installed('lspsaga.nvim')
       virtual_text = false,
       underline = false,
     })
-    map('n', '<M-">', [[<cmd>lua toggle_diagnostics_virtualtext()<Cr>]], {silent = true, noremap = true})
+    map('n', '<M-V>', [[<cmd>lua toggle_diagnostics_virtualtext()<Cr>]], {silent = true, noremap = true})
 EOF
 elseif Installed('ale')
     " basic settings

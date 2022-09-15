@@ -88,5 +88,5 @@ if installed('nvim-dap-virtual-text') then
       })
     end
   end
-  vim.api.nvim_set_keymap('n', '<M-C>', [[<cmd>lua toggle_dap_virtualtext()<Cr>]], {silent = true, noremap = true})
+  vim.api.nvim_set_keymap('n', '<M-">', [[<cmd>lua toggle_dap_virtualtext()<Cr>]], {silent = true, noremap = true})
 end
