@@ -247,7 +247,6 @@ function! LspOrTagOrSearch(command, ...) abort
     if get(l:, 'res', 1) == 0
         if get(g:, 'ctags_type', '') != ''
             let ret = Execute("silent! PreviewList ". tagname)
-            let g:test = ret
             if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
                 if get(g:, 'search_all_cmd', '') != ''
                     execute g:search_all_cmd . ' ' . tagname
