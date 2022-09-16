@@ -306,7 +306,6 @@ else
     let g:preview#preview_position = "rightbottom"
     let g:preview#preview_size     = get(g:, 'preview_rows', 8)
     nnoremap <leader>ex Q
-    nnoremap Q  <C-w>z
     nnoremap qq <C-w>z
     PackAdd 'vim-preview'
     " preview open

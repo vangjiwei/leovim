@@ -29,10 +29,12 @@ if Installed('ZFVimIM')
             echo ime_name . " input"
         end
     endfunction
-    imap <silent><M-Z> <C-o>:call ZFVimIMELoop(1)<Cr>
     nmap <silent><M-Z>      :call ZFVimIMELoop(1)<Cr>
-    imap <silent><M-z> <C-o>:call ZFVimIMELoop(0)<Cr>
+    imap <silent><M-Z> <C-o>:call ZFVimIMELoop(1)<Cr>
     nmap <silent><M-z>      :call ZFVimIMELoop(0)<Cr>
+    imap <silent><M-z> <C-o>:call ZFVimIMELoop(0)<Cr>
+    imap <silent><M-m> <C-o>:call ZFVimIMELoop(0)<Cr>
+    imap <silent>;;    <C-o>:call ZFVimIMELoop(0)<Cr>
 else
     nnoremap <M-z> <Nop>
     nnoremap <M-Z> <Nop>
