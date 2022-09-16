@@ -212,7 +212,7 @@ function! s:settagstack(winnr, tagname, pos)
                 \ }, 't')
 endfunction
 function! LspOrTagOrSearch(command, ...) abort
-    let command = a:command
+    let command = trim(a:command)
     let tagname = expand('<cword>')
     let winnr   = winnr()
     let pos     = getcurpos()
@@ -220,8 +220,19 @@ function! LspOrTagOrSearch(command, ...) abort
     " coc
     if g:complete_engine == 'coc'
         let g:coc_locations_change = v:false
-        let ret = CocLspTaglsCallAction(command, substitute(tolower(command), "jump", "", ""), get(g:, 'tagls_import', 0))
+        " a:0, 是除了已经设置了的参数外的参数数量
+        if trim(command) == ''
+            let command = 'jumpDefinition'
+            let ret = CocAction(command)
+        else
+            if a:0 == 1
+                let ret = CocAction(command)
+            else
+                let ret = CocAction(command, v:false)
+            endif
+        endif
         if ret
+            echo "found by coc " . command
             call s:settagstack(winnr, tagname, pos)
             if !g:coc_locations_change && a:0 == 1
                 call s:open_in_postion(a:1)
@@ -232,8 +243,8 @@ function! LspOrTagOrSearch(command, ...) abort
     else
         let l:res = v:false
     endif
-    " tag or grep find
-    if get(l:, 'res', v:true) == v:false
+    " tag
+    if !get(l:, 'res', v:true)
         if get(g:, 'ctags_type', '') != ''
             let ret = execute("silent! PreviewList ". tagname)
             if (ret =~ "E433" || ret =~ "E426" || ret =~ "E257") && get(g:, 'search_all_cmd', '') != ''
@@ -241,54 +252,27 @@ function! LspOrTagOrSearch(command, ...) abort
             else
                 execute "copen " . g:asyncrun_open
             endif
+        " grep find
         elseif get(g:, 'search_all_cmd', '') != ''
             execute(g:search_all_cmd . ' ' . tagname)
         endif
     endif
 endfunction
+nnoremap <silent><C-]> :call LspOrTagOrSearch("")<Cr>
 if g:complete_engine == 'coc'
     au User CocLocationsChange let g:coc_locations_change = v:true
-    function! CocLspTaglsCallAction(coc_action, tagls_action, tagls_import)
-        let ret = CocAction(a:coc_action)
-        if ret
-            echo "found by coc " . a:coc_action
-        else
-            if a:tagls_action != '' && a:tagls_import
-                let ret = CocLocations('tagls', '$tagls/textDocument/' . a:tagls_action)
-                if ret
-                    echo "found by tagls " . a:tagls_action
-                else
-                    echohl WarningMsg | echom a:tagls_action . " not found by either coc nor tagls" | echohl None
-                endif
-            else
-                echohl WarningMsg | echom a:coc_action " not found by coc " | echohl None
-            endif
-        endif
-        return ret
-    endfunction
     " jumpDefinition
-    nnoremap <silent><M-;> :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
-    nnoremap <silent><C-]> :call LspOrTagOrSearch("jumpDefinition")<Cr>
-    nnoremap <silent>gl    :call LspOrTagOrSearch("jumpDefinition", "split")<Cr>
+    nnoremap <silent><M-;> :call LspOrTagOrSearch("jumpDefinition")<Cr>
+    nnoremap <silent>gl    :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
     nnoremap <silent>g<Cr> :call LspOrTagOrSearch("jumpDefinition", "tabe")<Cr>
     " jumpImplementation
-    nnoremap <silent><M-:>       :call LspOrTagOrSearch("jumpImplementation", "vsplit")<Cr>
-    nnoremap <silent><leader>lie :call LspOrTagOrSearch("jumpImplementation")<Cr>
-    nnoremap <silent><leader>lis :call LspOrTagOrSearch("jumpImplementation", "split")<Cr>
-    nnoremap <silent><leader>lit :call LspOrTagOrSearch("jumpImplementation", "tabe")<Cr>
+    nnoremap <silent><M-:> :call LspOrTagOrSearch("jumpImplementation")<Cr>
     " jumpDeclaration
-    nnoremap <silent><M-.>       :call LspOrTagOrSearch("jumpDeclaration", "vsplit")<Cr>
-    nnoremap <silent><leader>lde :call LspOrTagOrSearch("jumpDeclaration")<Cr>
-    nnoremap <silent><leader>lds :call LspOrTagOrSearch("jumpDeclaration", "split")<Cr>
-    nnoremap <silent><leader>ldt :call LspOrTagOrSearch("jumpDeclaration", "tabe")<Cr>
+    nnoremap <silent><M-.> :call LspOrTagOrSearch("jumpDeclaration")<Cr>
     " jumpTypeDefinition
-    nnoremap <silent><M-,>       :call LspOrTagOrSearch("jumpTypeDefinition", "vsplit")<Cr>
-    nnoremap <silent><leader>lte :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
-    nnoremap <silent><leader>lts :call LspOrTagOrSearch("jumpTypeDefinition", "split")<Cr>
-    nnoremap <silent><leader>ltt :call LspOrTagOrSearch("jumpTypeDefinition", "tabe")<Cr>
+    nnoremap <silent><M-,> :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
 else
-    nnoremap <silent><M-;> :call LspOrTagOrSearch("", "vsplit")<Cr>
-    nnoremap <silent><C-]> :call LspOrTagOrSearch("")<Cr>
-    nnoremap <silent>gl    :call LspOrTagOrSearch("", "split")<Cr>
+    nnoremap <silent><M-;> :call LspOrTagOrSearch("", "split")<Cr>
+    nnoremap <silent>gl    :call LspOrTagOrSearch("", "vsplit")<Cr>
     nnoremap <silent>g<Cr> :call LspOrTagOrSearch("", "tabe")<Cr>
 endif
