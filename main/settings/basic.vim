@@ -1,47 +1,7 @@
+source $SETTINGS_PATH/functions.vim
 " ------------------------
 " get a single tab label
 " ------------------------
-function! Vim_NeatBuffer(bufnr, fullname)
-    let l:name = bufname(a:bufnr)
-    if getbufvar(a:bufnr, '&modifiable')
-        if l:name == ''
-            return '[No Name]'
-        else
-            if a:fullname
-                return fnamemodify(l:name, ':p')
-            else
-                return fnamemodify(l:name, ':t')
-            endif
-        endif
-    else
-        let l:buftype = getbufvar(a:bufnr, '&buftype')
-        if l:buftype == 'quickfix'
-            return '[Quickfix]'
-        elseif l:name != ''
-            if a:fullname
-                return '-'.fnamemodify(l:name, ':p')
-            else
-                return '-'.fnamemodify(l:name, ':t')
-            endif
-        else
-            return '[No Name]'
-        endif
-    endif
-endfunc
-function! Vim_NeatTabLabel(n)
-    let l:buflist = tabpagebuflist(a:n)
-    let l:winnr = tabpagewinnr(a:n)
-    let l:bufnr = l:buflist[l:winnr - 1]
-    return Vim_NeatBuffer(l:bufnr, 0)
-endfun
-" get a single tab label in gui
-function! Vim_NeatGuiTabLabel()
-    let l:num = v:lnum
-    let l:buflist = tabpagebuflist(l:num)
-    let l:winnr = tabpagewinnr(l:num)
-    let l:bufnr = l:buflist[l:winnr - 1]
-    return Vim_NeatBuffer(l:bufnr, 0)
-endfunc
 " setup new tabline, just like %M%t in macvim
 if g:gui_running
     set guitablabel=%{Vim_NeatGuiTabLabel()}
@@ -308,55 +268,10 @@ inoremap <silent><M-D> <C-o>:call Tools_PreviousCursor('ctrld')<Cr>
 inoremap <silent><M-E> <C-o>:call Tools_PreviousCursor('ctrle')<Cr>
 inoremap <silent><M-Y> <C-o>:call Tools_PreviousCursor('ctrly')<Cr>
 " --------------------------
-" Execute function
-" --------------------------
-function! Execute(cmd)
-    let cmd = a:cmd
-    redir => output
-    silent execute cmd
-    redir END
-    return output
-endfunction
-" --------------------------
 " python_support
 " --------------------------
 let g:python3_host_prog = get(g:, 'python3_host_prog', '')
 let g:python_host_prog  = get(g:, 'python_host_prog', '')
-" --------------------------
-" GetPyxVersion
-" --------------------------
-function! GetPyxVersion()
-    if CYGWIN()
-        return 0
-    endif
-    if has('python3')
-        let l:pyx_version_raw = Execute('py3 print(sys.version)')
-    elseif has('python')
-        let l:pyx_version_raw = Execute('py print(sys.version)')
-    else
-        return 0
-    endif
-    let l:pyx_version_raw = matchstr(l:pyx_version_raw, '\v\zs\d{1,}.\d{1,}.\d{1,}\ze')
-    if l:pyx_version_raw == ''
-        return 0
-    endif
-    let l:pyx_version = StringToFloat(l:pyx_version_raw)
-" --------------------------
-" python import
-" --------------------------
-    if l:pyx_version > 3
-python3 << Python3EOF
-try:
-    import vim
-    import pygments
-except Exception:
-    pass
-else:
-    vim.command('let g:pygments_import = 1')
-Python3EOF
-    endif
-    return l:pyx_version
-endfunction
 let g:python_version = get(g:, 'python_version', GetPyxVersion())
 " --------------------------
 " set python_host_prog
