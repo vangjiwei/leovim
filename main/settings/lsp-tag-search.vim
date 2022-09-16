@@ -22,7 +22,7 @@ if get(g:, 'ctags_type', '') != ''
         let g:fzf_tags_command = "ctags 2>/dev/null"
     endif
     " preview tag
-    nnoremap <silent><M-/> :PreviewTag<Cr>
+    nnoremap <silent><M-:> :PreviewTag<Cr>
     if Installed('vim-quickui')
         nnoremap <silent><C-h> :call quickui#tools#preview_tag('')<Cr>
         nnoremap <silent><BS>  :call quickui#tools#preview_tag('')<Cr>
@@ -270,9 +270,9 @@ if g:complete_engine == 'coc'
     nnoremap <silent>gl    :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
     nnoremap <silent>g<Cr> :call LspOrTagOrSearch("jumpDefinition", "tabe")<Cr>
     " jumpImplementation
-    nnoremap <silent><M-:> :call LspOrTagOrSearch("jumpImplementation")<Cr>
+    nnoremap <silent><M-/> :call LspOrTagOrSearch("jumpImplementation")<Cr>
     " jumpDeclaration
-    nnoremap <silent><M-.> :call LspOrTagOrSearch("jumpDeclaration")<Cr>
+    nnoremap <silent><M-.> :call LsprTagOrSearch("jumpDeclaration")<Cr>
     " jumpTypeDefinition
     nnoremap <silent><M-,> :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
 else

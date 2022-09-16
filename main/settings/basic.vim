@@ -163,7 +163,7 @@ imap <M-.> <C-o><M-.>
 imap <M-/> <C-o><M-/>
 imap <M-?> <C-o><M-/>
 imap <M-;> <C-o><M-;>
-imap <M-:> <C-o><M-;>
+imap <M-:> <C-o><M-:>
 inoremap <M-'> <C-r>"
 cnoremap <M-'> <C-r>"
 nnoremap <M-'> gP
