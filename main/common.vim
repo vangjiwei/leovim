@@ -304,7 +304,7 @@ else
     " vim-preview
     " ------------------------
     let g:preview#preview_position = "rightbottom"
-    let g:preview#preview_size     = get(g:, 'preview_rows', 8)
+    let g:preview#preview_size     = get(g:, 'asyncrun_open', 8)
     nnoremap <leader>ex Q
     nnoremap qq <C-w>z
     PackAdd 'vim-preview'

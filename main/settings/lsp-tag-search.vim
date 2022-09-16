@@ -211,8 +211,7 @@ function! s:settagstack(winnr, tagname, pos)
                 \ 'items': [{'tagname': a:tagname, 'from': a:pos}]
                 \ }, 't')
 endfunction
-function! LspOrTagOrSearch(command, ...) abort
-    let command = a:command
+function! LspOrTagOrSearch(...) abort
     let tagname = expand('<cword>')
     let winnr   = winnr()
     let pos     = getcurpos()
@@ -220,22 +219,23 @@ function! LspOrTagOrSearch(command, ...) abort
     " coc
     if g:complete_engine == 'coc'
         let g:coc_locations_change = v:false
-        " a:0, 是除了已经设置了的参数外的参数数量
-        if trim(command) == ''
+        " a:0, then number of other paragrams: ...
+        if a:0 == 0
             let command = 'jumpDefinition'
             let ret = CocAction(command)
         else
+            let command = trim(a:1)
             if a:0 == 1
-                let ret = CocAction(command)
-            else
                 let ret = CocAction(command, v:false)
+            else
+                let ret = CocAction(command)
             endif
         endif
         if ret
             echo "found by coc " . command
             call s:settagstack(winnr, tagname, pos)
-            if !g:coc_locations_change && a:0 == 1
-                call s:open_in_postion(a:1)
+            if !g:coc_locations_change && a:0 > 1
+                call s:open_in_postion(a:2)
             endif
         else
             let l:res = 0
@@ -245,13 +245,13 @@ function! LspOrTagOrSearch(command, ...) abort
     endif
     " tag
     if get(l:, 'res', 1) == 0
-        if get(g:, 'ctags_type', '') != ''
+        if Installed('vim-gutentags')
             let ret = Execute("silent! PreviewList ". tagname)
             if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
-                if get(g:, 'search_all_cmd', '') != ''
-                    execute g:search_all_cmd . ' ' . tagname
+                if get(g:, 'search_all_cmd', '') == ''
+                    echom "No tag found, and cannot do global grep search."
                 else
-                    echom "No tag found"
+                    execute g:search_all_cmd . ' ' . tagname
                 endif
             else
                 execute "copen " . g:asyncrun_open
@@ -259,22 +259,25 @@ function! LspOrTagOrSearch(command, ...) abort
         " grep find
         elseif get(g:, 'search_all_cmd', '') != ''
             execute g:search_all_cmd . ' ' . tagname
+        else
+            echo "No ways to found " . tagname
         endif
     endif
 endfunction
 if g:complete_engine == 'coc'
     au User CocLocationsChange let g:coc_locations_change = v:true
     " jumpDefinition
-    nnoremap <silent><C-]> :call LspOrTagOrSearch("")<Cr>
-    nnoremap <silent><M-;> :call LspOrTagOrSearch("jumpDefinition")<Cr>
-    nnoremap <silent>gl    :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
-    nnoremap <silent>g<Cr> :call LspOrTagOrSearch("jumpDefinition", "tabe")<Cr>
+    nnoremap <silent><C-]>  :call LspOrTagOrSearch()<Cr>
+    nnoremap <silent><M-;>  :call LspOrTagOrSearch("jumpDefinition")<Cr>
+    nnoremap <silent>gl     :call LspOrTagOrSearch("jumpDefinition", "split")<Cr>
+    nnoremap <silent>g<Cr>  :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
+    nnoremap <silent>g<Tab> :call LspOrTagOrSearch("jumpDefinition", "tabe")<Cr>
     " jumpImplementation
     nnoremap <silent><M-/> :call LspOrTagOrSearch("jumpImplementation")<Cr>
     " jumpDeclaration
-    nnoremap <silent><M-.> :call LsprTagOrSearch("jumpDeclaration")<Cr>
+    nnoremap <silent><M-.> :call LspOrTagOrSearch("jumpDeclaration")<Cr>
     " jumpTypeDefinition
     nnoremap <silent><M-,> :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
 else
-    nnoremap <silent><M-;> :call LspOrTagOrSearch("")<Cr>
+    nnoremap <silent><M-;> :call LspOrTagOrSearch()<Cr>
 endif
