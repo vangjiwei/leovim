@@ -75,13 +75,8 @@ elseif g:complete_engine == 'coc'
             \ 'coc-vimlsp',
             \ 'coc-pyright',
             \ ]
-    if Require('c')
-        if executable('ccls')
-            let g:coc_global_extensions += ['coc-ccls']
-        endif
-        if executable('clangd')
-            let g:coc_global_extensions += ['coc-clangd']
-        endif
+    if Require('c') && executable('clangd')
+        let g:coc_global_extensions += ['coc-clangd', 'coc-cmake']
     endif
     if Require('web')
         let g:coc_global_extensions += [

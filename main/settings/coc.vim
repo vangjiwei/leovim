@@ -173,20 +173,17 @@ nmap <leader>vG vag
 " ------------------------
 " coc c language
 " ------------------------
-if index(g:coc_global_extensions, 'coc-ccls') >= 0
+if executable('ccls')
     call coc#config('languageserver.ccls', {
                 \ "command": "ccls",
                 \ "filetypes": c_filetypes,
                 \ "rootPatterns": g:root_patterns,
                 \ "initializationOptions": {
                     \ "cache": {
-                        \ "directory": $HOME . "/.leovim.d/coc-ccls"
+                        \ "directory": $HOME . "/.leovim.d/ccls"
                         \ }
                     \ }
                 \ })
-endif
-if index(g:coc_global_extensions, 'coc-clangd') >= 0
-    " TODO: coc-clangd
 endif
 " ------------------------
 " coc fzf
