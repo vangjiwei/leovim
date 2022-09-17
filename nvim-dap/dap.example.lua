@@ -1,11 +1,11 @@
 -- NOTE: WARN: https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#Python
-local dap_install_path =  "~/.leovim.d/dapinstall"
+local dap_install_path = "~/.leovim.d/dapinstall"
 local dap = require('dap')
 -- python
 dap.adapters.python = {
     type    = 'executable';
     command = dap_install_path .. '/debugpy/bin/python';
-    args    = {'-m', 'debugpy.adapter'};
+    args    = { '-m', 'debugpy.adapter' };
 }
 dap.configurations.python = {
     {
@@ -51,12 +51,12 @@ if vim.g.dap_cpprust == 'vscode-cpptools' then
     }
 else
     dap.adapters.codelldb = function(on_adapter)
-        local stdout = vim.loop.new_pipe(false)
-        local stderr = vim.loop.new_pipe(false)
-        local cmd    = dap_install_path .. '/codelldb/extension/adapter/codelldb'
+        local stdout       = vim.loop.new_pipe(false)
+        local stderr       = vim.loop.new_pipe(false)
+        local cmd          = dap_install_path .. '/codelldb/extension/adapter/codelldb'
         local handle, pid_or_err
-        local opts = {
-            stdio = {nil, stdout, stderr},
+        local opts         = {
+            stdio = { nil, stdout, stderr },
             detached = true,
         }
         handle, pid_or_err = vim.loop.spawn(cmd, opts, function(code)
@@ -112,8 +112,8 @@ end
 dap.configurations.c    = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
 -- node
-dap.adapters.node = {
+dap.adapters.node       = {
     type    = 'executable';
     command = 'node';
-    args    = {dap_install_path .. '/jsnode/out/src/nodeDebug.js'};
+    args    = { dap_install_path .. '/jsnode/out/src/nodeDebug.js' };
 }
