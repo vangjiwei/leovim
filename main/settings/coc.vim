@@ -186,18 +186,6 @@ if index(g:coc_global_extensions, 'coc-ccls') >= 0
                 \ })
 endif
 if index(g:coc_global_extensions, 'coc-clangd') >= 0
-    " TODO: coc-clangd
-endif
-" ------------------------
-" coc fzf
-" ------------------------
-if Installed('coc-fzf') && InstalledFzf()
-    if WINDOWS()
-        let g:coc_fzf_preview='right:30%'
-    else
-        let g:coc_fzf_preview='right:60%'
-    endif
-endif
 " ----------------------------
 " semanticTokens
 " ----------------------------
