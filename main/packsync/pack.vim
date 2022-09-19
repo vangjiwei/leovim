@@ -29,7 +29,7 @@ endif
 if get(g:, 'header_field_author', '') != ''
     PackAdd 'alpertuna/vim-header'
     let g:header_auto_add_header = 0
-    let g:header_auto_update_header = 1
+    let g:header_auto_update_header = 0
     let g:header_field_timestamp_format = '%Y.%m.%d'
     nnoremap <leader>ea :AddHeader<Cr>
 endif
