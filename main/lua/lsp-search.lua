@@ -1,11 +1,11 @@
 vim.g.symbol_tool  = 'lspsaga-lsp'
 vim.g.symbol_group = nil
-local map  = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+local map          = vim.api.nvim_set_keymap
+local opts         = { noremap = true, silent = true }
 --------------------------------
 -- telescope
 --------------------------------
-local telescope = require('telescope')
+local telescope    = require('telescope')
 if installed('telescope-lsp-handlers.nvim') then
   telescope.load_extension('lsp_handlers')
   telescope.setup({})
@@ -15,16 +15,16 @@ end
 --------------------------------
 local lspsaga = require('lspsaga')
 lspsaga.init_lsp_saga({
-  diagnostic_header = { '😡', '😥', '😤', '😐' },
-  code_action_icon  = '💡',
-  finder_icons      = { def = '  ', ref = '諭 ', link = '  '},
-  max_preview_lines  = 32,
-  finder_action_keys = {
+  diagnostic_header      = { '😡', '😥', '😤', '😐' },
+  code_action_icon       = '💡',
+  finder_icons           = { def = '  ', ref = '諭 ', link = '  ' },
+  max_preview_lines      = 32,
+  finder_action_keys     = {
     open   = "<Cr>",
     vsplit = "<C-v>",
     split  = "<C-x>",
     tabe   = "<C-t>",
-    quit   = {"<M-q>", "<C-c>", "<ESC>"},
+    quit   = { "<M-q>", "<C-c>", "<ESC>" },
   },
   definition_action_keys = {
     edit   = '<Cr>',
@@ -33,28 +33,28 @@ lspsaga.init_lsp_saga({
     tabe   = '<C-t>',
     quit   = '<M-q>',
   },
-  move_in_saga = { prev = '<C-k>', next = '<C-j>'},
-  code_action_keys = {
-    quit = {"<M-q>", "<C-c>", "<ESC>"},
+  move_in_saga           = { prev = '<C-k>', next = '<C-j>' },
+  code_action_keys       = {
+    quit = { "<M-q>", "<C-c>", "<ESC>" },
     exec = "<Cr>",
   },
-  rename_action_quit = "<C-c>",
-  symbol_in_winbar = {
+  rename_action_quit     = "<C-c>",
+  symbol_in_winbar       = {
     in_custom = false,
     enable = false,
     separator = ' ',
     show_file = true,
     click_support = false,
   },
-  show_outline = {
-      win_position = 'left',
-      win_width = 40,
-      auto_enter = false,
-      auto_preview = false,
-      virt_text = '┃',
-      jump_key = '<Cr>',
-      -- auto refresh when change buffer
-      auto_refresh = true,
+  show_outline           = {
+    win_position = 'left',
+    win_width = 40,
+    auto_enter = false,
+    auto_preview = false,
+    virt_text = '┃',
+    jump_key = '<Cr>',
+    -- auto refresh when change buffer
+    auto_refresh = true,
   },
 })
 -- Show symbols in winbar need neovim 0.8+
@@ -96,7 +96,7 @@ if vim.fn.has('nvim-0.8') > 0 then
     local file_path = ''
     for _, cur in ipairs(path_list) do
       file_path = (cur == '.' or cur == '~') and '' or
-      file_path .. cur .. ' ' .. '%#LspSagaWinbarSep#>%*' .. ' %*'
+          file_path .. cur .. ' ' .. '%#LspSagaWinbarSep#>%*' .. ' %*'
     end
     return file_path .. file_name
   end
@@ -110,6 +110,7 @@ if vim.fn.has('nvim-0.8') > 0 then
     if sym ~= nil then win_val = win_val .. sym end
     vim.wo.winbar = win_val
   end
+
   local events = { 'CursorHold', 'BufEnter', 'BufWinEnter', 'CursorMoved', 'WinLeave', 'User LspasgaUpdateSymbol' }
   local exclude = {
     ['teminal'] = true,
@@ -147,28 +148,28 @@ map('n', '<M-t>', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
 map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
 -- lspsaga maps
 map('n', 'K', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
-map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]],         opts)
+map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)
 map('n', '<M-:>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
-map('n', "<leader>a<cr>", [[<cmd>Lspsaga  code_action<Cr>]],       opts)
+map('n', "<leader>a<cr>", [[<cmd>Lspsaga  code_action<Cr>]], opts)
 map('x', "<leader>a<cr>", [[:<C-u>Lspsaga range_code_action<CR>]], opts)
-map('n', '<leader>ar',    [[<cmd>Lspsaga  rename<Cr>]],             opts)
+map('n', '<leader>ar', [[<cmd>Lspsaga  rename<Cr>]], opts)
 map('n', '<leader>A', [[:Lspsaga ]], { noremap = true, silent = false })
 --------------------------------
 -- each lsp server config
 --------------------------------
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities                                                 = vim.lsp.protocol.make_client_capabilities()
+capabilities                                                       = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.foldingRange = {
+capabilities.textDocument.foldingRange                             = {
   dynamicRegistration = false,
   lineFoldingOnly = true
 }
 -----------------
 -- mason/lspconfig
 -----------------
-local mason           = require('mason')
-local lspconfig       = require('lspconfig')
-local mason_lspconfig = require('mason-lspconfig')
+local mason                                                        = require('mason')
+local lspconfig                                                    = require('lspconfig')
+local mason_lspconfig                                              = require('mason-lspconfig')
 mason.setup({
   ui = {
     icons = {
@@ -188,13 +189,13 @@ mason_lspconfig.setup_handlers({
   -- The first entry (without a key) will be the default handler
   -- and will be called for each installed server that doesn't have
   -- a dedicated handler.
-  function (server_name) -- default handler (optional)
+  function(server_name) -- default handler (optional)
     lspconfig[server_name].setup {
       capabilities = capabilities
     }
   end,
   -- Next, you can provide targeted overrides for specific servers.
-  ["sumneko_lua"] = function ()
+  ["sumneko_lua"] = function()
     lspconfig.sumneko_lua.setup {
       settings = {
         Lua = {
@@ -209,23 +210,23 @@ mason_lspconfig.setup_handlers({
 if installed('rust-tools.nvim') then
   local rust_tools = require('rust-tools')
   mason_lspconfig.setup_handlers({
-    ["rust_analyzer"] = function ()
+    ["rust_analyzer"] = function()
       rust_tools.setup({})
     end,
   })
 end
 if executable('pylsp') then
-  local pylsp_args = {'--max-line-length=160', '--ignore=' .. vim.g.python_lint_ignore}
+  local pylsp_args = { '--max-line-length=160', '--ignore=' .. vim.g.python_lint_ignore }
   lspconfig.pylsp.setup({
     settings = {
       pylsp = {
         plugins = {
-          pylint = { enabled = true, executable='pylint', args = pylsp_args},
+          pylint = { enabled = true, executable = 'pylint', args = pylsp_args },
           pyflakes = { enabled = false },
           pycodestyle = { enabled = false },
           jedi_completion = { fuzzy = false },
           pyls_isort = { enabled = false },
-          pyls_flake8 = { enabled = true, executable='flake8', args = pylsp_args},
+          pyls_flake8 = { enabled = true, executable = 'flake8', args = pylsp_args },
           pylrp_mypy = { enabled = false },
         },
       },

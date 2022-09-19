@@ -1,5 +1,5 @@
-local map  = vim.api.nvim_set_keymap
-local opts = {noremap = true, silent = true}
+local map           = vim.api.nvim_set_keymap
+local opts          = { noremap = true, silent = true }
 local telescope     = require('telescope')
 local actions       = require("telescope.actions")
 local action_layout = require("telescope.actions.layout")
@@ -116,6 +116,6 @@ end
 -- project_files
 _G.project_files = function()
   local search_opts = {}
-  local ok = pcall(require"telescope.builtin".git_files, search_opts)
-  if not ok then require"telescope.builtin".find_files(search_opts) end
+  local ok = pcall(require "telescope.builtin".git_files, search_opts)
+  if not ok then require "telescope.builtin".find_files(search_opts) end
 end

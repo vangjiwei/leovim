@@ -1,5 +1,5 @@
 local iron = require("iron.core")
-iron.setup ({
+iron.setup({
   config = {
     -- If iron should expose `<plug>(...)` mappings for the plugins
     should_map_plug = false,
@@ -9,13 +9,13 @@ iron.setup ({
     -- Your repl definitions come here
     repl_definition = {
       sh = {
-        command = {"bash"}
+        command = { "bash" }
       },
       python = {
-        command = {"ipython", "--no-autoindent"}
+        command = { "ipython", "--no-autoindent" }
       }
     },
-    repl_open_cmd = require('iron.view').split.vertical.botright('44%',{
+    repl_open_cmd = require('iron.view').split.vertical.botright('44%', {
       winfixwidth = false,
       winfixheight = true,
       number = true

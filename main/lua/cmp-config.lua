@@ -4,7 +4,7 @@
 local cmp = require('cmp')
 local lspkind = require('lspkind')
 -- snippets
-local snippets = {{ name = 'nvim_lsp' }}
+local snippets = { { name = 'nvim_lsp' } }
 local snippets_opts = {}
 if installed('ultisnips') then
   table.insert(snippets, { name = 'ultisnips' })
@@ -31,11 +31,11 @@ end
 -- core setup
 local cmp_opts = {
   sources = cmp.config.sources(snippets, {
-    {name = 'omni'},
-    {name = 'buffer'},
-    {name = 'path'},
-    {name = 'dictionary'},
-    {name = 'nvim_lsp_signature_help'},
+    { name = 'omni' },
+    { name = 'buffer' },
+    { name = 'path' },
+    { name = 'dictionary' },
+    { name = 'nvim_lsp_signature_help' },
   }),
   mapping = cmp.mapping.preset.insert({
     ['<C-n>'] = {
@@ -50,7 +50,7 @@ local cmp_opts = {
       c = cmp.mapping.close(),
       i = cmp.mapping.abort(),
     },
-    ['<C-y'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
+    ['<C-y'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ["<S-Tab>"] = cmp.mapping({
       c = function()
         if cmp.visible() then
@@ -104,11 +104,11 @@ local cmp_opts = {
   }
 }
 for k, v in pairs(snippets_opts) do cmp_opts[k] = v end
-cmp.setup (
+cmp.setup(
   cmp_opts
 )
 -- Use buffer source for `/`.
-require'cmp'.setup.cmdline('/', {
+require 'cmp'.setup.cmdline('/', {
   sources = cmp.config.sources({
     { name = 'nvim_lsp_document_symbol' }
   }, {
@@ -137,21 +137,21 @@ cmp.setup.filetype('gitcommit', {
 if installed('nvim-autopairs') then
   local autopairs = require("nvim-autopairs")
   autopairs.setup({
-    disable_filetype = {"TelescopePrompt"},
+    disable_filetype = { "TelescopePrompt" },
   })
   local cmp_autopairs = require('nvim-autopairs.completion.cmp')
   cmp.event:on(
-  'confirm_done',
-  cmp_autopairs.on_confirm_done()
+    'confirm_done',
+    cmp_autopairs.on_confirm_done()
   )
   if installed('nvim-treesitter') then
     autopairs.setup({
       -- treesitter
       check_ts = true,
       ts_config = {
-        lua = {'string'},-- it will not add a pair on that treesitter node
-        javascript = {'template_string'},
-        java = false,-- don't check treesitter on java
+        lua = { 'string' }, -- it will not add a pair on that treesitter node
+        javascript = { 'template_string' },
+        java = false, -- don't check treesitter on java
       }
     })
     -- press % => %% only while inside a comment or string
@@ -159,9 +159,9 @@ if installed('nvim-autopairs') then
     local Rule = require('nvim-autopairs.rule')
     autopairs.add_rules({
       Rule("%", "%", "lua")
-      :with_pair(ts_conds.is_ts_node({'string','comment'})),
+          :with_pair(ts_conds.is_ts_node({ 'string', 'comment' })),
       Rule("$", "$", "lua")
-      :with_pair(ts_conds.is_not_ts_node({'function'}))
+          :with_pair(ts_conds.is_not_ts_node({ 'function' }))
     })
   end
 end
