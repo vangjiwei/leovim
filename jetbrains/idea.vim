@@ -44,15 +44,15 @@ nmap <space>/  :action Find<cr>
 nmap <space>ff :action FindInPath<cr>
 
 " Navigation
-nnoremap <C-]>   :action GotoDefinition<cr>
-nnoremap <A-,>   :action GotoTypeDeclaration<cr>
-nnoremap <A-.>   :action GotoDeclaration<cr>
-nnoremap <A-S-;> :action GotoImplementation<cr>
+nnoremap K       :action ShowPopupMenu<Cr>
+nnoremap <A-;>   :action ShowUsages<cr>
+nnoremap <A-S-;> :action FindUsages<cr>
+nnoremap <C-]> :action GotoDefinition<cr>
+nnoremap <A-,> :action GotoTypeDeclaration<cr>
+nnoremap <A-.> :action GotoDeclaration<cr>
+nnoremap <A-/> :action GotoImplementation<cr>
 nnoremap f<cr> :action FileStructurePopup<cr>
 nnoremap t<cr> :action StructureViewPopupMenu<cr>
-nnoremap K     :action FindUsages<cr>
-nnoremap <A-;>   :action ShowPopupMenu<Cr>
-nnoremap <A-/>   :action ShowUsages<cr>
 nnoremap <A-S-/> :action GotoSymbol<cr>
 nnoremap <A-\>   :action NavBarToolBar<cr>
 nnoremap <A-S-\> :action ShowBookmarks<cr>
