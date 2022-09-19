@@ -71,9 +71,9 @@ nnoremap <A--> :action ActivateTerminalToolWindow<cr>
 " Errors
 nnoremap g<tab>   :action ShowErrorDescription<cr>
 nnoremap g<cr>    :action AnalyzeStacktraceOnError<Cr>
-nnoremap <space>d :action GoToErrorGroup<Cr>
-nnoremap ]d :action GotoNextError <CR>
-nnoremap [d :action GotoPreviousError<CR>
+nnoremap <space>e :action GoToErrorGroup<Cr>
+nnoremap ]e :action GotoNextError <CR>
+nnoremap [e :action GotoPreviousError<CR>
 " VCS operations
 nmap <space>gs :action Vcs.Show.Local.Changes<cr>
 nmap <space>gp :action Vcs.QuickListPopupAction<cr>
@@ -93,13 +93,12 @@ nnoremap ]c :action VcsShowNextChangeMarker<cr>
 " Building, Running and Debugging
 nmap \b       :action ToggleLineBreakpoint<cr>
 nmap <space>c :action CompileDirty<cr>
+nmap <space>d :action Debug<cr>
+nmap <space>D :action DebugClass<cr>
 nmap <space>r :action Run<cr>
 nmap <space>R :action RunAnything<cr>
-nmap <space>b :action Debug<cr>
-nmap <space>e :action DebugClass<cr>
 nmap <space>C :action RunClass<cr>
-nmap <space>R :action RerunTests<cr>
-nmap <space>T :action RerunFailedTests<cr>
+nmap <space>T :action RerunTests<cr>
 
 " Clojure specific mappings for Cursive
 nmap \c :action :cursive.repl.actions/clear-repl<cr>
