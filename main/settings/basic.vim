@@ -345,7 +345,6 @@ cmap <M-f> <C-right>
 " tab is used as a leaderkey
 " ------------------------
 nnoremap <Tab><Tab> <Tab>
-nnoremap <C-l> <Tab>
 " ------------------------
 " panel jump
 " ------------------------
