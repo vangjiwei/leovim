@@ -33,7 +33,6 @@ if Installed('ZFVimIM')
     imap <silent><M-Z> <C-o>:call ZFVimIMELoop(1)<Cr>
     nmap <silent><M-z>      :call ZFVimIMELoop(0)<Cr>
     imap <silent><M-z> <C-o>:call ZFVimIMELoop(0)<Cr>
-    imap <silent><M-m> <C-o>:call ZFVimIMELoop(0)<Cr>
     imap <silent>;;    <C-o>:call ZFVimIMELoop(0)<Cr>
 else
     nnoremap <M-z> <Nop>

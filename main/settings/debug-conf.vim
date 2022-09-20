@@ -3,6 +3,7 @@
 " --------------------------
 if g:has_terminal
     imap <M-e> # %%
+    imap <M-m> # %%STEP
 endif
 if Installed('sniprun')
     luafile $LUA_PATH/sniprun-config.lua
