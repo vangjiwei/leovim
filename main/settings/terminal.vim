@@ -67,7 +67,7 @@ if g:has_popup_float && get(g:, 'floaterm_floating', 1)
     let g:floaterm_position = 'topright'
     let g:floaterm_width    = 0.45
     let g:floaterm_height   = 0.65
-    nnoremap <Tab>f :FloatermNew --height=0.8 --width=0.8 --position=center<Cr>
+    nnoremap <silent><Tab>f :FloatermNew --height=0.8 --width=0.8 --position=center<Cr>
 else
     let g:floaterm_floating = 0
     let g:floaterm_wintype  = 'vsplit'

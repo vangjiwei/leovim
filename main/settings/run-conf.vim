@@ -45,7 +45,7 @@ if has('nvim') || has('timers') && has('channel') && has('job') && has('patch-7.
     endif
     nnoremap <Tab>c :AsyncStop<CR>
     nnoremap <Tab>q :AsyncStop!<CR>
-    nnoremap <Tab>r :AsyncRun!<Tab>
+    nnoremap <Tab>r :AsyncRun!<Space>
     nnoremap <leader>R :AsyncRun
     let g:asyncrun_rootmarks = g:root_patterns
     au BufEnter * if (winnr("$") == 1 && exists("AsyncRun!")) | q | endif
