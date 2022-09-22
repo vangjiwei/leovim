@@ -9,7 +9,6 @@ if Installed('leaderf')
     endif
     nnoremap <silent><C-p> :Leaderf self<Cr>
     nnoremap <leader>F :Leaderf
-    nnoremap <M-u>. :Leaderf --recall<Cr>
 elseif Installed('coc.nvim')
     let g:fuzzy_finder = 'coc-fzf'
     nnoremap <silent><C-p> :CocFzfList<Cr>
