@@ -233,7 +233,10 @@ elseif Installed('vimspector')
             execute windowNr . 'wincmd w'
         endif
     endfunction
-elseif get(g:, 'debug_tool', '') == 'termdebug'
+elseif v:version >= 801 && !has('nvim') && Require('deubg') && executable('gdb')
+    let g:debug_tool = 'termdebug'
+    packadd termdebug
+
     let g:termdebug_map_K = 0
     let g:termdebug_use_prompt = 1
     " breakpoint

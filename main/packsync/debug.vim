@@ -11,8 +11,5 @@ if g:advanced_complete_engine
     elseif (has('nvim') || v:version >= 802) && (Require('debug') || Require('vimspector')) && g:python_version > 3.6
         let vimspector_install = " ./install_gadget.py --update-gadget-config"
         PackAdd 'puremourning/vimspector', {'do': g:python_exe_path . vimspector_install}
-    elseif v:version >= 801 && !has('nvim') && Require('deubg') && executable('gdb')
-        let g:debug_tool = 'termdebug'
-        packadd termdebug
     endif
 endif
