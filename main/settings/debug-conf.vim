@@ -93,8 +93,6 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> ,U <cmd>lua require("dap").step_back()<CR>
     nnoremap <silent> ,a <cmd>lua require("dap").attach(vim.fn.input('Attatch to: '))<CR>
     " hover
-    nnoremap <silent> ,h <cmd>lua require("dap.ui.variables").hover()<CR>
-    xnoremap <silent> ,h <cmd>lua require("dap.ui.variables").visual_hover()<CR>
     nnoremap <silent> ,w <cmd>lua require("dap.ui.widgets").hover()<CR>
     " view
     nnoremap <silent> ,i <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.scopes)<CR>
@@ -235,7 +233,10 @@ elseif Installed('vimspector')
             execute windowNr . 'wincmd w'
         endif
     endfunction
-elseif get(g:, 'debug_tool', '') == 'termdebug'
+elseif v:version >= 801 && !has('nvim') && Require('deubg') && executable('gdb')
+    let g:debug_tool = 'termdebug'
+    packadd termdebug
+
     let g:termdebug_map_K = 0
     let g:termdebug_use_prompt = 1
     " breakpoint
