@@ -93,8 +93,6 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> ,U <cmd>lua require("dap").step_back()<CR>
     nnoremap <silent> ,a <cmd>lua require("dap").attach(vim.fn.input('Attatch to: '))<CR>
     " hover
-    nnoremap <silent> ,h <cmd>lua require("dap.ui.variables").hover()<CR>
-    xnoremap <silent> ,h <cmd>lua require("dap.ui.variables").visual_hover()<CR>
     nnoremap <silent> ,w <cmd>lua require("dap.ui.widgets").hover()<CR>
     " view
     nnoremap <silent> ,i <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.scopes)<CR>

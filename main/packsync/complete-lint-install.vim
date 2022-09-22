@@ -120,6 +120,7 @@ elseif g:complete_engine == 'cmp'
                 \| PackAdd 'hrsh7th/cmp-nvim-lsp-document-symbol'
                 \| PackAdd 'uga-rosa/cmp-dictionary'
                 \| PackAdd 'onsails/lspkind-nvim'
+                \| PackAdd 'jose-elias-alvarez/null-ls.nvim'
 endif
 " ------------------------------
 " lint tool
