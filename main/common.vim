@@ -50,7 +50,7 @@ endfunction
 " -----------------------------------
 " set pack_tool
 " -----------------------------------
-if exists(':packadd') && exists("##SourcePost") && get(g:, 'pack_tool', '') != 'plug' && !Require('plug') && (g:git_version >= 1.85 || executable('curl') || executable('wget'))
+if exists(':packadd') && exists("##SourcePost") && Require('jetpack') && (g:git_version >= 1.85 || executable('curl') || executable('wget'))
     let g:pack_tool = 'jetpack'
     let g:jetpack_njobs = get(g:, 'jetpack_njobs', 8)
     if get(g:, 'jetpack_download_method', '') == ''
