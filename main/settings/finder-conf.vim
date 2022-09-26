@@ -415,8 +415,8 @@ elseif InstalledFzf()
 endif
 " map config and open file using system browser when has gui
 if g:gui_running
-    nnoremap <M-i> :tabnew
-    nnoremap <M-I> :tabclose<Cr>
+    nnoremap <M-o> :tabnew
+    nnoremap <M-O> :tabclose<Cr>
     " TabSwitch
     nnoremap <M-n> gt
     nnoremap <M-p> gT

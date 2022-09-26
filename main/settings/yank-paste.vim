@@ -1,8 +1,8 @@
 " ------------------------
 " pastemode toggle
 " ------------------------
-imap <M-o> <C-\><C-o>:set paste<Cr>
-nmap <M-o> :set nopaste! nopaste?<CR>
+imap <M-I> <C-\><C-o>:set paste<Cr>
+nmap <M-I> :set nopaste! nopaste?<CR>
 " --------------------
 " registers
 " --------------------
