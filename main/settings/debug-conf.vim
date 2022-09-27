@@ -58,7 +58,7 @@ elseif Installed("vim-repl")
         xmap cl cngvo
         nmap <leader>C Vggcn<C-o>
         nmap <leader>E VGcn<C-o>
-        nmap <leader>R ggVGcn<C-o><C-o>
+        nmap <leader>S ggVGcn<C-o><C-o>
     endfunction
     au Filetype python call s:set_ipdb_map()
     function! s:set_ipdb_map() abort
@@ -77,11 +77,11 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     luafile $LUA_PATH/nvim-dap-ui.lua
     " dap adapter is installed handly
     nnoremap ,o :tabe ~/.leovim.conf/nvim-dap/dap.example.lua<Cr>:e ~/.leovim.d/dap.lua<Cr>
-    if filereadable(expand("~/.leovim.d/dap.lua") )
+    if filereadable(expand("~/.leovim.d/dap.lua"))
         luafile ~/.leovim.d/dap.lua
     endif
     " basic
-    nnoremap ,dd :lua require("dap").
+    nnoremap ,D :lua require("dap").
     " close
     nnoremap ,dq <cmd>lua require("dap").close()<Cr>
     nnoremap <silent> ,c <cmd>lua require("dap").continue()<CR>
