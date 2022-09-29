@@ -80,13 +80,12 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     if filereadable(expand("~/.leovim.d/dap.lua") )
         luafile ~/.leovim.d/dap.lua
     endif
+
+    nnoremap ,d :lua require("dap").
     " basic
-    nnoremap ,dd :lua require("dap").
-    " close
-    nnoremap ,dq <cmd>lua require("dap").close()<Cr>
     nnoremap <silent> ,c <cmd>lua require("dap").continue()<CR>
     nnoremap <silent> ,C <cmd>lua require("dap").run_to_cursor()<CR>
-    nnoremap <silent> ,R <cmd>lua require("dap").run_last()<CR>
+    nnoremap <silent> ,L <cmd>lua require("dap").run_last()<CR>
     nnoremap <silent> ,n <cmd>lua require("dap").step_over()<CR>
     nnoremap <silent> ,s <cmd>lua require("dap").step_into()<CR>
     nnoremap <silent> ,u <cmd>lua require("dap").step_out()<CR>
@@ -105,7 +104,8 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> <M-d>l <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints log: '))<CR>
     nnoremap <silent> <M-d>b <cmd>lua require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
     " debug
-    nnoremap <silent> <M-d>q <cmd>lua require("dap").disconnect({ terminateDebuggee = true });require"dap".close()<CR>
+    nnoremap <silent> <M-d>q <cmd>lua require("dap").close()<Cr>
+    nnoremap <silent> <M-d>Q <cmd>lua require("dap").disconnect({ terminateDebuggee = true });require"dap".close()<CR>
     nnoremap <silent> <M-d>u <cmd>lua require("dap").up()<Cr>
     nnoremap <silent> <M-d>d <cmd>lua require("dap").down()<Cr>
     nnoremap <silent> <M-d>p <cmd>lua require("dap").pause()<Cr>
@@ -118,7 +118,7 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     " --------------------------------------
     " nvim-dap-ui
     " ---------------------------------------
-    nnoremap ,du :lua require("dapui").
+    nnoremap ,D :lua require("dapui").
     nnoremap <silent> ,r <cmd>lua require("dapui").toggle()<CR>
     " watch
     nnoremap <silent> ,e <cmd>lua require("dapui").eval()<CR>
@@ -236,7 +236,6 @@ elseif Installed('vimspector')
 elseif v:version >= 801 && !has('nvim') && Require('deubg') && executable('gdb')
     let g:debug_tool = 'termdebug'
     packadd termdebug
-
     let g:termdebug_map_K = 0
     let g:termdebug_use_prompt = 1
     " breakpoint
