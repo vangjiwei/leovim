@@ -4,7 +4,7 @@ local telescope     = require('telescope')
 local actions       = require("telescope.actions")
 local action_layout = require("telescope.actions.layout")
 -- fzf core
-if installed('telescope-fzf-native.nvim') then
+if Installed('telescope-fzf-native.nvim') then
   telescope.setup {
     extensions = {
       fzf = {
@@ -84,32 +84,32 @@ end
 map('n', ',<Tab>', [[<cmd>Telescope find_files<CR>]], opts)
 map('n', '<M-l><M-l>', [[<cmd>Telescope current_buffer_fuzzy_find<Cr>]], opts)
 -- extensions
-if installed('telescope-changes.nvim') then
+if Installed('telescope-changes.nvim') then
   telescope.load_extension('changes')
   map('n', '<M-y>', [[<cmd>Telescope changes<CR>]], opts)
 end
-if installed('telescope-ultisnips.nvim') then
+if Installed('telescope-ultisnips.nvim') then
   telescope.load_extension('ultisnips')
   map('i', '<C-x><C-x>', [[<ESC><cmd>Telescope ultisnips<CR>]], opts)
-elseif installed('telescope-luasnip.nvim') then
+elseif Installed('telescope-luasnip.nvim') then
   telescope.load_extension('luasnip')
   map('i', '<C-x><C-x>', [[<ESC><cmd>Telescope luasnip<CR>]], opts)
 end
-if installed('telescope-floaterm.nvim') then
+if Installed('telescope-floaterm.nvim') then
   telescope.load_extension('floaterm')
   map('n', '<leader>w', [[<cmd>Telescope floaterm<CR>]], opts)
 end
-if installed('telescope-ui-select.nvim') then
+if Installed('telescope-ui-select.nvim') then
   telescope.load_extension("ui-select")
 end
-if installed('telescope-buffer-lines.nvim') then
+if Installed('telescope-buffer-lines.nvim') then
   telescope.load_extension('buffer_lines')
   map('i', '<C-x><C-l>', [[<ESC><cmd>Telescope buffer_lines<CR>]], opts)
 end
-if installed('telescope-tele-tabby.nvim') then
+if Installed('telescope-tele-tabby.nvim') then
   map('n', '<leader>t', [[<cmd>lua require('telescope').extensions.tele_tabby.list()<Cr>]], opts)
 end
-if installed('nvim-notify') then
+if Installed('nvim-notify') then
   telescope.load_extension('notify')
   map('n', ',N', [[<cmd>Telescope notify<CR>]], opts)
 end

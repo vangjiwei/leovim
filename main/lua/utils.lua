@@ -12,8 +12,29 @@ function _G.executable(name)
   return false
 end
 
-function _G.installed(name)
+function _G.Installed(name)
   if fn['Installed'](name) > 0 then
+    return true
+  end
+  return false
+end
+
+function _G.WINDOWS()
+  if fn['WINDOWS']() > 0 then
+    return true
+  end
+  return false
+end
+
+function _G.LINUX()
+  if fn['LINUX']() > 0 then
+    return true
+  end
+  return false
+end
+
+function _G.UNIX()
+  if fn['UNIX']() > 0 then
     return true
   end
   return false
