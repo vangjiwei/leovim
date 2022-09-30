@@ -367,10 +367,11 @@ nnoremap <M-k>s :colorscheme<Space>
 nnoremap <M-k>t :setfiletype<Space>
 nnoremap <M-k>c :command<Cr>
 nnoremap <M-k>r :set relativenumber \| set number<Cr>
+nnoremap <M-k>d :redraw<Cr>
 " registers
 nnoremap <M-v> :registers<Cr>
 " ------------------------
-" list buffers and mark
+" buffers mark messages
 " ------------------------
 nnoremap <leader>b :ls<Cr>
 nnoremap <C-f>m    :marks<Cr>

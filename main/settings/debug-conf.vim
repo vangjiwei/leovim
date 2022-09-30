@@ -118,7 +118,7 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     " nvim-dap-ui
     " ---------------------------------------
     nnoremap ,D :lua require("dapui").
-    nnoremap <silent> ,r <cmd>lua require("dapui").toggle()<CR>
+    nnoremap <silent> ,t <cmd>lua require("dapui").toggle()<CR>
     " watch
     nnoremap <silent> ,e <cmd>lua require("dapui").eval()<CR>
     nnoremap <silent> <M-m>f <cmd>lua require("dapui").float_element()<Cr>
@@ -249,7 +249,7 @@ elseif v:version >= 801 && !has('nvim') && Require('deubg') && executable('gdb')
     nnoremap ,u :Finish<Cr>
     nnoremap ,a :Arguments<Space>
     nnoremap ,e :Evaluate<Space>
-    nnoremap ,R :Run<Space>
+    nnoremap ,r :Run<Space>
     nnoremap <M-d>p :Program<Cr>
     nnoremap <M-d>o :Source<Cr>
     nnoremap <M-d>g :Gdb<Cr>
