@@ -32,18 +32,6 @@ if vim.g.leovim_loaded == 0 then
   })
 end
 ---------------------
--- function to get adaptor
----------------------
-local function get_adaptor(adaptor)
-  if WINDOWS() then
-    return vim.fn.expand("$HOME/AppData/Local/nvim-data/mason/bin/") .. adaptor .. ".cmd"
-  elseif UNIX() then
-    return vim.fn.expand("$HOME/.local/share/nvim/mason/bin/") .. adaptor
-  else
-    return nil
-  end
-end
----------------------
 -- dap
 ---------------------
 local dap = require("dap")
