@@ -1,7 +1,7 @@
 [
   // tags
   {
-    "key": "ctrl+t",
+    "key": "ctrl+l",
     "command": "outline-map-view.focus"
   },
   {
