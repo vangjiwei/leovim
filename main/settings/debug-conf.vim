@@ -74,13 +74,12 @@ endif
 " --------------------------
 if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     let g:debug_tool = 'nvim-dap'
-    luafile $LUA_PATH/nvim-dap.lua
+    luafile $LUA_PATH/dap-config.lua
     " dap adapter is installed handly
     nnoremap ,o :tabe ~/.leovim.conf/nvim-dap/dap.example.lua<Cr>:e ~/.leovim.d/dap.lua<Cr>
     if filereadable(expand("~/.leovim.d/dap.lua") )
         luafile ~/.leovim.d/dap.lua
     endif
-
     nnoremap ,d :lua require("dap").
     " basic
     nnoremap <silent> ,c <cmd>lua require("dap").continue()<CR>

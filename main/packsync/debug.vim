@@ -3,9 +3,7 @@ if CYGWIN()
 endif
 if g:advanced_complete_engine && Require('debug')
     if has('nvim')
-        PackAdd 'mfussenegger/nvim-dap'
-                    \| PackAdd 'mfussenegger/nvim-dap-python'
-                    \| PackAdd 'rcarriga/nvim-dap-ui'
+        PackAdd 'mfussenegger/nvim-dap' | PackAdd 'rcarriga/nvim-dap-ui'
         if g:complete_engine == 'coc'
             PackAdd 'williamboman/mason.nvim'
         endif
