@@ -31,7 +31,6 @@ elseif Installed('vista.vim')
 endif
 if has_key(g:sidebars, 'tags')
     nnoremap <silent><C-t> :call sidebar#toggle('tags')<CR>
-    nnoremap ,t <C-t>
 endif
 " tree_browser
 if Installed('coc.nvim')

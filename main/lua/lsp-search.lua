@@ -6,7 +6,7 @@ local opts         = { noremap = true, silent = true }
 -- telescope
 --------------------------------
 local telescope    = require('telescope')
-if installed('telescope-lsp-handlers.nvim') then
+if Installed('telescope-lsp-handlers.nvim') then
   telescope.load_extension('lsp_handlers')
   telescope.setup({})
 end
@@ -187,7 +187,7 @@ mason_lspconfig.setup({
 })
 mason_lspconfig.setup_handlers({
   -- The first entry (without a key) will be the default handler
-  -- and will be called for each installed server that doesn't have
+  -- and will be called for each Installed server that doesn't have
   -- a dedicated handler.
   function(server_name) -- default handler (optional)
     lspconfig[server_name].setup {
@@ -207,7 +207,7 @@ mason_lspconfig.setup_handlers({
     }
   end,
 })
-if installed('rust-tools.nvim') then
+if Installed('rust-tools.nvim') then
   local rust_tools = require('rust-tools')
   mason_lspconfig.setup_handlers({
     ["rust_analyzer"] = function()
@@ -237,6 +237,6 @@ if executable('pylsp') then
   })
 end
 -- ufo
-if installed('nvim-ufo') and installed('promise-async') then
+if Installed('nvim-ufo') and Installed('promise-async') then
   require('ufo').setup()
 end

@@ -370,7 +370,7 @@ nnoremap <M-k>r :set relativenumber \| set number<Cr>
 " registers
 nnoremap <M-v> :registers<Cr>
 " ------------------------
-" list buffers and mark
+" buffers mark messages
 " ------------------------
 nnoremap <leader>b :ls<Cr>
 nnoremap <C-f>m    :marks<Cr>

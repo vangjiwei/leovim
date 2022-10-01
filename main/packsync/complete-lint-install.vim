@@ -58,7 +58,6 @@ elseif g:complete_engine == 'coc'
     PackAdd 'leoatchina/coc-fzf', {'branch': 'empty_check'}
     let g:coc_global_extensions = [
             \ 'coc-json',
-            \ 'coc-lua',
             \ 'coc-sql',
             \ 'coc-xml',
             \ 'coc-git',
