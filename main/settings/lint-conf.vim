@@ -14,25 +14,6 @@ if Installed('coc.nvim')
     nmap <silent>[d <Plug>(coc-diagnostic-prev)
     nmap <silent>]e <Plug>(coc-diagnostic-next-error)
     nmap <silent>[e <Plug>(coc-diagnostic-prev-error)
-    if has('nvim')
-        nnoremap <leader>d :call CocAction('diagnosticToggleBuffer')<Cr>
-    else
-        function! s:CocDiagnosticToggleBuffer()
-            call CocAction('diagnosticToggleBuffer')
-            if b:coc_diagnostic_disable
-                setlocal signcolumn=no
-            else
-                setlocal signcolumn=yes
-            endif
-        endfunction
-        command! CocDiagnosticToggleBuffer call s:CocDiagnosticToggleBuffer()
-        nnoremap <leader>d :CocDiagnosticToggleBuffer<Cr>
-    endif
-    highlight def CocUnderLine cterm=NONE gui=NONE
-    highlight def link CocErrorHighlight   CocUnderLine
-    highlight def link CocWarningHighlight NONE
-    highlight def link CocInfoHighlight    NONE
-    highlight def link CocHintHighlight    NONE
     " config ignore
     call coc#config('python.linting.flake8Args', [
                 \ "--max-line-length=200",
@@ -42,6 +23,38 @@ if Installed('coc.nvim')
                 \ "--max-line-length=200",
                 \ "--ignore=" . g:python_lint_ignore,
                 \ ])
+    " show/toggle diagnostic
+    nmap <leader>ad <Plug>(coc-diagnostic-info)
+    if has('nvim')
+        let g:coc_diagnostic_messageTarget = "float"
+        function! s:toggle_messagetarget() abort
+            if g:coc_diagnostic_messageTarget == "float"
+                let g:coc_diagnostic_messageTarget = "echo"
+            else
+                let g:coc_diagnostic_messageTarget = "float"
+            endif
+            echo "coc.diagnostic.messageTarget is " . g:coc_diagnostic_messageTarget
+            call coc#config("diagnostic.messageTarget", g:coc_diagnostic_messageTarget)
+        endfunction
+        command! CocToggleDiagMessageTarget call s:toggle_messagetarget()
+        nnoremap <M-"> :CocToggleDiagMessageTarget<Cr>
+    endif
+    function! s:CocDiagnosticToggleBuffer()
+        call CocAction('diagnosticToggleBuffer')
+        if b:coc_diagnostic_disable > 0
+            setlocal signcolumn=no
+        else
+            setlocal signcolumn=yes
+        endif
+    endfunction
+    command! CocDiagnosticToggleBuffer call s:CocDiagnosticToggleBuffer()
+    nnoremap <leader>d :CocDiagnosticToggleBuffer<Cr>
+    " highlight group
+    highlight def CocUnderLine cterm=NONE gui=NONE
+    highlight def link CocErrorHighlight   NONE
+    highlight def link CocWarningHighlight NONE
+    highlight def link CocInfoHighlight    NONE
+    highlight def link CocHintHighlight    NONE
 elseif Installed('lspsaga.nvim')
     lua  << EOF
     local map  = vim.api.nvim_set_keymap

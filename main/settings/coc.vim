@@ -123,24 +123,6 @@ nmap <silent><leader>aa    <Plug>(coc-codeaction)
 nmap <silent><leader>ar    <Plug>(coc-rename)
 nmap <silent><leader>A     :CocFzfList actions<Cr>
 " ------------------------
-" diagnostic
-" ------------------------
-nmap <leader>ad <Plug>(coc-diagnostic-info)
-if has('nvim')
-    let g:coc_diagnostic_messageTarget = "float"
-    function! s:toggle_messagetarget() abort
-        if g:coc_diagnostic_messageTarget == "float"
-            let g:coc_diagnostic_messageTarget = "echo"
-        else
-            let g:coc_diagnostic_messageTarget = "float"
-        endif
-        echo "coc.diagnostic.messageTarget is " . g:coc_diagnostic_messageTarget
-        call coc#config("diagnostic.messageTarget", g:coc_diagnostic_messageTarget)
-    endfunction
-    command! CocToggleDiagMessageTarget call s:toggle_messagetarget()
-    nnoremap <M-"> :CocToggleDiagMessageTarget<Cr>
-endif
-" ------------------------
 " Create mappings for function text object, requires document symbols feature of languageserver.
 " ------------------------
 xmap if <Plug>(coc-funcobj-i)
