@@ -14,7 +14,20 @@ if Installed('coc.nvim')
     nmap <silent>[d <Plug>(coc-diagnostic-prev)
     nmap <silent>]e <Plug>(coc-diagnostic-next-error)
     nmap <silent>[e <Plug>(coc-diagnostic-prev-error)
-    nmap <silent><leader>d :call CocAction('diagnosticToggleBuffer')<Cr>
+    if has('nvim')
+        nnoremap <leader>d :call CocAction('diagnosticToggleBuffer')<Cr>
+    else
+        function! s:CocDiagnosticToggleBuffer()
+            call CocAction('diagnosticToggleBuffer')
+            if b:coc_diagnostic_disable
+                setlocal signcolumn=no
+            else
+                setlocal signcolumn=yes
+            endif
+        endfunction
+        command! CocDiagnosticToggleBuffer call s:CocDiagnosticToggleBuffer()
+        nnoremap <leader>d :CocDiagnosticToggleBuffer<Cr>
+    endif
     highlight def CocUnderLine cterm=NONE gui=NONE
     highlight def link CocErrorHighlight   CocUnderLine
     highlight def link CocWarningHighlight NONE

@@ -139,7 +139,6 @@ if has('nvim')
     endfunction
     command! CocToggleDiagMessageTarget call s:toggle_messagetarget()
     nnoremap <M-"> :CocToggleDiagMessageTarget<Cr>
-
 endif
 " ------------------------
 " Create mappings for function text object, requires document symbols feature of languageserver.
