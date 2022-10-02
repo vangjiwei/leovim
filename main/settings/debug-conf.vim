@@ -165,7 +165,8 @@ elseif Installed('vimspector')
     endif
     nnoremap ,o :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
     " core shortcuts
-    nnoremap ,v :Vimspector<Tab>
+    nnoremap ,d :call vimspector#<Tab>
+    nnoremap ,D :Vimspector<Tab>
     nnoremap ,e :VimspectorEval<Space>
     nnoremap ,w :VimspectorWatch<Space>
     nnoremap ,W :call vimspector#DeleteWatch()<Cr>
@@ -190,14 +191,13 @@ elseif Installed('vimspector')
     nmap <silent> <M-d>c <Plug>VimspectorToggleConditionalBreakpoint
     nmap <silent> <F7>   <Plug>VimspectorToggleConditionalBreakpoint
     " other commands
-    nnoremap ,di :VimspectorInstall <Tab>
-    nnoremap ,dv :call vimspector#<Tab>
-    nnoremap ,dg :call vimspector#GetConfigurations()<Cr>
-    nnoremap ,dp :call vimspector#Pause()<Cr>
-    nnoremap ,dt :call vimspector#SetCurrentThread()<Cr>
-    nnoremap ,de :call vimspector#ExpandVariable()<Cr>
-    nnoremap ,dq :call vimspector#Stop()<Cr>
-    nnoremap ,dl :call vimspector#Launch()<Cr>
+    nnoremap <M-d>i :VimspectorInstall <Tab>
+    nnoremap <M-d>l :call vimspector#Launch()<Cr>
+    nnoremap <M-d>g :call vimspector#GetConfigurations()<Cr>
+    nnoremap <M-d>p :call vimspector#Pause()<Cr>
+    nnoremap <M-d>t :call vimspector#SetCurrentThread()<Cr>
+    nnoremap <M-d>e :call vimspector#ExpandVariable()<Cr>
+    nnoremap <M-d>q :call vimspector#Stop()<Cr>
     " jump to windows in vimspector
     nnoremap <M-m>o :call GoToVimspectorWindow('output')<Cr>
     nnoremap <M-m>e :call GoToVimspectorWindow('stderr')<Cr>
