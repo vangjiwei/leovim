@@ -96,9 +96,8 @@ command! -nargs=? Fold :call CocAction('fold', <f-args>)
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 " refactor
-nnoremap <silent><leader>o :call CocAction('showOutgoingCalls')<Cr>
-nnoremap <silent><leader>i :call CocAction('showIncomingCalls')<Cr>
-nmap     <silent><M-?> <Plug>(coc-refactor)
+nnoremap <silent><M-.> :call CocAction('showOutgoingCalls')<Cr>
+nnoremap <silent><M-,> :call CocAction('showIncomingCalls')<Cr>
 autocmd BufRead acwrite set ma
 " ----------------------------
 " codeLens and codeaction
