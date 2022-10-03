@@ -117,7 +117,7 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     " --------------------------------------
     " nvim-dap-ui
     " ---------------------------------------
-    nnoremap ,D :lua require("dapui").
+    nnoremap ,v :lua require("dapui").
     nnoremap <silent> ,t <cmd>lua require("dapui").toggle()<CR>
     " watch
     nnoremap <silent> ,e <cmd>lua require("dapui").eval()<CR>
@@ -165,8 +165,8 @@ elseif Installed('vimspector')
     endif
     nnoremap ,o :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
     " core shortcuts
-    nnoremap ,d :call vimspector#<Tab>
-    nnoremap ,D :Vimspector<Tab>
+    nnoremap ,d :Vimspector<Tab>
+    nnoremap ,v :call vimspector#<Tab>
     nnoremap ,e :VimspectorEval<Space>
     nnoremap ,w :VimspectorWatch<Space>
     nnoremap ,W :call vimspector#DeleteWatch()<Cr>
@@ -242,7 +242,7 @@ elseif v:version >= 801 && !has('nvim') && Require('deubg') && executable('gdb')
     nnoremap ,B :Clear<Cr>
     " debug
     nnoremap ,d :Termdebug
-    nnoremap ,D :TermdebugCommand<Space>
+    nnoremap ,t :TermdebugCommand<Space>
     nnoremap ,c :Continue<Cr>
     nnoremap ,n :Over<Cr>
     nnoremap ,s :Step<Cr>
