@@ -99,8 +99,8 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> ,b <cmd>lua require("dap").toggle_breakpoint()<CR>
     nnoremap <silent> ,B <cmd>lua require("dap").toggle_breakpoint({"all"})<CR>
     nnoremap <silent> ,l <cmd>lua require("dap").list_breakpoints("")<Cr>
-    nnoremap <silent> <M-d>s <cmd>lua require("dap").set_exception_breakpoints("")<left><left>
-    nnoremap <silent> <M-d>l <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints log: '))<CR>
+    nnoremap <silent> <M-d>e <cmd>lua require("dap").set_exception_breakpoints("")<left><left>
+    nnoremap <silent> <M-d>i <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints info: '))<CR>
     nnoremap <silent> <M-d>b <cmd>lua require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
     " debug
     nnoremap <silent> <M-d>q <cmd>lua require("dap").close()<Cr>
