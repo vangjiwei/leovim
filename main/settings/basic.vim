@@ -1129,7 +1129,9 @@ endif
 nnoremap <leader>ej :tabe $LEOVIM_PATH/jetbrains/idea.vim<Cr>
 nnoremap <leader>en :tabe $LEOVIM_PATH/vscode/neovim.vim<Cr>
 nnoremap <leader>ek :tabe $LEOVIM_PATH/vscode/keybindings.json<Cr>
+" ------------------------
 " cp keybindings.json
+" ------------------------
 if exists("g:vscode_keybindings_dir") && isdirectory(g:vscode_keybindings_dir)
     function s:copykeybindings() abort
         if WINDOWS()

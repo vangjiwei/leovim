@@ -269,13 +269,13 @@ if g:complete_engine == 'coc'
     " jumpDefinition
     nnoremap <silent><C-]>  :call LspOrTagOrSearch()<Cr>
     nnoremap <silent><M-;>  :call LspOrTagOrSearch("jumpDefinition")<Cr>
-    nnoremap <silent>gh     :call LspOrTagOrSearch("jumpDefinition", "split")<Cr>
+    nnoremap <silent>gl     :call LspOrTagOrSearch("jumpDefinition", "split")<Cr>
     nnoremap <silent>g<Cr>  :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
     nnoremap <silent>g<Tab> :call LspOrTagOrSearch("jumpDefinition", "tabe")<Cr>
     " jumpImplementation
     nnoremap <silent>gm :call LspOrTagOrSearch("jumpImplementation")<Cr>
     " jumpDeclaration
-    nnoremap <silent>gl :call LspOrTagOrSearch("jumpDeclaration")<Cr>
+    nnoremap <silent>gD :call LspOrTagOrSearch("jumpDeclaration")<Cr>
     " jumpTypeDefinition
     nnoremap <silent>gt :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
 else

@@ -140,7 +140,7 @@ map('n', '<M-.>', [[<cmd>lua vim.lsp.buf.outgoing_calls()<CR>]], opts)
 -- definition type_definition declaration implementation
 map('n', '<C-]>', [[<cmd>lua vim.lsp.buf.definition()<CR>]], opts)
 map('n', '<gt>',  [[<cmd>lua vim.lsp.buf.type_definition()<CR>]], opts)
-map('n', '<gl>',  [[<cmd>lua vim.lsp.buf.declaration()<CR>]], opts)
+map('n', '<gD>',  [[<cmd>lua vim.lsp.buf.declaration()<CR>]], opts)
 map('n', '<gm>',  [[<cmd>lua vim.lsp.buf.implementation()<CR>]], opts)
 map('n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]], opts)
 map('n', 'T<Cr>', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
