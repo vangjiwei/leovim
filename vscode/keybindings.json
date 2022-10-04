@@ -93,12 +93,6 @@
         "key": "alt+.",
         "command": "-auto-close-tag.closeTag"
     },
-    // callhierarchy
-    {
-        "key": "alt+'",
-        "command": "references-view.showCallHierarchy",
-        "when": "editorHasTypeDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
-    },
     // definition
     {
         "key": "ctrl+]",
@@ -224,9 +218,20 @@
         "key": "ctrl+; g",
         "command": "workbench.view.scm"
     },
+    // breakpoints
+    {
+        "key": "alt+'",
+        "command": "editor.debug.action.toggleBreakpoint",
+        "when": "debuggersAvailable && editorTextFocus"
+    },
+    {
+        "key": "alt+\"",
+        "command": "editor.debug.action.toggleInlineBreakpoint",
+        "when": "editorTextFocus"
+    },
     // contextMenu, as right mouse click
     {
-        "key": "alt+enter",
+        "key": "alt+\\",
         "command": "editor.action.showContextMenu",
         "when": "editorTextFocus"
     }
