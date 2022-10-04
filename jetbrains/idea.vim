@@ -69,7 +69,7 @@ nnoremap <space>am :action ActivateMavenProjectsToolWindow<CR>
 " Errors
 nnoremap <space>ad :action ShowErrorDescription<cr>
 nnoremap <space>at :action AnalyzeStacktraceOnError<Cr>
-nnoremap <space>e :action GoToErrorGroup<Cr>
+nnoremap <space>e  :action GoToErrorGroup<Cr>
 nnoremap ]e :action GotoNextError <CR>
 nnoremap [e :action GotoPreviousError<CR>
 " recentfiles
@@ -83,24 +83,24 @@ nnoremap <space>gc :action Compare.LastVersion<cr>
 nnoremap <space>gr :action Git.ResolveConflicts<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
+" breakpoints Build
+nnoremap <A-'>    :action ToggleLineBreakpoint<cr>
+nnoremap <space>l :action ViewBreakpoints<cr>
+nnoremap <space>cd :action CompileDirty<cr>
 " comments
 " Use default map of <c-/> for that.
 nnoremap <space>cc :action CommentByLineComment<cr>
-" Build
-nnoremap <space>b :action ToggleLineBreakpoint<cr>
-nnoremap <space>l :action ViewBreakpoints<cr>
-nnoremap <space>c :action CompileDirty<cr>
 " run
 nnoremap <space>rr :action Run<cr>
-nnoremap <space>rf :action ChooseRunConfiguration<CR>
 nnoremap <space>re :action RenameElement<CR>
+nnoremap <space>cf :action ChooseRunConfiguration<CR>
 nnoremap <space>R  :action RunAnything<cr>
 nnoremap <space>C  :action RunClass<cr>
 nnoremap <space>T  :action RerunTests<cr>
 " debug
 nnoremap <space>dd :action Debug<cr>
 nnoremap <space>dc :action DebugClass<cr>
-nnoremap <space>df :action ChooseDebugConfiguration<CR>
+nnoremap <space>cd :action ChooseDebugConfiguration<CR>
 " =========================================
 " Emulated Plugins
 " =========================================
