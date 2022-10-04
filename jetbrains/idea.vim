@@ -34,6 +34,7 @@ xnoremap <Tab><Tab> <C-i>
 nnoremap <space>/  :action Find<cr>
 nnoremap <space>ff :action FindInPath<cr>
 nnoremap <space>fp :action ShowFilePath<cr>
+nnoremap <space>fr :action RenameFile<CR>
 nnoremap s/        :action SearchEverywhere<CR>
 " Navigation
 nnoremap K       :action ShowPopupMenu<Cr>
@@ -48,6 +49,11 @@ nnoremap gf :action GotoFile<cr>
 nnoremap gc :action GotoClass<cr>
 nnoremap gt :action GotoTest<cr>
 nnoremap gi :action JumpToLastChange<CR>
+" method
+nnoremap gs :action SuperMethod<cr>
+nnoremap [m :action MethodUp<cr>
+nnoremap ]m :action MethodDown<cr>
+" symbol
 nnoremap f<cr>   :action FileStructurePopup<cr>
 nnoremap <A-/>   :action StructureViewPopupMenu<cr>
 nnoremap <A-S-/> :action GotoSymbol<cr>
@@ -77,37 +83,24 @@ nnoremap <space>gc :action Compare.LastVersion<cr>
 nnoremap <space>gr :action Git.ResolveConflicts<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
-" method
-nnoremap gs :action SuperMethod<cr>
-nnoremap [m :action MethodUp<cr>
-nnoremap ]m :action MethodDown<cr>
 " comments
 " Use default map of <c-/> for that.
 nnoremap <space>cc :action CommentByLineComment<cr>
-" Building, Running and Debugging
+" Build
 nnoremap <space>b :action ToggleLineBreakpoint<cr>
 nnoremap <space>l :action ViewBreakpoints<cr>
 nnoremap <space>c :action CompileDirty<cr>
-nnoremap <space>d :action Debug<cr>
-nnoremap <space>D :action DebugClass<cr>
-nnoremap <space>cd :action ChooseDebugConfiguration<CR>
-nnoremap <space>R :action RunAnything<cr>
-nnoremap <space>C :action RunClass<cr>
-nnoremap <space>T :action RerunTests<cr>
 " run
 nnoremap <space>rr :action Run<cr>
-nnoremap <space>rc :action ChooseRunConfiguration<CR>
+nnoremap <space>rf :action ChooseRunConfiguration<CR>
 nnoremap <space>re :action RenameElement<CR>
-nnoremap <space>rf :action RenameFile<CR>
-" Clojure specific mappings for Cursive
-nnoremap \c :action :cursive.repl.actions/clear-repl<cr>
-nnoremap \l :action :cursive.repl.actions/load-file<cr>
-nnoremap \o :action :cursive.repl.actions/jump-to-output<cr>
-nnoremap \r :action :cursive.repl.actions/jump-to-repl<cr>
-nnoremap \t :action :cursive.testing.actions/run-ns-tests<cr>
-nnoremap \T :action :cursive.testing.actions/rerun-last-test<cr>
-nnoremap \C :action :cursive.testing.actions/remove-test-markers<cr>
-
+nnoremap <space>R  :action RunAnything<cr>
+nnoremap <space>C  :action RunClass<cr>
+nnoremap <space>T  :action RerunTests<cr>
+" debug
+nnoremap <space>dd :action Debug<cr>
+nnoremap <space>dc :action DebugClass<cr>
+nnoremap <space>df :action ChooseDebugConfiguration<CR>
 " =========================================
 " Emulated Plugins
 " =========================================
