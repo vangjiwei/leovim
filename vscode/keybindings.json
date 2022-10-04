@@ -123,13 +123,13 @@
     },
     // typeDefinition
     {
-        "key": "g t",
+        "key": "g h",
         "command": "editor.action.peekTypeDefinition",
         "when": "editorHasReferenceProvider && editorTextFocus && !isInEmbeddedEditor"
     },
     // declaration
     {
-        "key": "g D",
+        "key": "g l",
         "command": "editor.action.peekDeclaration",
         "when": "editorTextFocus && !isInEmbeddedEditor"
     },

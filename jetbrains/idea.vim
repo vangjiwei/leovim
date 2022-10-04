@@ -2,23 +2,17 @@ source ~/.leovim.conf/main/set.vim
 source ~/.leovim.conf/main/map.vim
 " idea smart join
 set ideajoin
-
-" action forword back
-nnoremap <BS>   :action Back<CR>
-nnoremap <C-BS> :action Forward<CR>
 " jump between brackets
-nmap <Cr> g%
-xmap <Cr> g%
-nmap <C-j> %
-xmap <C-j> %
+nnoremap <Cr> g%
+xnoremap <Cr> g%
+nnoremap <C-j> %
+xnoremap <C-j> %
 " Closing tabs
-nmap <space>q :action CloseContent<cr>
-nmap <space>o :action ReopenClosedTab<cr>
-
+nnoremap <space>q :action CloseContent<cr>
+nnoremap <space>o :action ReopenClosedTab<cr>
 " To navigate between split panes
-nmap <A-]> :action NextSplitter<cr>
-nmap <A-[> :action PrevSplitter<cr>
-
+nnoremap <A-]> :action NextSplitter<cr>
+nnoremap <A-[> :action PrevSplitter<cr>
 " Tabs
 nnoremap <Tab>p :action PreviousTab<cr>
 nnoremap <Tab>n :action NextTab<cr>
@@ -36,78 +30,83 @@ nnoremap <Tab>v :action SplitVertically<cr>
 " tab
 nnoremap <Tab><Tab> <C-i>
 xnoremap <Tab><Tab> <C-i>
-nnoremap <C-l> <C-i>
-xnoremap <C-l> <C-i>
-
 " Search
-nmap <space>/  :action Find<cr>
-nmap <space>ff :action FindInPath<cr>
-
+nnoremap <space>/  :action Find<cr>
+nnoremap <space>ff :action FindInPath<cr>
+nnoremap <space>fp :action ShowFilePath<cr>
+nnoremap s/        :action SearchEverywhere<CR>
 " Navigation
 nnoremap K       :action ShowPopupMenu<Cr>
 nnoremap <A-;>   :action ShowUsages<cr>
 nnoremap <A-S-;> :action FindUsages<cr>
-nnoremap <C-]> :action GotoDefinition<cr>
-nnoremap <A-,> :action GotoTypeDeclaration<cr>
-nnoremap <A-.> :action GotoDeclaration<cr>
-nnoremap <A-/> :action GotoImplementation<cr>
-nnoremap f<cr> :action FileStructurePopup<cr>
-nnoremap t<cr> :action StructureViewPopupMenu<cr>
-nnoremap <A-S-/> :action GotoSymbol<cr>
-nnoremap <A-\>   :action NavBarToolBar<cr>
-nnoremap <A-S-\> :action ShowBookmarks<cr>
+nnoremap gd :action GotoDefinition<cr>
+nnoremap gh :action GotoTypeDeclaration<cr>
+nnoremap gl :action GotoDeclaration<cr>
+nnoremap gm :action GotoImplementation<cr>
 nnoremap ga :action GotoAction<CR>
 nnoremap gf :action GotoFile<cr>
 nnoremap gc :action GotoClass<cr>
 nnoremap gt :action GotoTest<cr>
-nnoremap gl :action JumpToLastChange<CR>
-nnoremap gs :action SuperMethod<cr>
-nnoremap gr :action RecentFiles<CR>
+nnoremap gi :action JumpToLastChange<CR>
+nnoremap f<cr>   :action FileStructurePopup<cr>
+nnoremap <A-/>   :action StructureViewPopupMenu<cr>
+nnoremap <A-S-/> :action GotoSymbol<cr>
+nnoremap <A-\>   :action NavBarToolBar<cr>
+nnoremap <A-S-\> :action ShowBookmarks<cr>
+" action back/forword
 nnoremap <A-S-,> :action Back<CR>
 nnoremap <A-S-.> :action Forward<CR>
-
 " Terminal
 nnoremap <A--> :action ActivateTerminalToolWindow<cr>
+" maven
+nnoremap <space>am :action ActivateMavenProjectsToolWindow<CR>
 " Errors
-nnoremap g<tab>   :action ShowErrorDescription<cr>
-nnoremap g<cr>    :action AnalyzeStacktraceOnError<Cr>
+nnoremap <space>ad :action ShowErrorDescription<cr>
+nnoremap <space>at :action AnalyzeStacktraceOnError<Cr>
 nnoremap <space>e :action GoToErrorGroup<Cr>
 nnoremap ]e :action GotoNextError <CR>
 nnoremap [e :action GotoPreviousError<CR>
+" recentfiles
+nnoremap <space>m :action RecentFiles<CR>
 " VCS operations
-nmap <space>gs :action Vcs.Show.Local.Changes<cr>
-nmap <space>gp :action Vcs.QuickListPopupAction<cr>
-nmap <space>ga :action Annotate<cr>
-nmap <space>gl :action Vcs.Show.Log<cr>
-nmap <space>gc :action Compare.LastVersion<cr>
-nmap <space>gr :action Git.ResolveConflicts<cr>
-" Won't work in visual mode (with vmap) for some reason.
-" Use default map of <c-/> for that.
-" nmap <space>cc :action CommentByLineComment<cr>
-" unimpaired mappings - from https://github.com/saaguero/ideavimrc/blob/master/.ideavimrc
-nnoremap [m :action MethodUp<cr>
-nnoremap ]m :action MethodDown<cr>
+nnoremap <space>gs :action Vcs.Show.Local.Changes<cr>
+nnoremap <space>gp :action Vcs.QuickListPopupAction<cr>
+nnoremap <space>ga :action Annotate<cr>
+nnoremap <space>gl :action Vcs.Show.Log<cr>
+nnoremap <space>gc :action Compare.LastVersion<cr>
+nnoremap <space>gr :action Git.ResolveConflicts<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
-
+" method
+nnoremap gs :action SuperMethod<cr>
+nnoremap [m :action MethodUp<cr>
+nnoremap ]m :action MethodDown<cr>
+" comments
+" Use default map of <c-/> for that.
+nnoremap <space>cc :action CommentByLineComment<cr>
 " Building, Running and Debugging
-nmap \b       :action ToggleLineBreakpoint<cr>
-nmap <space>c :action CompileDirty<cr>
-nmap <space>d :action Debug<cr>
-nmap <space>D :action DebugClass<cr>
-nmap <space>r :action Run<cr>
-nmap <space>R :action RunAnything<cr>
-nmap <space>C :action RunClass<cr>
-nmap <space>T :action RerunTests<cr>
-
+nnoremap <space>b :action ToggleLineBreakpoint<cr>
+nnoremap <space>l :action ViewBreakpoints<cr>
+nnoremap <space>c :action CompileDirty<cr>
+nnoremap <space>d :action Debug<cr>
+nnoremap <space>D :action DebugClass<cr>
+nnoremap <space>cd :action ChooseDebugConfiguration<CR>
+nnoremap <space>R :action RunAnything<cr>
+nnoremap <space>C :action RunClass<cr>
+nnoremap <space>T :action RerunTests<cr>
+" run
+nnoremap <space>rr :action Run<cr>
+nnoremap <space>rc :action ChooseRunConfiguration<CR>
+nnoremap <space>re :action RenameElement<CR>
+nnoremap <space>rf :action RenameFile<CR>
 " Clojure specific mappings for Cursive
-nmap \c :action :cursive.repl.actions/clear-repl<cr>
-nmap \l :action :cursive.repl.actions/load-file<cr>
-nmap \o :action :cursive.repl.actions/jump-to-output<cr>
-nmap \r :action :cursive.repl.actions/jump-to-repl<cr>
-nmap \t :action :cursive.testing.actions/run-ns-tests<cr>
-nmap \T :action :cursive.testing.actions/rerun-last-test<cr>
-nmap \C :action :cursive.testing.actions/remove-test-markers<cr>
+nnoremap \c :action :cursive.repl.actions/clear-repl<cr>
+nnoremap \l :action :cursive.repl.actions/load-file<cr>
+nnoremap \o :action :cursive.repl.actions/jump-to-output<cr>
+nnoremap \r :action :cursive.repl.actions/jump-to-repl<cr>
+nnoremap \t :action :cursive.testing.actions/run-ns-tests<cr>
+nnoremap \T :action :cursive.testing.actions/rerun-last-test<cr>
+nnoremap \C :action :cursive.testing.actions/remove-test-markers<cr>
 
 " =========================================
 " Emulated Plugins
@@ -121,16 +120,16 @@ nnoremap <Space>sl :action SurroundWithLiveTemplate<CR>
 xnoremap <Space>sl :<c-u>action SurroundWithLiveTemplate<CR>
 " Multiple cursors support
 set multiple-cursors
-nmap <C-n> <Plug>NextWholeOccurrence
-xmap <C-n> <Plug>NextWholeOccurrence
-nmap <C-k> <Plug>SkipOccurrence
-xmap <C-k> <Plug>SkipOccurrence
-nmap <C-h> <Plug>RemoveOccurrence
-xmap <C-h> <Plug>RemoveOccurrence
-nmap ]o <Plug>NextOccurrence
-xmap ]o <Plug>NextOccurrence
-nmap [o <Plug>PreviousOccurrence
-xmap [o <Plug>PreviousOccurrence
+nnoremap <C-n> <Plug>NextWholeOccurrence
+xnoremap <C-n> <Plug>NextWholeOccurrence
+nnoremap <C-k> <Plug>SkipOccurrence
+xnoremap <C-k> <Plug>SkipOccurrence
+nnoremap <C-h> <Plug>RemoveOccurrence
+xnoremap <C-h> <Plug>RemoveOccurrence
+nnoremap ]o <Plug>NextOccurrence
+xnoremap ]o <Plug>NextOccurrence
+nnoremap [o <Plug>PreviousOccurrence
+xnoremap [o <Plug>PreviousOccurrence
 " easymotion
 set easymotion
 source ~/.leovim.conf/main/settings/easymotion.vim
