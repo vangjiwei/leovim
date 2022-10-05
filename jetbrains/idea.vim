@@ -83,16 +83,24 @@ nnoremap <space>gc :action Compare.LastVersion<cr>
 nnoremap <space>gr :action Git.ResolveConflicts<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
-" breakpoints Build
-nnoremap <A-'>    :action ToggleLineBreakpoint<cr>
+" breakpoints
+nnoremap <space>b :action ToggleLineBreakpoint<cr>
 nnoremap <space>l :action ViewBreakpoints<cr>
-nnoremap <space>cd :action CompileDirty<cr>
 " comments
 " Use default map of <c-/> for that.
 nnoremap <space>cc :action CommentByLineComment<cr>
+" compile
+nnoremap <space>cd :action CompileDirty<cr>
+nnoremap <space>cp :action CompileProject<cr>
+nnoremap <space>cm :action Compile<cr>
+" rename
+nnoremap <space>re :action RenameElement<CR>
 " run
 nnoremap <space>rr :action Run<cr>
-nnoremap <space>re :action RenameElement<CR>
+nnoremap <space>rt :action RunTargetAction<Cr>
+nnoremap <space>rg :action RunContextGroup<Cr>
+nnoremap <space>rp :action RunContextPopupGroup<Cr>
+nnoremap <space>rc :action RunCoverage<Cr>
 nnoremap <space>cf :action ChooseRunConfiguration<CR>
 nnoremap <space>R  :action RunAnything<cr>
 nnoremap <space>C  :action RunClass<cr>
