@@ -4,7 +4,7 @@ nnoremap cr :CR<CR>
 " fugitve and others
 if Installed('vim-fugitive')
     nnoremap <C-g><C-g> :G<Tab>
-    nnoremap <M-G>  :Git<Cr>
+    nnoremap <M-G>  :Git status<Cr>
     nnoremap <C-g>m :Git commit -av<Cr>
     nnoremap <C-g>i :Git<Space>
     nnoremap <C-g>u :Git push<CR>
