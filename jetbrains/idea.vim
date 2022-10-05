@@ -91,8 +91,8 @@ nnoremap <space>l :action ViewBreakpoints<cr>
 nnoremap <space>cc :action CommentByLineComment<cr>
 " compile
 nnoremap <space>cd :action CompileDirty<cr>
-nnoremap <space>cp :action CompileProject<cr>
-nnoremap <space>cm :action Compile<cr>
+nnoremap <space>cp :action Compile<cr>
+nnoremap <space>cP :action CompileProject<cr>
 " rename
 nnoremap <space>re :action RenameElement<CR>
 " run
