@@ -164,9 +164,9 @@ imap <M-/> <C-o><M-/>
 imap <M-?> <C-o><M-/>
 imap <M-;> <C-o><M-;>
 imap <M-:> <C-o><M-:>
-inoremap <M-'> <C-r>"
-cnoremap <M-'> <C-r>"
-nnoremap <M-'> gP
+inoremap <M-v> <C-r>"
+cnoremap <M-v> <C-r>"
+nnoremap <M-v> gP
 " --------------------------
 " TMUX config, must writen after packopt.vim for Alt_to_meta function
 " --------------------------
