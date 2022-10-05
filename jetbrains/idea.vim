@@ -101,6 +101,7 @@ nnoremap <space>rt :action RunTargetAction<Cr>
 nnoremap <space>rg :action RunContextGroup<Cr>
 nnoremap <space>rp :action RunContextPopupGroup<Cr>
 nnoremap <space>rc :action RunCoverage<Cr>
+nnoremap <space>rq :action Stop<CR>
 nnoremap <space>cf :action ChooseRunConfiguration<CR>
 nnoremap <space>R  :action RunAnything<cr>
 nnoremap <space>C  :action RunClass<cr>
