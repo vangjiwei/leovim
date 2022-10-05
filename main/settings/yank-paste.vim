@@ -49,7 +49,7 @@ if has('clipboard')
         au ModeChanged s:* set clipboard=unnamedplus
     endif
     nnoremap <M-c>+ viw"+y
-    nnoremap <M-c>* viw'*y
+    nnoremap <M-c>* viw"*y
     xnoremap <M-c>+ "+y
     xnoremap <M-c>* "*y"
     nnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>

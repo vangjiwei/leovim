@@ -105,9 +105,9 @@ elseif g:complete_engine == 'coc'
         let g:coc_global_extensions += ['coc-java', 'coc-java-intellicode']
     endif
 elseif g:complete_engine == 'cmp'
-    PackAdd 'williamboman/mason.nvim'
+    PackAdd 'neovim/nvim-lspconfig'
+                \| PackAdd 'williamboman/mason.nvim'
                 \| PackAdd 'williamboman/mason-lspconfig.nvim'
-                \| PackAdd 'neovim/nvim-lspconfig'
                 \| PackAdd 'hrsh7th/nvim-cmp'
                 \| PackAdd 'hrsh7th/cmp-nvim-lsp'
                 \| PackAdd 'hrsh7th/cmp-nvim-lua'
@@ -119,7 +119,6 @@ elseif g:complete_engine == 'cmp'
                 \| PackAdd 'hrsh7th/cmp-nvim-lsp-document-symbol'
                 \| PackAdd 'uga-rosa/cmp-dictionary'
                 \| PackAdd 'onsails/lspkind-nvim'
-                \| PackAdd 'jose-elias-alvarez/null-ls.nvim'
 endif
 " ------------------------------
 " lint tool
