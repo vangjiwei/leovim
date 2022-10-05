@@ -26,8 +26,6 @@ else
     endif
     if g:complete_engine == 'coc' || get(g:, 'ctags_type', '') =~ 'json'
         call SymbolRequire('vista')
-    elseif get(g:, 'ctags_type','') != ''
-        call SymbolRequire('tagbar')
     endif
 endif
 " ------------------------------
@@ -70,6 +68,4 @@ if SymbolPlanned('plus')
 endif
 if SymbolPlanned('vista')
     PackAdd 'liuchengxu/vista.vim'
-elseif SymbolPlanned('tagbar')
-    PackAdd 'majutsushi/tagbar'
 endif
