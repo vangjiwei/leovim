@@ -126,12 +126,12 @@ endif
 if g:complete_engine == 'cmp'
     let g:check_tool = 'cmp'
 elseif g:complete_engine == 'coc'
-    if g:python_version > 3.6
-        let g:check_tool = get(g:, 'check_tool', 'coc')
+    if g:python_version > 3.6 && Require('ale')
+        let g:check_tool = 'ale'
     else
         let g:check_tool = 'coc'
     endif
-elseif g:python_version > 3.6 && v:version >= 800
+elseif g:python_version > 3.6 && v:version >= 800 && Require('ale')
     let g:check_tool = 'ale'
 else
     let g:check_tool = ''

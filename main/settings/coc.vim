@@ -37,8 +37,7 @@ nnoremap <silent><M-l>e :CocList extensions<Cr>
 nnoremap <silent><M-l>. :CocFzfListResume<Cr>
 nnoremap <silent><M-l>; :CocNext<CR>
 nnoremap <silent><M-l>, :CocPrev<CR>
-nnoremap <silent><M-h>c :CocFzfList commands<Cr>
-nnoremap <silent><M-h>. :call CocAction('repeatCommand')<Cr>
+nnoremap <silent><M-l>C :CocFzfList commands<Cr>
 " completion map
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#stop() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <TAB>
