@@ -56,6 +56,20 @@ if Installed('lspsaga.nvim')
     map('n', '<M-V>', [[<cmd>lua toggle_diagnostics_virtualtext()<Cr>]], {silent = true, noremap = true})
 EOF
 elseif Installed('coc.nvim')
+    if has('nvim')
+        let g:coc_diagnostic_messageTarget = "float"
+        function! s:toggle_messagetarget() abort
+            if g:coc_diagnostic_messageTarget == "float"
+                let g:coc_diagnostic_messageTarget = "echo"
+            else
+                let g:coc_diagnostic_messageTarget = "float"
+            endif
+            echo "coc.diagnostic.messageTarget is " . g:coc_diagnostic_messageTarget
+            call coc#config("diagnostic.messageTarget", g:coc_diagnostic_messageTarget)
+        endfunction
+        command! CocToggleDiagMessageTarget call s:toggle_messagetarget()
+        nnoremap <M-"> :CocToggleDiagMessageTarget<Cr>
+    endif
     if g:check_tool == 'ale'
         call coc#config('diagnostic.displayByAle', v:true)
     else
@@ -95,20 +109,6 @@ elseif Installed('coc.nvim')
         endfunction
         command! CocDiagnosticToggleBuffer call s:CocDiagnosticToggleBuffer()
         nnoremap <leader>d :CocDiagnosticToggleBuffer<Cr>
-    endif
-    if has('nvim')
-        let g:coc_diagnostic_messageTarget = "float"
-        function! s:toggle_messagetarget() abort
-            if g:coc_diagnostic_messageTarget == "float"
-                let g:coc_diagnostic_messageTarget = "echo"
-            else
-                let g:coc_diagnostic_messageTarget = "float"
-            endif
-            echo "coc.diagnostic.messageTarget is " . g:coc_diagnostic_messageTarget
-            call coc#config("diagnostic.messageTarget", g:coc_diagnostic_messageTarget)
-        endfunction
-        command! CocToggleDiagMessageTarget call s:toggle_messagetarget()
-        nnoremap <M-"> :CocToggleDiagMessageTarget<Cr>
     endif
     " highlight group
     highlight def CocUnderLine cterm=NONE gui=NONE

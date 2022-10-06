@@ -39,17 +39,9 @@ let g:terminal_auto_insert     = 1
 let g:terminal_skip_key_init   = 1
 let g:terminal_default_mapping = 0
 if has('nvim')
-    if has('clipboard')
-        tnoremap <M-v> <C-\><C-n>"*pa
-    else
-        tnoremap <M-v> <C-\><C-n>""pa
-    endif
+    tnoremap <M-v> <C-\><C-n>""pa
 else
-    if has('clipboard')
-        tnoremap <M-v> <C-\><C-n>"*
-    else
-        tnoremap <M-v> <C-\><C-n>""
-    endif
+    tnoremap <M-v> <C-\><C-n>""p
 endif
 " --------------------------
 " floaterm

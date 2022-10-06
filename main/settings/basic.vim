@@ -367,8 +367,7 @@ nnoremap <M-k>s :colorscheme<Space>
 nnoremap <M-k>t :setfiletype<Space>
 nnoremap <M-k>c :command<Cr>
 nnoremap <M-k>r :set relativenumber \| set number<Cr>
-" registers
-nnoremap <M-v> :registers<Cr>
+nnoremap <M-i>  :registers<Cr>
 " ------------------------
 " buffers mark messages
 " ------------------------
@@ -1150,3 +1149,10 @@ endif
 " ------------------------
 nnoremap <leader>ef :set ff=unix<Cr>:%s/\r//g<Cr>
 source $SETTINGS_PATH/zfvime.vim
+" ------------------------
+" other config
+" ------------------------
+nnoremap <leader>eo :tabe ~/.leovim.d/other.vim<Cr>
+if filereadable(expand('~/.leovim.d/other.vim'))
+    source ~/.leovim.d/other.vim
+endif
