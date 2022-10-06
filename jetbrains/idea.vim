@@ -14,7 +14,6 @@ nnoremap <C-U> <C-U>zz
 nnoremap J <ESC>:action EditorJoinLines<CR>
 nnoremap H ^
 nnoremap L $
-nnoremap <C-p> <ESC>:action SelectInProjectView<CR>
 " Ctrl+某个按键
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
@@ -63,13 +62,12 @@ nnoremap <space>fp :action ShowFilePath<Cr>
 nnoremap <space>fr :action RenameFile<Cr>
 nnoremap s/        :action SearchEverywhere<Cr>
 " Navigation
-nnoremap K       :action ShowPopupMenu<Cr>
-nnoremap <A-;>   :action ShowIntentionActions<CR>
-nnoremap <A-S-;> :action ActivateMavenToolWindow<CR>
-nnoremap <A-,>   :action ShowUsages<Cr>
-nnoremap <A-.>   :action FindUsages<Cr>
-nnoremap <A-S-.> :action InspectCode<CR>
-nnoremap <A-S-,> :action OptimizeImports<CR>
+nnoremap K         :action ShowPopupMenu<Cr>
+nnoremap <C-p>     :action ProjectViewPopupMenu<CR>
+nnoremap <A-;>     :action ShowUsages<Cr>
+nnoremap <A-S-;>   :action FindUsages<Cr>
+nnoremap <space>ic :action InspectCode<CR>
+nnoremap <space>oi :action OptimizeImports<CR>
 " symbol
 nnoremap f<Cr>   :action FileStructurePopup<Cr>
 nnoremap <A-/>   :action StructureViewPopupMenu<Cr>
@@ -145,8 +143,6 @@ nnoremap <space>T  :action RerunTests<Cr>
 nnoremap <space>dd :action Debug<Cr>
 nnoremap <space>dc :action DebugClass<Cr>
 nnoremap <space>cd :action ChooseDebugConfiguration<Cr>
-"
-nnoremap <c-p> :action ExternalSystemView.ProjectMenu<Cr>
 " =========================================
 " Emulated Plugins
 " =========================================
