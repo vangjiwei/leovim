@@ -1,5 +1,11 @@
 source ~/.leovim.conf/main/set.vim
 source ~/.leovim.conf/main/map.vim
+set clipboard+=unnamed
+set history=100000
+" select模式下复制
+if has("clipboard")
+    xnoremap <C-C> "+y
+endif
 " action back/forword
 nnoremap <C-O> <ESC>:action Back<CR>
 nnoremap <C-I> <ESC>:action Forward<CR>
@@ -9,6 +15,14 @@ nnoremap J <ESC>:action EditorJoinLines<CR>
 nnoremap H ^
 nnoremap L $
 nnoremap <C-p> <ESC>:action SelectInProjectView<CR>
+" Ctrl+某个按键
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-d> <Delete>
 " idea smart join
 set ideajoin
 " jump between brackets
@@ -16,8 +30,10 @@ nnoremap <Cr> g%
 xnoremap <Cr> g%
 nnoremap <C-j> %
 xnoremap <C-j> %
+" Quit normal mode
+nnoremap <space>q :q<CR>
+nnoremap <space>Q :qa!<CR>
 " tab and recentfile
-nnoremap <space>q :action CloseContent<Cr>
 nnoremap <space>o :action ReopenClosedTab<Cr>
 nnoremap <space>m :action RecentFiles<Cr>
 " To navigate between split panes
@@ -49,7 +65,7 @@ nnoremap s/        :action SearchEverywhere<Cr>
 " Navigation
 nnoremap K       :action ShowPopupMenu<Cr>
 nnoremap <A-;>   :action ShowIntentionActions<CR>
-nnoremap <A-S-;> :action ActivateMavenProjectsToolWindow<CR>
+nnoremap <A-S-;> :action ActivateMavenToolWindow<CR>
 nnoremap <A-,>   :action ShowUsages<Cr>
 nnoremap <A-.>   :action FindUsages<Cr>
 nnoremap <A-S-.> :action InspectCode<CR>
@@ -92,16 +108,16 @@ nnoremap <space>e  :action GoToErrorGroup<Cr>
 nnoremap ]e :action GotoNextError <Cr>
 nnoremap [e :action GotoPreviousError<Cr>
 " VCS operations
-nnoremap <space>gs :action Vcs.Show.Local.Changes<Cr>
-nnoremap <space>gp :action Vcs.QuickListPopupAction<Cr>
-nnoremap <space>ga :action Annotate<Cr>
-nnoremap <space>gl :action Vcs.Show.Log<Cr>
-nnoremap <space>gc :action Compare.LastVersion<Cr>
-nnoremap <space>gr :action Git.ResolveConflicts<Cr>
-nnoremap <space>gr :action Git.ResolveConflicts<CR>
-nnoremap <space>ga :action Annotate<CR>
-nnoremap [c :action VcsShowPrevChangeMarker<Cr>
-nnoremap ]c :action VcsShowNextChangeMarker<Cr>
+nnoremap <C-g>s :action Vcs.Show.Local.Changes<Cr>
+nnoremap <C-g>p :action Vcs.QuickListPopupAction<Cr>
+nnoremap <C-g>a :action Annotate<Cr>
+nnoremap <C-g>l :action Vcs.Show.Log<Cr>
+nnoremap <C-g>c :action Compare.LastVersion<Cr>
+nnoremap <C-g>r :action Git.ResolveConflicts<Cr>
+nnoremap <C-g>r :action Git.ResolveConflicts<CR>
+nnoremap <C-g>a :action Annotate<CR>
+nnoremap [g :action VcsShowPrevChangeMarker<Cr>
+nnoremap ]g :action VcsShowNextChangeMarker<Cr>
 " breakpoints
 nnoremap <space>b :action ToggleLineBreakpoint<Cr>
 nnoremap <space>l :action ViewBreakpoints<Cr>
@@ -121,7 +137,7 @@ nnoremap <space>rg :action RunContextGroup<Cr>
 nnoremap <space>rp :action RunContextPopupGroup<Cr>
 nnoremap <space>rc :action RunCoverage<Cr>
 nnoremap <space>rq :action Stop<Cr>
-nnoremap <space>cf :action ChooseRunConfiguration<Cr>
+nnoremap <space>cr :action ChooseRunConfiguration<Cr>
 nnoremap <space>R  :action RunAnything<Cr>
 nnoremap <space>C  :action RunClass<Cr>
 nnoremap <space>T  :action RerunTests<Cr>
