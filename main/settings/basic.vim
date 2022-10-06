@@ -704,7 +704,7 @@ endif
 " settings
 " --------------------------
 source $SETTINGS_PATH/differ.vim
-source $SETTINGS_PATH/lint-conf.vim
+source $SETTINGS_PATH/check.vim
 source $SETTINGS_PATH/search-replace.vim
 source $SETTINGS_PATH/yank-paste.vim
 source $SETTINGS_PATH/sidebar.vim
