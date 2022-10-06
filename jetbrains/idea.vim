@@ -48,8 +48,19 @@ nnoremap <space>fr :action RenameFile<Cr>
 nnoremap s/        :action SearchEverywhere<Cr>
 " Navigation
 nnoremap K       :action ShowPopupMenu<Cr>
-nnoremap <A-;>   :action ShowUsages<Cr>
-nnoremap <A-S-;> :action FindUsages<Cr>
+nnoremap <A-;>   :action ShowIntentionActions<CR>
+nnoremap <A-S-;> :action ActivateMavenProjectsToolWindow<CR>
+nnoremap <A-,>   :action ShowUsages<Cr>
+nnoremap <A-.>   :action FindUsages<Cr>
+nnoremap <A-S-.> :action InspectCode<CR>
+nnoremap <A-S-,> :action OptimizeImports<CR>
+" symbol
+nnoremap f<Cr>   :action FileStructurePopup<Cr>
+nnoremap <A-/>   :action StructureViewPopupMenu<Cr>
+nnoremap <A-S-/> :action GotoSymbol<Cr>
+nnoremap <A-\>   :action NavBarToolBar<Cr>
+nnoremap <A-S-\> :action ShowProjectStructureSettings<Cr>
+" goto
 nnoremap gd :action GotoDefinition<Cr>
 nnoremap gh :action GotoTypeDeclaration<Cr>
 nnoremap gl :action GotoDeclaration<Cr>
@@ -57,21 +68,19 @@ nnoremap gm :action GotoImplementation<Cr>
 nnoremap ga :action GotoAction<Cr>
 nnoremap gf :action GotoFile<Cr>
 nnoremap gc :action GotoClass<Cr>
-nnoremap gi :action JumpToLastChange<Cr>
 nnoremap gt :action GotoTest<Cr>
+nnoremap gb :action JumpToLastChange<Cr>
+" 实现方法
+nnoremap gi :action ImplementMethods<CR>
+" 重写方法"
+nnoremap go :action OverrideMethods<CR>
 " method
 nnoremap gs :action SuperMethod<Cr>
 nnoremap [m :action MethodUp<Cr>
 nnoremap ]m :action MethodDown<Cr>
-" symbol
-nnoremap f<Cr>   :action FileStructurePopup<Cr>
-nnoremap <A-/>   :action StructureViewPopupMenu<Cr>
-nnoremap <A-S-/> :action GotoSymbol<Cr>
-nnoremap <A-\>   :action NavBarToolBar<Cr>
-nnoremap <A-S-\> :action ShowProjectStructureSettings<Cr>
-" symbol
-nnoremap <space>ic :action InspectCode<CR>
-nnoremap <space>ip :action OptimizeImports<CR>
+" reformat
+nnoremap == :action ReformatCode<CR>
+xnoremap == :action ReformatCode<CR>
 " Terminal
 nnoremap <A--> :action ActivateTerminalToolWindow<Cr>
 " maven
@@ -89,6 +98,8 @@ nnoremap <space>ga :action Annotate<Cr>
 nnoremap <space>gl :action Vcs.Show.Log<Cr>
 nnoremap <space>gc :action Compare.LastVersion<Cr>
 nnoremap <space>gr :action Git.ResolveConflicts<Cr>
+nnoremap <space>gr :action Git.ResolveConflicts<CR>
+nnoremap <space>ga :action Annotate<CR>
 nnoremap [c :action VcsShowPrevChangeMarker<Cr>
 nnoremap ]c :action VcsShowNextChangeMarker<Cr>
 " breakpoints
