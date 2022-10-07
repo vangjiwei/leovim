@@ -24,7 +24,7 @@ else
             call SymbolRequire("fzfctags")
         endif
     endif
-    if g:complete_engine == 'coc' || get(g:, 'ctags_type', '') =~ 'json'
+    if g:complete_engine == 'coc' || get(g:, 'ctags_type', '') =~ 'Universal'
         call SymbolRequire('vista')
     endif
 endif
