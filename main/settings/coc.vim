@@ -38,6 +38,7 @@ nnoremap <silent><M-l>. :CocFzfListResume<Cr>
 nnoremap <silent><M-l>; :CocNext<CR>
 nnoremap <silent><M-l>, :CocPrev<CR>
 nnoremap <silent><M-l>C :CocFzfList commands<Cr>
+nnoremap <silent><M-u>. :call CocAction('repeatCommand')<Cr>
 " completion map
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#stop() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <TAB>
@@ -115,11 +116,11 @@ if has('nvim') || has('patch-9.0.0252')
 else
     call coc#config('codeLens.enable', v:false)
 endif
-nmap <silent><leader>a<Cr> <Plug>(coc-codeaction-line)
-xmap <silent><leader>a<Cr> <Plug>(coc-codeaction-selected)
-nmap <silent><leader>aa    <Plug>(coc-codeaction)
-nmap <silent><leader>ar    <Plug>(coc-rename)
-nmap <silent><leader>A     :CocFzfList actions<Cr>
+nnoremap <silent><leader>a<Cr> <Plug>(coc-codeaction-line)
+xnoremap <silent><leader>a<Cr> <Plug>(coc-codeaction-selected)
+nnoremap <silent><leader>aa    <Plug>(coc-codeaction)
+nnoremap <silent><leader>ar    <Plug>(coc-rename)
+nnoremap <silent><leader>A     :CocFzfList actions<Cr>
 " ------------------------
 " Create mappings for function text object, requires document symbols feature of languageserver.
 " ------------------------
