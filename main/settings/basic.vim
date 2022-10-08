@@ -164,9 +164,8 @@ imap <M-/> <C-o><M-/>
 imap <M-?> <C-o><M-/>
 imap <M-;> <C-o><M-;>
 imap <M-:> <C-o><M-:>
-inoremap <M-v> <C-r>"
-cnoremap <M-v> <C-r>"
-nnoremap <M-v> gP
+inoremap <C-v> <C-r>"
+cnoremap <C-v> <C-r>"
 " --------------------------
 " TMUX config, must writen after packopt.vim for Alt_to_meta function
 " --------------------------
@@ -367,7 +366,7 @@ nnoremap <M-k>s :colorscheme<Space>
 nnoremap <M-k>t :setfiletype<Space>
 nnoremap <M-k>c :command<Cr>
 nnoremap <M-k>r :set relativenumber \| set number<Cr>
-nnoremap <M-i>  :registers<Cr>
+nnoremap <M-v>  :registers<Cr>
 " ------------------------
 " buffers mark messages
 " ------------------------

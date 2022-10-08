@@ -39,9 +39,9 @@ let g:terminal_auto_insert     = 1
 let g:terminal_skip_key_init   = 1
 let g:terminal_default_mapping = 0
 if has('nvim')
-    tnoremap <M-v> <C-\><C-n>""pa
+    tnoremap <C-v> <C-\><C-n>""pa
 else
-    tnoremap <M-v> <C-\><C-n>""p
+    tnoremap <C-v> <C-\><C-n>""p
 endif
 " --------------------------
 " floaterm

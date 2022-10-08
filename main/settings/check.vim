@@ -53,7 +53,7 @@ if Installed('lspsaga.nvim')
       virtual_text = false,
       underline = false,
     })
-    map('n', '<M-V>', [[<cmd>lua toggle_diagnostics_virtualtext()<Cr>]], {silent = true, noremap = true})
+    map('n', "<M-'>", [[<cmd>lua toggle_diagnostics_virtualtext()<Cr>]], {silent = true, noremap = true})
 EOF
 elseif Installed('coc.nvim')
     if has('nvim') || g:gui_running > 0

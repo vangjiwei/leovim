@@ -97,9 +97,9 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> ,i <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.scopes)<CR>
     nnoremap <silent> ,I <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.frames)<CR>
     " breakpoint
-    nnoremap <silent> <M-'> <cmd>lua require("dap").toggle_breakpoint()<CR>
-    nnoremap <silent> ,b    <cmd>lua require("dap").toggle_breakpoint({"all"})<CR>
-    nnoremap <silent> ,l    <cmd>lua require("dap").list_breakpoints("")<Cr>
+    nnoremap <silent> ,b <cmd>lua require("dap").toggle_breakpoint()<CR>
+    nnoremap <silent> ,B <cmd>lua require("dap").toggle_breakpoint({"all"})<CR>
+    nnoremap <silent> ,l <cmd>lua require("dap").list_breakpoints("")<Cr>
     nnoremap <silent> <M-d>e <cmd>lua require("dap").set_exception_breakpoints("")<left><left>
     nnoremap <silent> <M-d>i <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints info: '))<CR>
     nnoremap <silent> <M-d>b <cmd>lua require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
@@ -181,8 +181,8 @@ elseif Installed('vimspector')
     nmap <silent> ,r :call vimspector#Reset()<Cr>
     nmap <silent> ,R :call vimspector#Restart()<Cr>
     " breakpoint
-    nmap <silent> <M-'> <Plug>VimspectorToggleBreakpoint
-    nmap <silent> ,b :call ToggleAllBreakpointsViewBreakpoint()<Cr>
+    nmap <silent> ,b <Plug>VimspectorToggleBreakpoint
+    nmap <silent> ,B :call ToggleAllBreakpointsViewBreakpoint()<Cr>
     nmap <silent> ,l :call vimspector#ListBreakpoints()<Cr>
     " debug
     nmap <silent> <M-d>u :call vimspector#UpFrame()<Cr>
@@ -239,8 +239,8 @@ elseif v:version >= 801 && !has('nvim') && Require('deubg') && executable('gdb')
     let g:termdebug_map_K = 0
     let g:termdebug_use_prompt = 1
     " breakpoint
-    nnoremap <M-'> :Break<Cr>
-    nnoremap ,b :Clear<Cr>
+    nnoremap ,b :Break<Cr>
+    nnoremap ,B :Clear<Cr>
     " debug
     nnoremap ,d :Termdebug
     nnoremap ,t :TermdebugCommand<Space>
