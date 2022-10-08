@@ -1,4 +1,22 @@
 ---------------------
+-- function get_adapter
+---------------------
+function _G.get_adapter(adapter)
+  local adp = ""
+  if WINDOWS() then
+    adp = fn.expand("$HOME/AppData/Local/nvim-data/mason/bin/") .. adapter .. ".cmd"
+  elseif UNIX() then
+    adp =  fn.expand("$HOME/.local/share/nvim/mason/bin/") .. adapter
+  else
+    return nil
+  end
+  if fn.filereadable(adp) > 0 then
+    return adp
+  else
+    return nil
+  end
+end
+---------------------
 -- setting each dap
 ---------------------
 local dap = require('dap')

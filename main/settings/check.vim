@@ -56,7 +56,7 @@ if Installed('lspsaga.nvim')
     map('n', '<M-V>', [[<cmd>lua toggle_diagnostics_virtualtext()<Cr>]], {silent = true, noremap = true})
 EOF
 elseif Installed('coc.nvim')
-    if has('nvim') || has('patch-9.0.0252') || g:gui_running > 0
+    if has('nvim') || g:gui_running > 0
         let g:coc_diagnostic_messageTarget = "float"
         function! s:toggle_messagetarget() abort
             if g:coc_diagnostic_messageTarget == "float"

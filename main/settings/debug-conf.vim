@@ -74,11 +74,12 @@ endif
 " --------------------------
 if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     let g:debug_tool = 'nvim-dap'
-    luafile $LUA_PATH/dap-config.lua
-    " dap adapter is installed handly
-    nnoremap ,o :tabe ~/.leovim.conf/nvim-dap/dap.example.lua<Cr>:e ~/.leovim.d/dap.lua<Cr>
-    if filereadable(expand("~/.leovim.d/dap.lua"))
-        luafile ~/.leovim.d/dap.lua
+    if get(g:, 'leovim_loaded', 0) == 0
+        luafile $LUA_PATH/dap.conf.lua
+    endif
+    nnoremap ,o :tabe ~/.leovim.conf/nvim-dap/dap.example.lua<Cr>:e ~/.leovim.d/dap.local.lua<Cr>
+    if filereadable(expand("~/.leovim.d/dap.local.lua"))
+        luafile ~/.leovim.d/dap.local.lua
     endif
     nnoremap ,d :lua require("dap").
     " basic
@@ -165,8 +166,8 @@ elseif Installed('vimspector')
     endif
     nnoremap ,o :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
     " core shortcuts
-    nnoremap ,d :Vimspector<Tab>
-    nnoremap ,v :call vimspector#<Tab>
+    nnoremap ,v :Vimspector<Tab>
+    nnoremap ,d :call vimspector#<Tab>
     nnoremap ,e :VimspectorEval<Space>
     nnoremap ,w :VimspectorWatch<Space>
     nnoremap ,W :call vimspector#DeleteWatch()<Cr>

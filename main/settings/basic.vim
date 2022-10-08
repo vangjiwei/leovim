@@ -1113,16 +1113,9 @@ nnoremap <leader>es :tabe $LEOVIM_PATH/start.vim<Cr>
 nnoremap <leader>el :tabe $HOME/.vimrc.local<Cr>
 nnoremap <leader>eb :tabe $SETTINGS_PATH/basic.vim<Cr>
 nnoremap <leader>ec :tabe $MAIN_PATH/common.vim<Cr>
-if WINDOWS()
-    nnoremap <leader>eu :tabe ~/.leovim.conf/main/lua
-    nnoremap <leader>er :tabe ~/.leovim.conf/runtime
-    nnoremap <leader>em :tabe ~/.leovim.conf/main
-else
-    nnoremap <leader>eu :tabe ~/.leovim.conf/main/lua/<Tab>
-    nnoremap <leader>er :tabe ~/.leovim.conf/runtime/<Tab>
-    nnoremap <leader>em :tabe ~/.leovim.conf/main/<Tab>
-endif
-" ------------------------
+nnoremap <leader>eu :tabe ~/.leovim.conf/main/lua
+nnoremap <leader>er :tabe ~/.leovim.conf/runtime
+nnoremap <leader>em :tabe ~/.leovim.conf/main
 " open ide config files
 " ------------------------
 nnoremap <leader>ej :tabe $LEOVIM_PATH/jetbrains/idea.vim<Cr>

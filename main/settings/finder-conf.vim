@@ -468,7 +468,7 @@ endif
 " floaterm windows
 " --------------------------
 if Installed('LeaderF-floaterm')
-    nnoremap <leader>w :Leaderf floaterm<Cr>
+    nnoremap <M-j>w :Leaderf floaterm<Cr>
 elseif Installed('fzf-floaterm')
-    nnoremap <leader>w :Floaterms<Cr>
+    nnoremap <M-j>w :Floaterms<Cr>
 endif
