@@ -238,10 +238,12 @@ if has('clipboard')
     xnoremap y  "*y:echo  "Yank selected"<Cr>
     xnoremap <C-c> "*y:echo "Yank selected"<Cr>
     inoremap <C-v> <C-r>*
+    cnoremap <C-v> <C-r>*
 else
     nnoremap Y y$:echo "Yank to line ending"<Cr>
     xnoremap <C-c> y
-    inoremap <C-v> <C-o>gP
+    inoremap <C-v> <C-r>"
+    cnoremap <C-v> <C-r>"
 endif
 " some enhanced shortcuts
 nmap gI 2g;a
