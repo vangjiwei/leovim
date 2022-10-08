@@ -1,4 +1,4 @@
-let g:lsp_installer_servers = get(g:, 'lsp_installer_servers', ['pylsp']) + ['sumneko_lua', 'vimls']
+let g:lsp_installer_servers = get(g:, 'lsp_installer_servers', ['pylsp']) + ['vimls']
 if Require('c') || Require('ccls') || Require('clangd')
     let g:lsp_installer_servers += ['cmake']
     if executable('ccls') && !Require('clangd')
