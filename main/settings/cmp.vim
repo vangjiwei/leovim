@@ -1,10 +1,11 @@
-let g:lsp_installer_servers = get(g:, 'lsp_installer_servers', ['pylsp']) + ['vimls']
-if Require('c') || Require('ccls') || Require('clangd')
+let g:lsp_installer_servers = ['pylsp', 'vimls']
+if Require('c')
     let g:lsp_installer_servers += ['cmake']
-    if executable('ccls') && !Require('clangd')
-        let g:lsp_installer_servers += ['ccls']
-    else
+    if executable('clangd')
         let g:lsp_installer_servers += ['clangd']
+    endif
+    if executable('ccls')
+        let g:lsp_installer_servers += ['ccls']
     endif
 endif
 if Require('web')
@@ -22,4 +23,4 @@ endif
 if Require('java') && executable('java')
     let g:lsp_installer_servers += ['jdtls']
 endif
-luafile $LUA_PATH/cmp-config.lua
+luafile $LUA_PATH/cmp.conf.lua
