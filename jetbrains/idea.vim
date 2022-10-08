@@ -1,27 +1,46 @@
 source ~/.leovim.conf/main/set.vim
 source ~/.leovim.conf/main/map.vim
+set clipboard+=unnamed
+set history=100000
+" select模式下复制
+if has("clipboard")
+    xnoremap <C-C> "+y
+endif
+" action back/forword
+nnoremap <C-O> <ESC>:action Back<CR>
+nnoremap <C-I> <ESC>:action Forward<CR>
+nnoremap <C-D> <C-D>zz
+nnoremap <C-U> <C-U>zz
+nnoremap J <ESC>:action EditorJoinLines<CR>
+nnoremap H ^
+nnoremap L $
+" Ctrl+某个按键
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-d> <Delete>
 " idea smart join
 set ideajoin
-
-" action forword back
-nnoremap <BS>   :action Back<CR>
-nnoremap <C-BS> :action Forward<CR>
 " jump between brackets
-nmap <Cr> g%
-xmap <Cr> g%
-nmap <C-j> %
-xmap <C-j> %
-" Closing tabs
-nmap <space>q :action CloseContent<cr>
-nmap <space>o :action ReopenClosedTab<cr>
-
+nnoremap <Cr> g%
+xnoremap <Cr> g%
+nnoremap <C-j> %
+xnoremap <C-j> %
+" Quit normal mode
+nnoremap <space>q :q<CR>
+nnoremap <space>Q :qa!<CR>
+" tab and recentfile
+nnoremap <space>o :action ReopenClosedTab<Cr>
+nnoremap <space>m :action RecentFiles<Cr>
 " To navigate between split panes
-nmap <A-]> :action NextSplitter<cr>
-nmap <A-[> :action PrevSplitter<cr>
-
+nnoremap <A-]> :action NextSplitter<Cr>
+nnoremap <A-[> :action PrevSplitter<Cr>
 " Tabs
-nnoremap <Tab>p :action PreviousTab<cr>
-nnoremap <Tab>n :action NextTab<cr>
+nnoremap <Tab>p :action PreviousTab<Cr>
+nnoremap <Tab>n :action NextTab<Cr>
 nnoremap <Tab>h <C-w>h
 nnoremap <Tab>j <C-w>j
 nnoremap <Tab>k <C-w>k
@@ -31,106 +50,121 @@ nnoremap <Tab>J <C-w>J
 nnoremap <Tab>K <C-w>K
 nnoremap <Tab>L <C-w>L
 " Splits manipulation
-nnoremap <Tab>s :action SplitHorizontally<cr>
-nnoremap <Tab>v :action SplitVertically<cr>
+nnoremap <Tab>s :action SplitHorizontally<Cr>
+nnoremap <Tab>v :action SplitVertically<Cr>
 " tab
 nnoremap <Tab><Tab> <C-i>
 xnoremap <Tab><Tab> <C-i>
-nnoremap <C-l> <C-i>
-xnoremap <C-l> <C-i>
-
 " Search
-nmap <space>/  :action Find<cr>
-nmap <space>ff :action FindInPath<cr>
-
+nnoremap <space>/  :action Find<Cr>
+nnoremap <space>ff :action FindInPath<Cr>
+nnoremap <space>fp :action ShowFilePath<Cr>
+nnoremap <space>fr :action RenameFile<Cr>
+nnoremap s/        :action SearchEverywhere<Cr>
 " Navigation
-nnoremap K       :action ShowPopupMenu<Cr>
-nnoremap <A-;>   :action ShowUsages<cr>
-nnoremap <A-S-;> :action FindUsages<cr>
-nnoremap <C-]> :action GotoDefinition<cr>
-nnoremap <A-,> :action GotoTypeDeclaration<cr>
-nnoremap <A-.> :action GotoDeclaration<cr>
-nnoremap <A-/> :action GotoImplementation<cr>
-nnoremap f<cr> :action FileStructurePopup<cr>
-nnoremap t<cr> :action StructureViewPopupMenu<cr>
-nnoremap <A-S-/> :action GotoSymbol<cr>
-nnoremap <A-\>   :action NavBarToolBar<cr>
-nnoremap <A-S-\> :action ShowBookmarks<cr>
-nnoremap ga :action GotoAction<CR>
-nnoremap gf :action GotoFile<cr>
-nnoremap gc :action GotoClass<cr>
-nnoremap gt :action GotoTest<cr>
-nnoremap gl :action JumpToLastChange<CR>
-nnoremap gs :action SuperMethod<cr>
-nnoremap gr :action RecentFiles<CR>
-nnoremap <A-S-,> :action Back<CR>
-nnoremap <A-S-.> :action Forward<CR>
-
+nnoremap K         :action ShowPopupMenu<Cr>
+nnoremap <C-p>     :action ProjectViewPopupMenu<CR>
+nnoremap <A-;>     :action ShowUsages<Cr>
+nnoremap <A-S-;>   :action FindUsages<Cr>
+nnoremap <space>ic :action InspectCode<CR>
+nnoremap <space>oi :action OptimizeImports<CR>
+" symbol
+nnoremap f<Cr>   :action FileStructurePopup<Cr>
+nnoremap <A-/>   :action StructureViewPopupMenu<Cr>
+nnoremap <A-S-/> :action GotoSymbol<Cr>
+nnoremap <A-\>   :action NavBarToolBar<Cr>
+nnoremap <A-S-\> :action ShowProjectStructureSettings<Cr>
+" goto
+nnoremap gd :action GotoDefinition<Cr>
+nnoremap gh :action GotoTypeDeclaration<Cr>
+nnoremap gl :action GotoDeclaration<Cr>
+nnoremap gm :action GotoImplementation<Cr>
+nnoremap ga :action GotoAction<Cr>
+nnoremap gf :action GotoFile<Cr>
+nnoremap gc :action GotoClass<Cr>
+nnoremap gt :action GotoTest<Cr>
+nnoremap gb :action JumpToLastChange<Cr>
+" 实现方法
+nnoremap gi :action ImplementMethods<CR>
+" 重写方法"
+nnoremap go :action OverrideMethods<CR>
+" method
+nnoremap gs :action SuperMethod<Cr>
+nnoremap [m :action MethodUp<Cr>
+nnoremap ]m :action MethodDown<Cr>
+" reformat
+nnoremap == :action ReformatCode<CR>
+xnoremap == :action ReformatCode<CR>
 " Terminal
-nnoremap <A--> :action ActivateTerminalToolWindow<cr>
+nnoremap <A--> :action ActivateTerminalToolWindow<Cr>
+" maven
+nnoremap <space>am :action ActivateMavenProjectsToolWindow<Cr>
 " Errors
-nnoremap g<tab>   :action ShowErrorDescription<cr>
-nnoremap g<cr>    :action AnalyzeStacktraceOnError<Cr>
-nnoremap <space>e :action GoToErrorGroup<Cr>
-nnoremap ]e :action GotoNextError <CR>
-nnoremap [e :action GotoPreviousError<CR>
+nnoremap <space>ad :action ShowErrorDescription<Cr>
+nnoremap <space>at :action AnalyzeStacktraceOnError<Cr>
+nnoremap <space>e  :action GoToErrorGroup<Cr>
+nnoremap ]e :action GotoNextError <Cr>
+nnoremap [e :action GotoPreviousError<Cr>
 " VCS operations
-nmap <space>gs :action Vcs.Show.Local.Changes<cr>
-nmap <space>gp :action Vcs.QuickListPopupAction<cr>
-nmap <space>ga :action Annotate<cr>
-nmap <space>gl :action Vcs.Show.Log<cr>
-nmap <space>gc :action Compare.LastVersion<cr>
-nmap <space>gr :action Git.ResolveConflicts<cr>
-" Won't work in visual mode (with vmap) for some reason.
+nnoremap <C-g>s :action Vcs.Show.Local.Changes<Cr>
+nnoremap <C-g>p :action Vcs.QuickListPopupAction<Cr>
+nnoremap <C-g>a :action Annotate<Cr>
+nnoremap <C-g>l :action Vcs.Show.Log<Cr>
+nnoremap <C-g>c :action Compare.LastVersion<Cr>
+nnoremap <C-g>r :action Git.ResolveConflicts<Cr>
+nnoremap <C-g>r :action Git.ResolveConflicts<CR>
+nnoremap <C-g>a :action Annotate<CR>
+nnoremap [g :action VcsShowPrevChangeMarker<Cr>
+nnoremap ]g :action VcsShowNextChangeMarker<Cr>
+" breakpoints
+nnoremap <space>b :action ToggleLineBreakpoint<Cr>
+nnoremap <space>l :action ViewBreakpoints<Cr>
+" comments
 " Use default map of <c-/> for that.
-" nmap <space>cc :action CommentByLineComment<cr>
-" unimpaired mappings - from https://github.com/saaguero/ideavimrc/blob/master/.ideavimrc
-nnoremap [m :action MethodUp<cr>
-nnoremap ]m :action MethodDown<cr>
-nnoremap [c :action VcsShowPrevChangeMarker<cr>
-nnoremap ]c :action VcsShowNextChangeMarker<cr>
-
-" Building, Running and Debugging
-nmap \b       :action ToggleLineBreakpoint<cr>
-nmap <space>c :action CompileDirty<cr>
-nmap <space>d :action Debug<cr>
-nmap <space>D :action DebugClass<cr>
-nmap <space>r :action Run<cr>
-nmap <space>R :action RunAnything<cr>
-nmap <space>C :action RunClass<cr>
-nmap <space>T :action RerunTests<cr>
-
-" Clojure specific mappings for Cursive
-nmap \c :action :cursive.repl.actions/clear-repl<cr>
-nmap \l :action :cursive.repl.actions/load-file<cr>
-nmap \o :action :cursive.repl.actions/jump-to-output<cr>
-nmap \r :action :cursive.repl.actions/jump-to-repl<cr>
-nmap \t :action :cursive.testing.actions/run-ns-tests<cr>
-nmap \T :action :cursive.testing.actions/rerun-last-test<cr>
-nmap \C :action :cursive.testing.actions/remove-test-markers<cr>
-
+nnoremap <space>cc :action CommentByLineComment<Cr>
+" compile
+nnoremap <space>cd :action CompileDirty<Cr>
+nnoremap <space>cp :action Compile<Cr>
+nnoremap <space>cP :action CompileProject<Cr>
+" rename
+nnoremap <space>re :action RenameElement<Cr>
+" run
+nnoremap <space>rr :action Run<Cr>
+nnoremap <space>rt :action RunTargetAction<Cr>
+nnoremap <space>rg :action RunContextGroup<Cr>
+nnoremap <space>rp :action RunContextPopupGroup<Cr>
+nnoremap <space>rc :action RunCoverage<Cr>
+nnoremap <space>rq :action Stop<Cr>
+nnoremap <space>cr :action ChooseRunConfiguration<Cr>
+nnoremap <space>R  :action RunAnything<Cr>
+nnoremap <space>C  :action RunClass<Cr>
+nnoremap <space>T  :action RerunTests<Cr>
+" debug
+nnoremap <space>dd :action Debug<Cr>
+nnoremap <space>dc :action DebugClass<Cr>
+nnoremap <space>cd :action ChooseDebugConfiguration<Cr>
 " =========================================
 " Emulated Plugins
 " =========================================
 set surround
-nnoremap <Space>st :action SurroundWith<CR>
-xnoremap <Space>st :<c-u>action SurroundWith<CR>
-nnoremap <Space>se :action SurroundWithEmmet<CR>
-xnoremap <Space>se :<c-u>action SurroundWithEmmet<CR>
-nnoremap <Space>sl :action SurroundWithLiveTemplate<CR>
-xnoremap <Space>sl :<c-u>action SurroundWithLiveTemplate<CR>
+nnoremap <Space>st :action SurroundWith<Cr>
+xnoremap <Space>st :<c-u>action SurroundWith<Cr>
+nnoremap <Space>se :action SurroundWithEmmet<Cr>
+xnoremap <Space>se :<c-u>action SurroundWithEmmet<Cr>
+nnoremap <Space>sl :action SurroundWithLiveTemplate<Cr>
+xnoremap <Space>sl :<c-u>action SurroundWithLiveTemplate<Cr>
 " Multiple cursors support
 set multiple-cursors
-nmap <C-n> <Plug>NextWholeOccurrence
-xmap <C-n> <Plug>NextWholeOccurrence
-nmap <C-k> <Plug>SkipOccurrence
-xmap <C-k> <Plug>SkipOccurrence
-nmap <C-h> <Plug>RemoveOccurrence
-xmap <C-h> <Plug>RemoveOccurrence
-nmap ]o <Plug>NextOccurrence
-xmap ]o <Plug>NextOccurrence
-nmap [o <Plug>PreviousOccurrence
-xmap [o <Plug>PreviousOccurrence
+nnoremap <C-n> <Plug>NextWholeOccurrence
+xnoremap <C-n> <Plug>NextWholeOccurrence
+nnoremap <C-k> <Plug>SkipOccurrence
+xnoremap <C-k> <Plug>SkipOccurrence
+nnoremap <C-h> <Plug>RemoveOccurrence
+xnoremap <C-h> <Plug>RemoveOccurrence
+nnoremap ]o <Plug>NextOccurrence
+xnoremap ]o <Plug>NextOccurrence
+nnoremap [o <Plug>PreviousOccurrence
+xnoremap [o <Plug>PreviousOccurrence
 " easymotion
 set easymotion
 source ~/.leovim.conf/main/settings/easymotion.vim

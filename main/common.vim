@@ -7,9 +7,9 @@ let g:maplocalleader = '\'
 " delete tmp/swp files
 " -----------------------------------
 if WINDOWS()
-    nnoremap <leader>X :!powershell ~/_leovim.clean.cmd<Cr> \| e %<Cr>
+    nnoremap <leader>X :!powershell <C-r>=expand("~/_leovim.clean.cmd")<Cr><Cr> \| e %<Cr>
 else
-    nnoremap <leader>X :!sh ~/.leovim.clean<Cr> \| e %<Cr>
+    nnoremap <leader>X :!bash <C-r>=expand("~/.leovim.clean")<Cr><Cr><C-l>
 endif
 " ------------------------------
 " function to transform dotted string to float

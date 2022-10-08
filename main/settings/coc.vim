@@ -37,8 +37,8 @@ nnoremap <silent><M-l>e :CocList extensions<Cr>
 nnoremap <silent><M-l>. :CocFzfListResume<Cr>
 nnoremap <silent><M-l>; :CocNext<CR>
 nnoremap <silent><M-l>, :CocPrev<CR>
-nnoremap <silent><M-h>c :CocFzfList commands<Cr>
-nnoremap <silent><M-h>. :call CocAction('repeatCommand')<Cr>
+nnoremap <silent><M-l>C :CocFzfList commands<Cr>
+nnoremap <silent><M-u>. :call CocAction('repeatCommand')<Cr>
 " completion map
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#stop() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <TAB>
@@ -96,9 +96,8 @@ command! -nargs=? Fold :call CocAction('fold', <f-args>)
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 " refactor
-nnoremap <silent><leader>o :call CocAction('showOutgoingCalls')<Cr>
-nnoremap <silent><leader>i :call CocAction('showIncomingCalls')<Cr>
-nmap     <silent><M-?> <Plug>(coc-refactor)
+nnoremap <silent><M-.> :call CocAction('showOutgoingCalls')<Cr>
+nnoremap <silent><M-,> :call CocAction('showIncomingCalls')<Cr>
 autocmd BufRead acwrite set ma
 " ----------------------------
 " codeLens and codeaction
@@ -117,30 +116,11 @@ if has('nvim') || has('patch-9.0.0252')
 else
     call coc#config('codeLens.enable', v:false)
 endif
-nmap <silent><leader>a<Cr> <Plug>(coc-codeaction-line)
-xmap <silent><leader>a<Cr> <Plug>(coc-codeaction-selected)
-nmap <silent><leader>aa    <Plug>(coc-codeaction)
-nmap <silent><leader>ar    <Plug>(coc-rename)
-nmap <silent><leader>A     :CocFzfList actions<Cr>
-" ------------------------
-" diagnostic
-" ------------------------
-nmap <leader>ad <Plug>(coc-diagnostic-info)
-if has('nvim')
-    let g:coc_diagnostic_messageTarget = "float"
-    function! s:toggle_messagetarget() abort
-        if g:coc_diagnostic_messageTarget == "float"
-            let g:coc_diagnostic_messageTarget = "echo"
-        else
-            let g:coc_diagnostic_messageTarget = "float"
-        endif
-        echo "coc.diagnostic.messageTarget is " . g:coc_diagnostic_messageTarget
-        call coc#config("diagnostic.messageTarget", g:coc_diagnostic_messageTarget)
-    endfunction
-    command! CocToggleDiagMessageTarget call s:toggle_messagetarget()
-    nnoremap <M-"> :CocToggleDiagMessageTarget<Cr>
-
-endif
+nnoremap <silent><leader>a<Cr> <Plug>(coc-codeaction-line)
+xnoremap <silent><leader>a<Cr> <Plug>(coc-codeaction-selected)
+nnoremap <silent><leader>aa    <Plug>(coc-codeaction)
+nnoremap <silent><leader>ar    <Plug>(coc-rename)
+nnoremap <silent><leader>A     :CocFzfList actions<Cr>
 " ------------------------
 " Create mappings for function text object, requires document symbols feature of languageserver.
 " ------------------------

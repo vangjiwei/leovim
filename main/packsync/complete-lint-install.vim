@@ -53,7 +53,7 @@ elseif g:complete_engine == 'coc'
     if g:node_version == 'advanced'
         PackAdd 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile', 'opt': 0}
     else
-        PackAdd 'neoclide/coc.nvim', {'branch': 'release', 'opt':0}
+        PackAdd 'neoclide/coc.nvim', {'branch': 'release', 'opt': 0}
     endif
     PackAdd 'leoatchina/coc-fzf', {'branch': 'empty_check'}
     let g:coc_global_extensions = [
@@ -105,9 +105,9 @@ elseif g:complete_engine == 'coc'
         let g:coc_global_extensions += ['coc-java', 'coc-java-intellicode']
     endif
 elseif g:complete_engine == 'cmp'
-    PackAdd 'williamboman/mason.nvim'
+    PackAdd 'neovim/nvim-lspconfig'
+                \| PackAdd 'williamboman/mason.nvim'
                 \| PackAdd 'williamboman/mason-lspconfig.nvim'
-                \| PackAdd 'neovim/nvim-lspconfig'
                 \| PackAdd 'hrsh7th/nvim-cmp'
                 \| PackAdd 'hrsh7th/cmp-nvim-lsp'
                 \| PackAdd 'hrsh7th/cmp-nvim-lua'
@@ -119,19 +119,24 @@ elseif g:complete_engine == 'cmp'
                 \| PackAdd 'hrsh7th/cmp-nvim-lsp-document-symbol'
                 \| PackAdd 'uga-rosa/cmp-dictionary'
                 \| PackAdd 'onsails/lspkind-nvim'
-                \| PackAdd 'jose-elias-alvarez/null-ls.nvim'
 endif
 " ------------------------------
 " lint tool
 " ------------------------------
-if g:complete_engine == 'coc'
-    let g:lint_tool = 'coc'
-elseif g:complete_engine == 'cmp'
-    let g:lint_tool = 'cmp'
-elseif g:python_version > 3.6 && v:version >= 800
-    let g:lint_tool = 'ale'
+if g:complete_engine == 'cmp'
+    let g:check_tool = 'cmp'
+elseif g:complete_engine == 'coc'
+    if g:python_version > 3.6 && Require('ale')
+        let g:check_tool = 'ale'
+    else
+        let g:check_tool = 'coc'
+    endif
+elseif g:python_version > 3.6 && v:version >= 800 && Require('ale')
+    let g:check_tool = 'ale'
+else
+    let g:check_tool = ''
+endif
+if g:check_tool == 'ale'
     PackAdd 'dense-analysis/ale'
     PackAdd 'maximbaz/lightline-ale'
-else
-    let g:lint_tool = ''
 endif

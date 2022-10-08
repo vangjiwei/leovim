@@ -180,13 +180,13 @@ endif
 " reference
 " --------------------------
 if Installed("coc.nvim")
-    nmap <silent>gh :call LspOrTagOrSearch("jumpReferences")<Cr>
+    nmap <silent><M-/> :call LspOrTagOrSearch("jumpReferences")<Cr>
     nmap <silent><M-?> <Plug>(coc-refactor)
 else
     if get(g:, 'symbol_tool', '') =~ 'leaderfgtags'
-        nmap <silent>gh :Leaderf gtags -i -g <C-r><C-w><Cr>
+        nmap <silent><M-/> :Leaderf gtags -i -g <C-r><C-w><Cr>
     elseif get(g:, 'symbol_tool', '') =~ 'plus'
-        nmap <silent>gh :GscopeFind g <C-R><C-W><cr>
+        nmap <silent><M-/> :GscopeFind g <C-R><C-W><cr>
     endif
 endif
 " --------------------------
@@ -269,15 +269,14 @@ if g:complete_engine == 'coc'
     " jumpDefinition
     nnoremap <silent><C-]>  :call LspOrTagOrSearch()<Cr>
     nnoremap <silent><M-;>  :call LspOrTagOrSearch("jumpDefinition")<Cr>
-    nnoremap <silent>gl     :call LspOrTagOrSearch("jumpDefinition", "split")<Cr>
     nnoremap <silent>g<Cr>  :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
     nnoremap <silent>g<Tab> :call LspOrTagOrSearch("jumpDefinition", "tabe")<Cr>
     " jumpImplementation
-    nnoremap <silent><M-/> :call LspOrTagOrSearch("jumpImplementation")<Cr>
+    nnoremap <silent>gm :call LspOrTagOrSearch("jumpImplementation")<Cr>
     " jumpDeclaration
-    nnoremap <silent><M-.> :call LspOrTagOrSearch("jumpDeclaration")<Cr>
+    nnoremap <silent>gl :call LspOrTagOrSearch("jumpDeclaration")<Cr>
     " jumpTypeDefinition
-    nnoremap <silent><M-,> :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
+    nnoremap <silent>gh :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
 else
     nnoremap <silent><M-;> :call LspOrTagOrSearch()<Cr>
 endif

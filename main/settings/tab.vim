@@ -4,8 +4,6 @@ function! Map_Tab() abort
             return UltiSnips#ExpandSnippetOrJump()
         elseif Installed('vim-vsnip') && vsnip#available(1)
             return "normal \<Plug>(vsnip-expand-or-jump)"
-        elseif Installed('vim-mucomplete')
-            return "normal \<plug>(MUcompleteFwd)"
         else
             return "\<C-n>"
         endif

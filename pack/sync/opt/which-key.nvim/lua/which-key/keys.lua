@@ -199,6 +199,8 @@ function M.parse_mappings(mappings, value, prefix_n)
           mapping.label = v
         elseif k == "noremap" then
           mapping.opts.noremap = v
+        elseif k == "remap" then
+          mapping.opts.noremap = not v
         elseif k == "silent" then
           mapping.opts.silent = v
         elseif k == "mode" then
@@ -213,7 +215,7 @@ function M.parse_mappings(mappings, value, prefix_n)
         end
       end
       if mapping.cmd and type(mapping.cmd) == "function" then
-        if vim.fn.has("nvim-0.7.0") then
+        if vim.fn.has("nvim-0.7.0") == 1 then
           ---@diagnostic disable-next-line: assign-type-mismatch
           mapping.callback = mapping.cmd
           mapping.cmd = ""
@@ -305,7 +307,7 @@ function M.register(mappings, opts)
         nowait = mapping.opts.nowait or false,
         expr = mapping.opts.expr or false,
       }
-      if vim.fn.has("nvim-0.7.0") then
+      if vim.fn.has("nvim-0.7.0") == 1 then
         keymap_opts.desc = mapping.label
       end
       if mapping.cmd and mapping.cmd:lower():sub(1, #"<plug>") == "<plug>" then

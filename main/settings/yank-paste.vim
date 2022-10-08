@@ -7,23 +7,23 @@ nmap <M-I> :set nopaste! nopaste?<CR>
 " registers
 " --------------------
 if Installed('leaderf-registers')
-    nnoremap <silent> <M-v> :LeaderfPaste<Cr>
-    inoremap <silent> <M-v> <ESC>:LeaderfPasteI<Cr>
-    xnoremap <silent> <M-v> :<C-u>LeaderfPasteV<Cr>
+    nnoremap <silent> <M-i> :LeaderfPaste<Cr>
+    inoremap <silent> <M-i> <ESC>:LeaderfPasteI<Cr>
+    xnoremap <silent> <M-i> :<C-u>LeaderfPasteV<Cr>
     nnoremap <silent> <M-a> :LeaderfAppend<Cr>
     inoremap <silent> <M-a> <ESC>:LeaderfAppendI<Cr>
     xnoremap <silent> <M-a> :<C-u>LeaderfAppendV<Cr>
 elseif Installed('fzf-registers')
-    nnoremap <silent> <M-v> :FZFRegisterPaste<Cr>
-    inoremap <silent> <M-v> <C-o>:FZFRegisterPaste<Cr>
-    xnoremap <silent> <M-v> :<C-u>FZFRegisterPasteV<Cr>
+    nnoremap <silent> <M-i> :FZFRegisterPaste<Cr>
+    inoremap <silent> <M-i> <C-o>:FZFRegisterPaste<Cr>
+    xnoremap <silent> <M-i> :<C-u>FZFRegisterPasteV<Cr>
     nnoremap <silent> <M-a> :FZFRegisterAppend<Cr>
     inoremap <silent> <M-a> <C-o>:FZFRegisterAppend<Cr>
     xnoremap <silent> <M-a> :<C-u>FZFRegisterAppendV<Cr>
 elseif InstalledTelescope()
-    nnoremap <silent> <M-v> :Telescope registers<Cr>
-    inoremap <silent> <M-v> <C-o>:Telescope registers<Cr>
-    xnoremap <silent> <M-v> :<C-u>Telescope registers<Cr>
+    nnoremap <silent> <M-i> :Telescope registers<Cr>
+    inoremap <silent> <M-i> <C-o>:Telescope registers<Cr>
+    xnoremap <silent> <M-i> :<C-u>Telescope registers<Cr>
     nnoremap <M-a> ggVG
 endif
 " ------------------------
@@ -49,7 +49,7 @@ if has('clipboard')
         au ModeChanged s:* set clipboard=unnamedplus
     endif
     nnoremap <M-c>+ viw"+y
-    nnoremap <M-c>* viw'*y
+    nnoremap <M-c>* viw"*y
     xnoremap <M-c>+ "+y
     xnoremap <M-c>* "*y"
     nnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>

@@ -44,14 +44,13 @@
     "suggest.floatConfig": {
         "winblend": 8
     },
-
     "diagnostic.enable": true,
     "diagnostic.displayByAle": false,
-    "diagnostic.messageTarget": "float",
     "diagnostic.errorSign": "x",
     "diagnostic.warningSign": "!",
     "diagnostic.infoSign": ">",
     "diagnostic.hintSign": "-",
+    "diagnostic.messageTarget": "float",
     "diagnostic.floatConfig": {
         "border": true,
         "highlight": "Normal",

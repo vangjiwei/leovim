@@ -164,9 +164,9 @@ imap <M-/> <C-o><M-/>
 imap <M-?> <C-o><M-/>
 imap <M-;> <C-o><M-;>
 imap <M-:> <C-o><M-:>
-inoremap <M-'> <C-r>"
-cnoremap <M-'> <C-r>"
-nnoremap <M-'> gP
+inoremap <M-v> <C-r>"
+cnoremap <M-v> <C-r>"
+nnoremap <M-v> gP
 " --------------------------
 " TMUX config, must writen after packopt.vim for Alt_to_meta function
 " --------------------------
@@ -367,10 +367,9 @@ nnoremap <M-k>s :colorscheme<Space>
 nnoremap <M-k>t :setfiletype<Space>
 nnoremap <M-k>c :command<Cr>
 nnoremap <M-k>r :set relativenumber \| set number<Cr>
-" registers
-nnoremap <M-v> :registers<Cr>
+nnoremap <M-i>  :registers<Cr>
 " ------------------------
-" list buffers and mark
+" buffers mark messages
 " ------------------------
 nnoremap <leader>b :ls<Cr>
 nnoremap <C-f>m    :marks<Cr>
@@ -704,7 +703,7 @@ endif
 " settings
 " --------------------------
 source $SETTINGS_PATH/differ.vim
-source $SETTINGS_PATH/lint-conf.vim
+source $SETTINGS_PATH/check.vim
 source $SETTINGS_PATH/search-replace.vim
 source $SETTINGS_PATH/yank-paste.vim
 source $SETTINGS_PATH/sidebar.vim
@@ -1129,7 +1128,9 @@ endif
 nnoremap <leader>ej :tabe $LEOVIM_PATH/jetbrains/idea.vim<Cr>
 nnoremap <leader>en :tabe $LEOVIM_PATH/vscode/neovim.vim<Cr>
 nnoremap <leader>ek :tabe $LEOVIM_PATH/vscode/keybindings.json<Cr>
+" ------------------------
 " cp keybindings.json
+" ------------------------
 if exists("g:vscode_keybindings_dir") && isdirectory(g:vscode_keybindings_dir)
     function s:copykeybindings() abort
         if WINDOWS()
@@ -1148,3 +1149,10 @@ endif
 " ------------------------
 nnoremap <leader>ef :set ff=unix<Cr>:%s/\r//g<Cr>
 source $SETTINGS_PATH/zfvime.vim
+" ------------------------
+" other config
+" ------------------------
+nnoremap <leader>eo :tabe ~/.leovim.d/other.vim<Cr>
+if filereadable(expand('~/.leovim.d/other.vim'))
+    source ~/.leovim.d/other.vim
+endif

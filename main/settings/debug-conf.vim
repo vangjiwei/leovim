@@ -58,7 +58,7 @@ elseif Installed("vim-repl")
         xmap cl cngvo
         nmap <leader>C Vggcn<C-o>
         nmap <leader>E VGcn<C-o>
-        nmap <leader>R ggVGcn<C-o><C-o>
+        nmap <leader>S ggVGcn<C-o><C-o>
     endfunction
     au Filetype python call s:set_ipdb_map()
     function! s:set_ipdb_map() abort
@@ -77,7 +77,7 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     luafile $LUA_PATH/dap-config.lua
     " dap adapter is installed handly
     nnoremap ,o :tabe ~/.leovim.conf/nvim-dap/dap.example.lua<Cr>:e ~/.leovim.d/dap.lua<Cr>
-    if filereadable(expand("~/.leovim.d/dap.lua") )
+    if filereadable(expand("~/.leovim.d/dap.lua"))
         luafile ~/.leovim.d/dap.lua
     endif
     nnoremap ,d :lua require("dap").
@@ -96,11 +96,11 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> ,i <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.scopes)<CR>
     nnoremap <silent> ,I <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.frames)<CR>
     " breakpoint
-    nnoremap <silent> ,b <cmd>lua require("dap").toggle_breakpoint()<CR>
-    nnoremap <silent> ,B <cmd>lua require("dap").toggle_breakpoint({"all"})<CR>
-    nnoremap <silent> ,l <cmd>lua require("dap").list_breakpoints("")<Cr>
-    nnoremap <silent> <M-d>s <cmd>lua require("dap").set_exception_breakpoints("")<left><left>
-    nnoremap <silent> <M-d>l <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints log: '))<CR>
+    nnoremap <silent> <M-'> <cmd>lua require("dap").toggle_breakpoint()<CR>
+    nnoremap <silent> ,b    <cmd>lua require("dap").toggle_breakpoint({"all"})<CR>
+    nnoremap <silent> ,l    <cmd>lua require("dap").list_breakpoints("")<Cr>
+    nnoremap <silent> <M-d>e <cmd>lua require("dap").set_exception_breakpoints("")<left><left>
+    nnoremap <silent> <M-d>i <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints info: '))<CR>
     nnoremap <silent> <M-d>b <cmd>lua require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
     " debug
     nnoremap <silent> <M-d>q <cmd>lua require("dap").close()<Cr>
@@ -117,8 +117,8 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     " --------------------------------------
     " nvim-dap-ui
     " ---------------------------------------
-    nnoremap ,D :lua require("dapui").
-    nnoremap <silent> ,r <cmd>lua require("dapui").toggle()<CR>
+    nnoremap ,v :lua require("dapui").
+    nnoremap <silent> ,t <cmd>lua require("dapui").toggle()<CR>
     " watch
     nnoremap <silent> ,e <cmd>lua require("dapui").eval()<CR>
     nnoremap <silent> <M-m>f <cmd>lua require("dapui").float_element()<Cr>
@@ -165,7 +165,8 @@ elseif Installed('vimspector')
     endif
     nnoremap ,o :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
     " core shortcuts
-    nnoremap ,v :Vimspector<Tab>
+    nnoremap ,d :Vimspector<Tab>
+    nnoremap ,v :call vimspector#<Tab>
     nnoremap ,e :VimspectorEval<Space>
     nnoremap ,w :VimspectorWatch<Space>
     nnoremap ,W :call vimspector#DeleteWatch()<Cr>
@@ -179,8 +180,8 @@ elseif Installed('vimspector')
     nmap <silent> ,r :call vimspector#Reset()<Cr>
     nmap <silent> ,R :call vimspector#Restart()<Cr>
     " breakpoint
-    nmap <silent> ,b <Plug>VimspectorToggleBreakpoint
-    nmap <silent> ,B :call vimspector#ClearBreakpoints()<Cr>
+    nmap <silent> <M-'> <Plug>VimspectorToggleBreakpoint
+    nmap <silent> ,b :call ToggleAllBreakpointsViewBreakpoint()<Cr>
     nmap <silent> ,l :call vimspector#ListBreakpoints()<Cr>
     " debug
     nmap <silent> <M-d>u :call vimspector#UpFrame()<Cr>
@@ -190,14 +191,13 @@ elseif Installed('vimspector')
     nmap <silent> <M-d>c <Plug>VimspectorToggleConditionalBreakpoint
     nmap <silent> <F7>   <Plug>VimspectorToggleConditionalBreakpoint
     " other commands
-    nnoremap ,di :VimspectorInstall <Tab>
-    nnoremap ,dv :call vimspector#<Tab>
-    nnoremap ,dg :call vimspector#GetConfigurations()<Cr>
-    nnoremap ,dp :call vimspector#Pause()<Cr>
-    nnoremap ,dt :call vimspector#SetCurrentThread()<Cr>
-    nnoremap ,de :call vimspector#ExpandVariable()<Cr>
-    nnoremap ,dq :call vimspector#Stop()<Cr>
-    nnoremap ,dl :call vimspector#Launch()<Cr>
+    nnoremap <M-d>i :VimspectorInstall <Tab>
+    nnoremap <M-d>l :call vimspector#Launch()<Cr>
+    nnoremap <M-d>g :call vimspector#GetConfigurations()<Cr>
+    nnoremap <M-d>p :call vimspector#Pause()<Cr>
+    nnoremap <M-d>t :call vimspector#SetCurrentThread()<Cr>
+    nnoremap <M-d>e :call vimspector#ExpandVariable()<Cr>
+    nnoremap <M-d>q :call vimspector#Stop()<Cr>
     " jump to windows in vimspector
     nnoremap <M-m>o :call GoToVimspectorWindow('output')<Cr>
     nnoremap <M-m>e :call GoToVimspectorWindow('stderr')<Cr>
@@ -238,18 +238,18 @@ elseif v:version >= 801 && !has('nvim') && Require('deubg') && executable('gdb')
     let g:termdebug_map_K = 0
     let g:termdebug_use_prompt = 1
     " breakpoint
-    nnoremap ,b :Break<Cr>
-    nnoremap ,B :Clear<Cr>
+    nnoremap <M-'> :Break<Cr>
+    nnoremap ,b :Clear<Cr>
     " debug
     nnoremap ,d :Termdebug
-    nnoremap ,D :TermdebugCommand<Space>
+    nnoremap ,t :TermdebugCommand<Space>
     nnoremap ,c :Continue<Cr>
     nnoremap ,n :Over<Cr>
     nnoremap ,s :Step<Cr>
     nnoremap ,u :Finish<Cr>
     nnoremap ,a :Arguments<Space>
     nnoremap ,e :Evaluate<Space>
-    nnoremap ,R :Run<Space>
+    nnoremap ,r :Run<Space>
     nnoremap <M-d>p :Program<Cr>
     nnoremap <M-d>o :Source<Cr>
     nnoremap <M-d>g :Gdb<Cr>

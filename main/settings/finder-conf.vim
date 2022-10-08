@@ -32,7 +32,6 @@ if InstalledTelescope() && InstalledLsp()
         nnoremap <M-C> :Telescope<Cr>
     else
         nnoremap <M-C> yy:echo "Yank the line" <Cr>
-        xnoremap <M-C> yy:echo "Yank the line" <Cr>
     endif
 elseif InstalledFzf()
     " --------------------------

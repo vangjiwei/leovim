@@ -1,35 +1,4 @@
-if Installed('coc.nvim')
-    if WINDOWS()
-        if has('nvim') || !has('nvim') && !Installed('leaderf')
-            nnoremap <silent> <leader>D :CocDiagnostics<CR>
-        elseif Installed('leaderf')
-            nnoremap <silent> <leader>D :CocDiagnostics<CR>:lclose<Cr>:LeaderfLocList<Cr>
-        else
-            nnoremap <silent> <leader>D :CocFzfList diagnostics<CR>
-        endif
-    else
-        nnoremap <silent> <leader>D :CocFzfList diagnostics<CR>
-    endif
-    nmap <silent>]d <Plug>(coc-diagnostic-next)
-    nmap <silent>[d <Plug>(coc-diagnostic-prev)
-    nmap <silent>]e <Plug>(coc-diagnostic-next-error)
-    nmap <silent>[e <Plug>(coc-diagnostic-prev-error)
-    nmap <silent><leader>d :call CocAction('diagnosticToggleBuffer')<Cr>
-    highlight def CocUnderLine cterm=NONE gui=NONE
-    highlight def link CocErrorHighlight   CocUnderLine
-    highlight def link CocWarningHighlight NONE
-    highlight def link CocInfoHighlight    NONE
-    highlight def link CocHintHighlight    NONE
-    " config ignore
-    call coc#config('python.linting.flake8Args', [
-                \ "--max-line-length=200",
-                \ "--ignore=" . g:python_lint_ignore,
-                \ ])
-    call coc#config('python.linting.pylintArgs', [
-                \ "--max-line-length=200",
-                \ "--ignore=" . g:python_lint_ignore,
-                \ ])
-elseif Installed('lspsaga.nvim')
+if Installed('lspsaga.nvim')
     lua  << EOF
     local map  = vim.api.nvim_set_keymap
     local opts = { noremap = true, silent = true }
@@ -86,7 +55,69 @@ elseif Installed('lspsaga.nvim')
     })
     map('n', '<M-V>', [[<cmd>lua toggle_diagnostics_virtualtext()<Cr>]], {silent = true, noremap = true})
 EOF
-elseif Installed('ale')
+elseif Installed('coc.nvim')
+    if has('nvim') || has('patch-9.0.0252') || g:gui_running > 0
+        let g:coc_diagnostic_messageTarget = "float"
+        function! s:toggle_messagetarget() abort
+            if g:coc_diagnostic_messageTarget == "float"
+                let g:coc_diagnostic_messageTarget = "echo"
+            else
+                let g:coc_diagnostic_messageTarget = "float"
+            endif
+            echo "coc.diagnostic.messageTarget is " . g:coc_diagnostic_messageTarget
+            call coc#config("diagnostic.messageTarget", g:coc_diagnostic_messageTarget)
+        endfunction
+        command! CocToggleDiagMessageTarget call s:toggle_messagetarget()
+        nnoremap <M-"> :CocToggleDiagMessageTarget<Cr>
+    endif
+    if g:check_tool == 'ale'
+        call coc#config('diagnostic.displayByAle', v:true)
+    else
+        if WINDOWS()
+            if has('nvim') || !has('nvim') && !Installed('leaderf')
+                nnoremap <silent> <leader>D :CocDiagnostics<CR>
+            elseif Installed('leaderf')
+                nnoremap <silent> <leader>D :CocDiagnostics<CR>:lclose<Cr>:LeaderfLocList<Cr>
+            else
+                nnoremap <silent> <leader>D :CocFzfList diagnostics<CR>
+            endif
+        else
+            nnoremap <silent> <leader>D :CocFzfList diagnostics<CR>
+        endif
+        nmap <silent>]d <Plug>(coc-diagnostic-next)
+        nmap <silent>[d <Plug>(coc-diagnostic-prev)
+        nmap <silent>]e <Plug>(coc-diagnostic-next-error)
+        nmap <silent>[e <Plug>(coc-diagnostic-prev-error)
+        " config ignore
+        call coc#config('python.linting.flake8Args', [
+                    \ "--max-line-length=200",
+                    \ "--ignore=" . g:python_lint_ignore,
+                    \ ])
+        call coc#config('python.linting.pylintArgs', [
+                    \ "--max-line-length=200",
+                    \ "--ignore=" . g:python_lint_ignore,
+                    \ ])
+        " show/toggle diagnostic
+        nmap <leader>ad <Plug>(coc-diagnostic-info)
+        function! s:CocDiagnosticToggleBuffer()
+            call CocAction('diagnosticToggleBuffer')
+            if b:coc_diagnostic_disable > 0
+                setlocal signcolumn=no
+            else
+                setlocal signcolumn=yes
+            endif
+        endfunction
+        command! CocDiagnosticToggleBuffer call s:CocDiagnosticToggleBuffer()
+        nnoremap <leader>d :CocDiagnosticToggleBuffer<Cr>
+    endif
+    " highlight group
+    highlight def CocUnderLine cterm=NONE gui=NONE
+    highlight def link CocErrorHighlight   NONE
+    highlight def link CocWarningHighlight NONE
+    highlight def link CocInfoHighlight    NONE
+    highlight def link CocHintHighlight    NONE
+endif
+if Installed('ale')
     " basic settings
     let g:ale_disable_lsp                    = 1
     let g:ale_completion_enabled             = 0
@@ -103,10 +134,10 @@ elseif Installed('ale')
     let g:ale_set_signs          = 1
     let g:ale_sign_column_always = 0
     let g:ale_set_highlights     = 0
-    let g:ale_sign_error         = ''
-    let g:ale_sign_warning       = ''
-    let g:ale_sign_hing          = ''
-    let g:ale_sign_info          = ''
+    let g:ale_sign_error         = 'E'
+    let g:ale_sign_warning       = 'W'
+    let g:ale_sign_hint          = 'H'
+    let g:ale_sign_info          = 'I'
     " message format
     let g:ale_echo_msg_error_str   = 'E'
     let g:ale_echo_msg_warning_str = 'W'
@@ -135,7 +166,9 @@ elseif Installed('ale')
     endfunction
     command! -bang -nargs=* ShowLint call s:showLint()
     nnoremap <silent> <leader>D :ShowLint<Cr>
-    nmap ]d <Plug>(ale_next_error)
-    nmap [d <Plug>(ale_previous_error)
+    nmap ]e <Plug>(ale_next_error)
+    nmap [e <Plug>(ale_previous_error)
+    nmap ]d <Plug>(ale_next)
+    nmap [d <Plug>(ale_previous)
     nmap <leader>d :ALEToggle<Cr>
 endif
