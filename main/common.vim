@@ -284,20 +284,28 @@ if has('clipboard')
     nnoremap yy "*yy:echo "Yank the line to clipboard"<Cr>
     inoremap <C-v> <C-r>*
     cnoremap <C-v> <C-r>*
-    xnoremap y     "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
     xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
+    if exists("g:vscode")
+        nnoremap \y :0,-"*y<Cr>
+        nnoremap \Y vG"*y
+    else
+        nnoremap ,y :0,-"*y<Cr>
+        nnoremap ,Y vG"*y
+    endif
 else
     nnoremap Y y$
     inoremap <C-v> <C-r>"
     cnoremap <C-v> <C-r>"
-    xnoremap <C-c> y
+    xnoremap <C-c> "yy:echo "Yank selected to register y" \| let @y=trim(@y)<Cr>
+    if exists("g:vscode")
+        nnoremap \y :0,-y<Cr>
+        nnoremap \Y vGy
+    else
+        nnoremap ,y :0,-y<Cr>
+        nnoremap ,Y vGy
+    endif
 endif
 if exists("g:vscode")
-    " ------------------------
-    " yank
-    " ------------------------
-    nnoremap \y :0,-y<Cr>
-    nnoremap \Y vGy
     " source
     source $LEOVIM_PATH/vscode/neovim.vim
 else
@@ -316,11 +324,6 @@ else
     nmap <silent> ,T cd:PreviewGoto tabe<Cr>gT<C-w>zgt
     " preview file
     nmap ,<Cr> cd:PreviewFile<Space>
-    " ------------------------
-    " yank
-    " ------------------------
-    nnoremap ,y :0,-y<Cr>
-    nnoremap ,Y vGy
     " source
     source $SETTINGS_PATH/terminal.vim
     source $SETTINGS_PATH/basic.vim
