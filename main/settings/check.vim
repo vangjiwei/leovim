@@ -53,7 +53,7 @@ if Installed('lspsaga.nvim')
       virtual_text = false,
       underline = false,
     })
-    map('n', "<M-'>", [[<cmd>lua toggle_diagnostics_virtualtext()<Cr>]], {silent = true, noremap = true})
+    map('n', '<M-">', [[<cmd>lua toggle_diagnostics_virtualtext()<Cr>]], {silent = true, noremap = true})
 EOF
 elseif Installed('coc.nvim')
     if has('nvim') || g:gui_running > 0
@@ -68,7 +68,7 @@ elseif Installed('coc.nvim')
             call coc#config("diagnostic.messageTarget", g:coc_diagnostic_messageTarget)
         endfunction
         command! CocToggleDiagMessageTarget call s:toggle_messagetarget()
-        nnoremap <M-"> :CocToggleDiagMessageTarget<Cr>
+        nnoremap <silent<silent>><M-"> :CocToggleDiagMessageTarget<Cr>
     endif
     if g:check_tool == 'ale'
         call coc#config('diagnostic.displayByAle', v:true)
