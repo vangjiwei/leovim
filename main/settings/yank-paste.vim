@@ -43,20 +43,22 @@ endfor
 " yank && paste using M-
 " ------------------------
 if has('clipboard')
+    if UNIX()
+        nnoremap <M-c>+ viw"+y
+        xnoremap <M-c>+ "+y
+    else
+        nnoremap <M-c>+ viw"*y
+        xnoremap <M-c>+ "*y"
+    endif
     " autocmd
     if exists("##ModeChanged")
         au ModeChanged *:s set clipboard=
         au ModeChanged s:* set clipboard=unnamedplus
     endif
-    nnoremap <M-c>+ viw"+y
-    nnoremap <M-c>* viw"*y
-    xnoremap <M-c>+ "+y
-    xnoremap <M-c>* "*y"
     nnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
     xnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
     nnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
     xnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
-    nnoremap <silent>Y     "*y$:let @*=trim(@*)<Cr>:echo "Yank to line ending"<Cr>
     nnoremap <M-X> "*dd
     xnoremap <M-X> "*dd
 else
@@ -64,7 +66,6 @@ else
     xnoremap <silent><M-x> x
     nnoremap <silent><M-y> X
     xnoremap <silent><M-y> X
-    nnoremap <silent>Y     y$:echo "Yank to line ending"<Cr>
     nnoremap <M-X> S
     xnoremap <M-X> S
 endif

@@ -223,28 +223,6 @@ endtry
 " core remap
 " ------------------------
 source $MAIN_PATH/map.vim
-function! YankFromBeginning() abort
-    let original_cursor_position = getpos('.')
-    exec("normal! v^y")
-    call setpos('.', original_cursor_position)
-endfunction
-nnoremap gy :call YankFromBeginning()<Cr>:echo "Yank from line beginning"<Cr>
-" ------------------------
-" ctrl c / ctrl v
-" ------------------------
-if has('clipboard')
-    nnoremap Y  "*y$:echo "Yank to line ending"<Cr>
-    nnoremap yy "*yy:echo "Yank the line"<Cr>
-    xnoremap y  "*y:echo  "Yank selected"<Cr>
-    xnoremap <C-c> "*y:echo "Yank selected"<Cr>
-    inoremap <C-v> <C-r>*
-    cnoremap <C-v> <C-r>*
-else
-    nnoremap Y y$:echo "Yank to line ending"<Cr>
-    xnoremap <C-c> y
-    inoremap <C-v> <C-r>"
-    cnoremap <C-v> <C-r>"
-endif
 " some enhanced shortcuts
 nmap gI 2g;a
 nmap !  :!
@@ -287,16 +265,37 @@ nnoremap <leader>et :TripTrailingWhiteSpace<Cr>
 " vscode-neovim
 " ---------------------
 source $PACKSYNC_PATH/packadd.vim
+" ------------------------
+" yank
+" ------------------------
+function! YankFromBeginning() abort
+    let original_cursor_position = getpos('.')
+    if has('clipboard')
+        exec('normal! v^"*y')
+        echo "Yank from line beginning to clipboard"
+    else
+        exec('normal! v^y')
+    endif
+    call setpos('.', original_cursor_position)
+endfunction
+nnoremap gy :call YankFromBeginning()<Cr>
+if has('clipboard')
+    nnoremap Y  "*y$:echo "Yank to the line ending to clipboard"<Cr>
+    nnoremap yy "*yy:echo "Yank the line to clipboard"<Cr>
+    inoremap <C-v> <C-r>*
+    cnoremap <C-v> <C-r>*
+    xnoremap y     "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
+    xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
+else
+    nnoremap Y y$
+    inoremap <C-v> <C-r>"
+    cnoremap <C-v> <C-r>"
+    xnoremap <C-c> y
+endif
 if exists("g:vscode")
     " ------------------------
     " yank
     " ------------------------
-    if has('clipboard')
-        xnoremap y "*y
-        nnoremap Y "*y$:echo "Yank to line ending"<Cr>
-    else
-        nnoremap Y y$:echo "Yank to line ending"<Cr>
-    endif
     nnoremap \y :0,-y<Cr>
     nnoremap \Y vGy
     " source
