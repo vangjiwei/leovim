@@ -69,8 +69,6 @@ function! GetFunction()
         return get(b:, 'coc_current_function', '')
     elseif Installed('vista.vim')
         return get(b:, 'vista_nearest_method_or_function', '')
-    elseif Installed('tagbar') && exists("g:tagbar_compact") > 0
-        return tagbar#currenttag("%s", "", "f")
     else
         return ""
     endif
@@ -92,6 +90,28 @@ if Installed('lightline-ale')
                 \ 'linter_warnings': 'warning',
                 \ }
     let s:lint_info = ['linter_checking', 'linter_errors', 'linter_warnings']
+    let g:lightline.active.right += [s:lint_info]
+elseif Installed('nvim-lightline-lsp')
+    let g:lightline.component_expand = {
+                \   'lsp_warnings': 'lightline#lsp#warnings',
+                \   'lsp_errors': 'lightline#lsp#errors',
+                \   'lsp_info': 'lightline#lsp#info',
+                \   'lsp_hints': 'lightline#lsp#hints',
+                \   'lsp_ok': 'lightline#lsp#ok',
+                \   'status': 'lightline#lsp#status',
+                \ }
+
+    " Set color to the components:
+    let g:lightline.component_type = {
+                \   'lsp_warnings': 'warning',
+                \   'lsp_errors': 'error',
+                \   'lsp_info': 'info',
+                \   'lsp_hints': 'hints',
+                \   'lsp_ok': 'left',
+                \ }
+    let s:lint_info = ['lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings', 'lsp_ok']
+    let g:lightline.active.right += [s:lint_info]
+    let g:lightline.active.right += [['lsp_status']]
 elseif Installed('coc.nvim')
     function! CocDiagnostic()
         let info = get(b:, 'coc_diagnostic_info', {})
@@ -110,8 +130,6 @@ elseif Installed('coc.nvim')
     endfunction
     let g:lightline.component_function.coc_diag = 'CocDiagnostic'
     let g:lightline.active.right += [['coc_diag']]
-elseif !empty(get(s:, 'lint_info', []))
-    let g:lightline.active.right += [s:lint_info]
 endif
 " ------------------------
 " lightline themes
