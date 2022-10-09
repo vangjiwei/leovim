@@ -69,8 +69,6 @@ function! GetFunction()
         return get(b:, 'coc_current_function', '')
     elseif Installed('vista.vim')
         return get(b:, 'vista_nearest_method_or_function', '')
-    elseif Installed('tagbar') && exists("g:tagbar_compact") > 0
-        return tagbar#currenttag("%s", "", "f")
     else
         return ""
     endif
