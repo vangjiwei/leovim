@@ -280,6 +280,11 @@ function! YankFromBeginning() abort
 endfunction
 nnoremap gy :call YankFromBeginning()<Cr>
 if has('clipboard')
+    " autocmd
+    if exists("##ModeChanged")
+        au ModeChanged *:s set clipboard=
+        au ModeChanged s:* set clipboard=unnamedplus
+    endif
     nnoremap Y  "*y$:echo "Yank to the line ending to clipboard"<Cr>
     nnoremap yy "*yy:echo "Yank the line to clipboard"<Cr>
     inoremap <C-v> <C-r>*
@@ -306,9 +311,39 @@ else
     endif
 endif
 if exists("g:vscode")
-    " source
     source $LEOVIM_PATH/vscode/neovim.vim
 else
+    " ------------------------
+    " yank && paste using M-
+    " ------------------------
+    if has('clipboard')
+        if UNIX()
+            nnoremap <M-c>+ viw"+y
+            xnoremap <M-c>+ "+y
+        else
+            nnoremap <M-c>+ viw"*y
+            xnoremap <M-c>+ "*y"
+        endif
+        nnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
+        xnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
+        nnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
+        xnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
+        nnoremap <M-X> "*dd
+        xnoremap <M-X> "*dd
+    else
+        nnoremap <silent><M-x> x
+        xnoremap <silent><M-x> x
+        nnoremap <silent><M-y> X
+        xnoremap <silent><M-y> X
+        nnoremap <M-X> S
+        xnoremap <M-X> S
+    endif
+    inoremap <M-x> <Del>
+    inoremap <M-y> <BS>
+    " ----------------------
+    " switch 2 words
+    " ----------------------
+    xnoremap <M-V> <Esc>`.``gvp``P
     " ------------------------
     " vim-preview
     " ------------------------
