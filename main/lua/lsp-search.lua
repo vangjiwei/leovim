@@ -33,20 +33,20 @@ lspsaga.init_lsp_saga({
     tabe   = '<C-t>',
     quit   = '<M-q>',
   },
-  move_in_saga           = { prev = '<C-k>', next = '<C-j>' },
-  code_action_keys       = {
+  move_in_saga     = { prev = '<C-k>', next = '<C-j>' },
+  code_action_keys = {
     quit = { "<M-q>", "<C-c>", "<ESC>" },
     exec = "<Cr>",
   },
-  rename_action_quit     = "<C-c>",
-  symbol_in_winbar       = {
+  rename_action_quit = "<C-c>",
+  symbol_in_winbar   = {
     in_custom = false,
     enable = false,
     separator = ' ',
     show_file = true,
     click_support = false,
   },
-  show_outline           = {
+  show_outline = {
     win_position = 'left',
     win_width = 40,
     auto_enter = false,
@@ -86,6 +86,7 @@ if vim.fn.has('nvim-0.8') > 0 then
       end
     }
   })
+
   local function get_file_name(include_path)
     local file_name = require('lspsaga.symbolwinbar').get_file_name()
     if vim.fn.bufname '%' == '' then return '' end
@@ -159,19 +160,19 @@ map('n', '<leader>A', [[:Lspsaga]], { noremap = true, silent = false })
 --------------------------------
 -- each lsp server config
 --------------------------------
-local capabilities                                                 = vim.lsp.protocol.make_client_capabilities()
-capabilities                                                       = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.foldingRange                             = {
+capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
-  lineFoldingOnly = true
+  lineFoldingOnly     = true
 }
 -----------------
 -- mason/lspconfig
 -----------------
-local mason                                                        = require('mason')
-local lspconfig                                                    = require('lspconfig')
-local mason_lspconfig                                              = require('mason-lspconfig')
+local mason           = require('mason')
+local lspconfig       = require('lspconfig')
+local mason_lspconfig = require('mason-lspconfig')
 mason.setup({
   ui = {
     icons = {
@@ -238,7 +239,9 @@ if executable('pylsp') then
     },
   })
 end
+-----------------
 -- ufo
+-----------------
 if Installed('nvim-ufo') and Installed('promise-async') then
   require('ufo').setup()
 end

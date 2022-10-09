@@ -77,19 +77,18 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     if get(g:, 'leovim_loaded', 0) == 0
         luafile $LUA_PATH/dap.conf.lua
     endif
-    nnoremap ,o :tabe ~/.leovim.conf/nvim-dap/dap.example.lua<Cr>:e ~/.leovim.d/dap.local.lua<Cr>
+    nnoremap ,C :tabe ~/.leovim.conf/nvim-dap/dap.example.lua<Cr>:e ~/.leovim.d/dap.local.lua<Cr>
     if filereadable(expand("~/.leovim.d/dap.local.lua"))
         luafile ~/.leovim.d/dap.local.lua
     endif
     nnoremap ,d :lua require("dap").
     " basic
-    nnoremap <silent> ,c <cmd>lua require("dap").continue()<CR>
-    nnoremap <silent> ,C <cmd>lua require("dap").run_to_cursor()<CR>
-    nnoremap <silent> ,L <cmd>lua require("dap").run_last()<CR>
-    nnoremap <silent> ,n <cmd>lua require("dap").step_over()<CR>
+    nnoremap <silent> ,c <cmd>lua require("dap").run_to_cursor()<CR>
+    nnoremap <silent> ,n <cmd>lua require("dap").continue()<CR>
+    nnoremap <silent> ,R <cmd>lua require("dap").run_last()<CR>
     nnoremap <silent> ,s <cmd>lua require("dap").step_into()<CR>
-    nnoremap <silent> ,u <cmd>lua require("dap").step_out()<CR>
-    nnoremap <silent> ,U <cmd>lua require("dap").step_back()<CR>
+    nnoremap <silent> ,o <cmd>lua require("dap").step_over()<CR>
+    nnoremap <silent> ,O <cmd>lua require("dap").step_out()<CR>
     nnoremap <silent> ,a <cmd>lua require("dap").attach(vim.fn.input('Attatch to: '))<CR>
     " hover
     nnoremap <silent> ,w <cmd>lua require("dap.ui.widgets").hover()<CR>
@@ -103,6 +102,7 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> <M-d>e <cmd>lua require("dap").set_exception_breakpoints("")<left><left>
     nnoremap <silent> <M-d>i <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints info: '))<CR>
     nnoremap <silent> <M-d>b <cmd>lua require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+    nnoremap <silent> <M-d>s <cmd>lua require("dap").step_back()<CR>
     " debug
     nnoremap <silent> <M-d>q <cmd>lua require("dap").close()<Cr>
     nnoremap <silent> <M-d>Q <cmd>lua require("dap").disconnect({ terminateDebuggee = true });require"dap".close()<CR>
@@ -119,7 +119,7 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     " nvim-dap-ui
     " ---------------------------------------
     nnoremap ,v :lua require("dapui").
-    nnoremap <silent> ,t <cmd>lua require("dapui").toggle()<CR>
+    nnoremap <silent> ,r <cmd>lua require("dapui").toggle()<CR>
     " watch
     nnoremap <silent> ,e <cmd>lua require("dapui").eval()<CR>
     nnoremap <silent> <M-m>f <cmd>lua require("dapui").float_element()<Cr>
@@ -128,12 +128,12 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> <M-m>w <cmd>lua require("dapui").float_element('watches')<Cr>
     nnoremap <silent> <M-m>r <cmd>lua require("dapui").float_element('repl')<Cr>
     " jump to windows in dapui
-    nnoremap <M-m>1 :call GoToDAPWindows("DAP Scopes")<Cr>
-    nnoremap <M-m>2 :call GoToDAPWindows("DAP Breakpoints")<Cr>
-    nnoremap <M-m>3 :call GoToDAPWindows("DAP Stacks")<Cr>
-    nnoremap <M-m>4 :call GoToDAPWindows("DAP Watches")<Cr>
-    nnoremap <M-m>5 :call GoToDAPWindows("[dap-repl]")<Cr>
-    nnoremap <M-m>6 :call GoToDAPWindows("")<Cr>
+    nnoremap <silent><M-m>1 :call GoToDAPWindows("DAP Scopes")<Cr>
+    nnoremap <silent><M-m>2 :call GoToDAPWindows("DAP Breakpoints")<Cr>
+    nnoremap <silent><M-m>3 :call GoToDAPWindows("DAP Stacks")<Cr>
+    nnoremap <silent><M-m>4 :call GoToDAPWindows("DAP Watches")<Cr>
+    nnoremap <silent><M-m>5 :call GoToDAPWindows("[dap-repl]")<Cr>
+    nnoremap <silent><M-m>6 :call GoToDAPWindows("")<Cr>
     function! GoToDAPWindows(name) abort
         let windowNr = 0
         let name = a:name
@@ -164,7 +164,7 @@ elseif Installed('vimspector')
                     \ 'sink': function('<sid>read_template')
                     \ }))
     endif
-    nnoremap ,o :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
+    nnoremap ,C :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
     " core shortcuts
     nnoremap ,v :Vimspector<Tab>
     nnoremap ,d :call vimspector#<Tab>
@@ -172,14 +172,13 @@ elseif Installed('vimspector')
     nnoremap ,w :VimspectorWatch<Space>
     nnoremap ,W :call vimspector#DeleteWatch()<Cr>
     nnoremap ,a :call vimspector#AddWatch("")<Left><Left>
+    nnoremap ,r :call vimspector#Launch()<Cr>
     " run
-    nmap <silent> ,c <Plug>VimspectorContinue
-    nmap <silent> ,C <Plug>VimspectorRunToCursor
-    nmap <silent> ,n <Plug>VimspectorStepOver
+    nmap <silent> ,c <Plug>VimspectorRunToCursor
+    nmap <silent> ,n <Plug>VimspectorContinue
     nmap <silent> ,s <Plug>VimspectorStepInto
-    nmap <silent> ,u <Plug>VimspectorStepOut
-    nmap <silent> ,r :call vimspector#Reset()<Cr>
-    nmap <silent> ,R :call vimspector#Restart()<Cr>
+    nmap <silent> ,o <Plug>VimspectorStepOver
+    nmap <silent> ,O <Plug>VimspectorStepOut
     " breakpoint
     nmap <silent> ,b <Plug>VimspectorToggleBreakpoint
     nmap <silent> ,B :call ToggleAllBreakpointsViewBreakpoint()<Cr>
@@ -193,12 +192,13 @@ elseif Installed('vimspector')
     nmap <silent> <F7>   <Plug>VimspectorToggleConditionalBreakpoint
     " other commands
     nnoremap <M-d>i :VimspectorInstall <Tab>
-    nnoremap <M-d>l :call vimspector#Launch()<Cr>
     nnoremap <M-d>g :call vimspector#GetConfigurations()<Cr>
     nnoremap <M-d>p :call vimspector#Pause()<Cr>
     nnoremap <M-d>t :call vimspector#SetCurrentThread()<Cr>
     nnoremap <M-d>e :call vimspector#ExpandVariable()<Cr>
     nnoremap <M-d>q :call vimspector#Stop()<Cr>
+    nnoremap <M-d>r :call vimspector#Reset()<Cr>
+    nnoremap <M-d>R :call vimspector#Restart()<Cr>
     " jump to windows in vimspector
     nnoremap <M-m>o :call GoToVimspectorWindow('output')<Cr>
     nnoremap <M-m>e :call GoToVimspectorWindow('stderr')<Cr>
@@ -243,14 +243,14 @@ elseif v:version >= 801 && !has('nvim') && Require('deubg') && executable('gdb')
     nnoremap ,B :Clear<Cr>
     " debug
     nnoremap ,d :Termdebug
-    nnoremap ,t :TermdebugCommand<Space>
-    nnoremap ,c :Continue<Cr>
-    nnoremap ,n :Over<Cr>
+    nnoremap ,c :TermdebugCommand<Space>
+    nnoremap ,n :Continue<Cr>
     nnoremap ,s :Step<Cr>
+    nnoremap ,o :Over<Cr>
     nnoremap ,u :Finish<Cr>
+    nnoremap ,r :Run<Space>
     nnoremap ,a :Arguments<Space>
     nnoremap ,e :Evaluate<Space>
-    nnoremap ,r :Run<Space>
     nnoremap <M-d>p :Program<Cr>
     nnoremap <M-d>o :Source<Cr>
     nnoremap <M-d>g :Gdb<Cr>
