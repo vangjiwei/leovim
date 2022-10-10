@@ -147,9 +147,9 @@ function! InstalledTelescope()
 endfunction
 function! InstalledLsp()
     return Installed(
+                \ 'nvim-lspconfig',
                 \ 'mason.nvim',
                 \ 'mason-lspconfig.nvim',
-                \ 'nvim-lspconfig',
                 \ 'lspsaga.nvim',
                 \ )
 endfunction
