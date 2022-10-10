@@ -301,7 +301,7 @@ else
     nnoremap Y y$
     inoremap <C-v> <C-r>"
     cnoremap <C-v> <C-r>"
-    xnoremap <C-c> "yy:echo "Yank selected to register y" \| let @y=trim(@y)<Cr>
+    xnoremap <C-c> y
     if exists("g:vscode")
         nnoremap \y :0,-y<Cr>
         nnoremap \Y vGy

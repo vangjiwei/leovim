@@ -146,7 +146,7 @@ if WINDOWS()
         finish
     endif
     if v:version < 800
-        echoe 'vim 8.0 or neovim 0.6 is at least required when uing leovim in windows.'
+        echoe 'vim 8.0 or neovim 0.7.2 is at least required when uing leovim in windows.'
         finish
     endif
 endif
