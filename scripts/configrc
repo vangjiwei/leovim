@@ -17,23 +17,23 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-if [ ! $PATH == */$HOME/.local/bin* ]; then
+if  ! [[ $PATH == */$HOME/.local/bin* ]]; then
     export PATH=$HOME/.local/bin:$PATH
 fi
 
-if [ ! $PATH == */$HOME/.local/node/bin* ]; then
+if  ! [[ $PATH == */$HOME/.local/node/bin* ]]; then
     export PATH=$HOME/.local/node/bin:$PATH
 fi
 
-if [ ! $PATH == */$HOME/.local/ctags/bin* ]; then
+if  ! [[ $PATH == */$HOME/.local/ctags/bin* ]]; then
     export PATH=$HOME/.local/ctags/bin:$PATH
 fi
 
-if [ ! $PATH == */$HOME/.local/gtags/bin* ]; then
+if  ! [[ $PATH == */$HOME/.local/gtags/bin* ]]; then
     export PATH=$HOME/.local/gtags/bin:$PATH
 fi
 
-if [ ! $PATH == */$HOME/.local/nvim-linux64/bin* ]; then
+if  ! [[ $PATH == */$HOME/.local/nvim-linux64/bin* ]]; then
     export PATH=$HOME/.local/nvim-linux64/bin:$PATH
 fi
 
