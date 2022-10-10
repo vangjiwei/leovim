@@ -98,7 +98,6 @@ elseif Installed('nvim-lightline-lsp')
                 \   'lsp_info': 'lightline#lsp#info',
                 \   'lsp_hints': 'lightline#lsp#hints',
                 \   'lsp_ok': 'lightline#lsp#ok',
-                \   'status': 'lightline#lsp#status',
                 \ }
 
     " Set color to the components:
@@ -111,7 +110,6 @@ elseif Installed('nvim-lightline-lsp')
                 \ }
     let s:lint_info = ['lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings', 'lsp_ok']
     let g:lightline.active.right += [s:lint_info]
-    let g:lightline.active.right += [['lsp_status']]
 elseif Installed('coc.nvim')
     function! CocDiagnostic()
         let info = get(b:, 'coc_diagnostic_info', {})

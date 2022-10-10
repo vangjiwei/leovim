@@ -61,7 +61,7 @@ endif
 " install
 " ------------------------------
 if SymbolPlanned('gutentags')
-    PackAdd 'leoatchina/vim-gutentags'
+    PackAdd 'skywind3000/vim-gutentags'
 endif
 if SymbolPlanned('plus')
     PackAdd 'skywind3000/gutentags_plus'
