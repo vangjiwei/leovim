@@ -223,28 +223,6 @@ endtry
 " core remap
 " ------------------------
 source $MAIN_PATH/map.vim
-function! YankFromBeginning() abort
-    let original_cursor_position = getpos('.')
-    exec("normal! v^y")
-    call setpos('.', original_cursor_position)
-endfunction
-nnoremap gy :call YankFromBeginning()<Cr>:echo "Yank from line beginning"<Cr>
-" ------------------------
-" ctrl c / ctrl v
-" ------------------------
-if has('clipboard')
-    nnoremap Y  "*y$:echo "Yank to line ending"<Cr>
-    nnoremap yy "*yy:echo "Yank the line"<Cr>
-    xnoremap y  "*y:echo  "Yank selected"<Cr>
-    xnoremap <C-c> "*y:echo "Yank selected"<Cr>
-    inoremap <C-v> <C-r>*
-    cnoremap <C-v> <C-r>*
-else
-    nnoremap Y y$:echo "Yank to line ending"<Cr>
-    xnoremap <C-c> y
-    inoremap <C-v> <C-r>"
-    cnoremap <C-v> <C-r>"
-endif
 " some enhanced shortcuts
 nmap gI 2g;a
 nmap !  :!
@@ -287,21 +265,85 @@ nnoremap <leader>et :TripTrailingWhiteSpace<Cr>
 " vscode-neovim
 " ---------------------
 source $PACKSYNC_PATH/packadd.vim
-if exists("g:vscode")
-    " ------------------------
-    " yank
-    " ------------------------
+" ------------------------
+" yank
+" ------------------------
+function! YankFromBeginning() abort
+    let original_cursor_position = getpos('.')
     if has('clipboard')
-        xnoremap y "*y
-        nnoremap Y "*y$:echo "Yank to line ending"<Cr>
+        exec('normal! v^"*y')
+        echo "Yank from line beginning to clipboard"
     else
-        nnoremap Y y$:echo "Yank to line ending"<Cr>
+        exec('normal! v^y')
     endif
-    nnoremap \y :0,-y<Cr>
-    nnoremap \Y vGy
-    " source
+    call setpos('.', original_cursor_position)
+endfunction
+nnoremap gy :call YankFromBeginning()<Cr>
+if has('clipboard')
+    " autocmd
+    if exists("##ModeChanged")
+        au ModeChanged *:s set clipboard=
+        au ModeChanged s:* set clipboard=unnamedplus
+    endif
+    nnoremap Y  "*y$:echo "Yank to the line ending to clipboard"<Cr>
+    nnoremap yy "*yy:echo "Yank the line to clipboard"<Cr>
+    inoremap <C-v> <C-r>*
+    cnoremap <C-v> <C-r>*
+    xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
+    if exists("g:vscode")
+        nnoremap \y :0,-"*y<Cr>
+        nnoremap \Y vG"*y
+    else
+        nnoremap ,y :0,-"*y<Cr>
+        nnoremap ,Y vG"*y
+    endif
+else
+    nnoremap Y y$
+    inoremap <C-v> <C-r>"
+    cnoremap <C-v> <C-r>"
+    xnoremap <C-c> "yy:echo "Yank selected to register y" \| let @y=trim(@y)<Cr>
+    if exists("g:vscode")
+        nnoremap \y :0,-y<Cr>
+        nnoremap \Y vGy
+    else
+        nnoremap ,y :0,-y<Cr>
+        nnoremap ,Y vGy
+    endif
+endif
+if exists("g:vscode")
     source $LEOVIM_PATH/vscode/neovim.vim
 else
+    " ------------------------
+    " yank && paste using M-
+    " ------------------------
+    if has('clipboard')
+        if UNIX()
+            nnoremap <M-c>+ viw"+y
+            xnoremap <M-c>+ "+y
+        else
+            nnoremap <M-c>+ viw"*y
+            xnoremap <M-c>+ "*y"
+        endif
+        nnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
+        xnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
+        nnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
+        xnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
+        nnoremap <M-X> "*dd
+        xnoremap <M-X> "*dd
+    else
+        nnoremap <silent><M-x> x
+        xnoremap <silent><M-x> x
+        nnoremap <silent><M-y> X
+        xnoremap <silent><M-y> X
+        nnoremap <M-X> S
+        xnoremap <M-X> S
+    endif
+    inoremap <M-x> <Del>
+    inoremap <M-y> <BS>
+    " ----------------------
+    " switch 2 words
+    " ----------------------
+    xnoremap <M-V> <Esc>`.``gvp``P
     " ------------------------
     " vim-preview
     " ------------------------
@@ -317,11 +359,6 @@ else
     nmap <silent> ,T cd:PreviewGoto tabe<Cr>gT<C-w>zgt
     " preview file
     nmap ,<Cr> cd:PreviewFile<Space>
-    " ------------------------
-    " yank
-    " ------------------------
-    nnoremap ,y :0,-y<Cr>
-    nnoremap ,Y vGy
     " source
     source $SETTINGS_PATH/terminal.vim
     source $SETTINGS_PATH/basic.vim

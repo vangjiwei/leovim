@@ -39,41 +39,6 @@ for i in range(26)
     exec 'nnoremap <leader>Y' . l_char . ' "'. l_char . 'yy'
     exec 'nnoremap <leader>Y' . u_char . ' "'. u_char . 'yy'
 endfor
-" ------------------------
-" yank && paste using M-
-" ------------------------
-if has('clipboard')
-    " autocmd
-    if exists("##ModeChanged")
-        au ModeChanged *:s set clipboard=
-        au ModeChanged s:* set clipboard=unnamedplus
-    endif
-    nnoremap <M-c>+ viw"+y
-    nnoremap <M-c>* viw"*y
-    xnoremap <M-c>+ "+y
-    xnoremap <M-c>* "*y"
-    nnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
-    xnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
-    nnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
-    xnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
-    nnoremap <silent>Y     "*y$:let @*=trim(@*)<Cr>:echo "Yank to line ending"<Cr>
-    nnoremap <M-X> "*dd
-    xnoremap <M-X> "*dd
-else
-    nnoremap <silent><M-x> x
-    xnoremap <silent><M-x> x
-    nnoremap <silent><M-y> X
-    xnoremap <silent><M-y> X
-    nnoremap <silent>Y     y$:echo "Yank to line ending"<Cr>
-    nnoremap <M-X> S
-    xnoremap <M-X> S
-endif
-inoremap <M-x> <Del>
-inoremap <M-y> <BS>
-" ----------------------
-" switch 2 words
-" ----------------------
-xnoremap <M-V> <Esc>`.``gvp``P
 " ----------------------
 " osc52 yankpost
 " ----------------------
