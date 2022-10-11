@@ -122,7 +122,8 @@ nnoremap <silent><leader>aa    <Plug>(coc-codeaction)
 nnoremap <silent><leader>ar    <Plug>(coc-rename)
 nnoremap <silent><leader>A     :CocFzfList actions<Cr>
 " ------------------------
-" Create mappings for function text object, requires document symbols feature of languageserver.
+" Create mappings for function text object
+" requires document symbols feature of languageserver.
 " ------------------------
 xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
@@ -150,6 +151,12 @@ omap ag <Plug>(coc-git-chunk-outer)
 xmap ag <Plug>(coc-git-chunk-outer)
 nmap <leader>vg vig
 nmap <leader>vG vag
+" ------------------------
+" coc symbol line
+" ------------------------
+if has('nvim-0.8')
+    luafile $LUA_PATH/coc.conf.lua
+endif
 " ------------------------
 " coc c language
 " ------------------------

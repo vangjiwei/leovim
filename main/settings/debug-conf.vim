@@ -87,6 +87,7 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> ,n <cmd>lua require("dap").continue()<CR>
     nnoremap <silent> ,R <cmd>lua require("dap").run_last()<CR>
     nnoremap <silent> ,s <cmd>lua require("dap").step_into()<CR>
+    nnoremap <silent> ,S <cmd>lua require("dap").step_back()<CR>
     nnoremap <silent> ,o <cmd>lua require("dap").step_over()<CR>
     nnoremap <silent> ,O <cmd>lua require("dap").step_out()<CR>
     nnoremap <silent> ,a <cmd>lua require("dap").attach(vim.fn.input('Attatch to: '))<CR>
@@ -102,7 +103,6 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> <M-d>e <cmd>lua require("dap").set_exception_breakpoints("")<left><left>
     nnoremap <silent> <M-d>i <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints info: '))<CR>
     nnoremap <silent> <M-d>b <cmd>lua require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
-    nnoremap <silent> <M-d>s <cmd>lua require("dap").step_back()<CR>
     " debug
     nnoremap <silent> <M-d>q <cmd>lua require("dap").close()<Cr>
     nnoremap <silent> <M-d>Q <cmd>lua require("dap").disconnect({ terminateDebuggee = true });require"dap".close()<CR>
