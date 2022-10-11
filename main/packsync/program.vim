@@ -124,7 +124,7 @@ elseif g:complete_engine == 'cmp'
                 \| PackAdd 'onsails/lspkind-nvim'
 endif
 " ------------------------------
-" lint tool
+" check tool
 " ------------------------------
 if g:complete_engine == 'cmp'
     let g:check_tool = 'cmp'

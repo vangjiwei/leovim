@@ -4,7 +4,7 @@
 local cmp = require('cmp')
 local lspkind = require('lspkind')
 -- snippets
-local snippets = { { name = 'nvim_lsp' } }
+local snippets = { { name = 'nvim_lsp' } ,   { name = 'nvim_lua' } }
 local snippets_opts = {}
 if Installed('ultisnips') then
   table.insert(snippets, { name = 'ultisnips' })
