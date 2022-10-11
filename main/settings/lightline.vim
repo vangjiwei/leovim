@@ -63,15 +63,7 @@ let g:lightline = {
 "------------------------
 " left part
 "------------------------
-if Installed('coc.nvim') && !has('nvim-0.8')
-    function! CocCurrentFunction()
-        return get(b:, 'coc_current_function', '')
-    endfunction
-    let g:lightline.component_function.coc_current_function = 'CocCurrentFunction'
-    let g:lightline.active.left = [['gitbranch', 'readonly', 'paste' ], ['rootpath'], ['filename', 'modified', 'coc_current_function']]
-else
-    let g:lightline.active.left = [['gitbranch', 'readonly', 'paste' ], ['rootpath'], ['filename', 'modified']]
-endif
+let g:lightline.active.left = [['gitbranch', 'readonly', 'paste' ], ['rootpath'], ['filename', 'modified']]
 "------------------------
 " right part
 "------------------------
@@ -98,7 +90,6 @@ elseif Installed('nvim-lightline-lsp')
                 \   'lsp_hints': 'lightline#lsp#hints',
                 \   'lsp_ok': 'lightline#lsp#ok',
                 \ }
-
     " Set color to the components:
     let g:lightline.component_type = {
                 \   'lsp_status': 'right',
