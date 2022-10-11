@@ -262,9 +262,9 @@ augroup END
 command! TripTrailingWhiteSpace call TripTrailingWhiteSpace()
 nnoremap <leader>et :TripTrailingWhiteSpace<Cr>
 " ----------------------
-" vscode-neovim
+" intergrated packs
 " ---------------------
-source $PACKSYNC_PATH/packadd.vim
+source $MAIN_PATH/intergrated.vim
 " ------------------------
 " yank
 " ------------------------
