@@ -46,7 +46,7 @@ endif
 " --------------------------
 if g:complete_engine == 'coc'
     let g:vista_default_executive = 'coc'
-    nnoremap <silent>ZS :CocFzfList symbols<Cr>
+    nnoremap <silent>ZL :CocFzfList symbols<Cr>
     if WINDOWS()
         if g:symbol_tool =~ 'leaderfctags'
             nnoremap <silent><M-t> :LeaderfBufTag<Cr>
