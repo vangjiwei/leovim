@@ -4,7 +4,7 @@
 "  NOTE: finder shuould be installed before complete_lint
 source $PACKSYNC_PATH/finder.vim
 if get(g:, "complete_engine", '') != ''
-    source $PACKSYNC_PATH/complete-lint-install.vim
+    source $PACKSYNC_PATH/program.vim
     source $PACKSYNC_PATH/debug.vim
     source $PACKSYNC_PATH/languages.vim
 endif

@@ -152,18 +152,12 @@ xmap ag <Plug>(coc-git-chunk-outer)
 nmap <leader>vg vig
 nmap <leader>vG vag
 " ------------------------
-" coc symbol line
-" ------------------------
-if has('nvim-0.8')
-    luafile $LUA_PATH/coc.conf.lua
-endif
-" ------------------------
 " coc c language
 " ------------------------
 if executable('ccls')
     call coc#config('languageserver.ccls', {
                 \ "command": "ccls",
-                \ "filetypes": c_filetypes,
+                \ "filetypes": g:c_filetypes,
                 \ "rootPatterns": g:root_patterns,
                 \ "initializationOptions": {
                     \ "cache": {
@@ -188,3 +182,9 @@ endif
 let g:coc_default_semantic_highlight_groups = 1
 " semanticTokensFiletypes
 call coc#config('semanticTokens.filetypes',  g:highlight_filetypes)
+" ------------------------
+" coc config for nvim-0.8
+" ------------------------
+if has('nvim-0.8')
+    luafile $LUA_PATH/coc.conf.lua
+endif
