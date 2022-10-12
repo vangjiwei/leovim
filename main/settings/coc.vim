@@ -39,6 +39,7 @@ nnoremap <silent><M-l>; :CocNext<CR>
 nnoremap <silent><M-l>, :CocPrev<CR>
 nnoremap <silent><M-l>C :CocFzfList commands<Cr>
 nnoremap <silent><M-u>. :call CocAction('repeatCommand')<Cr>
+nnoremap <silent><M-M>  :CocFzfList marketplace<Cr>
 " completion map
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#stop() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <TAB>
