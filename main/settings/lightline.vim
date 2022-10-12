@@ -83,7 +83,6 @@ if Installed('lightline-ale')
     let g:lightline.active.right += [s:lint_info]
 elseif Installed('nvim-lightline-lsp')
     let g:lightline.component_expand = {
-                \   'lsp_status': 'lightline#lsp#status',
                 \   'lsp_warnings': 'lightline#lsp#warnings',
                 \   'lsp_errors': 'lightline#lsp#errors',
                 \   'lsp_info': 'lightline#lsp#info',
@@ -92,14 +91,13 @@ elseif Installed('nvim-lightline-lsp')
                 \ }
     " Set color to the components:
     let g:lightline.component_type = {
-                \   'lsp_status': 'right',
                 \   'lsp_warnings': 'warning',
                 \   'lsp_errors': 'error',
                 \   'lsp_info': 'info',
                 \   'lsp_hints': 'hints',
                 \   'lsp_ok': 'left',
                 \ }
-    let s:lint_info = [ 'lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings', 'lsp_ok' , 'lsp_status']
+    let s:lint_info = ['lsp_ok', 'lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings']
     let g:lightline.active.right += [s:lint_info]
 elseif Installed('coc.nvim')
     function! CocDiagnostic()
