@@ -268,18 +268,30 @@ source $SETTINGS_PATH/intergrated.vim
 " ------------------------
 " yank
 " ------------------------
-if !exists("g:vscode")
-    function! YankFromBeginning() abort
-        let original_cursor_position = getpos('.')
-        if has('clipboard')
-            exec('normal! v^"*y')
-            echo "Yank from line beginning to clipboard"
+" osc52 yankpost
+if exists("##TextYankPost") && UNIX() && exists('*trim')
+    function! s:raw_echo(str)
+        if filewritable('/dev/fd/2')
+            call writefile([a:str], '/dev/fd/2', 'b')
         else
-            exec('normal! v^y')
+            exec("silent! !echo " . shellescape(a:str))
+            redraw!
         endif
-        call setpos('.', original_cursor_position)
     endfunction
-    nnoremap gy :call YankFromBeginning()<Cr>
+    function! s:copy() abort
+        let c = join(v:event.regcontents,"\n")
+        if len(trim(c)) == 0
+            return
+        endif
+        let c64 = system("base64", c)
+        if $TMUX == ''
+            let s = "\e]52;c;" . trim(c64) . "\x07"
+        else
+            let s = "\ePtmux;\e\e]52;c;" . trim(c64) . "\x07\e\\"
+        endif
+        call s:raw_echo(s)
+    endfunction
+    autocmd TextYankPost * call s:copy()
 endif
 if has('clipboard')
     " autocmd
@@ -312,12 +324,27 @@ else
         nnoremap ,Y vGy
     endif
 endif
+" ------------------------
+" configs for vscode and neovim/vim are different
+" ------------------------
 if exists("g:vscode")
     source $LEOVIM_PATH/vscode/neovim.vim
 else
     " ------------------------
-    " yank && paste using M-
+    " yank && paste
     " ------------------------
+    function! YankFromBeginning() abort
+        let original_cursor_position = getpos('.')
+        if has('clipboard')
+            exec('normal! v^"*y')
+            echo "Yank from line beginning to clipboard"
+        else
+            exec('normal! v^y')
+        endif
+        call setpos('.', original_cursor_position)
+    endfunction
+    nnoremap gy :call YankFromBeginning()<Cr>
+    " yank && paste using M-
     if has('clipboard')
         if UNIX()
             nnoremap <M-c>+ viw"+y
@@ -342,9 +369,7 @@ else
     endif
     inoremap <M-x> <Del>
     inoremap <M-y> <BS>
-    " ----------------------
     " switch 2 words
-    " ----------------------
     xnoremap <M-V> <Esc>`.``gvp``P
     " ------------------------
     " vim-preview
@@ -361,7 +386,9 @@ else
     nmap <silent> ,T cd:PreviewGoto tabe<Cr>gT<C-w>zgt
     " preview file
     nmap ,<Cr> cd:PreviewFile<Space>
+    " ------------------------
     " source
+    " ------------------------
     source $SETTINGS_PATH/terminal.vim
     source $SETTINGS_PATH/basic.vim
 endif
