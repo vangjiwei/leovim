@@ -28,5 +28,9 @@ elseif Installed('luasnip')
 endif
 if InstalledFzf()
     imap <c-x><c-l> <plug>(fzf-complete-line)
-    imap <c-x><c-f> <plug>(fzf-complete-path)
+    if LINUX()
+        inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
+    else
+        imap <c-x><c-l> <plug>(fzf-complete-path)
+    endif
 endif

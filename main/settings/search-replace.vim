@@ -335,14 +335,14 @@ if Installed('nvim-bqf')
     au FileType qf nmap <buffer> <BS>  :BqfToggle<Cr>
 else
     au Filetype qf nnoremap <silent><buffer> <C-m> <Cr><C-w>z
-    au Filetype qf nnoremap <silent><buffer> <C-v> <Cr><C-w>z:vsplit<Cr>
+    au Filetype qf nnoremap <silent><buffer> <C-h> <Cr><C-w>z:vsplit<Cr>
     au Filetype qf nnoremap <silent><buffer> <C-x> <Cr><C-w>z:split<Cr>
     au Filetype qf nnoremap <silent><buffer> <C-t> <Cr><C-w>z:tabe %<Cr>
     if Installed('vim-quickui')
         au FileType qf nnoremap <silent><buffer> n j:call quickui#tools#preview_quickfix()<cr>
         au FileType qf nnoremap <silent><buffer> N k:call quickui#tools#preview_quickfix()<cr>
         " preview
-        au FileType qf nnoremap <silent><buffer> <C-h> :call quickui#tools#preview_quickfix()<cr>
+        au FileType qf nnoremap <silent><buffer> K :call quickui#tools#preview_quickfix()<cr>
         au FileType qf nnoremap <silent><buffer> <Bs>  :call quickui#tools#preview_quickfix()<cr>
     endif
 endif
