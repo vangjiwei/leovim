@@ -1,20 +1,6 @@
 if Installed('lspsaga.nvim')
     luafile $LUA_PATH/check.conf.lua
 elseif Installed('coc.nvim')
-    if has('nvim') || g:gui_running > 0
-        let g:coc_diagnostic_messageTarget = "float"
-        function! s:toggle_messagetarget() abort
-            if g:coc_diagnostic_messageTarget == "float"
-                let g:coc_diagnostic_messageTarget = "echo"
-            else
-                let g:coc_diagnostic_messageTarget = "float"
-            endif
-            echo "coc.diagnostic.messageTarget is " . g:coc_diagnostic_messageTarget
-            call coc#config("diagnostic.messageTarget", g:coc_diagnostic_messageTarget)
-        endfunction
-        command! CocToggleDiagMessageTarget call s:toggle_messagetarget()
-        nnoremap <silent><M-"> :CocToggleDiagMessageTarget<Cr>
-    endif
     if g:check_tool == 'ale'
         call coc#config('diagnostic.displayByAle', v:true)
     else

@@ -11,7 +11,7 @@ if has('patch-7.4.330') && g:python_version > 2
         PackAdd 'voldikss/LeaderF-floaterm'
     endif
 endif
-if has('nvim-0.7') && g:complete_engine == 'cmp'
+if g:complete_engine == 'cmp'
     PackAdd 'nvim-lua/plenary.nvim'
                 \| PackAdd 'nvim-lua/popup.nvim'
                 \| PackAdd 'MunifTanjim/nui.nvim'

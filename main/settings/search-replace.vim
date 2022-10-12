@@ -105,13 +105,6 @@ endif
 " searchall in telescope or fzf
 " --------------------------
 if InstalledTelescope()
-    lua << EOF
-    _G.search_all = function()
-      local opts = {} -- define here if you want to define something
-      local ok = pcall(require"telescope.builtin".grep_string, opts)
-      if not ok then require"telescope.builtin".live_grep(opts) end
-    end
-EOF
     let g:search_tool = 'grepper-telescope'
     function! s:telescope_search(...) abort
         " a:0 代表参数数量, a1 代表第一个参数
@@ -276,10 +269,8 @@ if Installed('leaderf')
     nnoremap <C-f>. :Leaderf rg --recal<Cr>
     xnoremap <C-f>e :<C-u>Leaderf --stayOpen rg -L -S -e "<C-r>=GetVisualSelection()<CR>"
     nnoremap <C-f>e :Leaderf --stayOpen rg -L -S -e "<C-r><C-w>"
-    xnoremap <C-f>b :<C-u>Leaderf --stayOpen rg -L -S --current-buffer "<C-r>=GetVisualSelection()<CR>"
-    nnoremap <C-f>b :Leaderf --stayOpen rg -L -S --current-buffer "<C-r><C-w>"
-    xnoremap <C-f>B :<C-u>Leaderf --stayOpen rg -L -S --all-buffers "<C-r>=GetVisualSelection()<CR>"
-    nnoremap <C-f>B :Leaderf --stayOpen rg -L -S --all-buffers "<C-r><C-w>"
+    xnoremap <C-f>b :<C-u>Leaderf --stayOpen rg -L -S --all-buffers "<C-r>=GetVisualSelection()<CR>"
+    nnoremap <C-f>b :Leaderf --stayOpen rg -L -S --all-buffers "<C-r><C-w>"
     xnoremap <C-f>w :<C-u>Leaderf --stayOpen rg -L -S -w "<C-r>=GetVisualSelection()<CR>"
     nnoremap <C-f>w :Leaderf --stayOpen rg -L -S -w "<C-r><C-w>"
     xnoremap <C-f>f :<C-u>Leaderf --stayOpen rg -L -S -F "<C-r>=GetVisualSelection()<CR>"
@@ -329,10 +320,8 @@ if Installed('nvim-bqf')
                     \ {'context': {'bqf': {'pattern_hl': histget('/')}}}) |
                     \ botright copen
     aug END
+    au FileType qf nmap <buffer> K :BqfToggle<Cr>
     au FileType qf nmap <buffer> i zf
-    au FileType qf nmap <buffer> <C-t> t
-    au FileType qf nmap <buffer> <C-h> :BqfToggle<Cr>
-    au FileType qf nmap <buffer> <BS>  :BqfToggle<Cr>
 else
     au Filetype qf nnoremap <silent><buffer> <C-m> <Cr><C-w>z
     au Filetype qf nnoremap <silent><buffer> <C-h> <Cr><C-w>z:vsplit<Cr>
@@ -343,7 +332,6 @@ else
         au FileType qf nnoremap <silent><buffer> N k:call quickui#tools#preview_quickfix()<cr>
         " preview
         au FileType qf nnoremap <silent><buffer> K :call quickui#tools#preview_quickfix()<cr>
-        au FileType qf nnoremap <silent><buffer> <Bs>  :call quickui#tools#preview_quickfix()<cr>
     endif
 endif
 " ----------------------------------

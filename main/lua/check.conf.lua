@@ -51,5 +51,5 @@ vim.diagnostic.config({
   virtual_text = false,
   underline = false,
 })
-map('n', '<M-">', [[<cmd>lua toggle_diagnostics_virtualtext()<Cr>]], {silent = true, noremap = true})
+map('n', "<M-'>", [[<cmd>lua toggle_diagnostics_virtualtext()<Cr>]], {silent = true, noremap = true})
 
