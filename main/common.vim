@@ -268,17 +268,19 @@ source $SETTINGS_PATH/intergrated.vim
 " ------------------------
 " yank
 " ------------------------
-function! YankFromBeginning() abort
-    let original_cursor_position = getpos('.')
-    if has('clipboard')
-        exec('normal! v^"*y')
-        echo "Yank from line beginning to clipboard"
-    else
-        exec('normal! v^y')
-    endif
-    call setpos('.', original_cursor_position)
-endfunction
-nnoremap gy :call YankFromBeginning()<Cr>
+if !exists("g:vscode")
+    function! YankFromBeginning() abort
+        let original_cursor_position = getpos('.')
+        if has('clipboard')
+            exec('normal! v^"*y')
+            echo "Yank from line beginning to clipboard"
+        else
+            exec('normal! v^y')
+        endif
+        call setpos('.', original_cursor_position)
+    endfunction
+    nnoremap gy :call YankFromBeginning()<Cr>
+endif
 if has('clipboard')
     " autocmd
     if exists("##ModeChanged")
@@ -291,8 +293,8 @@ if has('clipboard')
     cnoremap <C-v> <C-r>*
     xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
     if exists("g:vscode")
-        nnoremap <space>y :0,-"*y<Cr>
-        nnoremap <space>Y vG"*y
+        nnoremap <leader>y :0,-"*y<Cr>
+        nnoremap <leader>Y vG"*y
     else
         nnoremap ,y :0,-"*y<Cr>
         nnoremap ,Y vG"*y
@@ -303,8 +305,8 @@ else
     cnoremap <C-v> <C-r>"
     xnoremap <C-c> y
     if exists("g:vscode")
-        nnoremap <space>y :0,-y<Cr>
-        nnoremap <space>Y vGy
+        nnoremap <leader>y :0,-y<Cr>
+        nnoremap <leader>Y vGy
     else
         nnoremap ,y :0,-y<Cr>
         nnoremap ,Y vGy

@@ -2,7 +2,7 @@
 if Installed('vim-signify')
     let g:signify_disable_by_default = 1
     nnoremap \<cr>    :SignifyDiff<Cr>
-    nnoremap \<Space> :Signify<Tab>
+    nnoremap \<Space> :Signify
     nnoremap \<tab>   :SignifyToggle<Cr>
     nmap ]h <plug>(signify-next-hunk)
     nmap [h <plug>(signify-prev-hunk)
