@@ -39,30 +39,3 @@ for i in range(26)
     exec 'nnoremap <leader>Y' . l_char . ' "'. l_char . 'yy'
     exec 'nnoremap <leader>Y' . u_char . ' "'. u_char . 'yy'
 endfor
-" ----------------------
-" osc52 yankpost
-" ----------------------
-if exists("##TextYankPost") && UNIX() && exists('*trim')
-    function! s:raw_echo(str)
-        if filewritable('/dev/fd/2')
-            call writefile([a:str], '/dev/fd/2', 'b')
-        else
-            exec("silent! !echo " . shellescape(a:str))
-            redraw!
-        endif
-    endfunction
-    function! s:copy() abort
-        let c = join(v:event.regcontents,"\n")
-        if len(trim(c)) == 0
-            return
-        endif
-        let c64 = system("base64", c)
-        if $TMUX == ''
-            let s = "\e]52;c;" . trim(c64) . "\x07"
-        else
-            let s = "\ePtmux;\e\e]52;c;" . trim(c64) . "\x07\e\\"
-        endif
-        call s:raw_echo(s)
-    endfunction
-    autocmd TextYankPost * call s:copy()
-endif
