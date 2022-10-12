@@ -304,6 +304,7 @@ if has('clipboard')
     inoremap <C-v> <C-r>*
     cnoremap <C-v> <C-r>*
     xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
+    cnoremap <M-v> <C-r>"
     if exists("g:vscode")
         nnoremap <leader>y :0,-"*y<Cr>
         nnoremap <leader>Y vG"*y
