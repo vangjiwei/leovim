@@ -119,3 +119,7 @@ _G.project_files = function()
   local ok = pcall(require "telescope.builtin".git_files, search_opts)
   if not ok then require "telescope.builtin".find_files(search_opts) end
 end
+_G.search_all = function()
+  local ok = pcall(require"telescope.builtin".grep_string, {})
+  if not ok then require"telescope.builtin".live_grep({}) end
+end
