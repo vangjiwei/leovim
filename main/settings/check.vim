@@ -13,7 +13,6 @@ elseif Installed('coc.nvim')
             call coc#config("diagnostic.messageTarget", g:coc_diagnostic_messageTarget)
         endfunction
         command! CocToggleDiagMessageTarget call s:toggle_messagetarget()
-        nnoremap <silent><M-"> :CocToggleDiagMessageTarget<Cr>
     endif
     if g:check_tool == 'ale'
         call coc#config('diagnostic.displayByAle', v:true)
