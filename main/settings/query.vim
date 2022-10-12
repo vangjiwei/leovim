@@ -10,14 +10,14 @@ if Installed('vim-translator')
     endif
 endif
 if Installed('dash.vim')
-    nmap Z: :Dash<Space>
-    nmap Z? <Plug>DashSearch
-    nmap ZK <Plug>DashGlobalSearch
+    nmap g/ :Dash<Space>
+    nmap gs <Plug>DashSearch
+    nmap gx <Plug>DashGlobalSearch
 elseif Installed('zeavim.vim')
-    nmap Z: :Zeavim<Space>
-    nmap Z? <Plug>Zeavim
-    xmap Z? <Plug>ZVVisSelection
-    nmap ZK <Plug>ZVKeyDocset
+    nmap g/ :Zeavim<Space>
+    nmap gs <Plug>Zeavim
+    xmap gs <Plug>ZVVisSelection
+    nmap gx <Plug>ZVKeyDocset
     nmap gz <Plug>ZVOperator
     omap gz <Plug>ZVOperator
 endif
