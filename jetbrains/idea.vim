@@ -168,6 +168,8 @@ xnoremap [o <Plug>PreviousOccurrence
 " easymotion
 set easymotion
 source ~/.leovim.conf/main/settings/easymotion.vim
+" sneak
+set sneak
 " which-key
 set which-key
 set notimeout
