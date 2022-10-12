@@ -24,7 +24,7 @@ require('bqf').setup({
   func_map = {
     pscrollup   = '<C-k>',
     pscrolldown = '<C-j>',
-    ptogglemode = '<M-o>',
+    ptogglemode = '<M-I>',
     vsplit      = '<C-h>',
     openc = 'e',
     drop  = 'E',
