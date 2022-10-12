@@ -569,7 +569,7 @@ elseif Require('mcm') || get(g:, 'complete_engine', '') == 'mcm'
 elseif Require('apc') && &completeopt =~ 'noselect'
     let g:complete_engine = "apc"
 elseif Require('cmp')
-    if has('nvim-0.7')
+    if has('nvim')
         let g:complete_engine = 'cmp'
     else
         let s:smart_engine_select = 1

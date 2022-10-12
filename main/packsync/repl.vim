@@ -1,7 +1,7 @@
 if UNIX() && has('nvim')
     PackAdd 'michaelb/sniprun', {'do': 'bash install.sh'}
 endif
-if has('nvim-0.7')
+if has('nvim')
     PackAdd 'iron.nvim'
 elseif !has('nvim')
     let g:sendtorepl_invoke_key = "cn"
