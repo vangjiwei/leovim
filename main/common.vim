@@ -264,7 +264,7 @@ nnoremap <leader>et :TripTrailingWhiteSpace<Cr>
 " ----------------------
 " intergrated packs
 " ---------------------
-source $MAIN_PATH/intergrated.vim
+source $SETTINGS_PATH/intergrated.vim
 " ------------------------
 " yank
 " ------------------------
