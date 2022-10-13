@@ -89,7 +89,7 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> ,s <cmd>lua require("dap").step_into()<CR>
     nnoremap <silent> ,S <cmd>lua require("dap").step_back()<CR>
     nnoremap <silent> ,o <cmd>lua require("dap").step_over()<CR>
-    nnoremap <silent> ,O <cmd>lua require("dap").step_out()<CR>
+    nnoremap <silent> ,u <cmd>lua require("dap").step_out()<CR>
     nnoremap <silent> ,a <cmd>lua require("dap").attach(vim.fn.input('Attatch to: '))<CR>
     " hover
     nnoremap <silent> ,w <cmd>lua require("dap.ui.widgets").hover()<CR>
@@ -178,7 +178,7 @@ elseif Installed('vimspector')
     nmap <silent> ,n <Plug>VimspectorContinue
     nmap <silent> ,s <Plug>VimspectorStepInto
     nmap <silent> ,o <Plug>VimspectorStepOver
-    nmap <silent> ,O <Plug>VimspectorStepOut
+    nmap <silent> ,u <Plug>VimspectorStepOut
     " breakpoint
     nmap <silent> ,b <Plug>VimspectorToggleBreakpoint
     nmap <silent> ,B :call ToggleAllBreakpointsViewBreakpoint()<Cr>
