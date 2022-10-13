@@ -76,16 +76,17 @@ nnoremap y} yi}
 " yank
 " ---------------------
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-" Yank a line without leading whitespaces and line break
-nnoremap <leader>yu mp_yg_`p
-" Copy a line without leading whitespaces and line break to clipboard
-nnoremap <leader>yw mp_"+yg_`P
-" Copy file path
-nnoremap <leader>yp :let @*=expand("%:p")<cr>:echo '-= File path copied=-'<Cr>
-" Copy file name
-nnoremap <leader>yf :let @*=expand("%:t")<cr>:echo '-= File name copied=-'<Cr>
-" Copy bookmark position reference
-nnoremap <leader>yb :let @*=expand("%:p").':'.line(".").':'.col(".")<cr>:echo '-= Cursor bookmark  copied=-'<cr>'
-
+if !exist('g:vscode')
+    " Yank a line without leading whitespaces and line break
+    nnoremap <leader>yu mp_yg_`p
+    " Copy a line without leading whitespaces and line break to clipboard
+    nnoremap <leader>yw mp_"+yg_`P
+    " Copy file path
+    nnoremap <leader>yp :let @*=expand("%:p")<cr>:echo '-= File path copied=-'<Cr>
+    " Copy file name
+    nnoremap <leader>yf :let @*=expand("%:t")<cr>:echo '-= File name copied=-'<Cr>
+    " Copy bookmark position reference
+    nnoremap <leader>yb :let @*=expand("%:p").':'.line(".").':'.col(".")<cr>:echo '-= Cursor bookmark  copied=-'<cr>'
+endif
 xnoremap zp "_c<ESC>p"
 xnoremap zP "_c<ESC>P"

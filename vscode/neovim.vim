@@ -27,8 +27,8 @@ xnoremap <C-S-P> <Cmd>call VSCodeNotifyVisual('workbench.action.showCommands', 1
 " Find in files for word under cursor in vscode
 " ------------------------
 nnoremap s/    <Cmd>call VSCodeNotify('workbench.action.findInFiles', {'query': expand('<cword>')})<CR>
-nnoremap s<Cr> <Cmd>call VSCodeNotify('actions.find')<Cr>
 nnoremap s?    <Cmd>call VSCodeNotify('editor.action.startFindReplaceAction')<Cr>
+nnoremap s<Cr> <Cmd>call VSCodeNotify('actions.find')<Cr>
 nnoremap f<Cr> <Cmd>call VSCodeNotify("workbench.action.gotoSymbol")<Cr>
 nnoremap <C-.> <Cmd>call VSCodeNotify('keyboard-quickfix.openQuickFix')<CR>
 nnoremap <C-a> <Cmd>call VSCodeNotify('editor.action.selectAll')<Cr>
@@ -36,15 +36,6 @@ xnoremap <C-x> <Cmd>call VSCodeNotifyVisual('editor.action.clipboardCutAction', 
 " enhanced
 nnoremap <leader>w <Cmd>call VSCodeNotify('workbench.action.openView')<Cr>
 nnoremap <leader>m <Cmd>call VSCodeNotify('workbench.action.openRecent')<Cr>
-" ------------------------
-" comment
-" ------------------------
-xmap gc         <Plug>VSCodeCommentary
-nmap gc         <Plug>VSCodeCommentary
-omap gc         <Plug>VSCodeCommentary
-xmap <leader>cc <Plug>VSCodeCommentaryLine
-nmap <leader>cc <Plug>VSCodeCommentaryLine
-omap <leader>cc <Plug>VSCodeCommentaryLine
 " ------------------------
 " autocmd
 " ------------------------
