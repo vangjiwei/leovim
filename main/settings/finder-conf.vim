@@ -421,7 +421,6 @@ if g:gui_running
     nnoremap <M-p> gT
     nnoremap <silent><M-N> :tabm +1<Cr>
     nnoremap <silent><M-P> :tabm -1<Cr>
-    nnoremap <M-M> :tabm<Space>
 endif
 if executable('ranger') && UNIX() && get(g:, 'floaterm_floating', 0)
     command! Ranger FloatermNew --wintype=float --position=center --height=0.9 --width=0.9 --name=ranger --autoclose=2 ranger --cmd="cd ./"
