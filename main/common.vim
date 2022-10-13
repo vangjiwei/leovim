@@ -293,6 +293,19 @@ if exists("##TextYankPost") && UNIX() && exists('*trim')
     endfunction
     autocmd TextYankPost * call s:copy()
 endif
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+xnoremap zp "_c<ESC>p"
+xnoremap zP "_c<ESC>P"
+" Yank a line without leading whitespaces and line break
+nnoremap <leader>yu mp_yg_`p
+" Copy a line without leading whitespaces and line break to clipboard
+nnoremap <leader>yw mp_"+yg_`P
+" Copy file path
+nnoremap <leader>yp :let @*=expand("%:p")<cr>:echo '-= File path copied=-'<Cr>
+" Copy file name
+nnoremap <leader>yf :let @*=expand("%:t")<cr>:echo '-= File name copied=-'<Cr>
+" Copy bookmark position reference
+nnoremap <leader>yb :let @*=expand("%:p").':'.line(".").':'.col(".")<cr>:echo '-= Cursor bookmark  copied=-'<cr>'
 if has('clipboard')
     " autocmd
     if exists("##ModeChanged")
@@ -305,10 +318,7 @@ if has('clipboard')
     cnoremap <C-v> <C-r>*
     xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
     cnoremap <M-v> <C-r>"
-    if exists("g:vscode")
-        nnoremap <leader>y :0,-"*y<Cr>
-        nnoremap <leader>Y vG"*y
-    else
+    if !exists("g:vscode")
         nnoremap ,y :0,-"*y<Cr>
         nnoremap ,Y vG"*y
     endif
@@ -317,10 +327,7 @@ else
     inoremap <C-v> <C-r>"
     cnoremap <C-v> <C-r>"
     xnoremap <C-c> y
-    if exists("g:vscode")
-        nnoremap <leader>y :0,-y<Cr>
-        nnoremap <leader>Y vGy
-    else
+    if !exists("g:vscode")
         nnoremap ,y :0,-y<Cr>
         nnoremap ,Y vGy
     endif

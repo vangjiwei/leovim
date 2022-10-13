@@ -8,37 +8,6 @@ if g:gui_running
 else
     set tabline=%!Vim_NeatTabLine()
 endif
-" ------------------------
-" remap
-" ------------------------
-map ÏP <F1>
-map ÏQ <F2>
-map ÏR <F3>
-map ÏS <F4>
-map <F1>  <Nop>
-map <F2>  <Nop>
-map <F3>  <Nop>
-map <F4>  <Nop>
-map <F5>  <Nop>
-map <F6>  <Nop>
-map <F7>  <Nop>
-map <F8>  <Nop>
-map <F9>  <Nop>
-map <F10> <Nop>
-map <F11> <Nop>
-map <F12> <Nop>
-map <M-B> <Nop>
-map <M-O> <Nop>
-map <C-n> <Nop>
-map <C-q> <Nop>
-map <C-s> <Nop>
-map <C-i> <Nop>
-map <C-z> <Nop>
-nmap <C-j> %
-nmap <C-k> g%
-xmap <C-j> %
-xmap <C-k> g%
-nnoremap S <Nop>
 " ------------------------------
 " node_version
 " ------------------------------
