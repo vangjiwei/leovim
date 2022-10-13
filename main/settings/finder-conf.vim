@@ -455,7 +455,8 @@ elseif !has('nvim') && WINDOWS() && g:gui_running
     call s:Filter_Push("TypeScript", "*.ts")
     call s:Filter_Push("Php", "*.php")
     call s:Filter_Push("Vim Script", "*.vim")
-    nnoremap <silent><leader>N :call OpenBrowser()<Cr>
+    nnoremap <silent><M-o> :call OpenBrowser()<Cr>
+    nnoremap <M-O> :tabm<space>
 endif
 if Installed('neo-tree.nvim')
     nnoremap <silent><leader>n :NeoTreeFloatToggle<Cr>

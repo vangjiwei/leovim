@@ -77,7 +77,7 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     if get(g:, 'leovim_loaded', 0) == 0
         luafile $LUA_PATH/dap.conf.lua
     endif
-    nnoremap ,C :tabe ~/.leovim.conf/nvim-dap/dap.example.lua<Cr>:e ~/.leovim.d/dap.local.lua<Cr>
+    nnoremap ,C :tabe ~/.leovim.conf/nvim-dap/dap.example.lua<Cr>:tabe ~/.leovim.d/dap.local.lua<Cr>
     if filereadable(expand("~/.leovim.d/dap.local.lua"))
         luafile ~/.leovim.d/dap.local.lua
     endif
