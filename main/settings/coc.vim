@@ -104,7 +104,7 @@ autocmd BufRead acwrite set ma
 " codeLens and codeaction
 " ----------------------------
 if has('nvim') || has('patch-9.0.0252')
-    nnoremap <silent><M-'> :CocCommand document.toggleInlayHint<Cr>
+    nnoremap <silent><M-I> :CocCommand document.toggleInlayHint<Cr>
     hi! link CocCodeLens CocListBgGrey
     call coc#config('codeLens.enable', v:true)
     call coc#config('codeLens.separator', "# \\\\")
