@@ -1,4 +1,35 @@
 " ------------------------
+" remap
+" ------------------------
+map ÏP <F1>
+map ÏQ <F2>
+map ÏR <F3>
+map ÏS <F4>
+map <F1>  <Nop>
+map <F2>  <Nop>
+map <F3>  <Nop>
+map <F4>  <Nop>
+map <F5>  <Nop>
+map <F6>  <Nop>
+map <F7>  <Nop>
+map <F8>  <Nop>
+map <F9>  <Nop>
+map <F10> <Nop>
+map <F11> <Nop>
+map <F12> <Nop>
+map <M-B> <Nop>
+map <M-O> <Nop>
+map <C-n> <Nop>
+map <C-q> <Nop>
+map <C-s> <Nop>
+map <C-i> <Nop>
+map <C-z> <Nop>
+nmap <C-j> %
+nmap <C-k> g%
+xmap <C-j> %
+xmap <C-k> g%
+nnoremap S <Nop>
+" ------------------------
 " core remap
 " ------------------------
 xmap     >>       >gv
@@ -72,20 +103,3 @@ nnoremap y[ ya]
 nnoremap y] yi]
 nnoremap y{ ya}
 nnoremap y} yi}
-" ----------------------
-" yank
-" ---------------------
-nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-" Yank a line without leading whitespaces and line break
-nnoremap <leader>yu mp_yg_`p
-" Copy a line without leading whitespaces and line break to clipboard
-nnoremap <leader>yw mp_"+yg_`P
-" Copy file path
-nnoremap <leader>yp :let @*=expand("%:p")<cr>:echo '-= File path copied=-'<Cr>
-" Copy file name
-nnoremap <leader>yf :let @*=expand("%:t")<cr>:echo '-= File name copied=-'<Cr>
-" Copy bookmark position reference
-nnoremap <leader>yb :let @*=expand("%:p").':'.line(".").':'.col(".")<cr>:echo '-= Cursor bookmark  copied=-'<cr>'
-
-xnoremap zp "_c<ESC>p"
-xnoremap zP "_c<ESC>P"

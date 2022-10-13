@@ -4,13 +4,13 @@
 function _G.get_adapter(adapter)
   local adp = ""
   if WINDOWS() then
-    adp = fn.expand("$HOME/AppData/Local/nvim-data/mason/bin/") .. adapter .. ".cmd"
+    adp = vim.fn.expand("$HOME/AppData/Local/nvim-data/mason/") .. "bin\\" .. adapter .. ".cmd"
   elseif UNIX() then
-    adp =  fn.expand("$HOME/.local/share/nvim/mason/bin/") .. adapter
+    adp = vim.fn.expand("$HOME/.local/share/nvim/mason/") .. "bin/" .. adapter
   else
     return nil
   end
-  if fn.filereadable(adp) > 0 then
+  if vim.fn.filereadable(adp) > 0 then
     return adp
   else
     return nil
@@ -23,7 +23,8 @@ local dap = require('dap')
 -- python
 dap.adapters.python = {
   type    = 'executable';
-  command = get_adapter('debugpy-adapter')
+  command = get_adapter('debugpy-adapter');
+  args    = {'-m', 'debugpy.adapter'};
 }
 dap.configurations.python = {
   {
