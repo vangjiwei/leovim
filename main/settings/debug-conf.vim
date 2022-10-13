@@ -90,6 +90,7 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> ,S <cmd>lua require("dap").step_back()<CR>
     nnoremap <silent> ,o <cmd>lua require("dap").step_over()<CR>
     nnoremap <silent> ,u <cmd>lua require("dap").step_out()<CR>
+    nnoremap <silent> ,q <cmd>lua require("dap").close()<Cr>
     nnoremap <silent> ,a <cmd>lua require("dap").attach(vim.fn.input('Attatch to: '))<CR>
     " hover
     nnoremap <silent> ,w <cmd>lua require("dap.ui.widgets").hover()<CR>
@@ -104,15 +105,14 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> <M-d>i <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints info: '))<CR>
     nnoremap <silent> <M-d>b <cmd>lua require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
     " debug
-    nnoremap <silent> <M-d>q <cmd>lua require("dap").close()<Cr>
-    nnoremap <silent> <M-d>Q <cmd>lua require("dap").disconnect({ terminateDebuggee = true });require"dap".close()<CR>
+    nnoremap <silent> <M-d>D <cmd>lua require("dap").disconnect({ terminateDebuggee = true });require"dap".close()<CR>
     nnoremap <silent> <M-d>u <cmd>lua require("dap").up()<Cr>
     nnoremap <silent> <M-d>d <cmd>lua require("dap").down()<Cr>
     nnoremap <silent> <M-d>p <cmd>lua require("dap").pause()<Cr>
     nnoremap <silent> <M-d>g <cmd>lua require("dap").launch(vim.fn.input('Get config: '))<Cr>
     " repl
     nnoremap <silent> <M-d>o <cmd>lua require("dap").repl.open({}, 'vsplit')<CR>
-    nnoremap <silent> <M-d>c <cmd>lua require("dap").repl.close()<CR>
+    nnoremap <silent> <M-d>q <cmd>lua require("dap").repl.close()<CR>
     " autocomplete
     au FileType dap-repl lua require('dap.ext.autocompl').attach()
     " --------------------------------------
@@ -173,6 +173,7 @@ elseif Installed('vimspector')
     nnoremap ,W :call vimspector#DeleteWatch()<Cr>
     nnoremap ,a :call vimspector#AddWatch("")<Left><Left>
     nnoremap ,r :call vimspector#Launch()<Cr>
+    nnoremap ,q :call vimspector#Stop()<Cr>
     " run
     nmap <silent> ,c <Plug>VimspectorRunToCursor
     nmap <silent> ,n <Plug>VimspectorContinue
@@ -196,7 +197,6 @@ elseif Installed('vimspector')
     nnoremap <M-d>p :call vimspector#Pause()<Cr>
     nnoremap <M-d>t :call vimspector#SetCurrentThread()<Cr>
     nnoremap <M-d>e :call vimspector#ExpandVariable()<Cr>
-    nnoremap <M-d>q :call vimspector#Stop()<Cr>
     nnoremap <M-d>r :call vimspector#Reset()<Cr>
     nnoremap <M-d>R :call vimspector#Restart()<Cr>
     " jump to windows in vimspector
