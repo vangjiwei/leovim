@@ -1,4 +1,24 @@
 [
+    {
+        "key": "ctrl+shift+r",
+        "command": "workbench.debug.action.toggleRepl"
+    },
+    // jupyter
+    {
+        "key": "ctrl+shift+j",
+        "command": "jupyter.openVariableView"
+    }
+    // open out terminal
+    {
+        "key": "alt+=",
+        "command": "workbench.action.terminal.openNativeConsole",
+        "when": "!terminalFocus"
+    },
+    // togglePanel 
+    {
+        "key": "alt+-",
+        "command": "workbench.action.togglePanel"
+    },
     // outline 
     {
         "key": "ctrl+shift+t",
