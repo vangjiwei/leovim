@@ -749,42 +749,42 @@ elseif has('patch-7.4.330')
     let g:which_key_group_dicts      = ''
     let g:which_key_use_floating_win = g:has_popup_float
     " basic keys
-    nnoremap <Space> :WhichKey       ' '<Cr>
-    nnoremap <Tab>   :WhichKey       '<lt>Tab>'<Cr>
-    nnoremap ,       :WhichKey       ','<Cr>
+    nnoremap <Space> :WhichKey       " "<Cr>
+    nnoremap <Tab>   :WhichKey       "\<Tab\>"<Cr>
+    nnoremap ,       :WhichKey       ","<Cr>
     nnoremap \       :WhichKey       '\'<Cr>
-    nnoremap [       :WhichKey       '['<Cr>
-    nnoremap ]       :WhichKey       ']'<Cr>
-    xnoremap <Space> :WhichKeyVisual ' '<Cr>
-    xnoremap <Tab>   :WhichKeyVisual '<lt>Tab>'<Cr>
-    xnoremap ,       :WhichKeyVisual ','<Cr>
+    nnoremap [       :WhichKey       "["<Cr>
+    nnoremap ]       :WhichKey       "]"<Cr>
+    xnoremap <Space> :WhichKeyVisual " "<Cr>
+    xnoremap <Tab>   :WhichKeyVisual "\<Tab\>"<Cr>
+    xnoremap ,       :WhichKeyVisual ","<Cr>
     xnoremap \       :WhichKeyVisual '\'<Cr>
-    xnoremap [       :WhichKeyVisual '['<Cr>
-    xnoremap ]       :WhichKeyVisual ']'<Cr>
+    xnoremap [       :WhichKeyVisual "["<Cr>
+    xnoremap ]       :WhichKeyVisual "]"<Cr>
     " gszc whichkey
-    nnoremap g<Space> :WhichKey 'g'<Cr>
-    nnoremap m<Space> :WhichKey 'm'<Cr>
-    nnoremap s<Space> :WhichKey 's'<Cr>
-    nnoremap S<Space> :WhichKey 'S'<Cr>
-    nnoremap c<Space> :WhichKey 'c'<Cr>
-    nnoremap z<Space> :WhichKey 'z'<Cr>
-    nnoremap Z<Space> :WhichKey 'Z'<Cr>
+    nnoremap g<Space> :WhichKey "g"<Cr>
+    nnoremap m<Space> :WhichKey "m"<Cr>
+    nnoremap s<Space> :WhichKey "s"<Cr>
+    nnoremap S<Space> :WhichKey "S"<Cr>
+    nnoremap c<Space> :WhichKey "c"<Cr>
+    nnoremap z<Space> :WhichKey "z"<Cr>
+    nnoremap Z<Space> :WhichKey "Z"<Cr>
     " C-f
-    nnoremap <C-f> :WhichKey '<lt>C-f>'<Cr>
-    xnoremap <C-f> :WhichKeyVisual '<lt>C-f>'<Cr>
+    nnoremap <C-f> :WhichKey "\<C-f\>"<Cr>
+    xnoremap <C-f> :WhichKeyVisual "\<C-f\>"<Cr>
     " git
-    nnoremap <C-g> :WhichKey '<lt>C-g>'<Cr>
+    nnoremap <C-g> :WhichKey "\<C-g\>"<Cr>
     " M- keys
-    nnoremap <M-h> :WhichKey '<lt>M-h>'<Cr>
-    nnoremap <M-j> :WhichKey '<lt>M-j>'<Cr>
-    nnoremap <M-k> :WhichKey '<lt>M-k>'<Cr>
-    nnoremap <M-l> :WhichKey '<lt>M-l>'<Cr>
-    nnoremap <M-u> :WhichKey '<lt>M-u>'<Cr>
-    nnoremap <M-c> :WhichKey       '<lt>M-c>'<Cr>
-    xnoremap <M-c> :WhichKeyVisual '<lt>M-c>'<Cr>
+    nnoremap <M-h> :WhichKey "\<M-h\>"<Cr>
+    nnoremap <M-j> :WhichKey "\<M-j\>"<Cr>
+    nnoremap <M-k> :WhichKey "\<M-k\>"<Cr>
+    nnoremap <M-l> :WhichKey "\<M-l\>"<Cr>
+    nnoremap <M-u> :WhichKey "\<M-u\>"<Cr>
+    nnoremap <M-c> :WhichKey       "\<M-c\>"<Cr>
+    xnoremap <M-c> :WhichKeyVisual "\<M-c\>"<Cr>
     if index(['nvim-dap', 'termdebug', 'vimspector'], get(g:, 'debug_tool', '')) >= 0
-        nnoremap <M-m> :WhichKey '<lt>M-m>'<Cr>
-        nnoremap <M-d> :WhichKey '<lt>M-d>'<Cr>
+        nnoremap <M-m> :WhichKey "\<M-m\>"<Cr>
+        nnoremap <M-d> :WhichKey "\<M-d\>"<Cr>
     endif
 else
     let g:which_key_type = ''
