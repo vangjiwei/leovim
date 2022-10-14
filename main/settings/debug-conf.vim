@@ -72,7 +72,7 @@ endif
 " --------------------------
 " debug
 " --------------------------
-if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
+if Installed('nvim-dap', 'nvim-dap-ui')
     let g:debug_tool = 'nvim-dap'
     if get(g:, 'leovim_loaded', 0) == 0
         luafile $LUA_PATH/dap.conf.lua
@@ -92,16 +92,15 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> ,u <cmd>lua require("dap").step_out()<CR>
     nnoremap <silent> ,q <cmd>lua require("dap").close()<Cr>
     nnoremap <silent> ,a <cmd>lua require("dap").attach(vim.fn.input('Attatch to: '))<CR>
-    " hover
-    nnoremap <silent> ,w <cmd>lua require("dap.ui.widgets").hover()<CR>
     " view
-    nnoremap <silent> ,f <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.scopes)<CR>
-    nnoremap <silent> ,F <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.frames)<CR>
+    nnoremap <silent> ,i <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.scopes)<CR>
+    nnoremap <silent> ,f <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.frames)<CR>
+    nnoremap <silent> ,w <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.expression)<CR>
     " breakpoint
     nnoremap <silent> ,b <cmd>lua require("dap").toggle_breakpoint()<CR>
-    nnoremap <silent> ,i <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints info: '))<CR>
     nnoremap <silent> ,B <cmd>lua require("dap").clear_breakpoints()<CR>
     nnoremap <silent> ,l <cmd>lua require("dap").list_breakpoints()<Cr>
+    nnoremap <silent> <M-d>i <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints info: '))<CR>
     nnoremap <silent> <M-d>e <cmd>lua require("dap").set_exception_breakpoints("")<left><left>
     nnoremap <silent> <M-d>b <cmd>lua require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
     " debug
@@ -111,10 +110,10 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> <M-d>p <cmd>lua require("dap").pause()<Cr>
     nnoremap <silent> <M-d>g <cmd>lua require("dap").launch(vim.fn.input('Get config: '))<Cr>
     " repl
-    nnoremap <silent> <M-d>s <cmd>lua require("dap").repl.open({}, 'split')<CR>
-    nnoremap <silent> <M-d>v <cmd>lua require("dap").repl.open({}, 'vsplit')<CR>
+    nnoremap <silent> <M-d>o <cmd>lua require("dap").repl.open({}, 'split')<CR>
+    nnoremap <silent> <M-d>O <cmd>lua require("dap").repl.open({}, 'vsplit')<CR>
     nnoremap <silent> <M-d>c <cmd>lua require("dap").repl.close()<CR>
-    " autocomplete
+    " auto attach
     au FileType dap-repl lua require('dap.ext.autocompl').attach()
     " --------------------------------------
     " nvim-dap-ui
@@ -131,11 +130,10 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> <M-m>w <cmd>lua require("dapui").float_element('watches')<Cr>
     " jump to windows in dapui
     nnoremap <silent><M-m>1 :call GoToDAPWindows("DAP Scopes")<Cr>
-    nnoremap <silent><M-m>2 :call GoToDAPWindows("DAP Breakpoints")<Cr>
+    nnoremap <silent><M-m>2 :call GoToDAPWindows("DAP Watches")<Cr>
     nnoremap <silent><M-m>3 :call GoToDAPWindows("DAP Stacks")<Cr>
-    nnoremap <silent><M-m>4 :call GoToDAPWindows("DAP Watches")<Cr>
+    nnoremap <silent><M-m>4 :call GoToDAPWindows("DAP Breakpoints")<Cr>
     nnoremap <silent><M-m>5 :call GoToDAPWindows("[dap-repl]")<Cr>
-    nnoremap <silent><M-m>6 :call GoToDAPWindows("")<Cr>
     function! GoToDAPWindows(name) abort
         let windowNr = 0
         let name = a:name

@@ -15,9 +15,9 @@ dapui.setup({
     {
       elements = {
         { id = "scopes",      size = 0.7 },
-        { id = "breakpoints", size = 0.1 },
-        { id = "stacks",      size = 0.1 },
         { id = "watches",     size = 0.1 },
+        { id = "stacks",      size = 0.1 },
+        { id = "breakpoints", size = 0.1 },
       },
       size = 0.25,
       position = "left",
@@ -40,9 +40,7 @@ dapui.setup({
     },
   },
 })
-------------------------------------------------------
 -- auto open/close dapui
-------------------------------------------------------
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
 end
