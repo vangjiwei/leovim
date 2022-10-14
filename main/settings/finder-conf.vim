@@ -81,7 +81,7 @@ elseif InstalledFzf()
                 \ 'enter':  'edit',
                 \ 'ctrl-t': 'tab split',
                 \ 'ctrl-x': 'split',
-                \ 'ctrl-h': 'vsplit'
+                \ 'ctrl-v': 'vsplit'
                 \ }
     " --------------------------
     "  fzf maps
@@ -147,7 +147,7 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
                 \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
                 \ "Colorscheme": [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
                 \ }
-    let g:Lf_CommandMap = {'<C-]>': ['<C-h>'], '<C-h>': ['<C-]>'], '<F5>': ['<F5>', '<C-l>'], '<Up>': ['<Up>', '<C-u>'], '<Down>': ['<Down>', '<C-d>']}
+    let g:Lf_CommandMap = {'<C-]>': ['<C-v>'], '<C-v>': ['<C-y>'], '<F5>': ['<F5>', '<C-l>'], '<C-l>': ['<C-e>'], '<Up>': ['<Up>', '<C-u>'], '<Down>': ['<Down>', '<C-d>']}
     " main selector
     nnoremap <leader>b :LeaderfBufferAll<Cr>
     nnoremap <leader>B :LeaderfTabBufferAll<Cr>
@@ -191,7 +191,7 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
                 \ 'o':     'accept',
                 \ '<CR>':  'accept',
                 \ '<C-x>': 'accept_horizontal',
-                \ '<C-h>': 'accept_vertical',
+                \ '<C-v>': 'accept_vertical',
                 \ '<C-t>': 'accept_tab',
                 \ '<C-k>': 'page_up_in_preview',
                 \ '<C-j>': 'page_down_in_preview',
@@ -209,20 +209,20 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     let g:Lf_FilerInsertMap = {
                 \ '<C-o>':    'open_parent_or_backspace',
                 \ '<C-l>':    'open_current',
-                \ '<C-y>':    'toggle_hidden_files',
+                \ '<C-h>':    'toggle_hidden_files',
                 \ '<C-g>':    'goto_root_marker_dir',
                 \ '<Esc>':    'quit',
                 \ '<C-c>':    'quit',
                 \ '<CR>':     'accept',
                 \ '<C-x>':    'accept_horizontal',
-                \ '<C-h>':    'accept_vertical',
+                \ '<C-v>':    'accept_vertical',
                 \ '<C-t>':    'accept_tab',
                 \ '<C-r>':    'toggle_regex',
                 \ '<BS>':     'backspace',
                 \ '<C-u>':    'clear_line',
                 \ '<C-w>':    'delete_left_word',
                 \ '<C-d>':    'delete',
-                \ '<C-v>':    'paste',
+                \ '<C-y>':    'paste',
                 \ '<C-a>':    'home',
                 \ '<C-e>':    'end',
                 \ '<C-b>':    'left',
@@ -235,8 +235,6 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
                 \ '<Tab>':    'switch_normal_mode',
                 \ '<C-Up>':   'page_up_in_preview',
                 \ '<C-Down>': 'page_down_in_preview',
-                \ '<ScroollWhellUp>':   'up3',
-                \ '<ScroollWhellDown>': 'down3',
                 \}
     " Customize normal mode mapping using g:Lf_NormalMap
     let g:Lf_NormalMap.Filer = [['B', ':LeaderfBookmark<CR>']]

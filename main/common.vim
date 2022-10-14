@@ -312,20 +312,21 @@ if has('clipboard')
         au ModeChanged *:s set clipboard=
         au ModeChanged s:* set clipboard=unnamedplus
     endif
-    nnoremap Y  "*y$:echo "Yank to the line ending to clipboard"<Cr>
-    nnoremap yy "*yy:echo "Yank the line to clipboard"<Cr>
-    inoremap <C-v> <C-r>*
-    cnoremap <C-v> <C-r>*
+    " yank
+    nnoremap Y     "*y$:echo "Yank to the line ending to clipboard"<Cr>
+    nnoremap yy    "*yy:echo "Yank the line to clipboard"<Cr>
     xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
-    cnoremap <M-v> <C-r>"
+    " paste
+    inoremap <C-y> <C-r>*
+    cnoremap <C-y> <C-r>*
     if !exists("g:vscode")
         nnoremap ,y :0,-"*y<Cr>
         nnoremap ,Y vG"*y
     endif
 else
     nnoremap Y y$
-    inoremap <C-v> <C-r>"
-    cnoremap <C-v> <C-r>"
+    inoremap <C-y> <C-r>"
+    cnoremap <C-y> <C-r>"
     xnoremap <C-c> y
     if !exists("g:vscode")
         nnoremap ,y :0,-y<Cr>
@@ -379,6 +380,8 @@ else
     inoremap <M-y> <BS>
     " switch 2 words
     xnoremap <M-V> <Esc>`.``gvp``P
+    " paste from "
+    cnoremap <M-v> <C-r>"
     " ------------------------
     " vim-preview
     " ------------------------

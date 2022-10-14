@@ -45,9 +45,15 @@ else
 endif
 if has('clipboard')
     if has('nvim')
-        tnoremap <C-v> <C-\><C-n>"*pa
+        tnoremap <C-y> <C-\><C-n>"*pa
     else
-        tnoremap <C-v> <C-\><C-n>"*p
+        tnoremap <C-y> <C-\><C-n>"*p
+    endif
+else
+    if has('nvim')
+        tnoremap <C-y> <C-\><C-n>""pa
+    else
+        tnoremap <C-y> <C-\><C-n>""p
     endif
 endif
 " --------------------------

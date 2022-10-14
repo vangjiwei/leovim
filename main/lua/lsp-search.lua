@@ -21,14 +21,14 @@ lspsaga.init_lsp_saga({
   max_preview_lines      = 32,
   finder_action_keys     = {
     open   = "<Cr>",
-    vsplit = "<C-h>",
+    vsplit = "<C-v>",
     split  = "<C-x>",
     tabe   = "<C-t>",
     quit   = { "<M-q>", "<C-c>", "<ESC>" },
   },
   definition_action_keys = {
     edit   = '<Cr>',
-    vsplit = '<C-h>',
+    vsplit = '<C-v>',
     split  = '<C-x>',
     tabe   = '<C-t>',
     quit   = '<M-q>',
