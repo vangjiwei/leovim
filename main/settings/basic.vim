@@ -698,12 +698,10 @@ endif
 set wildmenu
 if has('nvim')
     set wildoptions+=pum
-    if !InstalledCmp()
-        cmap <expr> <down> pumvisible() ? '<right>' : '<down>'
-        cmap <expr> <up>   pumvisible() ? '<left>'  : '<up>'
-        cmap <expr> <C-j>  pumvisible() ? '<right>' : '<C-n>'
-        cmap <expr> <C-k>  pumvisible() ? '<left>'  : '<C-p>'
-    endif
+    cmap <expr> <down> pumvisible() ? '<right>' : '<down>'
+    cmap <expr> <up>   pumvisible() ? '<left>'  : '<up>'
+    cmap <expr> <C-j>  pumvisible() ? '<right>' : '<C-n>'
+    cmap <expr> <C-k>  pumvisible() ? '<left>'  : '<C-p>'
 else
     set wildmode=longest,list
     if has('patch-8.2.4500')
