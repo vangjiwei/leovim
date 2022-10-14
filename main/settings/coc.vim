@@ -172,7 +172,7 @@ endif
 " ------------------------
 if Installed('coc-fzf') && InstalledFzf()
     if WINDOWS()
-        let g:coc_fzf_preview='right:30%'
+        let g:coc_fzf_preview=''
     else
         let g:coc_fzf_preview='right:60%'
     endif

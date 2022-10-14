@@ -55,7 +55,7 @@ elseif g:complete_engine == 'coc'
     else
         PackAdd 'neoclide/coc.nvim', {'branch': 'release', 'opt': 0}
     endif
-    PackAdd 'leoatchina/coc-fzf', {'branch': 'empty_check'}
+    PackAdd 'antoinemadec/coc-fzf'
     let g:coc_global_extensions = [
             \ 'coc-json',
             \ 'coc-sql',
