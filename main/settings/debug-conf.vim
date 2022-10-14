@@ -111,8 +111,8 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> <M-d>p <cmd>lua require("dap").pause()<Cr>
     nnoremap <silent> <M-d>g <cmd>lua require("dap").launch(vim.fn.input('Get config: '))<Cr>
     " repl
-    nnoremap <silent> <M-d>o <cmd>lua require("dap").repl.open({}, 'split')<CR>
-    nnoremap <silent> <M-d>O <cmd>lua require("dap").repl.open({}, 'vsplit')<CR>
+    nnoremap <silent> <M-d>s <cmd>lua require("dap").repl.open({}, 'split')<CR>
+    nnoremap <silent> <M-d>v <cmd>lua require("dap").repl.open({}, 'vsplit')<CR>
     nnoremap <silent> <M-d>c <cmd>lua require("dap").repl.close()<CR>
     " autocomplete
     au FileType dap-repl lua require('dap.ext.autocompl').attach()
