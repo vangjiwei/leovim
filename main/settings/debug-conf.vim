@@ -77,7 +77,7 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     if get(g:, 'leovim_loaded', 0) == 0
         luafile $LUA_PATH/dap.conf.lua
     endif
-    nnoremap ,C :tabe ~/.leovim.conf/nvim-dap/dap.example.lua<Cr>:tabe ~/.leovim.d/dap.local.lua<Cr>
+    nnoremap ,D :tabe ~/.leovim.conf/nvim-dap/dap.example.lua<Cr>:tabe ~/.leovim.d/dap.local.lua<Cr>
     if filereadable(expand("~/.leovim.d/dap.local.lua"))
         luafile ~/.leovim.d/dap.local.lua
     endif
@@ -95,14 +95,14 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     " hover
     nnoremap <silent> ,w <cmd>lua require("dap.ui.widgets").hover()<CR>
     " view
-    nnoremap <silent> ,i <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.scopes)<CR>
-    nnoremap <silent> ,I <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.frames)<CR>
+    nnoremap <silent> ,f <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.scopes)<CR>
+    nnoremap <silent> ,F <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.frames)<CR>
     " breakpoint
     nnoremap <silent> ,b <cmd>lua require("dap").toggle_breakpoint()<CR>
+    nnoremap <silent> ,i <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints info: '))<CR>
     nnoremap <silent> ,B <cmd>lua require("dap").clear_breakpoints()<CR>
     nnoremap <silent> ,l <cmd>lua require("dap").list_breakpoints()<Cr>
     nnoremap <silent> <M-d>e <cmd>lua require("dap").set_exception_breakpoints("")<left><left>
-    nnoremap <silent> <M-d>i <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints info: '))<CR>
     nnoremap <silent> <M-d>b <cmd>lua require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
     " debug
     nnoremap <silent> <M-d>D <cmd>lua require("dap").disconnect({ terminateDebuggee = true });require"dap".close()<CR>
@@ -111,8 +111,9 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> <M-d>p <cmd>lua require("dap").pause()<Cr>
     nnoremap <silent> <M-d>g <cmd>lua require("dap").launch(vim.fn.input('Get config: '))<Cr>
     " repl
-    nnoremap <silent> <M-d>o <cmd>lua require("dap").repl.open({}, 'vsplit')<CR>
-    nnoremap <silent> <M-d>q <cmd>lua require("dap").repl.close()<CR>
+    nnoremap <silent> <M-d>o <cmd>lua require("dap").repl.open({}, 'split')<CR>
+    nnoremap <silent> <M-d>O <cmd>lua require("dap").repl.open({}, 'vsplit')<CR>
+    nnoremap <silent> <M-d>c <cmd>lua require("dap").repl.close()<CR>
     " autocomplete
     au FileType dap-repl lua require('dap.ext.autocompl').attach()
     " --------------------------------------
@@ -122,11 +123,12 @@ if Installed('nvim-dap') && Installed('nvim-dap-ui') && Installed('mason.nvim')
     nnoremap <silent> ,r <cmd>lua require("dapui").toggle()<CR>
     " watch
     nnoremap <silent> ,e <cmd>lua require("dapui").eval()<CR>
+    nnoremap <silent> ,O <cmd>lua require("dapui").float_element('repl')<Cr>
+    nnoremap <silent> ,C <cmd>lua require("dapui").float_element('console')<Cr>
     nnoremap <silent> <M-m>f <cmd>lua require("dapui").float_element()<Cr>
     nnoremap <silent> <M-m>b <cmd>lua require("dapui").float_element('breakpoints')<Cr>
     nnoremap <silent> <M-m>s <cmd>lua require("dapui").float_element('stacks')<Cr>
     nnoremap <silent> <M-m>w <cmd>lua require("dapui").float_element('watches')<Cr>
-    nnoremap <silent> <M-m>r <cmd>lua require("dapui").float_element('repl')<Cr>
     " jump to windows in dapui
     nnoremap <silent><M-m>1 :call GoToDAPWindows("DAP Scopes")<Cr>
     nnoremap <silent><M-m>2 :call GoToDAPWindows("DAP Breakpoints")<Cr>
@@ -164,7 +166,7 @@ elseif Installed('vimspector')
                     \ 'sink': function('<sid>read_template')
                     \ }))
     endif
-    nnoremap ,C :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
+    nnoremap ,D :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
     " core shortcuts
     nnoremap ,v :Vimspector<Tab>
     nnoremap ,d :call vimspector#<Tab>
