@@ -1,8 +1,53 @@
 " ------------------------
+" yank && paste
+" ------------------------
+function! YankFromBeginning() abort
+    let original_cursor_position = getpos('.')
+    if has('clipboard')
+        exec('normal! v^"*y')
+        echo "Yank from line beginning to clipboard"
+    else
+        exec('normal! v^y')
+    endif
+    call setpos('.', original_cursor_position)
+endfunction
+nnoremap gy :call YankFromBeginning()<Cr>
+if has('clipboard')
+    if UNIX()
+        nnoremap <M-c>+ viw"+y
+        xnoremap <M-c>+ "+y
+    else
+        nnoremap <M-c>+ viw"*y
+        xnoremap <M-c>+ "*y"
+    endif
+    nnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
+    xnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
+    nnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
+    xnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
+    nnoremap <M-X> "*dd
+    xnoremap <M-X> "*dd
+    nnoremap ,y :0,-"*y<Cr>
+    nnoremap ,Y vG"*y
+else
+    nnoremap <silent><M-x> x
+    xnoremap <silent><M-x> x
+    nnoremap <silent><M-y> X
+    xnoremap <silent><M-y> X
+    nnoremap <M-X> S
+    xnoremap <M-X> S
+    nnoremap ,y :0,-y<Cr>
+    nnoremap ,Y vGy
+endif
+inoremap <M-x> <Del>
+inoremap <M-y> <BS>
+cnoremap <M-v> <C-r>"
+" switch 2 words
+xnoremap <M-V> <Esc>`.``gvp``P
+" ------------------------
 " pastemode toggle
 " ------------------------
-imap <M-i> <C-\><C-o>:set paste<Cr>
-nmap <M-i> :set nopaste! nopaste?<CR>
+inoremap <M-i> <C-\><C-o>:set paste<Cr>
+nnoremap <M-i> :set nopaste! nopaste?<CR>
 " --------------------
 " registers
 " --------------------

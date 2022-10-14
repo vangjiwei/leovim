@@ -319,19 +319,11 @@ if has('clipboard')
     " paste
     inoremap <C-y> <C-r>*
     cnoremap <C-y> <C-r>*
-    if !exists("g:vscode")
-        nnoremap ,y :0,-"*y<Cr>
-        nnoremap ,Y vG"*y
-    endif
 else
     nnoremap Y y$
     inoremap <C-y> <C-r>"
     cnoremap <C-y> <C-r>"
     xnoremap <C-c> y
-    if !exists("g:vscode")
-        nnoremap ,y :0,-y<Cr>
-        nnoremap ,Y vGy
-    endif
 endif
 " ------------------------
 " configs for vscode and neovim/vim are different
@@ -339,49 +331,6 @@ endif
 if exists("g:vscode")
     source $LEOVIM_PATH/vscode/neovim.vim
 else
-    " ------------------------
-    " yank && paste
-    " ------------------------
-    function! YankFromBeginning() abort
-        let original_cursor_position = getpos('.')
-        if has('clipboard')
-            exec('normal! v^"*y')
-            echo "Yank from line beginning to clipboard"
-        else
-            exec('normal! v^y')
-        endif
-        call setpos('.', original_cursor_position)
-    endfunction
-    nnoremap gy :call YankFromBeginning()<Cr>
-    " yank && paste using M-
-    if has('clipboard')
-        if UNIX()
-            nnoremap <M-c>+ viw"+y
-            xnoremap <M-c>+ "+y
-        else
-            nnoremap <M-c>+ viw"*y
-            xnoremap <M-c>+ "*y"
-        endif
-        nnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
-        xnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
-        nnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
-        xnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
-        nnoremap <M-X> "*dd
-        xnoremap <M-X> "*dd
-    else
-        nnoremap <silent><M-x> x
-        xnoremap <silent><M-x> x
-        nnoremap <silent><M-y> X
-        xnoremap <silent><M-y> X
-        nnoremap <M-X> S
-        xnoremap <M-X> S
-    endif
-    inoremap <M-x> <Del>
-    inoremap <M-y> <BS>
-    " switch 2 words
-    xnoremap <M-V> <Esc>`.``gvp``P
-    " paste from "
-    cnoremap <M-v> <C-r>"
     " ------------------------
     " vim-preview
     " ------------------------
