@@ -24,7 +24,6 @@ endif
 if InstalledTelescope() && InstalledLsp()
     luafile $LUA_PATH/telescope-config.lua
     nnoremap <leader>fg :lua project_files()<Cr>
-    nnoremap <leader>T  :Telescope<Space>
     nnoremap m<tab> <cmd>Telescope keymaps<Cr>
     nnoremap <M-u>q <cmd>Telescope quickfixhistory<Cr>
     nnoremap <M-u>r <cmd>Telescope resume<Cr>

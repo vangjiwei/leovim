@@ -37,4 +37,10 @@ if  ! [[ $PATH == */$HOME/.local/nvim-linux64/bin* ]]; then
     export PATH=$HOME/.local/nvim-linux64/bin:$PATH
 fi
 
+alias MV="rsync -avz --progress --size-only --remove-source-files "
+alias SYNC="rsync -avz --progress --size-only --delete "
+
+alias nv='proxy49 ~/.local/bin/nv.sh '
+alias nvi='proxy49 ~/.local/bin/nvi.sh '
+
 alias proxy127="https_proxy=http://127.0.0.1:7890  http_proxy=http://127.0.0.1:7890  all_proxy=socks5://127.0.0.1:7890 "

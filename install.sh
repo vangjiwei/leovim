@@ -85,7 +85,9 @@ mkdir -p "$HOME/.leovim.d/tags"
 mkdir -p "$HOME/.config/nvim"
 mkdir -p "$HOME/.local/bin"
 # z.sh is useful
-cp -f $APP_PATH/scripts/z.sh $HOME/.local/bin && chmod 755 $HOME/.local/bin/z.sh
+cp -f $APP_PATH/scripts/z.sh $HOME/.local/bin
+cp -f $APP_PATH/scripts/nv.sh $HOME/.local/bin
+cp -f $APP_PATH/scripts/nvi.sh $HOME/.local/bin
 
 # leovim command
 echo "#!/usr/bin/env bash" > $HOME/.local/bin/leovim
