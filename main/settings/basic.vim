@@ -1014,8 +1014,8 @@ xnoremap <M-S> <ESC>:wa!<Cr>
 " ------------------------
 " close and quit
 " ------------------------
-nnoremap <silent><leader>q :q!<Cr>
-nnoremap <silent><leader>Q :qall!<Cr>
+nnoremap <silent><leader>q    :q!<Cr>
+nnoremap <silent><leader><BS> :qall!<Cr>
 inoremap <M-q> <ESC>
 xnoremap <M-q> <ESC>
 cnoremap <M-q> <ESC>

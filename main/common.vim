@@ -331,7 +331,7 @@ else
     " ------------------------
     let g:preview#preview_position = "rightbottom"
     let g:preview#preview_size     = get(g:, 'asyncrun_open', 8)
-    nnoremap <leader>ex Q
+    nnoremap <leader>Q Q
     nnoremap qq <C-w>z
     PackAdd 'vim-preview'
     " preview open
