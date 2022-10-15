@@ -7,6 +7,7 @@ if has('patch-8.1.1')
 endif
 tnoremap <expr> <C-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'
 tnoremap <M-q> <C-\><C-n>:q!<CR>
+tnoremap <M-w> <C-\><C-n>:ChooseWin<CR>
 tnoremap <C-v> <C-\><C-n>
 tnoremap <C-g> <C-\><C-n>
 " --------------------------
