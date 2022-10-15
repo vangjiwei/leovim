@@ -1014,7 +1014,7 @@ xnoremap <M-S> <ESC>:wa!<Cr>
 " ------------------------
 " close and quit
 " ------------------------
-nnoremap <silent>Q         :q!<Cr>
+nnoremap <silent><leader>q :q!<Cr>
 nnoremap <silent><leader>Q :qall!<Cr>
 inoremap <M-q> <ESC>
 xnoremap <M-q> <ESC>
@@ -1110,7 +1110,8 @@ function! s:Bclose(bang, buffer)
     execute wcurrent.'wincmd w'
 endfunction
 command! -bang -complete=buffer -nargs=? Bclose call <SID>Bclose(<q-bang>, <q-args>)
-nnoremap <silent> <Leader>q :Bclose<CR>
+nnoremap <silent> Q :Bclose<CR>
+xnoremap <silent> Q <ESC>
 " ------------------------
 " source
 " ------------------------
