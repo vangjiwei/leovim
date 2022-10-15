@@ -85,9 +85,9 @@ mkdir -p "$HOME/.leovim.d/tags"
 mkdir -p "$HOME/.config/nvim"
 mkdir -p "$HOME/.local/bin"
 # z.sh is useful
-cp -f $APP_PATH/scripts/z.sh $HOME/.local/bin
-cp -f $APP_PATH/scripts/nv.sh $HOME/.local/bin
-cp -f $APP_PATH/scripts/nvi.sh $HOME/.local/bin
+cp -n $APP_PATH/scripts/z.sh   $HOME/.local/bin
+cp -n $APP_PATH/scripts/nv.sh  $HOME/.local/bin
+cp -n $APP_PATH/scripts/nvi.sh $HOME/.local/bin
 
 # leovim command
 echo "#!/usr/bin/env bash" > $HOME/.local/bin/leovim
@@ -103,14 +103,15 @@ echo 'cd $LEOVIM_CONF' >> $HOME/.local/bin/leonvim
 echo 'nvim -p ~/.vimrc.local runtime/common.vim runtime/settings/main.vim runtime/packsync/pack.vim vscode/neovim.vim jetbrains/idea.vim' >> $HOME/.local/bin/leonvim
 echo '$SHELL' >> $HOME/.local/bin/leonvim && chmod 755 $HOME/.local/bin/leonvim
 
+# LEOVIM command
 echo "#!/usr/bin/env bash" > $HOME/.local/bin/LEOVIM
 echo "export LEOVIM_CONF=$HOME/.leovim.conf" >> $HOME/.local/bin/LEOVIM
 echo 'cd $LEOVIM_CONF && git pull' >> $HOME/.local/bin/LEOVIM
 echo '$SHELL' >> $HOME/.local/bin/LEOVIM && chmod 755 $HOME/.local/bin/LEOVIM
 
 # my config
-[ ! -f $HOME/.bashrc ] && cp $APP_PATH/scripts/bashrc $HOME/.bashrc
-[ ! -f $HOME/.inputrc ] && cp $APP_PATH/scripts/inputrc $HOME/.inputrc
+[ ! -f $HOME/.bashrc   ] && cp $APP_PATH/scripts/bashrc   $HOME/.bashrc
+[ ! -f $HOME/.inputrc  ] && cp $APP_PATH/scripts/inputrc  $HOME/.inputrc
 [ ! -f $HOME/.configrc ] && cp $APP_PATH/scripts/configrc $HOME/.configrc
 update_vim_plug='0'
 ret='0'
@@ -126,8 +127,7 @@ fi
 echo
 create_symlinks "$APP_PATH/clean.sh"           "$HOME/.leovim.clean"
 create_symlinks "$APP_PATH/jetbrains/idea.vim" "$HOME/.ideavimrc"
-# leovim.update
-[ ! -f $HOME/.leovim.update ] && cp $APP_PATH/scripts/update.sh $HOME/.leovim.update
+
 
 echo
 create_vimrc "$HOME/.vimrc"
