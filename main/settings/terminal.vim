@@ -1,7 +1,17 @@
-tnoremap <expr> <C-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'
-tnoremap <M-q> <C-\><C-n>:q!<CR>
-tnoremap <C-q> <C-\><C-n>
-tnoremap <M-w> <C-\><C-n>
+" --------------------------
+" set termwinkey
+" --------------------------
+if has('patch-8.1.1')
+    set termwinkey=<C-_>
+    let g:has_terminal=2
+endif
+tmap <expr> <C-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'
+tmap <M-q> <C-\><C-n>:q!<CR>
+tmap <C-v> <C-\><C-n>
+tmap <C-g> <C-\><C-n>
+" --------------------------
+" open terminal
+" --------------------------
 if has('nvim')
     if WINDOWS()
         nnoremap <Tab>m :tabe term://cmd<cr>i
@@ -13,6 +23,27 @@ else
         nnoremap <Tab>m :tab terminal<Cr>cmd<Cr>
     else
         nnoremap <Tab>m :tab terminal<Cr>bash<Cr>
+    endif
+endif
+" --------------------------
+" paste
+" --------------------------
+if g:has_terminal == 1
+    tmap <M-'> <C-\><C-n>""pa
+else
+    tmap <M-'> <C-_>""
+endif
+if has('clipboard')
+    if g:has_terminal == 1
+        tmap <M-v> <C-\><C-n>"*pa
+    else
+        tmap <M-v> <C-_>"*
+    endif
+else
+    if has('nvim')
+        tmap <M-v> <C-\><C-n>""pa
+    else
+        tmap <M-v> <C-_>""
     endif
 endif
 " --------------------------
@@ -32,26 +63,6 @@ let g:terminal_kill            = 'term'
 let g:terminal_auto_insert     = 1
 let g:terminal_skip_key_init   = 1
 let g:terminal_default_mapping = 0
-if has('nvim')
-    tnoremap <M-v> <C-\><C-n>""pa
-    tnoremap <M-'> <C-\><C-n>""pa
-else
-    tnoremap <M-v> <C-\><C-n>""p
-    tnoremap <M-'> <C-\><C-n>""p
-endif
-if has('clipboard')
-    if has('nvim')
-        tnoremap <C-v> <C-\><C-n>"*pa
-    else
-        tnoremap <C-v> <C-\><C-n>"*p
-    endif
-else
-    if has('nvim')
-        tnoremap <C-v> <C-\><C-n>""pa
-    else
-        tnoremap <C-v> <C-\><C-n>""p
-    endif
-endif
 " --------------------------
 " floaterm
 " --------------------------
