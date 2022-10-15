@@ -10,23 +10,7 @@ tnoremap <M-q> <C-\><C-n>:q!<CR>
 tnoremap <C-v> <C-\><C-n>
 tnoremap <C-g> <C-\><C-n>
 " --------------------------
-" open terminal
-" --------------------------
-if has('nvim')
-    if WINDOWS()
-        nnoremap <Tab>m :tabe term://cmd<cr>i
-    else
-        nnoremap <Tab>m :tabe term://bash<cr>i
-    endif
-else
-    if WINDOWS()
-        nnoremap <Tab>m :tab terminal<Cr>cmd<Cr>
-    else
-        nnoremap <Tab>m :tab terminal<Cr>bash<Cr>
-    endif
-endif
-" --------------------------
-" paste
+" XXX: cannot paste in floaterm when using vim9.0
 " --------------------------
 if g:has_terminal == 1
     tnoremap <M-'> <C-\><C-n>""pa
@@ -44,6 +28,22 @@ else
         tnoremap <M-v> <C-\><C-n>""pa
     else
         tnoremap <M-v> <C-_>""
+    endif
+endif
+" --------------------------
+" open terminal
+" --------------------------
+if has('nvim')
+    if WINDOWS()
+        nnoremap <Tab>m :tabe term://cmd<cr>i
+    else
+        nnoremap <Tab>m :tabe term://bash<cr>i
+    endif
+else
+    if WINDOWS()
+        nnoremap <Tab>m :tab terminal<Cr>cmd<Cr>
+    else
+        nnoremap <Tab>m :tab terminal<Cr>bash<Cr>
     endif
 endif
 " --------------------------
