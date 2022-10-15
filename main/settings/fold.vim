@@ -1,5 +1,3 @@
-" fold others rows and keep only the rows contain the search results
-nmap <leader>zr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=manual<CR><CR>
 " basic fold
 nmap <leader>zz za
 nmap ,zz        zA
@@ -17,7 +15,7 @@ if Installed('nvim-ufo', 'promise-async')
     if Installed('coc.nvim')
         let s:map_ufo = 1
         lua require('ufo').setup()
-    elseif Installed('mason.nvim')
+    elseif InstalledCmp()
         let s:map_ufo = 1
     elseif Installed('nvim-treesitter')
         let s:map_ufo = 1

@@ -453,7 +453,11 @@ elseif !has('nvim') && WINDOWS() && g:gui_running
 endif
 if Installed('neo-tree.nvim')
     nnoremap <silent><leader>n :NeoTreeFloatToggle<Cr>
-elseif exists(':CocFile')
+elseif has('nvim') && Installed('coc.nvim')
+    function! CocFile() abort
+        exec("CocCommand explorer --toggle --position floating --floating-width " . float2nr(&columns * 0.8) . " --floating-height " . float2nr(&lines * 0.8))
+    endfunction
+    command! CocFile call CocFile()
     nnoremap <silent><leader>n :CocFile<Cr>
 elseif InstalledFzf()
     nnoremap <silent><leader>n :FZFFiles .<Cr>
