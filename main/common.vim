@@ -344,7 +344,9 @@ else
     " ------------------------
     " source
     " ------------------------
-    source $SETTINGS_PATH/terminal.vim
+    if g:has_terminal > 0
+        source $SETTINGS_PATH/terminal.vim
+    endif
     source $SETTINGS_PATH/basic.vim
 endif
 " ------------------------

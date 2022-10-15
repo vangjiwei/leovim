@@ -1,6 +1,3 @@
-if g:has_terminal < 1
-    finish
-endif
 tnoremap <expr> <C-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'
 tnoremap <M-q> <C-\><C-n>:q!<CR>
 tnoremap <C-q> <C-\><C-n>
