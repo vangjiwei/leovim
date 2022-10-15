@@ -5,10 +5,10 @@ if has('patch-8.1.1')
     set termwinkey=<C-_>
     let g:has_terminal=2
 endif
-tmap <expr> <C-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'
-tmap <M-q> <C-\><C-n>:q!<CR>
-tmap <C-v> <C-\><C-n>
-tmap <C-g> <C-\><C-n>
+tnoremap <expr> <C-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'
+tnoremap <M-q> <C-\><C-n>:q!<CR>
+tnoremap <C-v> <C-\><C-n>
+tnoremap <C-g> <C-\><C-n>
 " --------------------------
 " open terminal
 " --------------------------
@@ -29,21 +29,21 @@ endif
 " paste
 " --------------------------
 if g:has_terminal == 1
-    tmap <M-'> <C-\><C-n>""pa
+    tnoremap <M-'> <C-\><C-n>""pa
 else
-    tmap <M-'> <C-_>""
+    tnoremap <M-'> <C-_>""
 endif
 if has('clipboard')
     if g:has_terminal == 1
-        tmap <M-v> <C-\><C-n>"*pa
+        tnoremap <M-v> <C-\><C-n>"*pa
     else
-        tmap <M-v> <C-_>"*
+        tnoremap <M-v> <C-_>"*
     endif
 else
     if has('nvim')
-        tmap <M-v> <C-\><C-n>""pa
+        tnoremap <M-v> <C-\><C-n>""pa
     else
-        tmap <M-v> <C-_>""
+        tnoremap <M-v> <C-_>""
     endif
 endif
 " --------------------------
