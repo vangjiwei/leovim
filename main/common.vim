@@ -316,13 +316,8 @@ if has('clipboard')
     nnoremap Y     "*y$:echo "Yank to the line ending to clipboard"<Cr>
     nnoremap yy    "*yy:echo "Yank the line to clipboard"<Cr>
     xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
-    " paste
-    inoremap <C-y> <C-r>*
-    cnoremap <C-y> <C-r>*
 else
-    nnoremap Y y$
-    inoremap <C-y> <C-r>"
-    cnoremap <C-y> <C-r>"
+    nnoremap Y     y$
     xnoremap <C-c> y
 endif
 " ------------------------

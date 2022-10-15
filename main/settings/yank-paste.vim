@@ -40,7 +40,7 @@ else
 endif
 inoremap <M-x> <Del>
 inoremap <M-y> <BS>
-cnoremap <M-v> <C-r>"
+cnoremap <C-y> <C-r>"
 " switch 2 words
 xnoremap <M-V> <Esc>`.``gvp``P
 " ------------------------

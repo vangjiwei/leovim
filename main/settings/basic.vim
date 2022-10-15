@@ -714,7 +714,6 @@ endif
 source $SETTINGS_PATH/differ.vim
 source $SETTINGS_PATH/check.vim
 source $SETTINGS_PATH/search-replace.vim
-source $SETTINGS_PATH/yank-paste.vim
 source $SETTINGS_PATH/sidebar.vim
 source $SETTINGS_PATH/run-conf.vim
 source $SETTINGS_PATH/marks.vim
@@ -727,6 +726,7 @@ else
     source $SETTINGS_PATH/lsp-tag-search.vim
 endif
 source $SETTINGS_PATH/fold.vim
+source $SETTINGS_PATH/yank-paste.vim
 " ------------------------------
 " schemes
 " ------------------------------
