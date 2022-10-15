@@ -20,29 +20,39 @@ if has('clipboard')
         nnoremap <M-c>+ viw"*y
         xnoremap <M-c>+ "*y"
     endif
+    cnoremap <C-y> <C-r>*
+    inoremap <C-v> <C-r>*
+    " M-x/y
     nnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
     xnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
     nnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
     xnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
     nnoremap <M-X> "*dd
     xnoremap <M-X> "*dd
+    " yank for beginning / to ending
     nnoremap ,y :0,-"*y<Cr>
     nnoremap ,Y vG"*y
 else
-    nnoremap <silent><M-x> x
-    xnoremap <silent><M-x> x
-    nnoremap <silent><M-y> X
-    xnoremap <silent><M-y> X
+    cnoremap <C-y> <C-r>"
+    inoremap <C-v> <C-r>"
+    " M-x/y
     nnoremap <M-X> S
     xnoremap <M-X> S
+    nnoremap <M-x> x
+    xnoremap <M-x> x
+    nnoremap <M-y> X
+    xnoremap <M-y> X
+    " yank for beginning / to ending
     nnoremap ,y :0,-y<Cr>
     nnoremap ,Y vGy
 endif
 inoremap <M-x> <Del>
 inoremap <M-y> <BS>
-cnoremap <C-y> <C-r>"
 " switch 2 words
 xnoremap <M-V> <Esc>`.``gvp``P
+" yank from "
+cnoremap <M-v> <C-r>"
+inoremap <M-v> <C-r>"
 " ------------------------
 " pastemode toggle
 " ------------------------
@@ -53,22 +63,22 @@ nnoremap <M-i> :set nopaste! nopaste?<CR>
 " --------------------
 if Installed('leaderf-registers')
     nnoremap <silent> <M-v> :LeaderfPaste<Cr>
-    inoremap <silent> <M-v> <ESC>:LeaderfPasteI<Cr>
     xnoremap <silent> <M-v> :<C-u>LeaderfPasteV<Cr>
+    inoremap <silent> <M-'> <ESC>:LeaderfPasteI<Cr>
     nnoremap <silent> <M-a> :LeaderfAppend<Cr>
-    inoremap <silent> <M-a> <ESC>:LeaderfAppendI<Cr>
     xnoremap <silent> <M-a> :<C-u>LeaderfAppendV<Cr>
+    inoremap <silent> <M-a> <ESC>:LeaderfAppendI<Cr>
 elseif Installed('fzf-registers')
     nnoremap <silent> <M-v> :FZFRegisterPaste<Cr>
-    inoremap <silent> <M-v> <C-o>:FZFRegisterPaste<Cr>
     xnoremap <silent> <M-v> :<C-u>FZFRegisterPasteV<Cr>
+    inoremap <silent> <M-'> <C-o>:FZFRegisterPaste<Cr>
     nnoremap <silent> <M-a> :FZFRegisterAppend<Cr>
-    inoremap <silent> <M-a> <C-o>:FZFRegisterAppend<Cr>
     xnoremap <silent> <M-a> :<C-u>FZFRegisterAppendV<Cr>
+    inoremap <silent> <M-a> <C-o>:FZFRegisterAppend<Cr>
 elseif InstalledTelescope()
     nnoremap <silent> <M-v> :Telescope registers<Cr>
-    inoremap <silent> <M-v> <C-o>:Telescope registers<Cr>
     xnoremap <silent> <M-v> :<C-u>Telescope registers<Cr>
+    inoremap <silent> <M-'> <C-o>:Telescope registers<Cr>
     nnoremap <M-a> ggVG
 endif
 " ------------------------
