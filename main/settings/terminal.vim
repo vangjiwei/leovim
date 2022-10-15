@@ -1,13 +1,10 @@
 if g:has_terminal < 1
     finish
 endif
-tnoremap <expr> <C-R> '<C-\><C-n>"'.nr2char(getchar()).'pi'
+tnoremap <expr> <C-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'
 tnoremap <M-q> <C-\><C-n>:q!<CR>
-tnoremap <M-w> <C-\><C-n>
-tnoremap <M-c> <C-\><C-n>
-tnoremap <C-w> <C-\><C-n>
 tnoremap <C-q> <C-\><C-n>
-tnoremap <C-s> <C-\><C-n>
+tnoremap <M-w> <C-\><C-n>
 if has('nvim')
     if WINDOWS()
         nnoremap <Tab>m :tabe term://cmd<cr>i
@@ -40,8 +37,10 @@ let g:terminal_skip_key_init   = 1
 let g:terminal_default_mapping = 0
 if has('nvim')
     tnoremap <M-v> <C-\><C-n>""pa
+    tnoremap <M-'> <C-\><C-n>""pa
 else
     tnoremap <M-v> <C-\><C-n>""p
+    tnoremap <M-'> <C-\><C-n>""p
 endif
 if has('clipboard')
     if has('nvim')

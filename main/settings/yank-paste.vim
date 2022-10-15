@@ -52,7 +52,8 @@ inoremap <M-y> <BS>
 xnoremap <M-V> <Esc>`.``gvp``P
 " yank from "
 cnoremap <M-v> <C-r>"
-inoremap <M-v> <C-r>"
+cnoremap <M-'> <C-r>"
+inoremap <M-'> <C-r>"
 " ------------------------
 " pastemode toggle
 " ------------------------
@@ -64,14 +65,14 @@ nnoremap <M-i> :set nopaste! nopaste?<CR>
 if Installed('leaderf-registers')
     nnoremap <silent> <M-v> :LeaderfPaste<Cr>
     xnoremap <silent> <M-v> :<C-u>LeaderfPasteV<Cr>
-    inoremap <silent> <M-'> <ESC>:LeaderfPasteI<Cr>
+    inoremap <silent> <M-v> <ESC>:LeaderfPasteI<Cr>
     nnoremap <silent> <M-a> :LeaderfAppend<Cr>
     xnoremap <silent> <M-a> :<C-u>LeaderfAppendV<Cr>
     inoremap <silent> <M-a> <ESC>:LeaderfAppendI<Cr>
 elseif Installed('fzf-registers')
     nnoremap <silent> <M-v> :FZFRegisterPaste<Cr>
     xnoremap <silent> <M-v> :<C-u>FZFRegisterPasteV<Cr>
-    inoremap <silent> <M-'> <C-o>:FZFRegisterPaste<Cr>
+    inoremap <silent> <M-v> <C-o>:FZFRegisterPaste<Cr>
     nnoremap <silent> <M-a> :FZFRegisterAppend<Cr>
     xnoremap <silent> <M-a> :<C-u>FZFRegisterAppendV<Cr>
     inoremap <silent> <M-a> <C-o>:FZFRegisterAppend<Cr>
