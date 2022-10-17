@@ -81,8 +81,9 @@ endif
 " ------------------------
 nmap SL vg_S
 nmap SH v^S
-nmap SG vt<Space>S
-nmap SS t<Space>vt<Space>S
+nmap SJ vt<Space>S
+nmap SK vT<Space>S
+nmap SS T<Space>vt<Space>S
 " --------------------------
 " textobj need 704+
 " --------------------------
