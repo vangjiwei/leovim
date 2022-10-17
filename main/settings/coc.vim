@@ -182,6 +182,3 @@ call coc#config('semanticTokens.filetypes',  g:highlight_filetypes)
 if has('nvim-0.8')
     luafile $LUA_PATH/coc.conf.lua
 endif
-if Installed('mason.nvim')
-    lua require('mason').setup()
-endif
