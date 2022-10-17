@@ -33,11 +33,16 @@ if  ! [[ $PATH == */$HOME/.local/gtags/bin* ]]; then
     export PATH=$HOME/.local/gtags/bin:$PATH
 fi
 
+if  ! [[ $PATH == */$HOME/.local/tmux/bin* ]]; then
+    export PATH=$HOME/.local/tmux/bin:$PATH
+fi
+
 if  ! [[ $PATH == */$HOME/.local/nvim-linux64/bin* ]]; then
     export PATH=$HOME/.local/nvim-linux64/bin:$PATH
 fi
 
 alias MV="rsync -avz --progress --size-only --remove-source-files "
+alias TI='printf "$([ -n "$TMUX" ] && printf "\033Ptmux;\033")\e]0;%s\e\\$([ -n "$TMUX" ] && printf "\033\\")"'
 alias SYNC="rsync -avz --progress --size-only --delete "
 
 alias nv='proxy49 ~/.local/bin/nv.sh '
