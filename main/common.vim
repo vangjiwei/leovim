@@ -312,25 +312,13 @@ if has('clipboard')
         au ModeChanged *:s set clipboard=
         au ModeChanged s:* set clipboard=unnamedplus
     endif
-    nnoremap Y  "*y$:echo "Yank to the line ending to clipboard"<Cr>
-    nnoremap yy "*yy:echo "Yank the line to clipboard"<Cr>
-    inoremap <C-v> <C-r>*
-    cnoremap <C-v> <C-r>*
+    " yank
+    nnoremap Y     "*y$:echo "Yank to the line ending to clipboard"<Cr>
+    nnoremap yy    "*yy:echo "Yank the line to clipboard"<Cr>
     xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
-    cnoremap <M-v> <C-r>"
-    if !exists("g:vscode")
-        nnoremap ,y :0,-"*y<Cr>
-        nnoremap ,Y vG"*y
-    endif
 else
-    nnoremap Y y$
-    inoremap <C-v> <C-r>"
-    cnoremap <C-v> <C-r>"
+    nnoremap Y     y$
     xnoremap <C-c> y
-    if !exists("g:vscode")
-        nnoremap ,y :0,-y<Cr>
-        nnoremap ,Y vGy
-    endif
 endif
 " ------------------------
 " configs for vscode and neovim/vim are different
@@ -339,52 +327,11 @@ if exists("g:vscode")
     source $LEOVIM_PATH/vscode/neovim.vim
 else
     " ------------------------
-    " yank && paste
-    " ------------------------
-    function! YankFromBeginning() abort
-        let original_cursor_position = getpos('.')
-        if has('clipboard')
-            exec('normal! v^"*y')
-            echo "Yank from line beginning to clipboard"
-        else
-            exec('normal! v^y')
-        endif
-        call setpos('.', original_cursor_position)
-    endfunction
-    nnoremap gy :call YankFromBeginning()<Cr>
-    " yank && paste using M-
-    if has('clipboard')
-        if UNIX()
-            nnoremap <M-c>+ viw"+y
-            xnoremap <M-c>+ "+y
-        else
-            nnoremap <M-c>+ viw"*y
-            xnoremap <M-c>+ "*y"
-        endif
-        nnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
-        xnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
-        nnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
-        xnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
-        nnoremap <M-X> "*dd
-        xnoremap <M-X> "*dd
-    else
-        nnoremap <silent><M-x> x
-        xnoremap <silent><M-x> x
-        nnoremap <silent><M-y> X
-        xnoremap <silent><M-y> X
-        nnoremap <M-X> S
-        xnoremap <M-X> S
-    endif
-    inoremap <M-x> <Del>
-    inoremap <M-y> <BS>
-    " switch 2 words
-    xnoremap <M-V> <Esc>`.``gvp``P
-    " ------------------------
     " vim-preview
     " ------------------------
     let g:preview#preview_position = "rightbottom"
     let g:preview#preview_size     = get(g:, 'asyncrun_open', 8)
-    nnoremap <leader>ex Q
+    nnoremap <leader>Q Q
     nnoremap qq <C-w>z
     PackAdd 'vim-preview'
     " preview open
@@ -397,7 +344,9 @@ else
     " ------------------------
     " source
     " ------------------------
-    source $SETTINGS_PATH/terminal.vim
+    if g:has_terminal > 0
+        source $SETTINGS_PATH/terminal.vim
+    endif
     source $SETTINGS_PATH/basic.vim
 endif
 " ------------------------

@@ -7,8 +7,5 @@ if g:advanced_complete_engine
         PackAdd 'puremourning/vimspector', {'do': g:python_exe_path . vimspector_install}
     elseif has('nvim') && Require('debug')
         PackAdd 'mfussenegger/nvim-dap' | PackAdd 'rcarriga/nvim-dap-ui'
-        if g:complete_engine == 'coc'
-            PackAdd 'williamboman/mason.nvim'
-        endif
     endif
 endif

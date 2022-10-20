@@ -70,13 +70,6 @@ else
     call coc#config('snippets.ultisnips.pythonx', v:false)
 endif
 " ----------------------------
-" CocFile to browser files in floating windows
-" ----------------------------
-function! CocFile() abort
-    exec("CocCommand explorer --toggle --position floating --floating-width " . float2nr(&columns * 0.8) . " --floating-height " . float2nr(&lines * 0.8))
-endfunction
-command! CocFile call CocFile()
-" ----------------------------
 " actions
 " ----------------------------
 " fix

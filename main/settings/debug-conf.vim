@@ -92,10 +92,11 @@ if Installed('nvim-dap', 'nvim-dap-ui')
     nnoremap <silent> ,u <cmd>lua require("dap").step_out()<CR>
     nnoremap <silent> ,q <cmd>lua require("dap").close()<Cr>
     nnoremap <silent> ,a <cmd>lua require("dap").attach(vim.fn.input('Attatch to: '))<CR>
+    nnoremap <silent> ,p <cmd>lua require("dap").pause()<Cr>
     " view
-    nnoremap <silent> ,i <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.scopes)<CR>
+    nnoremap <silent> ,w <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.scopes)<CR>
     nnoremap <silent> ,f <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.frames)<CR>
-    nnoremap <silent> ,w <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.expression)<CR>
+    nnoremap <silent> ,i <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.expression)<CR>
     " breakpoint
     nnoremap <silent> ,b <cmd>lua require("dap").toggle_breakpoint()<CR>
     nnoremap <silent> ,B <cmd>lua require("dap").clear_breakpoints()<CR>
@@ -107,7 +108,6 @@ if Installed('nvim-dap', 'nvim-dap-ui')
     nnoremap <silent> <M-d>D <cmd>lua require("dap").disconnect({ terminateDebuggee = true });require"dap".close()<CR>
     nnoremap <silent> <M-d>u <cmd>lua require("dap").up()<Cr>
     nnoremap <silent> <M-d>d <cmd>lua require("dap").down()<Cr>
-    nnoremap <silent> <M-d>p <cmd>lua require("dap").pause()<Cr>
     nnoremap <silent> <M-d>g <cmd>lua require("dap").launch(vim.fn.input('Get config: '))<Cr>
     " repl
     nnoremap <silent> <M-d>o <cmd>lua require("dap").repl.open({}, 'split')<CR>
@@ -185,6 +185,7 @@ elseif Installed('vimspector')
     nmap <silent> ,B :call ToggleAllBreakpointsViewBreakpoint()<Cr>
     nmap <silent> ,l :call vimspector#ListBreakpoints()<Cr>
     " debug
+    nmap <silent> ,p     :call vimspector#Pause()<Cr>
     nmap <silent> <M-d>u :call vimspector#UpFrame()<Cr>
     nmap <silent> <M-d>d :call vimspector#DownFrame()<Cr>
     nmap <silent> <M-d>b <Plug>VimspectorBalloonEval
@@ -194,7 +195,6 @@ elseif Installed('vimspector')
     " other commands
     nnoremap <M-d>i :VimspectorInstall <Tab>
     nnoremap <M-d>g :call vimspector#GetConfigurations()<Cr>
-    nnoremap <M-d>p :call vimspector#Pause()<Cr>
     nnoremap <M-d>t :call vimspector#SetCurrentThread()<Cr>
     nnoremap <M-d>e :call vimspector#ExpandVariable()<Cr>
     nnoremap <M-d>r :call vimspector#Reset()<Cr>

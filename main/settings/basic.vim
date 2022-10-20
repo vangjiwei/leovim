@@ -714,7 +714,6 @@ endif
 source $SETTINGS_PATH/differ.vim
 source $SETTINGS_PATH/check.vim
 source $SETTINGS_PATH/search-replace.vim
-source $SETTINGS_PATH/yank-paste.vim
 source $SETTINGS_PATH/sidebar.vim
 source $SETTINGS_PATH/run-conf.vim
 source $SETTINGS_PATH/marks.vim
@@ -727,6 +726,7 @@ else
     source $SETTINGS_PATH/lsp-tag-search.vim
 endif
 source $SETTINGS_PATH/fold.vim
+source $SETTINGS_PATH/yank-paste.vim
 " ------------------------------
 " schemes
 " ------------------------------
@@ -1014,8 +1014,8 @@ xnoremap <M-S> <ESC>:wa!<Cr>
 " ------------------------
 " close and quit
 " ------------------------
-nnoremap <silent>Q         :q!<Cr>
-nnoremap <silent><leader>Q :qall!<Cr>
+nnoremap <silent><leader>q    :q!<Cr>
+nnoremap <silent><leader><BS> :qall!<Cr>
 inoremap <M-q> <ESC>
 xnoremap <M-q> <ESC>
 cnoremap <M-q> <ESC>
@@ -1110,7 +1110,8 @@ function! s:Bclose(bang, buffer)
     execute wcurrent.'wincmd w'
 endfunction
 command! -bang -complete=buffer -nargs=? Bclose call <SID>Bclose(<q-bang>, <q-args>)
-nnoremap <silent> <Leader>q :Bclose<CR>
+nnoremap <silent> Q :Bclose<CR>
+xnoremap <silent> Q <ESC>
 " ------------------------
 " source
 " ------------------------

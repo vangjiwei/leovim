@@ -1,13 +1,39 @@
-if g:has_terminal < 1
-    finish
+" --------------------------
+" set termwinkey
+" --------------------------
+if has('patch-8.1.1')
+    set termwinkey=<C-_>
+    let g:has_terminal=2
 endif
-tnoremap <expr> <C-R> '<C-\><C-n>"'.nr2char(getchar()).'pi'
+tnoremap <expr> <C-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'
 tnoremap <M-q> <C-\><C-n>:q!<CR>
-tnoremap <M-w> <C-\><C-n>
-tnoremap <M-c> <C-\><C-n>
-tnoremap <C-w> <C-\><C-n>
-tnoremap <C-q> <C-\><C-n>
-tnoremap <C-s> <C-\><C-n>
+tnoremap <M-w> <C-\><C-n>:ChooseWin<CR>
+tnoremap <C-v> <C-\><C-n>
+tnoremap <C-g> <C-\><C-n>
+" --------------------------
+" XXX: cannot paste in floaterm when using vim9.0
+" --------------------------
+if g:has_terminal == 1
+    tnoremap <M-'> <C-\><C-n>""pa
+else
+    tnoremap <M-'> <C-_>""
+endif
+if has('clipboard')
+    if g:has_terminal == 1
+        tnoremap <M-v> <C-\><C-n>"*pa
+    else
+        tnoremap <M-v> <C-_>"*
+    endif
+else
+    if has('nvim')
+        tnoremap <M-v> <C-\><C-n>""pa
+    else
+        tnoremap <M-v> <C-_>""
+    endif
+endif
+" --------------------------
+" open terminal
+" --------------------------
 if has('nvim')
     if WINDOWS()
         nnoremap <Tab>m :tabe term://cmd<cr>i
@@ -38,18 +64,6 @@ let g:terminal_kill            = 'term'
 let g:terminal_auto_insert     = 1
 let g:terminal_skip_key_init   = 1
 let g:terminal_default_mapping = 0
-if has('nvim')
-    tnoremap <M-v> <C-\><C-n>""pa
-else
-    tnoremap <M-v> <C-\><C-n>""p
-endif
-if has('clipboard')
-    if has('nvim')
-        tnoremap <C-v> <C-\><C-n>"*pa
-    else
-        tnoremap <C-v> <C-\><C-n>"*p
-    endif
-endif
 " --------------------------
 " floaterm
 " --------------------------
