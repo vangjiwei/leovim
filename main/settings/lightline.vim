@@ -130,8 +130,6 @@ function! UpdateLightline() abort
         let g:lightline.colorscheme = 'jellybeans'
     elseif get(g:, 'colors_name', '') == 'sublime'
         let g:lightline.colorscheme = 'molokai'
-    elseif get(g:, 'colors_name', '') == 'one'
-        let g:lightline.colorscheme = 'one'
     elseif get(g:, 'colors_name', '') == 'deus'
         let g:lightline.colorscheme = 'deus'
     elseif get(g:, 'colors_name', '') == 'hybrid'
