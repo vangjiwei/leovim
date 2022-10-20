@@ -23,7 +23,7 @@ local dap = require('dap')
 -- python
 dap.adapters.python = {
   type    = 'executable';
-  command = get_adapter('debugpy-adapter');
+  command = 'python';
   args    = {'-m', 'debugpy.adapter'};
 }
 dap.configurations.python = {
