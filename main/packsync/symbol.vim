@@ -24,7 +24,7 @@ else
             call SymbolRequire("fzfctags")
         endif
     endif
-    if g:complete_engine == 'coc' || get(g:, 'ctags_type', '') =~ 'Universal'
+    if (g:complete_engine == 'coc' || get(g:, 'ctags_type', '') =~ 'Universal') && v:version >= 800
         call SymbolRequire('vista')
     endif
 endif
