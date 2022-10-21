@@ -7,7 +7,7 @@
     {
         "key": "ctrl+shift+j",
         "command": "jupyter.openVariableView"
-    }
+    },
     // open out terminal
     {
         "key": "alt+=",
@@ -237,17 +237,6 @@
     {
         "key": "ctrl+; g",
         "command": "workbench.view.scm"
-    },
-    // breakpoints
-    {
-        "key": "alt+'",
-        "command": "editor.debug.action.toggleBreakpoint",
-        "when": "debuggersAvailable && editorTextFocus"
-    },
-    {
-        "key": "alt+\"",
-        "command": "editor.debug.action.toggleInlineBreakpoint",
-        "when": "editorTextFocus"
     },
     // contextMenu, as right mouse click
     {
