@@ -31,7 +31,7 @@ endif
 " ------------------------------
 " gutentags
 " ------------------------------
-if v:version >= 800 && g:complete_engine != 'cmp'
+if v:version >= 800
     if get(g:, 'ctags_type', '') != ''
         if Planned('vim-quickui')
             call SymbolRequire('quickui')
