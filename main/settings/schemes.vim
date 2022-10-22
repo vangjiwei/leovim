@@ -40,6 +40,7 @@ elseif Require('moonfly') && Installed('vim-moonlfy-colors')
     call SetScheme('moonfly')
 elseif Require('nightfly') && Installed('vim-nightfly-guicolors')
     call SetScheme('nightfly')
+" nightfox
 elseif Require('carbonfox') && Installed('nightfox.nvim')
     call SetScheme('carbonfox')
 elseif Require('dawnfox') && Installed('nightfox.nvim')
@@ -65,12 +66,10 @@ elseif g:complete_engine == 'coc'
     endif
 elseif g:complete_engine == 'cmp'
     call SetScheme('sonokai', 'sublime')
-elseif g:complete_engine == 'mcm'
-    call SetScheme('edge', 'codedark')
 elseif g:complete_engine == 'apc'
-    colorscheme hybrid
+    call SetScheme('edge', 'codedark')
 else
-    colorscheme one
+    colorscheme hybrid
 endif
 " nvim-treesitter
 if Installed('nvim-treesitter')

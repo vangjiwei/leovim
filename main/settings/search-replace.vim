@@ -343,6 +343,7 @@ catch
     " pass
 endtry
 if Installed('nvim-hlslens')
+    lua require('hlslens').setup()
     nmap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR>
              \<Cmd>lua require('hlslens').start()<CR>
     nmap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR>

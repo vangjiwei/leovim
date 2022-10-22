@@ -24,14 +24,14 @@ else
             call SymbolRequire("fzfctags")
         endif
     endif
-    if g:complete_engine == 'coc' || get(g:, 'ctags_type', '') =~ 'Universal'
+    if (g:complete_engine == 'coc' || get(g:, 'ctags_type', '') =~ 'Universal' && Require('vista')) && v:version >= 800
         call SymbolRequire('vista')
     endif
 endif
 " ------------------------------
 " gutentags
 " ------------------------------
-if v:version >= 800 && g:complete_engine != 'cmp'
+if v:version >= 800
     if get(g:, 'ctags_type', '') != ''
         if Planned('vim-quickui')
             call SymbolRequire('quickui')

@@ -48,16 +48,15 @@ nnoremap <leader>u <Cmd>call VSCodeNotify("workbench.action.debug.stepOut")<Cr>
 nnoremap <leader>Q <Cmd>call VSCodeNotify("workbench.action.debug.stop")<Cr>
 nnoremap <leader>p <Cmd>call VSCodeNotify("workbench.action.debug.pause")<Cr>
 nnoremap <leader>d <Cmd>call VSCodeNotify("workbench.view.debug")<Cr>
-nnoremap <leader>D <Cmd>call VSCodeNotify("workbench.action.debug.disconnet")<Cr>
-nnoremap <leader>l <Cmd>call VSCodeNotify("workbench.action.debug.configure")<Cr>
+nnoremap <leader>c <Cmd>call VSCodeNotify("workbench.action.debug.configure")<Cr>
 " breakpoint
 nnoremap <leader>, <Cmd>call VSCodeNotify("workbench.action.debug.gotoPreviousBreakpoint")<Cr>
 nnoremap <leader>; <Cmd>call VSCodeNotify("workbench.action.debug.gotoNextBreakpoint")<Cr>
-nnoremap <leader>b <Cmd>call VSCodeNotify("editor.debug.action.toggleInlineBreakpoint")<Cr>
-nnoremap <leader>c <Cmd>call VSCodeNotify("editor.debug.action.conditionalBreakpoint")<Cr>
+nnoremap <leader>b <Cmd>call VSCodeNotify("editor.debug.action.toggleBreakpoint")<Cr>
+nnoremap <leader>B <Cmd>call VSCodeNotify("editor.debug.action.conditionalBreakpoint")<Cr>
 nnoremap <leader>f <Cmd>call VSCodeNotify("workbench.debug.viewlet.action.addFunctionBreakpointAction")<Cr>
 nnoremap <leader>a <Cmd>call VSCodeNotify("workbench.debug.viewlet.action.enableAllBreakpoints")<Cr>
-nnoremap <leader>B <Cmd>call VSCodeNotify("workbench.debug.viewlet.action.disableAllBreakpoints")<Cr>
+nnoremap <leader>D <Cmd>call VSCodeNotify("workbench.debug.viewlet.action.disableAllBreakpoints")<Cr>
 nnoremap <leader>C <Cmd>call VSCodeNotify("workbench.debug.viewlet.action.removeAllBreakpoints")<Cr>
 " ------------------------
 " autocmd

@@ -3,49 +3,49 @@ export TERM=xterm-256color
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    alias ls='/bin/ls --color=auto'
-    alias ll='/bin/ls -lh --color=auto'
-    alias lsa='/bin/ls -alh --color=auto'
-    alias llt='/bin/ls -lthr --color=auto'
-    alias llT='/bin/ls -lth --color=auto'
-    alias lls='/bin/ls -lShr --color=auto'
-    alias llS='/bin/ls -lSh --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+  alias ls='/bin/ls --color=auto'
+  alias ll='/bin/ls -lh --color=auto'
+  alias lsa='/bin/ls -alh --color=auto'
+  alias llt='/bin/ls -lthr --color=auto'
+  alias llT='/bin/ls -lth --color=auto'
+  alias lls='/bin/ls -lShr --color=auto'
+  alias llS='/bin/ls -lSh --color=auto'
+  alias dir='dir --color=auto'
+  alias vdir='vdir --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
 fi
 
 if  ! [[ $PATH == */$HOME/.local/bin* ]]; then
-    export PATH=$HOME/.local/bin:$PATH
+  export PATH=$HOME/.local/bin:$PATH
 fi
 
 if  ! [[ $PATH == */$HOME/.local/node/bin* ]]; then
-    export PATH=$HOME/.local/node/bin:$PATH
+  export PATH=$HOME/.local/node/bin:$PATH
 fi
 
 if  ! [[ $PATH == */$HOME/.local/ctags/bin* ]]; then
-    export PATH=$HOME/.local/ctags/bin:$PATH
+  export PATH=$HOME/.local/ctags/bin:$PATH
 fi
 
 if  ! [[ $PATH == */$HOME/.local/gtags/bin* ]]; then
-    export PATH=$HOME/.local/gtags/bin:$PATH
+  export PATH=$HOME/.local/gtags/bin:$PATH
 fi
 
 if  ! [[ $PATH == */$HOME/.local/tmux/bin* ]]; then
-    export PATH=$HOME/.local/tmux/bin:$PATH
+  export PATH=$HOME/.local/tmux/bin:$PATH
 fi
 
 if  ! [[ $PATH == */$HOME/.local/nvim-linux64/bin* ]]; then
-    export PATH=$HOME/.local/nvim-linux64/bin:$PATH
+  export PATH=$HOME/.local/nvim-linux64/bin:$PATH
 fi
 
 alias MV="rsync -avz --progress --size-only --remove-source-files "
 alias TI='printf "$([ -n "$TMUX" ] && printf "\033Ptmux;\033")\e]0;%s\e\\$([ -n "$TMUX" ] && printf "\033\\")"'
 alias SYNC="rsync -avz --progress --size-only --delete "
 
-alias nv='proxy49 ~/.local/bin/nv.sh '
-alias nvi='proxy49 ~/.local/bin/nvi.sh '
+alias nv='bash ~/.local/bin/nv.sh '
+alias nvi='bash ~/.local/bin/nvi.sh '
 
 alias proxy127="https_proxy=http://127.0.0.1:7890  http_proxy=http://127.0.0.1:7890  all_proxy=socks5://127.0.0.1:7890 "

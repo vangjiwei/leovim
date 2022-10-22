@@ -13,16 +13,6 @@ elseif g:complete_engine == 'coc'
     else
         let g:complete_snippets = 'coc-snippets'
     endif
-elseif g:complete_engine == 'mcm'
-    if exists('##TextChangedP')
-        if g:python_version > 3
-            let g:complete_snippets = 'ultisnips'
-        else
-            let g:complete_snippets = 'vsnip'
-        endif
-    else
-        let g:complete_snippets = ''
-    endif
 else
     let g:complete_snippets = ''
 endif
@@ -44,12 +34,7 @@ endif
 " ------------------------------
 " complete_engine
 " ------------------------------
-if g:complete_engine == 'mcm'
-    PackAdd 'lifepillar/vim-mucomplete'
-    if g:complete_snippets =~ 'vsnip'
-        PackAdd 'hrsh7th/vim-vsnip-integ'
-    endif
-elseif g:complete_engine == 'coc'
+if g:complete_engine == 'coc'
     if g:node_version == 'advanced'
         PackAdd 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile', 'opt': 0}
     else

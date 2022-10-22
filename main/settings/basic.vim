@@ -32,19 +32,6 @@ if executable('node') && executable('npm')
 else
     let g:node_version = ''
 endif
-" ------------------------------
-" ctags version
-" ------------------------------
-if WINDOWS()
-    let g:ctags_type = 'Universal-json'
-elseif executable('ctags') && has('patch-7.4.330')
-    let g:ctags_type = system('ctags --version')[0:8]
-    if g:ctags_type == 'Universal' && system('ctags --list-features | grep json') =~ 'json'
-        let g:ctags_type = 'Universal-json'
-    endif
-else
-    let g:ctags_type = ''
-endif
 " --------------------------
 " set TERM && screen
 " --------------------------
@@ -127,10 +114,12 @@ endif
 " --------------------------
 " Mkey map
 " --------------------------
+imap <M-{> <C-o><M-{>
+imap <M-}> <C-o><M-}>
 imap <M-,> <C-o><M-,>
 imap <M-.> <C-o><M-.>
 imap <M-/> <C-o><M-/>
-imap <M-?> <C-o><M-/>
+imap <M-?> <C-o><M-?>
 imap <M-;> <C-o><M-;>
 imap <M-:> <C-o><M-:>
 " --------------------------
@@ -520,12 +509,7 @@ endif
 try
     set completeopt=menuone,noselect,noinsert
 catch
-    try
-        set completeopt=menuone
-        let g:complete_engine = 'mcm'
-    catch
-        let g:complete_engine = 'non'
-    endtry
+    let g:complete_engine = 'non'
 endtry
 if exists('+completepopup') != 0
     set completeopt+=popup
@@ -533,8 +517,6 @@ if exists('+completepopup') != 0
 endif
 if Require('non') || CYGWIN()
     let g:complete_engine = "non"
-elseif Require('mcm') || get(g:, 'complete_engine', '') == 'mcm'
-    let g:complete_engine = "mcm"
 elseif Require('apc') && &completeopt =~ 'noselect'
     let g:complete_engine = "apc"
 elseif Require('cmp')
@@ -556,7 +538,7 @@ if get(s:, 'smart_engine_select', 0)
     if get(g:, 'node_version', '') != '' && (has('nvim-0.6.0') || has('patch-8.2.3389'))
         let g:complete_engine = 'coc'
     else
-        let g:complete_engine = 'mcm'
+        let g:complete_engine = 'apc'
     endif
 endif
 if index(['coc', 'cmp'], get(g:, 'complete_engine', '')) >= 0
@@ -564,6 +546,24 @@ if index(['coc', 'cmp'], get(g:, 'complete_engine', '')) >= 0
 else
     let g:advanced_complete_engine = 0
 endif
+" ------------------------------
+" ctags version
+" ------------------------------
+if g:complete_engine == 'cmp'
+    let g:ctags_type = ''
+elseif WINDOWS()
+    let g:ctags_type = 'Universal-json'
+elseif executable('ctags') && has('patch-7.4.330')
+    let g:ctags_type = system('ctags --version')[0:8]
+    if g:ctags_type == 'Universal' && system('ctags --list-features | grep json') =~ 'json'
+        let g:ctags_type = 'Universal-json'
+    endif
+else
+    let g:ctags_type = ''
+endif
+" ------------------------------
+" pack_tool
+" ------------------------------
 if g:pack_tool == 'plug'
     let $INSTALL_PATH = expand('~/.leovim.d/plug/' . g:complete_engine)
 else
@@ -663,9 +663,6 @@ cmap <C-e> <End>
 imap <expr><C-b> pumvisible()? "\<C-b>":"\<C-o>I"
 imap <expr><C-f> pumvisible()? "\<C-f>":"\<C-o>A"
 imap <expr><C-a> pumvisible()? "\<C-a>":"\<C-o>I"
-if g:complete_engine != 'mcm'
-    imap <expr><C-e> pumvisible()? "\<C-e>":"\<C-o>A"
-endif
 " --------------------------
 " complete_engine settings
 " --------------------------
@@ -673,8 +670,6 @@ if InstalledCmp()
     source $SETTINGS_PATH/cmp.vim
 elseif Installed('coc.nvim')
     source $SETTINGS_PATH/coc.vim
-elseif Installed('vim-mucomplete')
-    source $SETTINGS_PATH/mcm.vim
 elseif g:complete_engine != 'non' && &completeopt =~ 'noselect'
     let g:complete_engine = 'apc'
 else
