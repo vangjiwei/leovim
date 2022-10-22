@@ -12,9 +12,12 @@ if Installed('lspsaga.nvim')
                 \ 'close': 'LSoutlineToggle'
                 \ }
 elseif Installed('vista.vim')
+    function! s:check_vista(nr) abort
+        return s:check_buf_ft('vista', a:nr)
+    endfunction
     let g:sidebars.tags = {
                 \ 'position': 'left',
-                \ 'check_win': function('s:check_buf_ft', ['vista']),
+                \ 'check_win': function('s:check_vista'),
                 \ 'open': 'Vista ' . get(g:, 'vista_default_executive', ''),
                 \ 'close': 'Vista!!'
                 \ }

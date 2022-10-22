@@ -32,23 +32,23 @@ shopt -s checkwinsize
 [ -f ~/.local/bin/z.sh ] && . ~/.local/bin/z.sh
 
 if  [ -x "$(command -v git)"  ]; then
-    function git_branch {
-        branch="`git branch 2>/dev/null | grep "^\*" | sed -e "s/^\*\ //"`"
-        if [ "${branch}" != "" ];then
-            if [ "${branch}" = "(no branch)" ];then
-                branch="(`git rev-parse --short HEAD`...)"
-            fi
-            if [[ `git status --porcelain` ]] ; then
-                branch=$branch" x"
-            else
-                branch=$branch" o"
-            fi
-            echo " $branch"
-        fi
+  function git_branch {
+    branch="`git branch 2>/dev/null | grep "^\*" | sed -e "s/^\*\ //"`"
+    if [ "${branch}" != "" ];then
+      if [ "${branch}" = "(no branch)" ];then
+        branch="(`git rev-parse --short HEAD`...)"
+      fi
+      if [[ `git status --porcelain` ]] ; then
+        branch=$branch" x"
+      else
+        branch=$branch" o"
+      fi
+      echo " $branch"
+      fi
     }
-    export PS1="\[\e[31;1m\]\u\[\e[0m\]@\[\e[33;1m\]\h\[\e[0m\]:\[\e[36;1m\]\w\[\e[0m\]\[\e[26;1m\]\$(git_branch)\[\e[0m\]\n\$ "
+  export PS1="\[\e[31;1m\]\u\[\e[0m\]@\[\e[33;1m\]\h\[\e[0m\]:\[\e[36;1m\]\w\[\e[0m\]\[\e[26;1m\]\$(git_branch)\[\e[0m\]\n\$ "
 else
-    export PS1="\[\e[31;1m\]\u\[\e[0m\]@\[\e[33;1m\]\h\[\e[0m\]:\[\e[36;1m\]\w\[\e[0m\]\n\$ "
+  export PS1="\[\e[31;1m\]\u\[\e[0m\]@\[\e[33;1m\]\h\[\e[0m\]:\[\e[36;1m\]\w\[\e[0m\]\n\$ "
 fi
 
 

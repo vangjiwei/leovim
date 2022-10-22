@@ -32,19 +32,6 @@ if executable('node') && executable('npm')
 else
     let g:node_version = ''
 endif
-" ------------------------------
-" ctags version
-" ------------------------------
-if WINDOWS()
-    let g:ctags_type = 'Universal-json'
-elseif executable('ctags') && has('patch-7.4.330')
-    let g:ctags_type = system('ctags --version')[0:8]
-    if g:ctags_type == 'Universal' && system('ctags --list-features | grep json') =~ 'json'
-        let g:ctags_type = 'Universal-json'
-    endif
-else
-    let g:ctags_type = ''
-endif
 " --------------------------
 " set TERM && screen
 " --------------------------
@@ -559,6 +546,24 @@ if index(['coc', 'cmp'], get(g:, 'complete_engine', '')) >= 0
 else
     let g:advanced_complete_engine = 0
 endif
+" ------------------------------
+" ctags version
+" ------------------------------
+if g:complete_engine == 'cmp'
+    let g:ctags_type = ''
+elseif WINDOWS()
+    let g:ctags_type = 'Universal-json'
+elseif executable('ctags') && has('patch-7.4.330')
+    let g:ctags_type = system('ctags --version')[0:8]
+    if g:ctags_type == 'Universal' && system('ctags --list-features | grep json') =~ 'json'
+        let g:ctags_type = 'Universal-json'
+    endif
+else
+    let g:ctags_type = ''
+endif
+" ------------------------------
+" pack_tool
+" ------------------------------
 if g:pack_tool == 'plug'
     let $INSTALL_PATH = expand('~/.leovim.d/plug/' . g:complete_engine)
 else
