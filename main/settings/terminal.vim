@@ -93,11 +93,9 @@ let g:floaterm_keymap_prev = '<M-{>'
 let g:floaterm_keymap_next = '<M-}>'
 nnoremap <M-j>k :FloatermKill<Cr>
 nnoremap <M-j>n :FloatermNew<Space>
-nnoremap <M-j>F :Floaterm<Tab>
+nnoremap <M-j>f :Floaterm<Tab>
 nnoremap <M-j>u :FloatermUpdate<Tab>
-nnoremap <M-j>1 :FloatermFirst<Cr>
+nnoremap <M-j>h :FloatermFirst<Cr>
 nnoremap <M-j>l :FloatermLast<Cr>
-nnoremap <M-j>n :FloatermNext<Cr>
-nnoremap <M-j>p :FloatermPrev<Cr>
 nnoremap <silent> <M-=> :FloatermToggle<CR>
 tnoremap <silent> <M-=> <C-\><C-n>:FloatermToggle<CR>
