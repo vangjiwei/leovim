@@ -134,7 +134,7 @@ nmap <leader>vQ vaq
 " find block
 " ------------------------
 if g:has_terminal
-    let s:block_str = '# STEP\|# In\|# %%'
+    let s:block_str = '^# In\[\d\{0,\}\]\|^# %%'
     function! BlockA()
         let beginline = search(s:block_str, 'ebW')
         if beginline == 0
