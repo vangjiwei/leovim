@@ -115,6 +115,11 @@ endif
 " --------------------------
 if exists(':tnoremap') && !exists('g:vscode')
     let g:has_terminal = 1
+    if has('nvim')
+        let g:floaterm_floating = 1
+    else
+        let g:floaterm_floating = 0
+    endif
 else
     let g:has_terminal      = 0
     let g:floaterm_floating = 0
