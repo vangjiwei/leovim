@@ -132,7 +132,7 @@
     // typeDefinition
     {
         "key": "<alt+[>",
-        "command": "editor.action.peektypedefinition",
+        "command": "editor.action.peektypeDefinition",
         "when": "editorHasReferenceProvider && editorTextFocus && !isInEmbeddedEditor"
     },
     // declaration
