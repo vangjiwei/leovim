@@ -142,7 +142,8 @@ if Installed('vim-flog')
                 \ 'open': 'Flogsplit',
                 \ 'close': 'exit'
                 \ }
-    nnoremap <silent> <M-g> :call sidebar#toggle('flog')<CR>
+    nnoremap <silent> <M-g>x :call sidebar#toggle('flog')<CR>
+    nnoremap <silent> <M-g>t :Flog<CR>
 endif
 " startify
 let g:startify_session_before_save = ['call sidebar#close_all()']

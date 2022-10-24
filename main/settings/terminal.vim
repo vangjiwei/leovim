@@ -8,7 +8,6 @@ endif
 tnoremap <expr> <C-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'
 tnoremap <M-q> <C-\><C-n>:q!<CR>
 tnoremap <M-w> <C-\><C-n>:ChooseWin<CR>
-tnoremap <C-v> <C-\><C-n>
 tnoremap <C-g> <C-\><C-n>
 " --------------------------
 " XXX: cannot paste in floaterm when using vim9.0
@@ -21,14 +20,18 @@ endif
 if has('clipboard')
     if g:has_terminal == 1
         tnoremap <M-v> <C-\><C-n>"*pa
+        tnoremap <C-v> <C-\><C-n>"*pa
     else
         tnoremap <M-v> <C-_>"*
+        tnoremap <C-v> <C-_>"*
     endif
 else
     if has('nvim')
         tnoremap <M-v> <C-\><C-n>""pa
+        tnoremap <C-v> <C-\><C-n>""pa
     else
         tnoremap <M-v> <C-_>""
+        tnoremap <C-v> <C-_>""
     endif
 endif
 " --------------------------

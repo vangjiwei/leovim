@@ -767,9 +767,8 @@ elseif has('patch-7.4.330')
     " C-f
     nnoremap <C-f> :WhichKey "\<C-f\>"<Cr>
     xnoremap <C-f> :WhichKeyVisual "\<C-f\>"<Cr>
-    " git
-    nnoremap <C-g> :WhichKey "\<C-g\>"<Cr>
     " M- keys
+    nnoremap <M-g> :WhichKey "\<M-g\>"<Cr>
     nnoremap <M-h> :WhichKey "\<M-h\>"<Cr>
     nnoremap <M-j> :WhichKey "\<M-j\>"<Cr>
     nnoremap <M-k> :WhichKey "\<M-k\>"<Cr>
@@ -1006,6 +1005,13 @@ nnoremap <M-S> :wa!<Cr>
 cnoremap <M-S> wa!<Cr>
 inoremap <M-S> <C-o>:wa!<Cr>
 xnoremap <M-S> <ESC>:wa!<Cr>
+" ------------------------
+" c-g as <ESC>
+" ------------------------
+inoremap <C-g> <ESC>
+xnoremap <C-g> <ESC>
+snoremap <C-g> <ESC>
+nnoremap <C-g> <ESC>
 " ------------------------
 " close and quit
 " ------------------------
