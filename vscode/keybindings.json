@@ -129,21 +129,15 @@
         "command": "editor.action.revealDefinitionAside",
         "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
     },
-    // implementation
-    {
-        "key": "g m",
-        "command": "editor.action.peekImplementation",
-        "when": "editorHasImplementationProvider && editorTextFocus && !isInEmbeddedEditor"
-    },
     // typeDefinition
     {
-        "key": "g h",
+        "key": "<alt+[>",
         "command": "editor.action.peekTypeDefinition",
         "when": "editorHasReferenceProvider && editorTextFocus && !isInEmbeddedEditor"
     },
     // declaration
     {
-        "key": "g l",
+        "key": "<alt+]>",
         "command": "editor.action.peekDeclaration",
         "when": "editorTextFocus && !isInEmbeddedEditor"
     },
