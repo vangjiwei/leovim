@@ -47,6 +47,7 @@ endif
 if g:complete_engine == 'coc'
     let g:vista_default_executive = 'coc'
     nnoremap <silent>ZL :CocFzfList symbols<Cr>
+    nnoremap <silent>ZO :Vista finder coc<Cr>
     if WINDOWS()
         if g:symbol_tool =~ 'leaderfctags'
             nnoremap <silent><M-t> :LeaderfBufTag<Cr>
@@ -58,7 +59,6 @@ if g:complete_engine == 'coc'
             nnoremap <silent><M-t> :Vista finder coc<Cr>
         else
             nnoremap <silent><M-t> :CocFzfList outline<Cr>
-            nnoremap <silent>ZO :Vista finder coc<Cr>
         endif
     endif
 elseif g:symbol_tool =~ 'leaderfctags'
