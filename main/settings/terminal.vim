@@ -2,36 +2,36 @@
 " set termwinkey
 " --------------------------
 if has('patch-8.1.1')
-    set termwinkey=<C-_>
+    set termwinkey=<C-v>
     let g:has_terminal=2
+else
+    let g:has_terminal=1
 endif
 tnoremap <expr> <C-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'
 tnoremap <M-q> <C-\><C-n>:q!<CR>
 tnoremap <M-w> <C-\><C-n>:ChooseWin<CR>
 tnoremap <C-g> <C-\><C-n>
+tnoremap <silent><M-}> <C-\><C-n>:FloatermNext<Cr>
+tnoremap <silent><M-{> <C-\><C-n>:FloatermPrev<Cr>
 " --------------------------
 " XXX: cannot paste in floaterm when using vim9.0
 " --------------------------
 if g:has_terminal == 1
     tnoremap <M-'> <C-\><C-n>""pa
 else
-    tnoremap <M-'> <C-_>""
+    tnoremap <M-'> <C-v>""
 endif
 if has('clipboard')
     if g:has_terminal == 1
         tnoremap <M-v> <C-\><C-n>"*pa
-        tnoremap <C-v> <C-\><C-n>"*pa
     else
-        tnoremap <M-v> <C-_>"*
-        tnoremap <C-v> <C-_>"*
+        tnoremap <M-v> <C-v>"*
     endif
 else
-    if has('nvim')
+    if g:has_terminal == 1
         tnoremap <M-v> <C-\><C-n>""pa
-        tnoremap <C-v> <C-\><C-n>""pa
     else
-        tnoremap <M-v> <C-_>""
-        tnoremap <C-v> <C-_>""
+        tnoremap <M-v> <C-v>""
     endif
 endif
 " --------------------------

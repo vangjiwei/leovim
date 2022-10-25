@@ -264,7 +264,7 @@ nnoremap d<space> :TripTrailingWhiteSpace<Cr>
 " ----------------------
 " intergrated packs
 " ---------------------
-source $SETTINGS_PATH/intergrated.vim
+source $MAIN_PATH/intergrated.vim
 " ------------------------
 " yank
 " ------------------------
@@ -313,11 +313,11 @@ if has('clipboard')
         au ModeChanged s:* set clipboard=unnamedplus
     endif
     " yank
-    nnoremap Y     "*y$:echo "Yank to the line ending to clipboard"<Cr>
-    nnoremap yy    "*yy:echo "Yank the line to clipboard"<Cr>
+    nnoremap Y  "*y$:echo "Yank to  the  line ending to clipboard"<Cr>
+    nnoremap yy "*yy:echo "Yank the line to   clipboard"<Cr>
     xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
 else
-    nnoremap Y     y$
+    nnoremap Y y$
     xnoremap <C-c> y
 endif
 " ------------------------

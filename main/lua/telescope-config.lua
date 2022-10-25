@@ -106,9 +106,6 @@ if Installed('telescope-buffer-lines.nvim') then
   telescope.load_extension('buffer_lines')
   map('i', '<C-x><C-l>', [[<ESC><cmd>Telescope buffer_lines<CR>]], opts)
 end
-if Installed('telescope-tele-tabby.nvim') then
-  map('n', '<leader>t', [[<cmd>lua require('telescope').extensions.tele_tabby.list()<Cr>]], opts)
-end
 if Installed('nvim-notify') then
   telescope.load_extension('notify')
   map('n', ',N', [[<cmd>Telescope notify<CR>]], opts)

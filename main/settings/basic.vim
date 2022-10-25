@@ -134,7 +134,7 @@ set timeout
 set ttimeout
 set timeoutlen=300
 set updatetime=200
-if g:gui_running == 0 && executable('tmux') && !exists('g:vscode')
+if g:gui_running == 0 && executable('tmux')
     let g:tmux_navigator_no_mappings = 1
     PackAdd 'vim-tmux-navigator'
     nnoremap <silent><M-H> :TmuxNavigateLeft<cr>
@@ -1011,7 +1011,6 @@ xnoremap <M-S> <ESC>:wa!<Cr>
 inoremap <C-g> <ESC>
 xnoremap <C-g> <ESC>
 snoremap <C-g> <ESC>
-nnoremap <C-g> <ESC>
 " ------------------------
 " close and quit
 " ------------------------

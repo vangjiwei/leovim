@@ -29,7 +29,6 @@ if g:complete_engine == 'cmp'
         PackAdd 'LinArcX/telescope-changes.nvim'
                     \| PackAdd 'dawsers/telescope-floaterm.nvim'
                     \| PackAdd 'GustavoKatel/telescope-asynctasks.nvim'
-                    \| PackAdd 'TC72/telescope-tele-tabby.nvim'
     endif
 else
     if WINDOWS()
