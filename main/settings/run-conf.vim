@@ -158,7 +158,7 @@ if has('nvim') || has('timers') && has('channel') && has('job') && has('patch-7.
     if WINDOWS()
         command! AsyncRunExternal call <SID>AsyncRunNow(4)
         nnoremap <M-F> :AsyncRunExternal<CR>
-    elseif get(g:, "floaterm_floating", 0) > 0
+    elseif g:has_terminal > 0
         " intergrated with asynctasks
         function! s:runner_proc(opts)
             let curr_bufnr = floaterm#curr()
