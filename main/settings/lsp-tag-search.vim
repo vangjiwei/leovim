@@ -246,6 +246,17 @@ function! LspOrTagOrSearch(...) abort
             else
                 execute "copen " . g:asyncrun_open
             endif
+        elseif g:ctags_type =~ ''
+            let ret = Execute("silent! PreviewTag ". tagname)
+            if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
+                if get(g:, 'search_all_cmd', '') == ''
+                    echom "No tag found, and cannot do global grep search."
+                else
+                    execute g:search_all_cmd . ' ' . tagname
+                endif
+            else
+                execute "copen " . g:asyncrun_open
+            endif
         " grep find
         elseif get(g:, 'search_all_cmd', '') != ''
             execute g:search_all_cmd . ' ' . tagname
@@ -257,6 +268,9 @@ endfunction
 if g:complete_engine == 'coc'
     au User CocLocationsChange let g:coc_locations_change = v:true
     " jumpDefinition
+    if g:ctags_type == ''
+        nnoremap <silent><M-:> :call LspOrTagOrSearch("jumpDefinition")<Cr>
+    endif
     nnoremap <silent><C-]>  :call LspOrTagOrSearch()<Cr>
     nnoremap <silent><M-;>  :call LspOrTagOrSearch("jumpDefinition")<Cr>
     nnoremap <silent>g<Cr>  :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
