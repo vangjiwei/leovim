@@ -1,5 +1,4 @@
 vim.g.symbol_tool  = 'lspsaga-lsp'
-vim.g.symbol_group = nil
 local opts = { noremap = true, silent = true }
 local map  = vim.api.nvim_set_keymap
 --------------------------------

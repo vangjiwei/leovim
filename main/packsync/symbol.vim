@@ -6,7 +6,7 @@ function! SymbolPlanned(plug) abort
     return count(g:symbol_group, a:plug)
 endfunction
 function! SymbolRequire(plug) abort
-    if SymbolPlanned(a:plug) < 1
+    if SymbolPlanned(a:plug) <= 0
         let g:symbol_group += [a:plug]
     endif
 endfunction

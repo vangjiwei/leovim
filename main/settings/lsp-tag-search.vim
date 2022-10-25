@@ -6,16 +6,15 @@ if len(g:symbol_group) > 0
 else
     let g:symbol_tool = ''
 endif
-unlet g:symbol_group
 " --------------------------
 " NOTE: directories must be defined before lsp_tag_search
 " --------------------------
+let &tags = './.tags;,.tags'
 let g:gutentags_cache_dir = expand(g:Lf_CacheDirectory.'/.LfCache/gtags')
 if isdirectory(g:gutentags_cache_dir)
     silent! call mkdir(g:gutentags_cache_dir, 'p')
 endif
 if get(g:, 'ctags_type', '') != ''
-    let &tags = './.tags;,.tags'
     if WINDOWS()
         let g:fzf_tags_command = "ctags"
     else
