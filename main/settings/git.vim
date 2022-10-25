@@ -3,7 +3,8 @@ command! CR cd %:h | cd `git rev-parse --show-toplevel`
 nnoremap cr :CR<CR>
 " fugitve and others
 if Installed('vim-fugitive')
-    nnoremap <M-G>  :G<tab>
+    nnoremap <M-G>  :Git
+    nnoremap <M-g>g :G
     nnoremap <M-g>m :Git commit -av<Cr>
     nnoremap <M-g>i :Git<Space>
     nnoremap <M-g>u :Git push<CR>
@@ -18,13 +19,13 @@ if Installed('vim-fugitive')
     nnoremap <silent> <M-g>v :Gvdiffsplit<Cr>
     nnoremap <silent> <M-g>s :Gdiffsplit<Cr>
 elseif Installed('asyncrun.vim') && g:has_terminal && UNIX()
-    nnoremap <M-G> :AsyncRun -mode=term -focus=1 git status<Cr>
+    nnoremap <M-G>  :AsyncRun -mode=term -focus=1 git
     nnoremap <M-g>m :AsyncRun -mode=term -focus=1 git commit -a -m ""<Left>
     nnoremap <M-g>i :AsyncRun -mode=term -focus=1 git<Space>
     nnoremap <M-g>u :AsyncRun -mode=term -focus=1 git push<Cr>
     nnoremap <M-g>U :AsyncRun -mode=term -focus=1 git push<Space>
 else
-    nnoremap <M-G> :!git status<Cr>
+    nnoremap <M-G>  :!git
     nnoremap <M-g>m :!git commit -a -m ""<Left>
     nnoremap <M-g>i :!git<Space>
     nnoremap <M-g>u :!git push<Cr>

@@ -260,7 +260,7 @@ augroup TrailSpace
         \ autocmd! BufWritePre <buffer> :call TripTrailingWhiteSpace()
 augroup END
 command! TripTrailingWhiteSpace call TripTrailingWhiteSpace()
-nnoremap <leader>et :TripTrailingWhiteSpace<Cr>
+nnoremap d<space> :TripTrailingWhiteSpace<Cr>
 " ----------------------
 " intergrated packs
 " ---------------------
