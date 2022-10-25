@@ -6,13 +6,7 @@ if g:complete_engine != 'coc' && has('nvim') && (UNIX() && get(g:, 'nvim_treesit
     if g:complete_engine == 'cmp'
         PackAdd 'mfussenegger/nvim-treehopper'
     endif
-    if get(g:, 'nvim_treesitter_context', 1)
-        let g:nvim_treesitter_context = 1
-        PackAdd 'romgrk/nvim-treesitter-context'
-    else
-        let g:nvim_treesitter_context = 0
-    endif
-    if g:complete_engine != 'coc' && get(g:, 'nvim_treesitter_textobjects', 0)
+    if g:complete_engine != 'coc' && get(g:, 'nvim_treesitter_textobjects', 0) > 0
         let g:nvim_treesitter_textobjects = 1
         PackAdd 'nvim-treesitter/nvim-treesitter-textobjects'
     else
@@ -20,7 +14,6 @@ if g:complete_engine != 'coc' && has('nvim') && (UNIX() && get(g:, 'nvim_treesit
     endif
 else
     let g:nvim_treesitter_install     = 0
-    let g:nvim_treesitter_context     = 0
     let g:nvim_treesitter_textobjects = 0
 endif
 if v:version >= 704 && g:advanced_complete_engine == 0 && get(g:, 'install_textobj_plus', 1)
@@ -45,7 +38,7 @@ if g:has_truecolor
     PackAdd 'sainnhe/sonokai'
     PackAdd 'sainnhe/everforest'
     PackAdd 'sainnhe/gruvbox-material'
-    " other themes I like
+    " other themes
     if Require('themes')
         PackAdd 'bluz71/vim-moonfly-colors'
         PackAdd 'bluz71/vim-nightfly-guicolors'

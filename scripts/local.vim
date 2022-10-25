@@ -2,7 +2,6 @@ let g:require_group = get(g:, 'preset_group', ['themes'])
 
 " nvim treesitter
 let g:nvim_treesitter_install = 0
-let g:nvim_treesitter_context = 1
 
 " https://github.com/nvim-telescope/telescope-fzf-native.nvim
 " cmd to compile telescope_fzf
