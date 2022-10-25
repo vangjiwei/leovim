@@ -1,13 +1,13 @@
 " ------------------------------
-"  symbol_group
+"  symbol_tool
 " ------------------------------
-let g:symbol_group = []
+let g:symbol_tool = []
 function! SymbolPlanned(plug) abort
-    return count(g:symbol_group, a:plug)
+    return count(g:symbol_tool, a:plug)
 endfunction
 function! SymbolRequire(plug) abort
     if SymbolPlanned(a:plug) <= 0
-        let g:symbol_group += [a:plug]
+        let g:symbol_tool += [a:plug]
     endif
 endfunction
 " ------------------------------
@@ -24,7 +24,10 @@ else
             call SymbolRequire("fzfctags")
         endif
     endif
-    if (g:complete_engine == 'coc' || get(g:, 'ctags_type', '') =~ 'Universal' && Require('vista')) && v:version >= 800
+    if g:complete_engine == 'coc'
+        call SymbolRequire('coc')
+        call SymbolRequire('vista')
+    elseif get(g:, 'ctags_type', '') =~ 'Universal' && Require('vista') && v:version >= 800
         call SymbolRequire('vista')
     endif
 endif

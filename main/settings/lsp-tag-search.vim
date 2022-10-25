@@ -1,11 +1,14 @@
 " --------------------------
 " symbol_tool
 " --------------------------
-if len(g:symbol_group) > 0
-    let g:symbol_tool = join(g:symbol_group, '-')
+if len(g:symbol_tool) > 0
+    let s:symbol_tool = join(g:symbol_tool, '-')
 else
-    let g:symbol_tool = ''
+    let s:symbol_tool = ''
 endif
+unlet g:symbol_tool
+let g:symbol_tool=s:symbol_tool
+unlet s:symbol_tool
 " --------------------------
 " NOTE: directories must be defined before lsp_tag_search
 " --------------------------
