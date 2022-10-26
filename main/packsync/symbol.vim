@@ -27,7 +27,7 @@ else
     if g:complete_engine == 'coc'
         call SymbolRequire('coc')
         call SymbolRequire('vista')
-    elseif get(g:, 'ctags_type', '') =~ 'Universal' && Require('vista') && v:version >= 800
+    elseif get(g:, 'ctags_type', '') =~ 'Universal' && v:version >= 800
         call SymbolRequire('vista')
     endif
 endif
