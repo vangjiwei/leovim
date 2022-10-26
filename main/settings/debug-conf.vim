@@ -48,18 +48,15 @@ elseif Installed("vim-repl")
     endif
     let g:repl_program.python += ['python']
     " map
-    au Filetype python,sh,perl,javascript,lua call s:set_repl_map()
-    function! s:set_repl_map()
-        nmap \R :REPL
-        nmap co :REPLToggle<Cr>
-        nmap c<Cr> vaBcn
-        xmap c<Cr> cn
-        nmap cl cnk
-        xmap cl cngvo
-        nmap <leader>C Vggcn<C-o>
-        nmap <leader>E VGcn<C-o>
-        nmap <leader>S ggVGcn<C-o><C-o>
-    endfunction
+    nmap \R :REPL
+    nmap co :REPLToggle<Cr>
+    nmap c<Cr> vaBcn
+    xmap c<Cr> cn
+    nmap cl cnk
+    xmap cl cngvo
+    nmap <leader>C Vggcn<C-o>
+    nmap <leader>E VGcn<C-o>
+    nmap <leader>S ggVGcn<C-o><C-o>
     au Filetype python call s:set_ipdb_map()
     function! s:set_ipdb_map() abort
         nnoremap \C :REPLDebugStopAtCurrentLine<Cr>
