@@ -1,11 +1,17 @@
 let g:require_group = get(g:, 'preset_group', ['themes'])
 
-" nvim treesitter
-let g:nvim_treesitter_install = 0
+if executable('ipython')
+    let g:repl_ipython_version = StringToFloat(system('ipython --version'))
+    if g:repl_ipython_version >= 7
+        let g:repl_ipython_version = '7'
+    else
+        let g:repl_ipython_version = '6'
+    endif
+endif
 
 " https://github.com/nvim-telescope/telescope-fzf-native.nvim
 " cmd to compile telescope_fzf
-let g:telescope_fzf_make_cmd = ''
+" let g:telescope_fzf_make_cmd = ''
 
 let g:highlight_filetypes = [
             \ 'c_sharp', 'cmake', 'java', 'rust', 'go',
