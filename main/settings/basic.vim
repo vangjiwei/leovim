@@ -551,9 +551,7 @@ endif
 " ------------------------------
 " ctags version
 " ------------------------------
-if g:complete_engine == 'cmp'
-    let g:ctags_type = ''
-elseif Require('tags')
+if Require('tags')
     if WINDOWS()
         let g:ctags_type = 'Universal-json'
     elseif executable('ctags') && has('patch-7.4.330')
