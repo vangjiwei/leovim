@@ -300,6 +300,8 @@ cmap <M-f> <C-right>
 " tab is used as a leaderkey
 " ------------------------
 nnoremap <Tab><Tab> <Tab>
+nnoremap <C-l>      <Tab>
+nnoremap <C-g>      <C-l>
 " ------------------------
 " panel jump
 " ------------------------
@@ -1012,7 +1014,6 @@ xnoremap <M-S> <ESC>:wa!<Cr>
 " ------------------------
 " c-g as <ESC>
 " ------------------------
-inoremap <C-g> <ESC>
 xnoremap <C-g> <ESC>
 snoremap <C-g> <ESC>
 " ------------------------

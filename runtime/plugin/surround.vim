@@ -611,8 +611,8 @@ if !exists("g:surround_no_mappings") || ! g:surround_no_mappings
         if !hasmapto("<Plug>Isurround","i") && "" == mapcheck("<C-S>","i")
             imap <C-S> <Plug>Isurround
         endif
-        imap  <C-G>s <Plug>Isurround
-        imap  <C-G>S <Plug>ISurround
+        imap  <C-g>s <Plug>Isurround
+        imap  <C-g>S <Plug>ISurround
     endif
 endif
 

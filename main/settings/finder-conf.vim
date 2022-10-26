@@ -206,10 +206,10 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     " insert mode
     let g:Lf_FilerUseDefaultInsertMap = 0
     let g:Lf_FilerInsertMap = {
-                \ '<C-o>':    'open_parent_or_backspace',
-                \ '<C-l>':    'open_current',
+                \ '<C-g>':    'open_parent_or_backspace',
+                \ '<C-o>':    'open_current',
                 \ '<C-h>':    'toggle_hidden_files',
-                \ '<C-g>':    'goto_root_marker_dir',
+                \ '<C-l>':    'goto_root_marker_dir',
                 \ '<Esc>':    'quit',
                 \ '<C-c>':    'quit',
                 \ '<CR>':     'accept',
