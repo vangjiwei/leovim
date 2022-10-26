@@ -25,6 +25,7 @@ if get(g:, 'ctags_type', '') != ''
     endif
     " preview tag
     nnoremap <silent><M-:> :PreviewTag<Cr>
+    nnoremap <silent><M-t> :PreviewList<Cr>
     if Installed('vim-quickui')
         nnoremap <silent><C-h> :call quickui#tools#preview_tag('')<Cr>
         nnoremap <silent><BS>  :call quickui#tools#preview_tag('')<Cr>
@@ -49,19 +50,15 @@ endif
 if g:complete_engine == 'coc'
     let g:vista_default_executive = 'coc'
     nnoremap <silent>ZL :CocFzfList symbols<Cr>
-    nnoremap <silent>ZO :Vista finder coc<Cr>
-    if WINDOWS()
+    if get(g:, 'ctags_type', '') == ''
+        nnoremap <silent><leader>t :Vista finder coc<Cr>
+    else
         if g:symbol_tool =~ 'leaderfctags'
             nnoremap <silent><leader>t :LeaderfBufTag<Cr>
         else
-            nnoremap <silent><leader>t :Vista finder coc<Cr>
-        endif
-    else
-        if get(g:, 'ctags_type', '') == ''
-            nnoremap <silent><leader>t :Vista finder coc<Cr>
-        else
             nnoremap <silent><leader>t :CocFzfList outline<Cr>
         endif
+        nnoremap <silent>ZO :Vista finder coc<Cr>
     endif
 elseif g:symbol_tool =~ 'leaderfctags'
     nnoremap <silent><leader>t :LeaderfBufTag<Cr>
