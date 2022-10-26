@@ -8,10 +8,10 @@ if get(g:, "complete_engine", '') != ''
     source $PACKSYNC_PATH/debug.vim
     source $PACKSYNC_PATH/languages.vim
 endif
-if g:has_terminal > 0
+if has('nvim') || has('patch-8.2.3389')
     source $PACKSYNC_PATH/repl.vim
 endif
-source $PACKSYNC_PATH/symbol.vim
+source $PACKSYNC_PATH/tag.vim
 source $PACKSYNC_PATH/schemes-textobj.vim
 " ------------------------------
 " fullscreen
