@@ -52,23 +52,23 @@ if g:complete_engine == 'coc'
     nnoremap <silent>ZO :Vista finder coc<Cr>
     if WINDOWS()
         if g:symbol_tool =~ 'leaderfctags'
-            nnoremap <silent><M-t> :LeaderfBufTag<Cr>
+            nnoremap <silent><leader>t :LeaderfBufTag<Cr>
         else
-            nnoremap <silent><M-t> :Vista finder coc<Cr>
+            nnoremap <silent><leader>t :Vista finder coc<Cr>
         endif
     else
         if get(g:, 'ctags_type', '') == ''
-            nnoremap <silent><M-t> :Vista finder coc<Cr>
+            nnoremap <silent><leader>t :Vista finder coc<Cr>
         else
-            nnoremap <silent><M-t> :CocFzfList outline<Cr>
+            nnoremap <silent><leader>t :CocFzfList outline<Cr>
         endif
     endif
 elseif g:symbol_tool =~ 'leaderfctags'
-    nnoremap <silent><M-t> :LeaderfBufTag<Cr>
+    nnoremap <silent><leader>t :LeaderfBufTag<Cr>
 elseif Installed('vista.vim')
-    nnoremap <silent><M-t> :Vista finder!<Cr>
+    nnoremap <silent><leader>t :Vista finder!<Cr>
 elseif g:symbol_tool =~ 'fzfctags'
-    nnoremap <silent><M-t> :FzfBTags<Cr>
+    nnoremap <silent><leader>t :FzfBTags<Cr>
 endif
 " --------------------------
 " siderbar tag config

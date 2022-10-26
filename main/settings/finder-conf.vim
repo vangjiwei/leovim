@@ -339,11 +339,6 @@ elseif InstalledFzf()
         " pass
     endtry
 endif
-if Installed('leaderf-tabs')
-    nnoremap <leader>t :Leaderf tabs<Cr>
-elseif Installed('fzf-tabs')
-    nnoremap <leader>t :FZFTabs<CR>
-endif
 " --------------------------
 " notify
 " --------------------------
