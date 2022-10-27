@@ -4,9 +4,9 @@ endif
 if has('nvim')
     PackAdd 'iron.nvim'
 elseif !has('nvim')
-    let g:sendtorepl_invoke_key = "cn"
+    let g:sendtorepl_invoke_key = "cl"
+    let g:repl_cursor_down      = 0
     let g:repl_position         = 3
-    let g:repl_cursor_down      = 1
     let g:repl_python_automerge = 1
     let g:repl_console_name     = "REPL"
     let g:repl_predefine_python = {

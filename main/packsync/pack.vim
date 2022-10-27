@@ -8,7 +8,7 @@ if get(g:, "complete_engine", '') != ''
     source $PACKSYNC_PATH/debug.vim
     source $PACKSYNC_PATH/languages.vim
 endif
-if has('nvim') || has('patch-8.2.3389')
+if has('nvim') || v:version >= 802
     source $PACKSYNC_PATH/repl.vim
 endif
 source $PACKSYNC_PATH/tag.vim
