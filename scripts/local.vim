@@ -1,13 +1,5 @@
 let g:require_group = get(g:, 'preset_group', ['themes'])
 
-if executable('ipython')
-    let g:repl_ipython_version = StringToFloat(system('ipython --version'))
-    if g:repl_ipython_version >= 7
-        let g:repl_ipython_version = '7'
-    else
-        let g:repl_ipython_version = '6'
-    endif
-endif
 
 " https://github.com/nvim-telescope/telescope-fzf-native.nvim
 " cmd to compile telescope_fzf
