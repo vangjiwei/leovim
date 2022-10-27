@@ -114,6 +114,30 @@ endif
 " --------------------------
 " Mkey map
 " --------------------------
+function! s:metacode(key)
+    if !has('nvim') && g:gui_running == 0
+        exec "set <M-".a:key.">=\e".a:key
+    endif
+    exec "imap <M-".a:key."> <Nop>"
+    exec "smap <M-".a:key."> <Nop>"
+    exec "xmap <M-".a:key."> <Nop>"
+    exec "cmap <M-".a:key."> <Nop>"
+    if g:has_terminal > 0
+        exec "tmap <M-".a:key."> <Nop>"
+    endif
+endfunction
+for i in range(26)
+    " 97 is ascii of a
+    call s:metacode(nr2char(97 + i))
+    " 65 is ascii of A
+    call s:metacode(nr2char(65 + i))
+endfor
+for i in range(10)
+    call s:metacode(nr2char(char2nr('0') + i))
+endfor
+for c in [',', '.', ';', ':', '/', '?', '-', '_', '{', '}', '=', '+', "'"]
+    call s:metacode(c)
+endfor
 imap <M-{> <C-o><M-{>
 imap <M-}> <C-o><M-}>
 imap <M-,> <C-o><M-,>
@@ -685,11 +709,7 @@ endif
 if g:complete_engine != 'non'
     source $SETTINGS_PATH/snippets.vim
     source $SETTINGS_PATH/format.vim
-    if g:advanced_complete_engine > 0
-        source $SETTINGS_PATH/debug-conf.vim
-    else
-        source $SETTINGS_PATH/tab.vim
-    endif
+    source $SETTINGS_PATH/debug-conf.vim
 endif
 " -----------------------------------
 " menu

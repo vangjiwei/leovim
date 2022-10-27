@@ -1,10 +1,8 @@
 " --------------------------
 " repl
 " --------------------------
-if g:has_terminal
-    imap <M-e> # %%
-    imap <M-m> # %%STEP
-endif
+imap <M-e> # %%
+imap <M-t> # %%STEP
 if Installed('sniprun')
     luafile $LUA_PATH/sniprun-config.lua
     nmap cs <Plug>SnipRunOperator
@@ -50,15 +48,18 @@ elseif Installed("vim-repl")
         let g:repl_program.python += ['python']
     endif
     " map
-    nmap \R :REPL
-    nmap co :REPLToggle<Cr>
-    nmap c<Cr> vaBcl<Down>
-    xmap c<Cr> cl<Down>
-    nmap cn cl<Down>
-    xmap cn clgvo
-    nmap <leader>C Vggcl<C-o>
-    nmap <leader>E VGcl<C-o>
-    nmap <leader>S ggVGcl<C-o><C-o>
+    au Filetype python,sh,perl,javascript,lua call s:set_repl_map()
+    function! s:set_repl_map()
+        nmap \R :REPL
+        nmap co :REPLToggle<Cr>
+        nmap c<Cr> vaBcn
+        xmap c<Cr> cn
+        nmap cl cnk
+        xmap cl cngvo
+        nmap <leader>C Vggcn<C-o>
+        nmap <leader>E VGcn<C-o>
+        nmap <leader>S ggVGcn<C-o><C-o>
+    endfunction
     au Filetype python call s:set_ipdb_map()
     function! s:set_ipdb_map() abort
         nnoremap \C :REPLDebugStopAtCurrentLine<Cr>

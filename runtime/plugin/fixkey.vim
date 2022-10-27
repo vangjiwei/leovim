@@ -732,13 +732,6 @@ else
 
 endif
 
-" special keys alt map
-function! s:metacode(key)
-    exec "set <M-".a:key.">=\e".a:key
-endfunction
-for c in [',', '.', ';', ':', '/', '?', '-', '_', '{', '}', '=', '+', "'"]
-    call s:metacode(c)
-endfor
 
 " Restore saved 'cpoptions'.
 let &cpoptions = s:save_cpoptions
