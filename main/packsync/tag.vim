@@ -11,36 +11,36 @@ function! SymbolRequire(plug) abort
     endif
 endfunction
 " ------------------------------
-" sidebar symbols
+" ctags
+" ------------------------------
+if get(g:, 'ctags_type', '') != ''
+    if Planned('leaderf')
+        call SymbolRequire("leaderfctags")
+    else
+        call SymbolRequire("fzfctags")
+    endif
+    if Planned('vim-quickui')
+        call SymbolRequire('quickui')
+    endif
+endif
+" ------------------------------
+" lsp or vista
 " ------------------------------
 if g:complete_engine == 'cmp'
+    call SymbolRequire('lsp')
     PackAdd 'glepnir/lspsaga.nvim'
       \| PackAdd 'gbrlsnchs/telescope-lsp-handlers.nvim'
-else
-    if get(g:, 'ctags_type', '') != ''
-        if Planned('leaderf')
-            call SymbolRequire("leaderfctags")
-        else
-            call SymbolRequire("fzfctags")
-        endif
-    endif
-    if g:complete_engine == 'coc'
-        call SymbolRequire('coc')
-        call SymbolRequire('vista')
-    elseif get(g:, 'ctags_type', '') =~ 'Universal' && v:version >= 800
-        call SymbolRequire('vista')
-    endif
+elseif g:complete_engine == 'coc'
+    call SymbolRequire('coc')
+    call SymbolRequire('vista')
+elseif get(g:, 'ctags_type', '') =~ 'Universal' && v:version >= 800
+    call SymbolRequire('vista')
 endif
 " ------------------------------
 " gutentags
 " ------------------------------
-if v:version >= 800
-    if get(g:, 'ctags_type', '') != ''
-        if Planned('vim-quickui')
-            call SymbolRequire('quickui')
-        endif
-        call SymbolRequire("gutentags")
-    endif
+if v:version >= 800 && get(g:, 'ctags_type', '') != ''
+    call SymbolRequire("gutentags")
 endif
 " ------------------------------
 " gtags

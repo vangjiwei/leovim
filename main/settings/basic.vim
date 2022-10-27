@@ -737,15 +737,9 @@ source $SETTINGS_PATH/sidebar.vim
 source $SETTINGS_PATH/run-conf.vim
 source $SETTINGS_PATH/marks.vim
 source $SETTINGS_PATH/query.vim
-if g:complete_engine == 'cmp'
-    if InstalledTelescope() && InstalledLsp() && InstalledCmp()
-        luafile $LUA_PATH/lsp-search.lua
-    endif
-else
-    source $SETTINGS_PATH/lsp-tag-search.vim
-endif
 source $SETTINGS_PATH/fold.vim
 source $SETTINGS_PATH/yank-paste.vim
+source $SETTINGS_PATH/lsp-tag-search.vim
 " ------------------------------
 " schemes
 " ------------------------------

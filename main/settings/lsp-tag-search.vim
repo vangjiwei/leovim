@@ -26,8 +26,10 @@ if get(g:, 'ctags_type', '') != ''
     " preview tag
     nnoremap <silent><M-:> :PreviewTag<Cr>
     if Installed('vim-quickui')
-        nnoremap <silent><C-h> :call quickui#tools#preview_tag('')<Cr>
-        nnoremap <silent><BS>  :call quickui#tools#preview_tag('')<Cr>
+        if g:complete_engine != 'cmp'
+            nnoremap <silent><C-h> :call quickui#tools#preview_tag('')<Cr>
+            nnoremap <silent><BS>  :call quickui#tools#preview_tag('')<Cr>
+        endif
     else
         nnoremap <silent><C-h> :PreviewSignature!<Cr>
         nnoremap <silent><BS>  :PreviewSignature!<Cr>
@@ -35,13 +37,42 @@ if get(g:, 'ctags_type', '') != ''
     " show functions
     if g:symbol_tool =~ "leaderfctags"
         let g:Lf_Ctags = g:fzf_tags_command
-        nnoremap <silent>f<Cr> :Leaderf function<Cr>
         nnoremap <silent>F<Cr> :Leaderf function --all<Cr>
-        nnoremap <silent>t<Cr> :LeaderfBufTagAll<Cr>
         nnoremap <silent>T<Cr> :LeaderfTag<Cr>
-    elseif g:symbol_tool =~ 'quickui'
+    endif
+    if g:complete_engine != 'cmp' && g:symbol_tool =~ "leaderfctags"
+        nnoremap <silent>f<Cr> :Leaderf function<Cr>
+        nnoremap <silent>t<Cr> :LeaderfBufTagAll<Cr>
+    elseif Installed('vim-quickui')
         nnoremap <silent>f<Cr> :call quickui#tools#list_function()<Cr>
     endif
+    function! PreviewTagOrSearchAll()
+        let tagname = expand('<cword>')
+        if g:complete_engine == 'cmp'
+            execute 'TeleSearchAll ' . tagname
+        elseif g:ctags_type != ''
+            if Installed('vim-gutentags')
+                let ret = Execute("silent! PreviewList ". tagname)
+            else
+                let ret = Execute("silent! PreviewTag ". tagname)
+            endif
+            if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
+                if get(g:, 'search_all_cmd', '') == ''
+                    echom "No tag found, and cannot do global grep search."
+                else
+                    execute g:search_all_cmd . ' ' . tagname
+                endif
+            else
+                execute "copen " . g:asyncrun_open
+            endif
+        elseif get(g:, 'search_all_cmd', '') != ''
+            execute g:search_all_cmd . ' ' . tagname
+        else
+            echom "No tag found, and cannot do global grep search."
+        endif
+    endfunction
+    command! PreviewTagOrSearchAll call PreviewTagOrSearchAll()
+    nnoremap <silent><M-t> :PreviewTagOrSearchAll<Cr>
 endif
 " --------------------------
 " symbols in buf
@@ -59,12 +90,14 @@ if g:complete_engine == 'coc'
         endif
         nnoremap <silent>ZO :Vista finder coc<Cr>
     endif
-elseif g:symbol_tool =~ 'leaderfctags'
-    nnoremap <silent><leader>t :LeaderfBufTag<Cr>
-elseif Installed('vista.vim')
-    nnoremap <silent><leader>t :Vista finder!<Cr>
-elseif g:symbol_tool =~ 'fzfctags'
-    nnoremap <silent><leader>t :FzfBTags<Cr>
+elseif g:complete_engine != 'cmp'
+    if g:symbol_tool =~ 'leaderfctags'
+        nnoremap <silent><leader>t :LeaderfBufTag<Cr>
+    elseif Installed('vista.vim')
+        nnoremap <silent><leader>t :Vista finder!<Cr>
+    elseif g:symbol_tool =~ 'fzfctags'
+        nnoremap <silent><leader>t :FzfBTags<Cr>
+    endif
 endif
 " --------------------------
 " siderbar tag config
@@ -163,130 +196,97 @@ if g:symbol_tool =~ 'leaderfgtags'
     nnoremap <silent><leader>g. :Leaderf gtags --recall<Cr>
 endif
 " --------------------------
-" reference
+" lsp or references
 " --------------------------
-if Installed("coc.nvim")
-    nmap <silent><M-/> :call LspOrTagOrSearch("jumpReferences")<Cr>
-    nmap <silent><M-?> <Plug>(coc-refactor)
+if g:complete_engine == 'cmp' && InstalledTelescope() && InstalledLsp() && InstalledCmp()
+    luafile $LUA_PATH/lsp-search.lua
 else
-    if get(g:, 'symbol_tool', '') =~ 'leaderfgtags'
-        nmap <silent><M-/> :Leaderf gtags -i -g <C-r><C-w><Cr>
-    elseif get(g:, 'symbol_tool', '') =~ 'plus'
-        nmap <silent><M-/> :GscopeFind g <C-R><C-W><cr>
-    endif
-endif
-" --------------------------
-" symbols jump
-" --------------------------
-function! s:open_in_postion(position) abort
-    if a:position == 'vsplit'
-        vsplit
-        call Tools_PreviousCursor('ctrlo')
-    elseif a:position == 'split'
-        split
-        call Tools_PreviousCursor('ctrlo')
+    if Installed("coc.nvim")
+        nmap <silent><M-/> :call LspOrTagOrSearch("jumpReferences")<Cr>
+        nmap <silent><M-?> <Plug>(coc-refactor)
     else
-        split
-        call Tools_PreviousCursor('ctrlo')
-        execute("silent! normal \<C-w>T")
-    endif
-endfunction
-function! s:settagstack(winnr, tagname, pos)
-    call settagstack(a:winnr, {
-                \ 'curidx': gettagstack()['curidx'],
-                \ 'items': [{'tagname': a:tagname, 'from': a:pos}]
-                \ }, 't')
-endfunction
-function! LspOrTagOrSearch(...) abort
-    let tagname = expand('<cword>')
-    let winnr   = winnr()
-    let pos     = getcurpos()
-    let pos[0]  = bufnr('')
-    " coc
-    if g:complete_engine == 'coc'
-        let g:coc_locations_change = v:false
-        " a:0, then number of other paragrams: ...
-        if a:0 == 0
-            let command = 'jumpDefinition'
-            let ret = CocAction(command)
-        else
-            let command = trim(a:1)
-            if a:0 == 1
-                let ret = CocAction(command, v:false)
-            else
-                let ret = CocAction(command)
-            endif
+        if get(g:, 'symbol_tool', '') =~ 'leaderfgtags'
+            nmap <silent><M-/> :Leaderf gtags -i -g <C-r><C-w><Cr>
+        elseif get(g:, 'symbol_tool', '') =~ 'plus'
+            nmap <silent><M-/> :GscopeFind g <C-R><C-W><cr>
         endif
-        if ret
-            echo "found by coc " . command
-            call s:settagstack(winnr, tagname, pos)
-            if !g:coc_locations_change && a:0 > 1
-                call s:open_in_postion(a:2)
+    endif
+    " --------------------------
+    " find wich coc or ctags
+    " --------------------------
+    function! s:open_in_postion(position) abort
+        if a:position == 'vsplit'
+            vsplit
+            call Tools_PreviousCursor('ctrlo')
+        elseif a:position == 'split'
+            split
+            call Tools_PreviousCursor('ctrlo')
+        else
+            split
+            call Tools_PreviousCursor('ctrlo')
+            execute("silent! normal \<C-w>T")
+        endif
+    endfunction
+    function! s:settagstack(winnr, tagname, pos)
+        call settagstack(a:winnr, {
+                    \ 'curidx': gettagstack()['curidx'],
+                    \ 'items': [{'tagname': a:tagname, 'from': a:pos}]
+                    \ }, 't')
+    endfunction
+    function! LspOrTagOrSearch(...) abort
+        let tagname = expand('<cword>')
+        let winnr   = winnr()
+        let pos     = getcurpos()
+        let pos[0]  = bufnr('')
+        " coc
+        if g:complete_engine == 'coc'
+            let g:coc_locations_change = v:false
+            " a:0, then number of other paragrams: ...
+            if a:0 == 0
+                let command = 'jumpDefinition'
+                let ret = CocAction(command)
+            else
+                let command = trim(a:1)
+                if a:0 == 1
+                    let ret = CocAction(command, v:false)
+                else
+                    let ret = CocAction(command)
+                endif
+            endif
+            if ret
+                echo "found by coc " . command
+                call s:settagstack(winnr, tagname, pos)
+                if !g:coc_locations_change && a:0 > 1
+                    call s:open_in_postion(a:2)
+                endif
+            else
+                let l:res = 0
             endif
         else
             let l:res = 0
         endif
-    else
-        let l:res = 0
-    endif
-    " tag
-    if get(l:, 'res', 1) == 0
-        call PreviewTagOrSearchAll(tagname)
-    endif
-endfunction
-function! PreviewTagOrSearchAll(tagname)
-    let tagname = a:tagname
-    if empty(trim(tagname))
-        ToggleQuickfix
-        return
-    endif
-    if Installed('vim-gutentags')
-        let ret = Execute("silent! PreviewList ". tagname)
-        if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
-            if get(g:, 'search_all_cmd', '') == ''
-                echom "No tag found, and cannot do global grep search."
-            else
-                execute g:search_all_cmd . ' ' . tagname
-            endif
-        else
-            execute "copen " . g:asyncrun_open
+        " tag
+        if get(l:, 'res', 1) == 0
+            call PreviewTagOrSearchAll(tagname)
         endif
-    elseif g:ctags_type =~ ''
-        let ret = Execute("silent! PreviewTag ". tagname)
-        if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
-            if get(g:, 'search_all_cmd', '') == ''
-                echom "No tag found, and cannot do global grep search."
-            else
-                execute g:search_all_cmd . ' ' . tagname
-            endif
-        else
-            execute "copen " . g:asyncrun_open
+    endfunction
+    if g:complete_engine == 'coc'
+        au User CocLocationsChange let g:coc_locations_change = v:true
+        " jumpDefinition
+        if g:ctags_type == ''
+            nnoremap <silent><M-:> :call LspOrTagOrSearch("jumpDefinition")<Cr>
         endif
-    " grep find
-    elseif get(g:, 'search_all_cmd', '') != ''
-        execute g:search_all_cmd . ' ' . tagname
+        nnoremap <silent><C-]>  :call LspOrTagOrSearch()<Cr>
+        nnoremap <silent><M-;>  :call LspOrTagOrSearch("jumpDefinition")<Cr>
+        nnoremap <silent>g<Cr>  :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
+        nnoremap <silent>g<Tab> :call LspOrTagOrSearch("jumpDefinition", "tabe")<Cr>
+        " jumpTypeDefinition
+        nnoremap <silent>gh :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
+        " jumpDeclaration
+        nnoremap <silent>gl :call LspOrTagOrSearch("jumpDeclaration")<Cr>
+        " jumpImplementation
+        nnoremap <silent>gm :call LspOrTagOrSearch("jumpImplementation")<Cr>
     else
-        echo "No ways to found " . tagname
+        nnoremap <silent><M-;> :call LspOrTagOrSearch()<Cr>
     endif
-endfunction
-command! -nargs=1 PreviewTagOrSearchAll call PreviewTagOrSearchAll(<f-args>)
-nnoremap <M-t> :PreviewTagOrSearchAll <C-r><C-w><Cr>
-if g:complete_engine == 'coc'
-    au User CocLocationsChange let g:coc_locations_change = v:true
-    " jumpDefinition
-    if g:ctags_type == ''
-        nnoremap <silent><M-:> :call LspOrTagOrSearch("jumpDefinition")<Cr>
-    endif
-    nnoremap <silent><C-]>  :call LspOrTagOrSearch()<Cr>
-    nnoremap <silent><M-;>  :call LspOrTagOrSearch("jumpDefinition")<Cr>
-    nnoremap <silent>g<Cr>  :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
-    nnoremap <silent>g<Tab> :call LspOrTagOrSearch("jumpDefinition", "tabe")<Cr>
-    " jumpTypeDefinition
-    nnoremap <silent>gh :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
-    " jumpDeclaration
-    nnoremap <silent>gl :call LspOrTagOrSearch("jumpDeclaration")<Cr>
-    " jumpImplementation
-    nnoremap <silent>gm :call LspOrTagOrSearch("jumpImplementation")<Cr>
-else
-    nnoremap <silent><M-;> :call LspOrTagOrSearch()<Cr>
 endif

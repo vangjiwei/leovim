@@ -26,7 +26,7 @@ if exists('*matchstrpos')
                 \ 'highlight': 0,
                 \ 'repo': g:root_patterns
                 \ }
-    PackAdd 'vim-grepper'
+
     " self defined grepper commands
     function! s:grepper(...)
         if (a:1 == 2 || a:1 == 0 && a:2 == 1) && get(b:, 'git_root_path', '') != ''
