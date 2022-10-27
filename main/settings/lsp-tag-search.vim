@@ -38,15 +38,19 @@ if get(g:, 'ctags_type', '') != ''
     if g:symbol_tool =~ "leaderfctags"
         let g:Lf_Ctags = g:fzf_tags_command
         nnoremap <silent>F<Cr> :Leaderf function --all<Cr>
-        nnoremap <silent>T<Cr> :LeaderfTag<Cr>
-    elseif InstalledTelescope()
-        nnoremap <silent>T<Cr> :Telescope tags<Cr>
     endif
-    if g:complete_engine != 'cmp' && g:symbol_tool =~ "leaderfctags"
-        nnoremap <silent>f<Cr> :Leaderf function<Cr>
-        nnoremap <silent>t<Cr> :LeaderfBufTagAll<Cr>
-    elseif Installed('vim-quickui')
-        nnoremap <silent>f<Cr> :call quickui#tools#list_function()<Cr>
+    if InstalledTelescope()
+        nnoremap <silent>T<Cr> :Telescope tags<Cr>
+    elseif g:symbol_tool =~ "leaderfctags"
+        nnoremap <silent>T<Cr> :LeaderfTag<Cr>
+    endif
+    if g:complete_engine != 'cmp'
+        if g:symbol_tool =~ "leaderfctags"
+            nnoremap <silent>f<Cr> :Leaderf function<Cr>
+            nnoremap <silent>t<Cr> :LeaderfBufTagAll<Cr>
+        elseif Installed('vim-quickui')
+            nnoremap <silent>f<Cr> :call quickui#tools#list_function()<Cr>
+        endif
     endif
     function! PreviewTagOrSearchAll()
         let tagname = expand('<cword>')

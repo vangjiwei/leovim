@@ -220,7 +220,9 @@ map('n', '<M-?>', [[<cmd>GrepperSearchAll <C-r><C-w><CR>]],       opts)
 map('n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]],                       opts)
 map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
 map('n', 'ZL',    [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]],               opts)
-map('n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
+if vim.g.ctags_type == ''  then
+  map('n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
+end
 -- lspsaga maps
 map('n', 'K', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
 map('n', '<M-:>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
