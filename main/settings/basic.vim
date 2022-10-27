@@ -1014,6 +1014,8 @@ xnoremap <M-S> <ESC>:wa!<Cr>
 " ------------------------
 xnoremap <C-g> <ESC>
 snoremap <C-g> <ESC>
+inoremap <C-g> <ESC>
+cnoremap <C-g> <ESC>
 " ------------------------
 " close and quit
 " ------------------------
