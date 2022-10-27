@@ -14,7 +14,7 @@ endif
 if executable('node') && executable('npm')
     let s:node_version_raw = matchstr(system('node --version'), '\vv\zs\d{1,4}.\d{1,4}\ze')
     let s:node_version = StringToFloat(s:node_version_raw)
-    if s:node_version >= 16  || s:node_version == 12.22 || s:node_version == 14.17
+    if s:node_version >= 14.14
         if executable('yarn')
             let s:yarn_version_raw = system('yarn --version')
             let s:yarn_version = StringToFloat(s:yarn_version_raw)
@@ -552,7 +552,7 @@ elseif Require('cmp')
         let s:smart_engine_select = 1
     endif
 elseif Require('coc')
-    if get(g:, 'node_version', '') != '' && (has('nvim-0.6.0') || has('patch-8.2.3389'))
+    if get(g:, 'node_version', '') != '' && (has('nvim') || has('patch-8.2.0750'))
         let g:complete_engine = 'coc'
     else
         let s:smart_engine_select = 1
@@ -561,7 +561,7 @@ else
     let s:smart_engine_select = 1
 endif
 if get(s:, 'smart_engine_select', 0)
-    if get(g:, 'node_version', '') != '' && (has('nvim-0.6.0') || has('patch-8.2.3389'))
+    if get(g:, 'node_version', '') != '' && (has('nvim') || has('patch-8.2.0750'))
         let g:complete_engine = 'coc'
     else
         let g:complete_engine = 'apc'
