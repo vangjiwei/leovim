@@ -25,7 +25,6 @@ if get(g:, 'ctags_type', '') != ''
     endif
     " preview tag
     nnoremap <silent><M-:> :PreviewTag<Cr>
-    nnoremap <silent><M-t> :PreviewList<Cr>
     if Installed('vim-quickui')
         nnoremap <silent><C-h> :call quickui#tools#preview_tag('')<Cr>
         nnoremap <silent><BS>  :call quickui#tools#preview_tag('')<Cr>
@@ -232,36 +231,46 @@ function! LspOrTagOrSearch(...) abort
     endif
     " tag
     if get(l:, 'res', 1) == 0
-        if Installed('vim-gutentags')
-            let ret = Execute("silent! PreviewList ". tagname)
-            if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
-                if get(g:, 'search_all_cmd', '') == ''
-                    echom "No tag found, and cannot do global grep search."
-                else
-                    execute g:search_all_cmd . ' ' . tagname
-                endif
-            else
-                execute "copen " . g:asyncrun_open
-            endif
-        elseif g:ctags_type =~ ''
-            let ret = Execute("silent! PreviewTag ". tagname)
-            if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
-                if get(g:, 'search_all_cmd', '') == ''
-                    echom "No tag found, and cannot do global grep search."
-                else
-                    execute g:search_all_cmd . ' ' . tagname
-                endif
-            else
-                execute "copen " . g:asyncrun_open
-            endif
-        " grep find
-        elseif get(g:, 'search_all_cmd', '') != ''
-            execute g:search_all_cmd . ' ' . tagname
-        else
-            echo "No ways to found " . tagname
-        endif
+        call PreviewTagOrSearchAll(tagname)
     endif
 endfunction
+function! PreviewTagOrSearchAll(tagname)
+    let tagname = a:tagname
+    if empty(trim(tagname))
+        ToggleQuickfix
+        return
+    endif
+    if Installed('vim-gutentags')
+        let ret = Execute("silent! PreviewList ". tagname)
+        if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
+            if get(g:, 'search_all_cmd', '') == ''
+                echom "No tag found, and cannot do global grep search."
+            else
+                execute g:search_all_cmd . ' ' . tagname
+            endif
+        else
+            execute "copen " . g:asyncrun_open
+        endif
+    elseif g:ctags_type =~ ''
+        let ret = Execute("silent! PreviewTag ". tagname)
+        if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
+            if get(g:, 'search_all_cmd', '') == ''
+                echom "No tag found, and cannot do global grep search."
+            else
+                execute g:search_all_cmd . ' ' . tagname
+            endif
+        else
+            execute "copen " . g:asyncrun_open
+        endif
+    " grep find
+    elseif get(g:, 'search_all_cmd', '') != ''
+        execute g:search_all_cmd . ' ' . tagname
+    else
+        echo "No ways to found " . tagname
+    endif
+endfunction
+command! -nargs=1 PreviewTagOrSearchAll call PreviewTagOrSearchAll(<f-args>)
+nnoremap <M-t> :PreviewTagOrSearchAll <C-r><C-w><Cr>
 if g:complete_engine == 'coc'
     au User CocLocationsChange let g:coc_locations_change = v:true
     " jumpDefinition
@@ -272,12 +281,12 @@ if g:complete_engine == 'coc'
     nnoremap <silent><M-;>  :call LspOrTagOrSearch("jumpDefinition")<Cr>
     nnoremap <silent>g<Cr>  :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
     nnoremap <silent>g<Tab> :call LspOrTagOrSearch("jumpDefinition", "tabe")<Cr>
-    " jumpImplementation
-    nnoremap <silent>gm :call LspOrTagOrSearch("jumpImplementation")<Cr>
-    " jumpDeclaration
-    nnoremap <silent>gl :call LspOrTagOrSearch("jumpDeclaration")<Cr>
     " jumpTypeDefinition
     nnoremap <silent>gh :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
+    " jumpDeclaration
+    nnoremap <silent>gl :call LspOrTagOrSearch("jumpDeclaration")<Cr>
+    " jumpImplementation
+    nnoremap <silent>gm :call LspOrTagOrSearch("jumpImplementation")<Cr>
 else
     nnoremap <silent><M-;> :call LspOrTagOrSearch()<Cr>
 endif
