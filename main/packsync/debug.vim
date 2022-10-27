@@ -10,12 +10,12 @@ if g:advanced_complete_engine
     endif
 endif
 if g:has_terminal > 0
-    if UNIX() && has('nvim')
-        PackAdd 'michaelb/sniprun', {'do': 'bash install.sh'}
-    endif
     if has('nvim')
+        if UNIX()
+            PackAdd 'michaelb/sniprun', {'do': 'bash install.sh'}
+        endif
         PackAdd 'iron.nvim'
-    elseif !has('nvim')
+    else
         let g:sendtorepl_invoke_key = "cn"
         let g:repl_position         = 3
         let g:repl_cursor_down      = 1
