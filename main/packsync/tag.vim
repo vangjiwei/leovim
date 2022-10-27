@@ -28,6 +28,7 @@ endif
 " ------------------------------
 if g:complete_engine == 'cmp'
     call SymbolRequire('lsp')
+    call SymbolRequire('telescope')
     PackAdd 'glepnir/lspsaga.nvim'
       \| PackAdd 'gbrlsnchs/telescope-lsp-handlers.nvim'
 elseif g:complete_engine == 'coc'

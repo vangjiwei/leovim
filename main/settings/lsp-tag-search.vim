@@ -39,6 +39,8 @@ if get(g:, 'ctags_type', '') != ''
         let g:Lf_Ctags = g:fzf_tags_command
         nnoremap <silent>F<Cr> :Leaderf function --all<Cr>
         nnoremap <silent>T<Cr> :LeaderfTag<Cr>
+    elseif InstalledTelescope()
+        nnoremap <silent>T<Cr> :Telescope tags<Cr>
     endif
     if g:complete_engine != 'cmp' && g:symbol_tool =~ "leaderfctags"
         nnoremap <silent>f<Cr> :Leaderf function<Cr>
@@ -90,7 +92,9 @@ if g:complete_engine == 'coc'
         endif
         nnoremap <silent>ZO :Vista finder coc<Cr>
     endif
-elseif g:complete_engine != 'cmp'
+elseif g:complete_engine == 'cmp'
+    nnoremap <silent><leader>t :Telescope current_buffer_tags<Cr>
+else
     if g:symbol_tool =~ 'leaderfctags'
         nnoremap <silent><leader>t :LeaderfBufTag<Cr>
     elseif Installed('vista.vim')
