@@ -270,6 +270,18 @@ function! repl#REPLUnhide()
     endif
 endfunction
 
+function! s:string2float(str)
+    let str = a:str
+    try
+        let lst   = split(str, "\\.")
+        let main  = lst[0]
+        let other = join(lst[1:], '')
+        return str2float(main . "\." . other)
+    catch
+        return str2float(str)
+    endtry
+endfunction
+
 function! repl#REPLOpen(...)
     if a:0 == 0
         unlet! t:REPL_OPEN_TERMINAL
@@ -285,7 +297,7 @@ function! repl#REPLOpen(...)
     if repl#REPLGetShortName() =~# '.*python.*'
         if repl#REPLGetShortName() == 'ipython' && !exists("g:repl_ipython_version")
             let temp = system(t:REPL_OPEN_TERMINAL . ' --version')
-            let g:repl_ipython_version = temp[0:2]
+            let g:repl_ipython_version = s:string2float(temp)
         endif
         for l:i in range(1, line('$'))
             if repl#StartWith(getline(l:i), '#REPLENV:')
@@ -1061,11 +1073,11 @@ EOF
     if repl#REPLGetShortName() == 'ipython'
         if !exists("g:repl_ipython_version")
             let temp = system(t:REPL_OPEN_TERMINAL . ' --version')
-            let g:repl_ipython_version = temp[0:2]
+            let g:repl_ipython_version = s:string2float(temp)
             echo "ipython version: " . temp
         endif
         echo "setted ipython version" . g:repl_ipython_version
-        if g:repl_ipython_version == '7.0'
+        if g:repl_ipython_version <= 7.01
             echoerr "This plugin cannot work on ipython 7.01. Please use ipython >= 7.1.1"
         endif
     endif

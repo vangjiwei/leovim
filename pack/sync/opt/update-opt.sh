@@ -103,7 +103,7 @@ git clone --depth 1 https://github.com/skywind3000/asynctasks.vim.git
 
 # vim-repl
 rm -rf vim-repl
-git clone --depth 1 https://github.com/sillybun/vim-repl.git
+git clone --depth 1 https://github.com/leoatchina/vim-repl.git
 
 # iron.nvim
 rm -rf iron.nvim

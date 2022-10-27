@@ -1,6 +1,3 @@
-[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://vshymanskyy.github.io/StandWithUkraine)
-
-
 # vim-repl
 
 * [vim-repl](#vim-repl)
@@ -20,6 +17,7 @@
    * [Setting](#setting)
    * [My Configuration for Vim-Repl](#my-configuration-for-vim-repl)
    * [Updates](#updates)
+      * [2022.10.23](#2021323)
       * [2021.3.23](#2021323)
       * [2020.10.22](#20201022)
       * [2020.4.29](#2020429)
@@ -443,6 +441,10 @@ let g:repl_position = 3
 ```
 
 ## Updates
+
+### 2022.10.26
+
+- Support ipython 8.0+. Set g:repl_ipython_version to float
 
 ### 2021.3.23
 

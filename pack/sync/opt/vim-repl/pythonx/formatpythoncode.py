@@ -4,9 +4,6 @@ import os
 # currentpath = os.path.dirname(os.path.abspath(__file__))
 # sys.path = [currentpath] + sys.path
 
-"""
-sys.path.append("/Users/zhangyiteng/.vim/plugged/vim-repl/autoload")
-"""
 
 # try:
 #     import afpython as replpython
@@ -227,7 +224,7 @@ class pythoncodes:
                 else:
                     return False
             elif self.replprogram == "ipython":
-                if self.version[0] == "7" and self.version != "7.0":
+                if float(self.version[0]) > 7:
                     return False
                 if line.startswith("pass ") or line.startswith("return ") or line.startswith("raise ") or line.startswith("continue ") or line.startswith("break "):
                     return True
