@@ -185,7 +185,6 @@ endif
 if g:symbol_tool =~ 'leaderfgtags'
     " leaderf gtags comparable
     let g:Lf_Gtagslabel          = $GTAGSLABEL
-    let g:Lf_Gtagsconf           = $GTAGSCONF
     let g:Lf_GtagsSkipSymlink    = 'a'
     let g:Lf_GtagsAcceptDotfiles = 0
     let g:Lf_GtagsSkipUnreadable = 1

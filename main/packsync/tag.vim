@@ -47,9 +47,9 @@ endif
 " gtags
 " ------------------------------
 if WINDOWS()
-    let $GTAGSCONF = expand($HOME . "/.leovim.d/windows/gtags/share/gtags/gtags.conf")
+    let g:Lf_Gtagsconf = get(g:, 'Lf_Gtagsconf', expand($HOME . "/.leovim.d/windows/gtags/share/gtags/gtags.conf"))
 endif
-if executable('gtags-cscope') && executable('gtags') && exists("$GTAGSCONF") && filereadable($GTAGSCONF) && SymbolPlanned('gutentags')
+if executable('gtags-cscope') && executable('gtags') && filereadable(get(g:, 'Lf_Gtagsconf', '')) && SymbolPlanned('gutentags')
     let s:gtags_version = matchstr(system('gtags --version'), '\v\zs\d{1,2}.\d{1,2}.\d{1,2}\ze')
     let g:gtags_version = StringToFloat(s:gtags_version)
     if g:gtags_version >= 6.67

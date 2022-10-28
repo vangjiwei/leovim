@@ -36,7 +36,7 @@ endif
 " https://ftp.gnu.org/pub/gnu/global/
 " wget latest gtags version && ./configure --prefix ~/.local && make && make install
 if executable('gtags') && executable('gtags-cscope')
-    " let $GTAGSCONF=$HOME."/.local/share/gtags/gtags.conf"
+    " let g:Lf_Gtagsconf=expand($HOME."/.local/share/gtags/gtags.conf")
 endif
 
 " let g:vimtex_view_method = 'zathura'
