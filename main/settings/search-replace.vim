@@ -68,11 +68,15 @@ if exists('*matchstrpos')
             endif
         endif
     endfunction
-    " GrepperSearch
+    " Commands
     command! GrepperSearchLast    call s:grepper(0, 0)
     command! GrepperSearchAllLast call s:grepper(0, 1)
     command! -nargs=1 GrepperSearch    call s:grepper(1, <f-args>)
     command! -nargs=1 GrepperSearchAll call s:grepper(2, <f-args>)
+    " GrepperSearchAll
+    if g:complete_engine != 'coc'
+        nnoremap <M-?> :GrepperSearchAll <C-r>=expand('<cword>')<Cr><Cr>
+    endif
     nnoremap s<Cr> :GrepperSearchAll <C-r>=expand('<cword>')<Cr>
     xnoremap s<Cr> :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr>
     nnoremap s; :GrepperSearchAll ""<left>
