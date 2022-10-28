@@ -18,8 +18,10 @@ tnoremap <silent><M-{> <C-\><C-n>:FloatermPrev<Cr>
 " --------------------------
 if g:has_terminal == 1
     tnoremap <C-v> <C-\><C-n>""pa
+    tnoremap <M-'> <C-\><C-n>""pa
 else
     tnoremap <C-v> <C-_>""
+    tnoremap <M-'> <C-_>""
 endif
 if has('clipboard')
     if g:has_terminal == 1

@@ -13,6 +13,7 @@ function! YankFromBeginning() abort
 endfunction
 nnoremap gy :call YankFromBeginning()<Cr>
 cnoremap <C-y> <C-r>"
+cnoremap <M-'> <C-r>"
 if has('clipboard')
     if UNIX()
         nnoremap <M-c>+ viw"+y
