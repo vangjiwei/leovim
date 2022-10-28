@@ -54,21 +54,26 @@ if get(g:, 'ctags_type', '') != ''
     endif
     function! PreviewTagOrSearchAll()
         let tagname = expand('<cword>')
-        if g:complete_engine == 'cmp'
-            execute 'TeleSearchAll ' . tagname
+        if g:symbol_tool =~ 'leaderfgtags'
+            call Execute("Leaderf gtags -i -g " . tagname)
+            return
+        elseif g:complete_engine == 'cmp'
+            call Execute("silent! TeleSearchAll " . tagname)
+            return
         elseif g:ctags_type != ''
             if Installed('vim-gutentags')
                 let ret = Execute("silent! PreviewList ". tagname)
             else
                 let ret = Execute("silent! PreviewTag ". tagname)
             endif
+            " tag found
             if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
                 if get(g:, 'search_all_cmd', '') == ''
                     echom "No tag found, and cannot do global grep search."
                 else
                     execute g:search_all_cmd . ' ' . tagname
                 endif
-            else
+            elseif ret != ''
                 execute "copen " . g:asyncrun_open
             endif
         elseif get(g:, 'search_all_cmd', '') != ''
