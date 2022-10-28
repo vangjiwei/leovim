@@ -740,10 +740,6 @@ source $SETTINGS_PATH/query.vim
 source $SETTINGS_PATH/fold.vim
 source $SETTINGS_PATH/yank-paste.vim
 source $SETTINGS_PATH/lsp-tag-search.vim
-" ------------------------------
-" schemes
-" ------------------------------
-source $SETTINGS_PATH/schemes.vim
 " --------------------------
 " whichkey
 " --------------------------
@@ -1173,6 +1169,10 @@ nnoremap <leader>ef :set ff=unix<Cr>:%s/\r//g<Cr>
 " zfvime is for chs inpus
 " ------------------------
 source $SETTINGS_PATH/zfvime.vim
+" ------------------------------
+" schemes
+" ------------------------------
+source $SETTINGS_PATH/schemes.vim
 " ------------------------
 " other config
 " ------------------------

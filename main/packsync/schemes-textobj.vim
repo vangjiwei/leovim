@@ -32,7 +32,7 @@ if v:version >= 704 && g:advanced_complete_engine == 0 && get(g:, 'install_texto
         PackAdd 'thinca/vim-textobj-function-javascript', {'for': ['javascript', 'typescript']}
     endif
 endif
-if g:has_truecolor
+if g:has_truecolor > 0
     " sainnhe's themes
     PackAdd 'sainnhe/edge'
     PackAdd 'sainnhe/sonokai'

@@ -9,7 +9,6 @@ if get(g:, "complete_engine", '') != ''
 endif
 source $PACKSYNC_PATH/tag.vim
 source $PACKSYNC_PATH/debug.vim
-source $PACKSYNC_PATH/schemes-textobj.vim
 " ------------------------------
 " fullscreen
 " ------------------------------
@@ -95,8 +94,8 @@ endif
 " ------------------------------
 " fold
 " ------------------------------
-if has('nvim')
-    PackAdd 'kevinhwang91/nvim-ufo' | PackAdd 'kevinhwang91/promise-async'
+if has('nvim') && UNIX()
+    PackAdd 'kevinhwang91/promise-async' | PackAdd 'kevinhwang91/nvim-ufo'
 endif
 " ------------------------------
 " zfvim
@@ -116,3 +115,7 @@ if (Require('wubi') || Require('pinyin')) && g:has_terminal
     endif
     PackAdd 'ZSaberLv0/ZFVimIM_pinyin'
 endif
+" ------------------------------
+" schemes
+" ------------------------------
+source $PACKSYNC_PATH/schemes-textobj.vim
