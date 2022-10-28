@@ -24,7 +24,7 @@ if has('clipboard')
     cnoremap <M-v> <C-r>*
     inoremap <M-v> <C-r>*
     nnoremap <M-v> "*P
-    nnoremap <M-v> "*P
+    xnoremap <M-v> "*P
     " M-x/y
     nnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
     xnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
@@ -39,7 +39,7 @@ else
     cnoremap <M-v> <C-r>"
     inoremap <M-v> <C-r>"
     nnoremap <M-v> P
-    nnoremap <M-v> P
+    xnoremap <M-v> P
     " M-x/y
     nnoremap <M-X> S
     xnoremap <M-X> S
