@@ -107,14 +107,15 @@ git clone --depth 1 https://github.com/leoatchina/vim-repl.git
 
 # iron.nvim
 rm -rf iron.nvim
-git clone --depth 1 https://github.com/hkupty/iron.nvim.git
+git clone --depth 1 https://github.com/leoatchina/iron.nvim.git
 
 # delete files and dirs
 find . -type f | grep -i \.gitignore$ | xargs rm -f
-find . -type f | grep -i \.jpg$ | xargs rm -f
-find . -type f | grep -i \.png$ | xargs rm -f
-find . -type f | grep -i \.gif$ | xargs rm -f
-find . -type f | grep -i \.bmp$ | xargs rm -f
-find . -type d | grep -i \.github$    | xargs rm -rf
-find . -type d | grep -i \.git$       | xargs rm -rf
-find . -type d | grep -i test$        | xargs rm -rf
+find . -type f | grep -i \.jpg$       | xargs rm -f
+find . -type f | grep -i \.png$       | xargs rm -f
+find . -type f | grep -i \.gif$       | xargs rm -f
+find . -type f | grep -i \.bmp$       | xargs rm -f
+
+find . -type d | grep -i \.github$ | xargs rm -rf
+find . -type d | grep -i \.git$    | xargs rm -rf
+find . -type d | grep -i test$     | xargs rm -rf
