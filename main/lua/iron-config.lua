@@ -24,7 +24,7 @@ iron.setup({
   -- Iron doesn't set keymaps by default anymore. Set them here
   -- or use `should_map_plug = true` and map from you vim files
   keymaps = {
-    send_motion = "cg",
+    send_motion = "c<tab>",
     visual_send = "cl",
     send_file = "<leader>S",
     send_line = "cl",

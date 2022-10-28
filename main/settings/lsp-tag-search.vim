@@ -275,7 +275,7 @@ else
         endif
         " tag
         if get(l:, 'res', 1) == 0
-            call PreviewTagOrSearchAll(tagname)
+            call PreviewTagOrSearchAll()
         endif
     endfunction
     if g:complete_engine == 'coc'

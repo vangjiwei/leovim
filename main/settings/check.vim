@@ -2,6 +2,7 @@
 try
     let g:diagnostic_virtualtext_underline = v:false
 catch
+    finish
 endtry
 if Installed('lspsaga.nvim')
     luafile $LUA_PATH/check.lua
@@ -46,31 +47,31 @@ elseif Installed('coc.nvim')
         endfunction
         command! CocDiagnosticToggleBuffer call s:CocDiagnosticToggleBuffer()
         nnoremap <leader>d :CocDiagnosticToggleBuffer<Cr>
+        " highlight group
+        highlight def link CocErrorHighlight   NONE
+        highlight def link CocWarningHighlight NONE
+        highlight def link CocInfoHighlight    NONE
+        highlight def link CocHintHighlight    NONE
+        function! s:toggle_diagnostics_hightlights()
+            if g:diagnostic_virtualtext_underline
+                echo "virtualtext_underline off"
+                let g:diagnostic_virtualtext_underline = v:false
+                highlight! def link CocErrorHighlight   NONE
+                highlight! def link CocWarningHighlight NONE
+                highlight! def link CocInfoHighlight    NONE
+                highlight! def link CocHintHighlight    NONE
+            else
+                echo "virtualtext_underline on"
+                let g:diagnostic_virtualtext_underline = v:true
+                highlight! def link CocErrorHighlight   DiagnosticUnderLineError
+                highlight! def link CocWarningHighlight DiagnosticUnderLineWarn
+                highlight! def link CocInfoHighlight    DiagnosticUnderLineInfo
+                highlight! def link CocHintHighlight    DiagnosticUnderLineHint
+            endif
+        endfunction
+        command! ToggleDiagnosticsVirtualtext call s:toggle_diagnostics_hightlights()
+        nnoremap <silent><leader>D :ToggleDiagnosticsVirtualtext<Cr>
     endif
-    " highlight group
-    highlight def link CocErrorHighlight   NONE
-    highlight def link CocWarningHighlight NONE
-    highlight def link CocInfoHighlight    NONE
-    highlight def link CocHintHighlight    NONE
-    function s:toggle_diagnostics_virtualtext()
-        if g:diagnostic_virtualtext_underline
-            echo "virtual_text off"
-            let g:diagnostic_virtualtext_underline = v:false
-            highlight! def link CocErrorHighlight   NONE
-            highlight! def link CocWarningHighlight NONE
-            highlight! def link CocInfoHighlight    NONE
-            highlight! def link CocHintHighlight    NONE
-        else
-            echo "virtual_text on"
-            let g:diagnostic_virtualtext_underline = v:true
-            highlight! def link CocErrorHighlight   DiagnosticUnderLineError
-            highlight! def link CocWarningHighlight DiagnosticUnderLineWarn
-            highlight! def link CocInfoHighlight    DiagnosticUnderLineInfo
-            highlight! def link CocHintHighlight    DiagnosticUnderLineHint
-        endif
-    endfunction
-    command! ToggleDiagnosticsVirtualtext call s:toggle_diagnostics_virtualtext()
-    nnoremap <silent><leader>D :ToggleDiagnosticsVirtualtext<Cr>
 endif
 if Installed('ale')
     " basic settings
