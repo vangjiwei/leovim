@@ -731,7 +731,6 @@ endif
 " settings
 " --------------------------
 source $SETTINGS_PATH/differ.vim
-source $SETTINGS_PATH/check.vim
 source $SETTINGS_PATH/search-replace.vim
 source $SETTINGS_PATH/sidebar.vim
 source $SETTINGS_PATH/run-conf.vim
@@ -740,6 +739,12 @@ source $SETTINGS_PATH/query.vim
 source $SETTINGS_PATH/fold.vim
 source $SETTINGS_PATH/yank-paste.vim
 source $SETTINGS_PATH/lsp-tag-search.vim
+source $SETTINGS_PATH/schemes.vim
+source $SETTINGS_PATH/check.vim
+" ------------------------
+" zfvime is for chs inpus
+" ------------------------
+source $SETTINGS_PATH/zfvime.vim
 " --------------------------
 " whichkey
 " --------------------------
@@ -1128,7 +1133,7 @@ command! -bang -complete=buffer -nargs=? Bclose call <SID>Bclose(<q-bang>, <q-ar
 nnoremap <silent> Q :Bclose<CR>
 xnoremap <silent> Q <ESC>
 " ------------------------
-" source
+" edit start.vim
 " ------------------------
 nnoremap <leader>e<Cr> :source $LEOVIM_PATH/start.vim<Cr>
 " ------------------------
@@ -1166,17 +1171,9 @@ endif
 " set filetype unix and trim \r
 nnoremap <leader>ef :set ff=unix<Cr>:%s/\r//g<Cr>
 " ------------------------
-" zfvime is for chs inpus
-" ------------------------
-source $SETTINGS_PATH/zfvime.vim
-" ------------------------------
-" schemes
-" ------------------------------
-source $SETTINGS_PATH/schemes.vim
-" ------------------------
 " other config
 " ------------------------
-nnoremap <leader>eo :tabe ~/.leovim.d/other.vim<Cr>
-if filereadable(expand('~/.leovim.d/other.vim'))
-    source ~/.leovim.d/other.vim
+nnoremap <leader>ea :tabe ~/.leovim.d/after.vim<Cr>
+if filereadable(expand('~/.leovim.d/after.vim'))
+    source ~/.leovim.d/after.vim
 endif

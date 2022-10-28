@@ -1,5 +1,10 @@
+" g:diagnostic_virtualtext_underline default false
+try
+    let g:diagnostic_virtualtext_underline = v:false
+catch
+endtry
 if Installed('lspsaga.nvim')
-    luafile $LUA_PATH/check.conf.lua
+    luafile $LUA_PATH/check.lua
 elseif Installed('coc.nvim')
     if g:check_tool == 'ale'
         call coc#config('diagnostic.displayByAle', v:true)
@@ -43,11 +48,29 @@ elseif Installed('coc.nvim')
         nnoremap <leader>d :CocDiagnosticToggleBuffer<Cr>
     endif
     " highlight group
-    highlight def CocUnderLine cterm=NONE gui=NONE
     highlight def link CocErrorHighlight   NONE
     highlight def link CocWarningHighlight NONE
     highlight def link CocInfoHighlight    NONE
     highlight def link CocHintHighlight    NONE
+    function s:toggle_diagnostics_virtualtext()
+        if g:diagnostic_virtualtext_underline
+            echo "virtual_text off"
+            let g:diagnostic_virtualtext_underline = v:false
+            highlight! def link CocErrorHighlight   NONE
+            highlight! def link CocWarningHighlight NONE
+            highlight! def link CocInfoHighlight    NONE
+            highlight! def link CocHintHighlight    NONE
+        else
+            echo "virtual_text on"
+            let g:diagnostic_virtualtext_underline = v:true
+            highlight! def link CocErrorHighlight   DiagnosticUnderLineError
+            highlight! def link CocWarningHighlight DiagnosticUnderLineWarn
+            highlight! def link CocInfoHighlight    DiagnosticUnderLineInfo
+            highlight! def link CocHintHighlight    DiagnosticUnderLineHint
+        endif
+    endfunction
+    command! ToggleDiagnosticsVirtualtext call s:toggle_diagnostics_virtualtext()
+    nnoremap <silent><leader>D :ToggleDiagnosticsVirtualtext<Cr>
 endif
 if Installed('ale')
     " basic settings

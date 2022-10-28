@@ -46,7 +46,6 @@ function _G.toggle_diagnostics_virtualtext()
     })
   end
 end
-vim.g.diagnostic_virtualtext_underline = false
 vim.diagnostic.config({
   virtual_text = false,
   underline = false,

@@ -220,7 +220,7 @@ map('n', '<M-?>', [[<cmd>GrepperSearchAll <C-r><C-w><CR>]],       opts)
 map('n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]],                       opts)
 map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
 map('n', 'ZL',    [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]],               opts)
-if vim.g.ctags_type == ''  then
+if vim.g.ctags_type == '' then
   map('n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
 end
 -- lspsaga maps
@@ -228,8 +228,8 @@ map('n', 'K', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
 map('n', '<M-:>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
 map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)
 map('n', "<leader>a<cr>", [[<cmd>Lspsaga code_action<Cr>]], opts)
-map('x', "<leader>a<cr>", [[:<C-u>Lspsaga range_code_action<CR>]], opts)
+map('x', "<leader>a<cr>", [[<cmd>Lspsaga range_code_action<CR>]], opts)
 map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
-map('n', '<leader>A',  [[:Lspsaga ]], { noremap = true, silent = false })
+map('n', '<leader>al',  [[:Lspsaga ]], { noremap = true, silent = false })
 -- mason
 map('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
