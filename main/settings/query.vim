@@ -39,6 +39,6 @@ if Installed('coc.nvim')
 endif
 if Installed('vim-cppman')
     au FileType c,cpp,cuda nnoremap <M-k><M-k> :Cppman<Space>
-    au FileType c,cpp,cuda nnoremap K :Cppman <C-r><C-w>
+    au FileType c,cpp,cuda nnoremap K :Cppman <C-r>=expand('<cword>')<Cr>
     au FileType c,cpp,cuda xnoremap K :<C-u>Cppman <C-r>=GetVisualSelection()<Cr>
 endif

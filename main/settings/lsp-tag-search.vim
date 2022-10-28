@@ -171,16 +171,16 @@ if Installed('gutentags_plus')
     let g:gutentags_plus_switch              = 1
     let g:gutentags_plus_nomap               = 1
     let g:gutentags_auto_add_gtags_cscope    = 1
-    nnoremap <silent>,gs :GscopeFind s <C-R><C-W><cr>
-    nnoremap <silent>,gg :GscopeFind g <C-R><C-W><cr>
-    nnoremap <silent>,gd :GscopeFind d <C-R><C-W><cr>
-    nnoremap <silent>,gc :GscopeFind c <C-R><C-W><cr>
-    nnoremap <silent>,gt :GscopeFind t <C-R><C-W><cr>
-    nnoremap <silent>,ge :GscopeFind e <C-R><C-W><cr>
+    nnoremap <silent>,gs :GscopeFind s <C-r>=expand('<cword>')<Cr><cr>
+    nnoremap <silent>,gg :GscopeFind g <C-r>=expand('<cword>')<Cr><cr>
+    nnoremap <silent>,gd :GscopeFind d <C-r>=expand('<cword>')<Cr><cr>
+    nnoremap <silent>,gc :GscopeFind c <C-r>=expand('<cword>')<Cr><cr>
+    nnoremap <silent>,gt :GscopeFind t <C-r>=expand('<cword>')<Cr><cr>
+    nnoremap <silent>,ge :GscopeFind e <C-r>=expand('<cword>')<Cr><cr>
     nnoremap <silent>,gf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
     nnoremap <silent>,gi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
-    nnoremap <silent>,ga :GscopeFind a <C-R><C-W><cr>
-    nnoremap <silent>,gz :GscopeFind z <C-R><C-W><cr>
+    nnoremap <silent>,ga :GscopeFind a <C-r>=expand('<cword>')<Cr><cr>
+    nnoremap <silent>,gz :GscopeFind z <C-r>=expand('<cword>')<Cr><cr>
 endif
 if g:symbol_tool =~ 'leaderfgtags'
     " leaderf gtags comparable
@@ -200,10 +200,10 @@ if g:symbol_tool =~ 'leaderfgtags'
     nnoremap <silent><leader>gb :Leaderf gtags --all-buffers<Cr>
     nnoremap <silent><leader>gc :Leaderf gtags --current-buffer<Cr>
     nnoremap <silent><leader>ga :Leaderf gtags --append<Cr>
-    nnoremap <silent><leader>gr :Leaderf gtags -i -r <C-r><C-w><Cr>
-    nnoremap <silent><leader>gs :Leaderf gtags -i -s <C-r><C-w><Cr>
-    nnoremap <silent><leader>gg :Leaderf gtags -i -g <C-r><C-w><Cr>
-    nnoremap <silent><leader>gd :Leaderf gtags -i -d <C-r><C-w><Cr>
+    nnoremap <silent><leader>gr :Leaderf gtags -i -r <C-r>=expand('<cword>')<Cr><Cr>
+    nnoremap <silent><leader>gs :Leaderf gtags -i -s <C-r>=expand('<cword>')<Cr><Cr>
+    nnoremap <silent><leader>gg :Leaderf gtags -i -g <C-r>=expand('<cword>')<Cr><Cr>
+    nnoremap <silent><leader>gd :Leaderf gtags -i -d <C-r>=expand('<cword>')<Cr><Cr>
     nnoremap <silent><leader>g; :Leaderf gtags --next<Cr>
     nnoremap <silent><leader>g, :Leaderf gtags --previous<Cr>
     nnoremap <silent><leader>g. :Leaderf gtags --recall<Cr>
@@ -219,9 +219,9 @@ else
         nmap <silent><M-?> <Plug>(coc-refactor)
     else
         if get(g:, 'symbol_tool', '') =~ 'leaderfgtags'
-            nmap <silent><M-/> :Leaderf gtags -i -g <C-r><C-w><Cr>
+            nmap <silent><M-/> :Leaderf gtags -i -g <C-r>=expand('<cword>')<Cr><Cr>
         elseif get(g:, 'symbol_tool', '') =~ 'plus'
-            nmap <silent><M-/> :GscopeFind g <C-R><C-W><cr>
+            nmap <silent><M-/> :GscopeFind g <C-r>=expand('<cword>')<Cr><cr>
         endif
     endif
     " --------------------------
