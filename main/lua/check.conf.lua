@@ -11,8 +11,8 @@ map('n', '[e', [[<cmd>lua LspsagaJumpError(0)<Cr>]], opts)
 map('n', ']e', [[<cmd>lua LspsagaJumpError(1)<Cr>]], opts)
 map('n', '[d', [[<cmd>Lspsaga diagnostic_jump_prev<Cr>]], opts)
 map('n', ']d', [[<cmd>Lspsaga diagnostic_jump_next<Cr>]], opts)
-map('n', '<leader>al', [[<cmd>Lspsaga show_line_diagnostics<Cr>]], opts)
-map('n', '<leader>ad', [[<cmd>Lspsaga show_cursor_diagnostics<Cr>]], opts)
+map('n', '<leader>I', [[<cmd>Lspsaga show_line_diagnostics<Cr>]], opts)
+map('n', '<leader>i', [[<cmd>Lspsaga show_cursor_diagnostics<Cr>]], opts)
 -- toggle diagnostic
 vim.g.diagnostics_enable = true
 function _G.toggle_diagnostics()
@@ -27,7 +27,7 @@ function _G.toggle_diagnostics()
   end
 end
 map('n', '<Leader>d', [[<cmd>lua toggle_diagnostics()<Cr>]], opts)
-map('n', '<Leader>D', [[<cmd>Telescope diagnostics<Cr>]], opts)
+map('n', '<Leader>o', [[<cmd>Telescope diagnostics<Cr>]], opts)
 -- toggle diagnostic virtual text && underline
 function _G.toggle_diagnostics_virtualtext()
   if vim.g.diagnostic_virtualtext_underline then
@@ -51,5 +51,5 @@ vim.diagnostic.config({
   virtual_text = false,
   underline = false,
 })
-map('n', "<M-'>", [[<cmd>lua toggle_diagnostics_virtualtext()<Cr>]], {silent = true, noremap = true})
+map('n', "<leader>D", [[<cmd>lua toggle_diagnostics_virtualtext()<Cr>]], {silent = true, noremap = true})
 

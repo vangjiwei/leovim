@@ -6,14 +6,14 @@ elseif Installed('coc.nvim')
     else
         if WINDOWS()
             if has('nvim') || !has('nvim') && !Installed('leaderf')
-                nnoremap <silent> <leader>D :CocDiagnostics<CR>
+                nnoremap <silent> <leader>o :CocDiagnostics<CR>
             elseif Installed('leaderf')
-                nnoremap <silent> <leader>D :CocDiagnostics<CR>:lclose<Cr>:LeaderfLocList<Cr>
+                nnoremap <silent> <leader>o :CocDiagnostics<CR>:lclose<Cr>:LeaderfLocList<Cr>
             else
-                nnoremap <silent> <leader>D :CocFzfList diagnostics<CR>
+                nnoremap <silent> <leader>o :CocFzfList diagnostics<CR>
             endif
         else
-            nnoremap <silent> <leader>D :CocFzfList diagnostics<CR>
+            nnoremap <silent> <leader>o :CocFzfList diagnostics<CR>
         endif
         nmap <silent>]d <Plug>(coc-diagnostic-next)
         nmap <silent>[d <Plug>(coc-diagnostic-prev)
@@ -28,8 +28,9 @@ elseif Installed('coc.nvim')
                     \ "--max-line-length=200",
                     \ "--ignore=" . g:python_lint_ignore,
                     \ ])
-        " show/toggle diagnostic
-        nmap <leader>ad <Plug>(coc-diagnostic-info)
+        " show diagnostic
+        nmap <leader>i <Plug>(coc-diagnostic-info)
+        " toggle diagnostic
         function! s:CocDiagnosticToggleBuffer()
             call CocAction('diagnosticToggleBuffer')
             if b:coc_diagnostic_disable > 0
@@ -96,7 +97,7 @@ if Installed('ale')
         endif
     endfunction
     command! -bang -nargs=* ShowLint call s:showLint()
-    nnoremap <silent> <leader>D :ShowLint<Cr>
+    nnoremap <silent> <leader>o :ShowLint<Cr>
     nmap ]e <Plug>(ale_next_error)
     nmap [e <Plug>(ale_previous_error)
     nmap ]d <Plug>(ale_next)

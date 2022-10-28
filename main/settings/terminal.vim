@@ -2,7 +2,7 @@
 " set termwinkey
 " --------------------------
 if has('patch-8.1.1')
-    set termwinkey=<C-v>
+    set termwinkey=<C-_>
     let g:has_terminal=2
 else
     let g:has_terminal=1
@@ -17,21 +17,21 @@ tnoremap <silent><M-{> <C-\><C-n>:FloatermPrev<Cr>
 " XXX: cannot paste in floaterm when using vim9.0
 " --------------------------
 if g:has_terminal == 1
-    tnoremap <M-'> <C-\><C-n>""pa
+    tnoremap <C-v> <C-\><C-n>""pa
 else
-    tnoremap <M-'> <C-v>""
+    tnoremap <C-v> <C-_>""
 endif
 if has('clipboard')
     if g:has_terminal == 1
         tnoremap <M-v> <C-\><C-n>"*pa
     else
-        tnoremap <M-v> <C-v>"*
+        tnoremap <M-v> <C-_>"*
     endif
 else
     if g:has_terminal == 1
         tnoremap <M-v> <C-\><C-n>""pa
     else
-        tnoremap <M-v> <C-v>""
+        tnoremap <M-v> <C-_>""
     endif
 endif
 " --------------------------
