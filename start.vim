@@ -22,11 +22,11 @@ let $OPT_PATH = expand($LEOVIM_PATH . '/pack/sync/opt')
 let $RUNTIME_PATH = expand($LEOVIM_PATH . '/runtime')
 " set conf_path
 let $MAIN_PATH = expand($LEOVIM_PATH . '/main')
-" set lua
-let $LUA_PATH = expand($MAIN_PATH . '/lua')
 " set packsync/settings
 let $PACKSYNC_PATH = expand($MAIN_PATH . '/packsync')
 let $SETTINGS_PATH = expand($MAIN_PATH . '/settings')
+" set lua
+let $LUA_PATH = expand($SETTINGS_PATH . '/lua')
 " ------------------------
 " runtime
 " ------------------------

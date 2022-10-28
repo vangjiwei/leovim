@@ -221,7 +221,7 @@ else
         if get(g:, 'symbol_tool', '') =~ 'leaderfgtags'
             nmap <silent><M-/> :Leaderf gtags -i -g <C-r>=expand('<cword>')<Cr><Cr>
         elseif get(g:, 'symbol_tool', '') =~ 'plus'
-            nmap <silent><M-/> :GscopeFind g <C-r>=expand('<cword>')<Cr><cr>
+            nmap <silent><M-/> :GscopeFind g <C-r>=expand('<cword>')<Cr><Cr>
         endif
     endif
     " --------------------------
