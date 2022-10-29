@@ -160,7 +160,6 @@ if InstalledTelescope()
     command! -nargs=1 TeleSearchAll call s:telescope_search(2, <f-args>)
     " searchall
     let g:search_all_cmd = 'TeleSearchAll'
-    nnoremap <M-t> :TeleSearchAll <C-r>=expand('<cword>')<Cr><Cr>
     nnoremap s/ :TeleSearchAll <C-r>=expand('<cword>')<Cr>
     xnoremap s/ :<C-u>TeleSearchAll <C-r>=GetVisualSelection()<Cr>
     nnoremap <silent>s. :TeleSearchAllLast<Cr>

@@ -17,6 +17,7 @@ let g:gutentags_cache_dir = expand(g:Lf_CacheDirectory.'/.LfCache/gtags')
 if isdirectory(g:gutentags_cache_dir)
     silent! call mkdir(g:gutentags_cache_dir, 'p')
 endif
+" ctags with leaderf quickui
 if get(g:, 'ctags_type', '') != ''
     if WINDOWS()
         let g:fzf_tags_command = "ctags"
@@ -49,36 +50,42 @@ if get(g:, 'ctags_type', '') != ''
             nnoremap <silent><C-h> :PreviewSignature!<Cr>
             nnoremap <silent><BS>  :PreviewSignature!<Cr>
         endif
-        function! PreviewTagOrSearchAll()
-            let tagname = expand('<cword>')
-            if g:symbol_tool =~ 'leaderfgtags'
-                call Execute("Leaderf gtags -i -g " . tagname)
-                return
-            elseif g:ctags_type != ''
-                if Installed('vim-gutentags')
-                    let ret = Execute("silent! PreviewList ". tagname)
-                else
-                    let ret = Execute("silent! PreviewTag ". tagname)
-                endif
-                " tag found
-                if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
-                    if get(g:, 'search_all_cmd', '') == ''
-                        echom "No tag found, and cannot do global grep search."
-                    else
-                        execute g:search_all_cmd . ' ' . tagname
-                    endif
-                elseif ret != ''
-                    execute "copen " . g:asyncrun_open
-                endif
-            elseif get(g:, 'search_all_cmd', '') != ''
-                execute g:search_all_cmd . ' ' . tagname
-            else
-                echom "No tag found, and cannot do global grep search."
-            endif
-        endfunction
-        command! PreviewTagOrSearchAll call PreviewTagOrSearchAll()
-        nnoremap <silent><M-t> :PreviewTagOrSearchAll<Cr>
     endif
+    " --------------------------
+    " M-t is Specially defined
+    " --------------------------
+    function! PreviewTagOrSearchAll()
+        let tagname = expand('<cword>')
+        if g:symbol_tool =~ 'leaderfgtags'
+            call Execute("Leaderf gtags -i -g " . tagname)
+        elseif g:symbol_tool == 'cmp'
+            call Execute("TeleSearchAll " . tagname)
+        elseif g:ctags_type != ''
+            if Installed('vim-gutentags')
+                let ret = Execute("silent! PreviewList ". tagname)
+            else
+                let ret = Execute("silent! PreviewTag ". tagname)
+            endif
+            " tag found
+            if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
+                if get(g:, 'search_all_cmd', '') == ''
+                    echom "No tag found, and cannot do global grep search."
+                else
+                    execute g:search_all_cmd . ' ' . tagname
+                endif
+            elseif ret != ''
+                execute "copen " . g:asyncrun_open
+            endif
+        elseif get(g:, 'search_all_cmd', '') != ''
+            execute g:search_all_cmd . ' ' . tagname
+        else
+            echom "No tag found, and cannot do global grep search."
+        endif
+    endfunction
+    command! PreviewTagOrSearchAll call PreviewTagOrSearchAll()
+    nnoremap <silent><M-t> :PreviewTagOrSearchAll<Cr>
+elseif g:complete_engine == 'cmp'
+    nnoremap <M-t> :TeleSearchAll <C-r>=expand('<cword>')<Cr><Cr>
 endif
 " --------------------------
 " symbols in buf
