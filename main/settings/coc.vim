@@ -40,6 +40,21 @@ nnoremap <silent><M-l>, :CocPrev<CR>
 nnoremap <silent><M-l>C :CocFzfList commands<Cr>
 nnoremap <silent><M-u>. :call CocAction('repeatCommand')<Cr>
 nnoremap <silent><M-M>  :CocFzfList marketplace<Cr>
+" hover
+function! Show_documentation()
+    if index(['vim', 'help'], &filetype) >= 0
+        if Installed('leaderf')
+            LeaderfHelpCword
+        else
+            execute 'h '.expand('<cword>')
+        endif
+    elseif CocAction('hasProvider', 'hover')
+        call CocActionAsync('doHover')
+    else
+        call feedkeys('K', 'in')
+    endif
+endfunction
+nnoremap <silent> <C-h> :call Show_documentation()<CR>
 " completion map
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#stop() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <TAB>

@@ -42,13 +42,10 @@ if get(g:, 'ctags_type', '') != ''
             nnoremap <silent>f<Cr> :call quickui#tools#list_function()<Cr>
         endif
         " preview tag
-        nnoremap <silent><M-:> :PreviewTag<Cr>
         if Installed('vim-quickui')
-            nnoremap <silent><C-h> :call quickui#tools#preview_tag('')<Cr>
-            nnoremap <silent><BS>  :call quickui#tools#preview_tag('')<Cr>
+            nnoremap <silent><M-:> :call quickui#tools#preview_tag('')<Cr>
         else
-            nnoremap <silent><C-h> :PreviewSignature!<Cr>
-            nnoremap <silent><BS>  :PreviewSignature!<Cr>
+            nnoremap <silent><M-:> :PreviewTag<Cr>
         endif
     endif
     " --------------------------

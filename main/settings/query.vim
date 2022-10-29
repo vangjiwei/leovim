@@ -21,22 +21,6 @@ elseif Installed('zeavim.vim')
     nmap gz <Plug>ZVOperator
     omap gz <Plug>ZVOperator
 endif
-if Installed('coc.nvim')
-    function! Show_documentation()
-        if index(['vim', 'help'], &filetype) >= 0
-            if Installed('leaderf')
-                LeaderfHelpCword
-            else
-                execute 'h '.expand('<cword>')
-            endif
-        elseif CocAction('hasProvider', 'hover')
-            call CocActionAsync('doHover')
-        else
-            call feedkeys('K', 'in')
-        endif
-    endfunction
-    nnoremap <silent> K :call Show_documentation()<CR>
-endif
 if Installed('vim-cppman')
     au FileType c,cpp,cuda nnoremap <M-k><M-k> :Cppman<Space>
     au FileType c,cpp,cuda nnoremap K :Cppman <C-r>=expand('<cword>')<Cr>
