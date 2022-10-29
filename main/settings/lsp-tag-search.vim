@@ -57,9 +57,9 @@ if get(g:, 'ctags_type', '') != ''
     function! PreviewTagOrSearchAll()
         let tagname = expand('<cword>')
         if g:symbol_tool =~ 'leaderfgtags'
-            call Execute("Leaderf gtags -i -g " . tagname)
-        elseif g:symbol_tool == 'cmp'
-            call Execute("TeleSearchAll " . tagname)
+            call Execute("silent! Leaderf gtags -i -g " . tagname)
+        elseif g:complete_engine == 'cmp'
+            call Execute("silent! TeleSearchAll " . tagname)
         elseif g:ctags_type != ''
             if Installed('vim-gutentags')
                 let ret = Execute("silent! PreviewList ". tagname)
