@@ -73,7 +73,7 @@ if get(g:, 'ctags_type', '') != ''
                 else
                     execute g:search_all_cmd . ' ' . tagname
                 endif
-            elseif ret != ''
+            else
                 execute "copen " . g:asyncrun_open
             endif
         elseif get(g:, 'search_all_cmd', '') != ''
@@ -85,7 +85,7 @@ if get(g:, 'ctags_type', '') != ''
     command! PreviewTagOrSearchAll call PreviewTagOrSearchAll()
     nnoremap <silent><M-t> :PreviewTagOrSearchAll<Cr>
 elseif g:complete_engine == 'cmp'
-    nnoremap <M-t> :TeleSearchAll <C-r>=expand('<cword>')<Cr><Cr>
+    nnoremap <silent><M-t> :TeleSearchAll <C-r>=expand('<cword>')<Cr><Cr>
 endif
 " --------------------------
 " symbols in buf

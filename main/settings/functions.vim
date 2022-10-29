@@ -83,10 +83,14 @@ endfunc
 " --------------------------
 function! Execute(cmd)
     let cmd = a:cmd
-    redir => output
-    silent execute cmd
-    redir END
-    return output
+    if exists(':execute') > 0
+        return execute(cmd)
+    else
+        redir => l:output
+        silent! execute cmd
+        redir END
+        return l:output
+    endif
 endfunction
 " --------------------------
 " GetPyxVersion
