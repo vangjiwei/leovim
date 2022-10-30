@@ -59,9 +59,6 @@ if g:complete_engine == 'coc'
             \ 'coc-vimlsp',
             \ 'coc-pyright',
             \ ]
-    if has('nvim-0.8')
-        let g:coc_global_extensions += ['coc-symbol-line']
-    endif
     if Require('c') && executable('clangd')
         let g:coc_global_extensions += ['coc-clangd', 'coc-cmake']
     endif

@@ -194,5 +194,5 @@ call coc#config('semanticTokens.filetypes',  g:highlight_filetypes)
 " coc config for nvim-0.8
 " ------------------------
 if has('nvim-0.8')
-    luafile $LUA_PATH/coc.conf.lua
+    luafile $LUA_PATH/coc.lua
 endif
