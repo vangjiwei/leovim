@@ -63,7 +63,15 @@ let g:lightline = {
 "------------------------
 " left part
 "------------------------
-let g:lightline.active.left = [['gitbranch', 'readonly', 'paste' ], ['rootpath'], ['filename', 'modified']]
+if Installed('vista.vim')
+    function! VistaSymbol()
+        return get(b:, 'vista_nearest_method_or_function', '')
+    endfunction
+    let g:lightline.component_function.symbol = 'VistaSymbol'
+    let g:lightline.active.left = [['gitbranch', 'readonly', 'paste' ], ['rootpath'], ['filename', 'symbol', 'modified']]
+else
+    let g:lightline.active.left = [['gitbranch', 'readonly', 'paste' ], ['rootpath'], ['filename', 'modified']]
+endif
 "------------------------
 " right part
 "------------------------
