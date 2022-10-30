@@ -133,12 +133,18 @@
     {
         "key": "<alt+[>",
         "command": "editor.action.peektypeDefinition",
-        "when": "editorHasReferenceProvider && editorTextFocus && !isInEmbeddedEditor"
+        "when": "editorTextFocus && !isInEmbeddedEditor"
     },
     // declaration
     {
         "key": "<alt+]>",
         "command": "editor.action.peekDeclaration",
+        "when": "editorTextFocus && !isInEmbeddedEditor"
+    },
+    // implementation 
+    {
+        "key": "<alt+'>",
+        "command": "editor.action.peekImplementation",
         "when": "editorTextFocus && !isInEmbeddedEditor"
     },
     // incoming outgoing calls
