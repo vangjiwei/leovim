@@ -55,8 +55,8 @@ if get(g:, 'ctags_type', '') != ''
         let tagname = expand('<cword>')
         if g:symbol_tool =~ 'leaderfgtags'
             call Execute("silent! Leaderf gtags -i -g " . tagname)
-        elseif g:complete_engine == 'cmp'
-            call Execute("silent! TeleSearchAll " . tagname)
+        elseif index(['help', 'gitcommit', 'vim'], &ft) >= 0 && g:complete_engine == 'cmp'
+            execute 'TeleSearchAll ' . tagname
         elseif g:ctags_type != ''
             if Installed('vim-gutentags')
                 let ret = Execute("silent! PreviewList ". tagname)
