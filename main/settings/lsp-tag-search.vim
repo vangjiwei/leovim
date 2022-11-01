@@ -55,7 +55,7 @@ if get(g:, 'ctags_type', '') != ''
         let tagname = expand('<cword>')
         if g:symbol_tool =~ 'leaderfgtags'
             call Execute("silent! Leaderf gtags -i -g " . tagname)
-        elseif InstalledTelescope() && (Installed('nvim-treesitter') && count(get(g:, 'highlight_filetypes', []), &ft) == 0 || !Installed('nvim-treesitter'))
+        elseif InstalledTelescope() && index(['vim', 'help'], &ft) >= 0
             execute 'TeleSearchAll ' . tagname
         elseif g:ctags_type != ''
             if Installed('vim-gutentags')
