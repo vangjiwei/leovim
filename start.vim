@@ -114,14 +114,19 @@ endif
 " has_terminal
 " --------------------------
 if exists(':tnoremap') && !exists('g:vscode')
-    let g:has_terminal = 1
+    if has('patch-8.1.1')
+        set termwinkey=<C-_>
+        let g:has_terminal=2
+    else
+        let g:has_terminal=1
+    endif
     if has('nvim')
         let g:floaterm_floating = 1
     else
         let g:floaterm_floating = 0
     endif
 else
-    let g:has_terminal      = 0
+    let g:has_terminal = 0
     let g:floaterm_floating = 0
 endif
 " --------------------------
@@ -158,7 +163,7 @@ endif
 if MACVIM() && !has('gui_vimr')
     set macmeta
 endif
-" --------------------------
-" source basic.vim for vim/neovim/vscode-neovim
-" --------------------------
+" ----------------------------------------------------
+" source commom.vim for vim/neovim/vscode
+" ----------------------------------------------------
 source $MAIN_PATH/common.vim

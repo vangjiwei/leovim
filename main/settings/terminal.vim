@@ -1,12 +1,6 @@
 " --------------------------
 " set termwinkey
 " --------------------------
-if has('patch-8.1.1')
-    set termwinkey=<C-_>
-    let g:has_terminal=2
-else
-    let g:has_terminal=1
-endif
 tnoremap <expr> <C-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'
 tnoremap <M-q> <C-\><C-n>:q!<CR>
 tnoremap <M-w> <C-\><C-n>:ChooseWin<CR>
