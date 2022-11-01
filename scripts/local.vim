@@ -1,12 +1,13 @@
-let g:require_group = get(g:, 'preset_group', ['themes'])
-
+let g:require_group = get(g:, 'preset_group', [])
+let g:require_group += ['themes']
 
 " https://github.com/nvim-telescope/telescope-fzf-native.nvim
 " cmd to compile telescope_fzf
 " let g:telescope_fzf_make_cmd = ''
 
 let g:highlight_filetypes = [
-            \ 'c_sharp', 'cmake', 'java', 'rust', 'go',
+            \ 'c_sharp', 'cpp', 'c', 'cmake',
+            \ 'java', 'rust', 'go',
             \ 'r', 'python', 'julia',
             \ 'javascript', 'typescript',
             \ 'css', 'scss', 'json', 'toml',
