@@ -12,7 +12,6 @@ if has('patch-7.4.330') && g:python_version > 2
 endif
 if g:complete_engine == 'cmp'
     PackAdd 'nvim-lua/plenary.nvim'
-                \| PackAdd 'nvim-lua/popup.nvim'
                 \| PackAdd 'MunifTanjim/nui.nvim'
                 \| PackAdd 'nvim-neo-tree/neo-tree.nvim'
                 \| PackAdd 'nvim-telescope/telescope.nvim'
