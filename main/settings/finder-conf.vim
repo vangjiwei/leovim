@@ -4,6 +4,8 @@
 if Installed('leaderf')
     if Installed('coc.nvim')
         let g:fuzzy_finder = 'leaderf-coc-fzf'
+    elseif InstalledTelescope()
+        let g:fuzzy_finder = 'leaderf-telescope'
     else
         let g:fuzzy_finder = 'leaderf-fzf'
     endif

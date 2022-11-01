@@ -858,8 +858,8 @@ function! Version()
     if get(g:, 'symbol_tool', '') != ''
         let params_dict['symbol_tool'] = g:symbol_tool
     endif
-    if get(g:, 'lint_tool', '') != ''
-        let params_dict['lint_tool'] = g:lint_tool
+    if get(g:, 'check_tool', '') != ''
+        let params_dict['check_tool'] = g:check_tool
     endif
     if get(g:, 'input_method', '') != ''
         let params_dict['input_method'] = g:input_method
@@ -868,12 +868,9 @@ function! Version()
         let params_dict['pygments_import'] = g:pygments_import
     endif
     if has('nvim') && exists('$TERM') && $TERM != ''
-        let params_dict['$TERM'] = $TERM
+        let params_dict['term'] = $TERM
     elseif !has('nvim') && exists('&term') && &term != ''
         let params_dict['term'] = &term
-    endif
-    if has('nvim')
-        let params_dict['nvim_treesitter_context'] = get(g:, 'nvim_treesitter_context', 0)
     endif
     echo string(params_dict)
 endfunction

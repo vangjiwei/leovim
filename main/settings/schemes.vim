@@ -74,9 +74,6 @@ endif
 " nvim-treesitter
 if Installed('nvim-treesitter')
     luafile $LUA_PATH/treesitter.lua
-    nnoremap <M-l>U :TSUpdate<Space>
-    nnoremap <M-l>I :TSInstall<Space>
-    if Installed('nvim-treesitter-context')
-        hi! link TreesitterContext Visual
-    endif
+    nnoremap <M-l>u :TSUpdate<Space>
+    nnoremap <M-l>i :TSInstall<Space>
 endif
