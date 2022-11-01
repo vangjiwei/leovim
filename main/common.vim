@@ -141,7 +141,6 @@ function! InstalledTelescope()
     return Installed(
                 \ 'nui.nvim',
                 \ 'plenary.nvim',
-                \ 'popup.nvim',
                 \ 'telescope.nvim',
                 \ )
 endfunction
@@ -261,10 +260,6 @@ augroup TrailSpace
 augroup END
 command! TripTrailingWhiteSpace call TripTrailingWhiteSpace()
 nnoremap d<space> :TripTrailingWhiteSpace<Cr>
-" ----------------------
-" intergrated packs
-" ---------------------
-source $MAIN_PATH/intergrated.vim
 " ------------------------
 " yank
 " ------------------------
@@ -305,7 +300,7 @@ nnoremap <leader>yp :let @*=expand("%:p")<cr>:echo '-= File path copied=-'<Cr>
 " Copy file name
 nnoremap <leader>yf :let @*=expand("%:t")<cr>:echo '-= File name copied=-'<Cr>
 " Copy bookmark position reference
-nnoremap <leader>yb :let @*=expand("%:p").':'.line(".").':'.col(".")<cr>:echo '-= Cursor bookmark  copied=-'<cr>'
+nnoremap <leader>yb :let @*=expand("%:p").':'.line(".").':'.col(".")<cr>:echo '-= Cursor bookmark copied=-'<cr>'
 if has('clipboard')
     " autocmd
     if exists("##ModeChanged")
@@ -313,15 +308,19 @@ if has('clipboard')
         au ModeChanged s:* set clipboard=unnamedplus
     endif
     " yank
-    nnoremap Y  "*y$:echo "Yank to  the  line ending to clipboard"<Cr>
-    nnoremap yy "*yy:echo "Yank the line to   clipboard"<Cr>
+    nnoremap Y  "*y$:echo "Yank to the line ending to clipboard"<Cr>
+    nnoremap yy "*yy:echo "Yank the line to clipboard"<Cr>
     xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
 else
     nnoremap Y y$
     xnoremap <C-c> y
 endif
+" ----------------------
+" intergrated packs
+" ---------------------
+source $MAIN_PATH/intergrated.vim
 " ------------------------
-" configs for vscode and neovim/vim are different
+" configs for vscode or neovim/vim
 " ------------------------
 if exists("g:vscode")
     source $LEOVIM_PATH/vscode/neovim.vim

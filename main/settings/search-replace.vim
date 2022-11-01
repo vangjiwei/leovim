@@ -160,8 +160,10 @@ if InstalledTelescope()
     command! -nargs=1 TeleSearchAll call s:telescope_search(2, <f-args>)
     " searchall
     let g:search_all_cmd = 'TeleSearchAll'
-    nnoremap s/ :TeleSearchAll <C-r>=expand('<cword>')<Cr>
-    xnoremap s/ :<C-u>TeleSearchAll <C-r>=GetVisualSelection()<Cr>
+    nnoremap s? :TeleSearchAll <C-r>=expand('<cword>')<Cr>
+    xnoremap s? :<C-u>TeleSearchAll <C-r>=GetVisualSelection()<Cr>
+    nnoremap s/ :TeleSearchAll <C-r>=expand('<cword>')<Cr><Cr>
+    xnoremap s/ :<C-u>TeleSearchAll <C-r>=GetVisualSelection()<Cr><Cr>
     nnoremap <silent>s. :TeleSearchAllLast<Cr>
 elseif InstalledFzf() && exists('*systemlist')
     if get(g:, 'search_tool', '') == 'grepper'
@@ -218,14 +220,18 @@ elseif InstalledFzf() && exists('*systemlist')
     command! -nargs=1 FZFSearchAll call s:fzf_search(2, <f-args>)
     " searchall
     let g:search_all_cmd = 'FZFSearchAll'
-    nnoremap s/ :FZFSearchAll <C-r>=expand('<cword>')<Cr>
-    xnoremap s/ :<C-u>FZFSearchAll <C-r>=GetVisualSelection()<Cr>
+    nnoremap s? :FZFSearchAll <C-r>=expand('<cword>')<Cr>
+    xnoremap s? :<C-u>FZFSearchAll <C-r>=GetVisualSelection()<Cr>
+    nnoremap s/ :FZFSearchAll <C-r>=expand('<cword>')<Cr><Cr>
+    xnoremap s/ :<C-u>FZFSearchAll <C-r>=GetVisualSelection()<Cr><Cr>
     nnoremap <silent>s. :FZFSearchAllLast<Cr>
 elseif get(g:, 'search_tool', '') =~ 'grepper'
     " searchall
     let g:search_all_cmd = 'GrepperSearchAll'
-    nnoremap s/ :GrepperSearchAll <C-r>=expand('<cword>')<Cr>
-    xnoremap s/ :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr>
+    nnoremap s? :GrepperSearchAll <C-r>=expand('<cword>')<Cr>
+    xnoremap s? :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr>
+    nnoremap s/ :GrepperSearchAll <C-r>=expand('<cword>')<Cr><Cr>
+    xnoremap s/ :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr><Cr>
     nnoremap <silent>s. :GrepperSearchAllLast<Cr>
 endif
 " --------------------------
