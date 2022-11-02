@@ -51,8 +51,12 @@ if get(g:, 'ctags_type', '') != ''
     " --------------------------
     " M-t is Specially defined
     " --------------------------
-    function! PreviewTagOrSearchAll()
-        let tagname = expand('<cword>')
+    function! PreviewTagOrSearchAll(tagname)
+        if a:tagname == ''
+            let tagname = expand('<cword>')
+        else
+            let tagname = a:tagname
+        endif
         if g:symbol_tool =~ 'leaderfgtags'
             call Execute("silent! Leaderf gtags -i -g " . tagname)
         elseif InstalledTelescope() && index(['vim', 'help'], &ft) >= 0
@@ -79,7 +83,7 @@ if get(g:, 'ctags_type', '') != ''
             echom "No tag found, and cannot do global grep search."
         endif
     endfunction
-    command! PreviewTagOrSearchAll call PreviewTagOrSearchAll()
+    command! PreviewTagOrSearchAll call PreviewTagOrSearchAll('')
     nnoremap <silent><M-t> :PreviewTagOrSearchAll<Cr>
 elseif g:complete_engine == 'cmp'
     nnoremap <silent><M-t> :TeleSearchAll <C-r>=expand('<cword>')<Cr><Cr>
@@ -278,7 +282,7 @@ else
         endif
         " tag
         if get(l:, 'res', 1) == 0
-            call PreviewTagOrSearchAll()
+            call PreviewTagOrSearchAll(tagname)
         endif
     endfunction
     if g:complete_engine == 'coc'
