@@ -39,11 +39,14 @@ command! ToggleObjBrw call RObjBrowser()
 nnoremap <silent> q<Cr>  :ToggleObjBrw<CR>
 nnoremap <silent> q<Tab> :ToggleEnvLib<Cr>
 
-nnoremap c<Cr> :call SendFunctionToR('echo', "down")<CR>
-nnoremap cn :call SendLineToR("down")<CR>
-xnoremap cn :call SendLineToR("down")<CR>
+nnoremap cf :call SendFunctionToR('echo', "down")<CR>
+nnoremap c, :call SendLineToR("down")<CR>
+xnoremap c, :call SendLineToR("down")<CR>
+nnoremap ch :call SendLineToR("stay")<CR>
+xnoremap ch :call SendLineToR("stay")<CR>
+nnoremap c; viB:call SendLineToR("down")<CR>
 nnoremap cL :call RClearConsole()<Cr>
-nnoremap cO :call RClearAll()<Cr>
+nnoremap cK :call RClearAll()<Cr>
 
 nnoremap <leader>C :call SendAboveLinesToR()<CR>
 nnoremap <leader>E VG:call SendLineToR('down')<CR>
@@ -52,7 +55,7 @@ nnoremap <leader>V :call RAction('viewobj')<CR>
 " input
 inoremap >> <space>%>%<space>
 inoremap << <space><-<space>
-inoremap ?? <space>\|><space>
+inoremap ?? <space>|><space>
 " run script
 nnoremap <M-R> :call StartR('R')<Cr>
 nnoremap <M-B> :RStop<Cr>
