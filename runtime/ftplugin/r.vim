@@ -55,7 +55,6 @@ nnoremap <leader>V :call RAction('viewobj')<CR>
 " input
 inoremap >> <space>%>%<space>
 inoremap << <space><-<space>
-inoremap ?? <space>|><space>
 " run script
 nnoremap <M-R> :call StartR('R')<Cr>
 nnoremap <M-B> :RStop<Cr>
