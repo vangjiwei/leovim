@@ -100,7 +100,7 @@ echo '$SHELL' >> $HOME/.local/bin/leovim && chmod 755 $HOME/.local/bin/leovim
 echo "#!/usr/bin/env bash" > $HOME/.local/bin/leonvim
 echo "export LEOVIM_CONF=$HOME/.leovim.conf" >> $HOME/.local/bin/leonvim
 echo 'cd $LEOVIM_CONF' >> $HOME/.local/bin/leonvim
-echo 'nvim -p ~/.vimrc.local main/common.vim main/settings/main.vim main/packsync/pack.vim vscode/neovim.vim jetbrains/idea.vim' >> $HOME/.local/bin/leonvim
+echo 'nvim -p ~/.vimrc.local main/common.vim main/settings/basic.vim main/packsync/pack.vim vscode/neovim.vim jetbrains/idea.vim' >> $HOME/.local/bin/leonvim
 echo '$SHELL' >> $HOME/.local/bin/leonvim && chmod 755 $HOME/.local/bin/leonvim
 
 # LEOVIM command
