@@ -61,72 +61,66 @@ if has('nvim') || has('timers') && has('channel') && has('job') && has('patch-7.
         if &filetype != '' && &filetype != 'markdown' && &filetype != 'startify'
             if g:has_terminal
                 if type == 2
-                    let params = '-mode=term -pos=tab -focus=1 -reuse'
+                    let params = '-cwd=$(VIM_FILEDIR) -mode=term -pos=tab -focus=1 -reuse'
                 elseif type == 3
-                    let params = '-mode=term -pos=floaterm_reuse'
+                    let params = '-cwd=$(VIM_FILEDIR) -mode=term -pos=floaterm_reuse'
                 elseif type == 4 && WINDOWS()
-                    let params = '-mode=term -pos=external -reuse'
+                    let params = '-cwd=$(VIM_FILEDIR) -mode=term -pos=external -reuse'
                 else
-                    let params = "-mode=async"
+                    let params = "-cwd=$(VIM_FILEDIR) -mode=async"
                 endif
             else
                 if WINDOWS() && type >= 2
-                    let params = '-mode=term -pos=external -reuse'
+                    let params = '-cwd=$(VIM_FILEDIR) -mode=term -pos=external -reuse'
                 else
                     if has('patch-7.4.1829') || has('nvim')
-                        let params = '-mode=async'
+                        let params = '-cwd=$(VIM_FILEDIR) -mode=async'
                     else
-                        let params = '-mode=bang'
+                        let params = '-cwd=$(VIM_FILEDIR) -mode=bang'
                     endif
                 endif
             endif
             if &filetype ==# 'dosbatch'
-                exec "AsyncRun ".params." ptime %"
+                exec 'AsyncRun ' .params. ' ptime "$(VIM_FILEPATH)" '
             elseif &filetype ==# 'python'
                 if get(g:, 'python_exe_path', '') != ''
                     if WINDOWS()
-                        exec "AsyncRun ".params." ptime " . g:python_exe_path . " %"
+                        exec 'AsyncRun '.params.' ptime ' . g:python_exe_path . ' "$(VIM_FILEPATH)"'
                     else
-                        exec "AsyncRun ".params." time " . g:python_exe_path . " %"
+                        exec 'AsyncRun '.params." time " . g:python_exe_path . ' "$(VIM_FILEPATH)"'
                     endif
                 else
                     if WINDOWS()
-                        exec "AsyncRun ".params." ptime python %"
+                        exec 'AsyncRun '.params.' ptime python "$(VIM_FILEPATH)"'
                     else
-                        exec "AsyncRun ".params." time  python %"
+                        exec 'AsyncRun '.params.' time  python "$(VIM_FILEPATH)"'
                     endif
                 endif
             elseif &filetype ==# 'rust' && executable('cargo')
                 if WINDOWS()
-                    exec "AsyncRun ".params." ptime cargo run %"
+                    exec 'AsyncRun '.params.' ptime cargo run "$(VIM_FILEPATH)"'
                 else
-                    exec "AsyncRun ".params." time  cargo run %"
+                    exec 'AsyncRun '.params.' time  cargo run "$(VIM_FILEPATH)"'
                 endif
             elseif &filetype ==# 'go' && executable('go')
                 if WINDOWS()
-                    exec "AsyncRun ".params." ptime go run %"
+                    exec 'AsyncRun '.params.' ptime go run "$(VIM_FILEPATH)"'
                 else
-                    exec "AsyncRun ".params." time  go run %"
-                endif
-            elseif &filetype ==# 'java' && executable('java') && executable('javac')
-                if WINDOWS()
-                    exec "AsyncRun ".params." javac % -o %< & ptime java %<"
-                else
-                    exec "AsyncRun ".params." javac % -o %< ; time  java %<"
+                    exec 'AsyncRun '.params.' time  go run "$(VIM_FILEPATH)"'
                 endif
             elseif &filetype ==# 'sh' && executable('bash')
-                exec "AsyncRun ".params." time bash %"
+                exec 'AsyncRun '.params.' time bash "$(VIM_FILEPATH)"'
             elseif &filetype ==# 'perl' && executable('perl')
                 if WINDOWS()
-                    exec "AsyncRun ".params." ptime perl %"
+                    exec 'AsyncRun '.params.' ptime perl "$(VIM_FILEPATH)"'
                 else
-                    exec "AsyncRun ".params." time perl %"
+                    exec 'AsyncRun '.params.' time perl "$(VIM_FILEPATH)"'
                 endif
             elseif &filetype ==# 'javascript' && executable('node')
                 if WINDOWS()
-                    exec "AsyncRun! ".params." ptime node %"
+                    exec 'AsyncRun! '.params.' ptime node "$(VIM_FILEPATH)"'
                 else
-                    exec "AsyncRun! ".params." time  node %"
+                    exec 'AsyncRun! '.params.' time  node "$(VIM_FILEPATH)"'
                 endif
             elseif &filetype == 'c' && UNIX()
                 exec 'AsyncRun '.params.' '. g:gcc_cmd
@@ -134,7 +128,7 @@ if has('nvim') || has('timers') && has('channel') && has('job') && has('patch-7.
                 exec 'AsyncRun '.params.' '. g:gpp_cmd
             else
                 let s:qf_to_side = 0
-                call feedkeys(":AsyncRun")
+                call feedkeys(':AsyncRun')
             endif
             if get(s:, 'qf_to_side', 1)
                 if type == 1
