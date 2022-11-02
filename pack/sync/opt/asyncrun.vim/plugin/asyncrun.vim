@@ -3,7 +3,7 @@
 " Maintainer: skywind3000 (at) gmail.com, 2016-2022
 " Homepage: https://github.com/skywind3000/asyncrun.vim
 "
-" Last Modified: 2022/10/30 10:25
+" Last Modified: 2022/11/02 18:41
 "
 " Run shell command in background and output to quickfix:
 "     :AsyncRun[!] [options] {cmd} ...
@@ -230,14 +230,21 @@ function! s:NotSupport()
 	call s:ErrorMsg(msg)
 endfunc
 
+" doautocmd
+function! s:DoAutoCmd(text)
+	let cmd = (g:asyncrun_silent)? 'silent doautocmd' : 'doautocmd'
+	if v:version >= 704
+		let cmd = cmd . ' <nomodeline>'
+	endif
+	if has('autocmd')
+		exec cmd . ' ' . a:text
+	endif
+endfunc
+
 " run autocmd
 function! s:AutoCmd(name)
 	if has('autocmd') && ((g:asyncrun_skip / 2) % 2) == 0
-		if g:asyncrun_silent
-			exec 'silent doautocmd <nomodeline> User AsyncRun'.a:name
-		else
-			exec 'doautocmd <nomodeline> User AsyncRun'.a:name
-		endif
+		call s:DoAutoCmd('User AsyncRun' . a:name)
 	endif
 endfunc
 
@@ -528,17 +535,9 @@ function! s:AsyncRun_Job_AutoCmd(mode, auto)
 		return 0
 	endif
 	if a:mode == 0
-		if g:asyncrun_silent
-			silent exec 'doautocmd <nomodeline> QuickFixCmdPre '. name
-		else
-			exec 'doautocmd <nomodeline> QuickFixCmdPre '. name
-		endif
+		call s:DoAutoCmd('QuickFixCmdPre ' . name)
 	else
-		if g:asyncrun_silent
-			silent exec 'doautocmd <nomodeline> QuickFixCmdPost '. name
-		else
-			exec 'doautocmd <nomodeline> QuickFixCmdPost '. name
-		endif
+		call s:DoAutoCmd('QuickFixCmdPost ' . name)
 	endif
 endfunc
 
@@ -1616,6 +1615,7 @@ function! s:run(opts)
 	let l:program = ""
 
 	let s:async_efm = a:opts.errorformat
+	let l:opts.code = l:mode
 
 	if l:opts.program == 'make'
 		let l:program = &makeprg
@@ -1767,20 +1767,31 @@ function! s:run(opts)
 		endif
 		let l:efm1 = &g:efm
 		let l:efm2 = &l:efm
+		if exists('&makeencoding')
+			let l:encoding = &l:makeencoding
+			if g:asyncrun_encs != ''
+				let &l:makeencoding = g:asyncrun_encs
+			endif
+		endif
 		if g:asyncrun_local != 0
 			let &g:efm = s:async_efm
 			let &l:efm = s:async_efm
 		endif
 		if has('autocmd')
 			call s:AsyncRun_Job_AutoCmd(0, opts.auto)
-			exec "noautocmd make!"
+			silent exec "noautocmd make!"
 			call s:AsyncRun_Job_AutoCmd(1, opts.auto)
 		else
-			exec "make!"
+			silent exec "make!"
 		endif
 		if g:asyncrun_local != 0
 			if l:efm1 != &g:efm | let &g:efm = l:efm1 | endif
 			if l:efm2 != &l:efm | let &l:efm = l:efm2 | endif
+		endif
+		if exists('&makeencoding')
+			if g:asyncrun_encs != ''
+				let &l:makeencoding = l:encoding
+			endif
 		endif
 		let &l:makeprg = l:makesave
 		if s:asyncrun_windows == 0
@@ -2096,7 +2107,7 @@ endfunc
 " asyncrun - version
 "----------------------------------------------------------------------
 function! asyncrun#version()
-	return '2.10.6'
+	return '2.10.8'
 endfunc
 
 

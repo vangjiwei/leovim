@@ -93,14 +93,14 @@ cp -n $APP_PATH/scripts/nvi.sh $HOME/.local/bin
 echo "#!/usr/bin/env bash" > $HOME/.local/bin/leovim
 echo "export LEOVIM_CONF=$HOME/.leovim.conf" >> $HOME/.local/bin/leovim
 echo 'cd $LEOVIM_CONF' >> $HOME/.local/bin/leovim
-echo 'vim -p  ~/.vimrc.local runtime/common.vim runtime/settings/main.vim runtime/packsync/pack.vim vscode/neovim.vim jetbrains/idea.vim' >> $HOME/.local/bin/leovim
+echo 'vim -p  ~/.vimrc.local main/common.vim main/settings/basic.vim main/packsync/pack.vim vscode/neovim.vim jetbrains/idea.vim' >> $HOME/.local/bin/leovim
 echo '$SHELL' >> $HOME/.local/bin/leovim && chmod 755 $HOME/.local/bin/leovim
 
 # leonvim command
 echo "#!/usr/bin/env bash" > $HOME/.local/bin/leonvim
 echo "export LEOVIM_CONF=$HOME/.leovim.conf" >> $HOME/.local/bin/leonvim
 echo 'cd $LEOVIM_CONF' >> $HOME/.local/bin/leonvim
-echo 'nvim -p ~/.vimrc.local runtime/common.vim runtime/settings/main.vim runtime/packsync/pack.vim vscode/neovim.vim jetbrains/idea.vim' >> $HOME/.local/bin/leonvim
+echo 'nvim -p ~/.vimrc.local main/common.vim main/settings/main.vim main/packsync/pack.vim vscode/neovim.vim jetbrains/idea.vim' >> $HOME/.local/bin/leonvim
 echo '$SHELL' >> $HOME/.local/bin/leonvim && chmod 755 $HOME/.local/bin/leonvim
 
 # LEOVIM command
