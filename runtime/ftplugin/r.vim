@@ -58,9 +58,9 @@ inoremap << <space><-<space>
 " run script
 nnoremap <M-R> :call StartR('R')<Cr>
 nnoremap <M-B> :RStop<Cr>
-nnoremap <M-T> :AsyncRun! -mode=term -pos=tab -focus=1 Rscript %
+nnoremap <M-T> :AsyncRun! -cwd=$(VIM_FILEDIR) -mode=term -pos=tab -focus=1 Rscript "$(VIM_FILEPATH)"
 if get(g:, 'terminal_plus', '') =~ 'floaterm'
-    nnoremap <M-F> :AsyncRun! -mode=term -pos=floaterm_reuse Rscript %
+    nnoremap <M-F> :AsyncRun! -cwd=$(VIM_FILEDIR) -mode=term -pos=floaterm_reuse Rscript "$(VIM_FILEPATH)"
 endif
 if get(g:, 'R_external_tmux', 1) == 1 && $TMUX != ''
     let R_external_term = 'tilix -a session-add-down -e'
