@@ -1170,7 +1170,7 @@ nnoremap <leader>ef :set ff=unix<Cr>:%s/\r//g<Cr>
 " ------------------------
 " other config
 " ------------------------
-nnoremap <leader>ea :tabe ~/.leovim.d/after.vim<Cr>
-if filereadable(expand('~/.leovim.d/after.vim'))
-    source ~/.leovim.d/after.vim
+nnoremap <leader>ea :tabe ~/.vimrc.after<Cr>
+if filereadable(expand('~/.vimrc.after'))
+    source ~/.vimrc.after
 endif
