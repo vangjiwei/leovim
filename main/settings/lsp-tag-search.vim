@@ -48,42 +48,44 @@ if get(g:, 'ctags_type', '') != ''
             nnoremap <silent><M-:> :PreviewTag<Cr>
         endif
     endif
-    " --------------------------
-    " M-t is Specially defined
-    " --------------------------
-    function! PreviewTagOrSearchAll()
-        let tagname = expand('<cword>')
-        if g:symbol_tool =~ 'leaderfgtags'
-            call Execute("silent! Leaderf gtags -i -g " . tagname)
-        elseif InstalledTelescope() && index(['vim', 'help'], &ft) >= 0
-            execute 'TeleSearchAll ' . tagname
-        elseif g:ctags_type != ''
-            if Installed('vim-gutentags')
-                let ret = Execute("silent! PreviewList ". tagname)
-            else
-                let ret = Execute("silent! PreviewTag ". tagname)
-            endif
-            " tag found
-            if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
-                if get(g:, 'search_all_cmd', '') == ''
-                    echom "No tag found, and cannot do global grep search."
-                else
-                    execute g:search_all_cmd . ' ' . tagname
-                endif
-            else
-                execute "copen " . g:asyncrun_open
-            endif
-        elseif get(g:, 'search_all_cmd', '') != ''
-            execute g:search_all_cmd . ' ' . tagname
-        else
-            echom "No tag found, and cannot do global grep search."
-        endif
-    endfunction
-    command! PreviewTagOrSearchAll call PreviewTagOrSearchAll()
-    nnoremap <silent><M-t> :PreviewTagOrSearchAll<Cr>
-elseif g:complete_engine == 'cmp'
-    nnoremap <silent><M-t> :TeleSearchAll <C-r>=expand('<cword>')<Cr><Cr>
 endif
+" --------------------------
+" M-t is Specially defined
+" --------------------------
+function! PreviewTagOrSearchAll(tagname)
+    if a:tagname == ''
+        let tagname = expand('<cword>')
+    else
+        let tagname = a:tagname
+    endif
+    if g:symbol_tool =~ 'leaderfgtags'
+        call Execute("silent! Leaderf gtags -i -g " . tagname)
+    elseif InstalledTelescope() && index(['vim', 'help'], &ft) >= 0
+        execute 'TeleSearchAll ' . tagname
+    elseif g:ctags_type != ''
+        if Installed('vim-gutentags')
+            let ret = Execute("silent! PreviewList ". tagname)
+        else
+            let ret = Execute("silent! PreviewTag ". tagname)
+        endif
+        " tag found
+        if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
+            if get(g:, 'search_all_cmd', '') == ''
+                echom "No tag found, and cannot do global grep search."
+            else
+                execute g:search_all_cmd . ' ' . tagname
+            endif
+        else
+            execute "copen " . g:asyncrun_open
+        endif
+    elseif get(g:, 'search_all_cmd', '') != ''
+        execute g:search_all_cmd . ' ' . tagname
+    else
+        echom "No tag found, and cannot do global grep search."
+    endif
+endfunction
+command! PreviewTagOrSearchAll call PreviewTagOrSearchAll('')
+nnoremap <silent><M-t> :PreviewTagOrSearchAll<Cr>
 " --------------------------
 " symbols in buf
 " --------------------------
@@ -278,7 +280,7 @@ else
         endif
         " tag
         if get(l:, 'res', 1) == 0
-            call PreviewTagOrSearchAll()
+            call PreviewTagOrSearchAll(tagname)
         endif
     endfunction
     if g:complete_engine == 'coc'
