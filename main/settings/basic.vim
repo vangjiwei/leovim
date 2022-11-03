@@ -396,7 +396,7 @@ nnoremap <Tab>M         :tabm<Space>
 " ------------------------
 " open in tab
 " ------------------------
-nnoremap <Tab>t <C-w>T
+nnoremap <leader>T <C-w>T
 " ------------------------
 " choosewin
 " ------------------------

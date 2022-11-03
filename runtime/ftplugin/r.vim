@@ -51,16 +51,17 @@ nnoremap cK :call RClearAll()<Cr>
 nnoremap <leader>C :call SendAboveLinesToR()<CR>
 nnoremap <leader>E VG:call SendLineToR('down')<CR>
 nnoremap <leader>I :call SendLineToRAndInsertOutput()<CR>0
-nnoremap <leader>V :call RAction('viewobj')<CR>
+
+nnoremap <leader>t :call RAction('viewobj')<CR>
 " input
 inoremap >> <space>%>%<space>
 inoremap << <space><-<space>
 " run script
 nnoremap <M-R> :call StartR('R')<Cr>
 nnoremap <M-B> :RStop<Cr>
-nnoremap <M-T> :AsyncRun! -cwd=$(VIM_FILEDIR) -mode=term -pos=tab -focus=1 Rscript "$(VIM_FILEPATH)"
+nnoremap <M-T> :AsyncRun! -cwd=$(VIM_FILEDIR) -mode=term -pos=tab -focus=1 Rscript "$(VIM_FILEPATH)"<Cr>
 if get(g:, 'terminal_plus', '') =~ 'floaterm'
-    nnoremap <M-F> :AsyncRun! -cwd=$(VIM_FILEDIR) -mode=term -pos=floaterm_reuse Rscript "$(VIM_FILEPATH)"
+    nnoremap <M-F> :AsyncRun! -cwd=$(VIM_FILEDIR) -mode=term -pos=floaterm_reuse Rscript "$(VIM_FILEPATH)"<Cr>
 endif
 if get(g:, 'R_external_tmux', 1) == 1 && $TMUX != ''
     let R_external_term = 'tilix -a session-add-down -e'

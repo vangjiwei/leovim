@@ -116,7 +116,7 @@ if InstalledTelescope()
         " a:0 代表参数数量, a1 代表第一个参数
         lcd %:p:h
         if a:0 == 0 || a:1 == 0
-            lua search_all()
+            Telescope live_grep
         else
             " a:1 == 1, normal search
             if a:1 == 1
