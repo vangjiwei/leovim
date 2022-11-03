@@ -346,7 +346,7 @@ else
     if g:has_terminal > 0
         source $SETTINGS_PATH/terminal.vim
     endif
-    source $SETTINGS_PATH/basic.vim
+    source $SETTINGS_PATH/boostup.vim
 endif
 " ------------------------
 " set leovim loaded
