@@ -1,10 +1,10 @@
 local map = vim.api.nvim_set_keymap
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = vim.g.highlight_filetypes,
-  sync_install = false,
+  sync_install = true,
   highlight = {
     enable = true,
-    additional_vim_regex_highlighting = false,
+    additional_vim_regex_highlighting = true,
     disable = function(_, buf)
       local max_filesize = 1024 * 1024 -- 1m
       local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))

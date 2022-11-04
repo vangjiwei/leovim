@@ -156,9 +156,9 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     nnoremap <leader>M :LeaderfMruCwd<Cr>
     nnoremap <M-u>s :Leaderf searchHistory<Cr>
     nnoremap <M-u>h :Leaderf cmdHistory<Cr>
-    nnoremap ,; :Leaderf --next<Cr>
-    nnoremap ,, :Leaderf --previous<Cr>
-    nnoremap ,. :Leaderf --recall<Cr>
+    nnoremap <leader>; :Leaderf --next<Cr>
+    nnoremap <leader>, :Leaderf --previous<Cr>
+    nnoremap <leader>. :Leaderf --recall<Cr>
     " mru cwd
     " replace origin command
     nnoremap <M-k>s :Leaderf colorscheme<Cr>

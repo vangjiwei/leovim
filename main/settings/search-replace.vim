@@ -258,11 +258,8 @@ if Installed('leaderf')
     endif
     " flygrep recall
     nnoremap <leader>/ :Leaderf rg -L -S<Cr>
-    nnoremap <leader>. :Leaderf rg --recall<Cr>
     nnoremap <leader>? :Leaderf rg -L -S <C-r>=expand('<cword>')<Cr>
     xnoremap <leader>? :<C-u>Leaderf rg -L -S <C-r>=GetVisualSelection()<Cr>
-    nnoremap <leader>; :Leaderf rg --next<Cr>
-    nnoremap <leader>, :Leaderf rg --previous<Cr>
     " next previous
     nnoremap <C-f>; :Leaderf rg --next<Cr>
     xnoremap <C-f>; :<C-U>Leaderf rg --next<Cr>
