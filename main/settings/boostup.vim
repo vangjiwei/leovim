@@ -438,7 +438,6 @@ nnoremap <M-k>h :set nohlsearch? nohlsearch!<Cr>
 nnoremap <M-k>i :set invrelativenumber<Cr>
 nnoremap <M-k>s :colorscheme<Space>
 nnoremap <M-k>t :setfiletype<Space>
-nnoremap <M-k>c :command<Cr>
 nnoremap <M-k>r :set relativenumber \| set number<Cr>
 nnoremap <M-'>  :registers<Cr>
 " ------------------------
