@@ -1,16 +1,3 @@
-" ------------------------
-" mapleader
-" ------------------------
-let g:mapleader      = ' '
-let g:maplocalleader = '\'
-" -----------------------------------
-" delete tmp/swp files
-" -----------------------------------
-if WINDOWS()
-    nnoremap <leader>X :!powershell <C-r>=expand("~/_leovim.clean.cmd")<Cr><Cr> \| e %<Cr>
-else
-    nnoremap <leader>X :!bash <C-r>=expand("~/.leovim.clean")<Cr><Cr><C-l>
-endif
 " ------------------------------
 " function to transform dotted string to float
 " ------------------------------
@@ -25,6 +12,19 @@ function! StringToFloat(str)
         return str2float(str)
     endtry
 endfunction
+" ------------------------
+" mapleader
+" ------------------------
+let g:mapleader      = ' '
+let g:maplocalleader = '\'
+" -----------------------------------
+" delete tmp/swp files
+" -----------------------------------
+if WINDOWS()
+    nnoremap <leader>X :!powershell <C-r>=expand("~/_leovim.clean.cmd")<Cr><Cr> \| e %<Cr>
+else
+    nnoremap <leader>X :!bash <C-r>=expand("~/.leovim.clean")<Cr><Cr><C-l>
+endif
 " ------------------------------
 " git version
 " ------------------------------
@@ -343,10 +343,10 @@ else
     " ------------------------
     " source
     " ------------------------
+    source $SETTINGS_PATH/boostup.vim
     if g:has_terminal > 0
         source $SETTINGS_PATH/terminal.vim
     endif
-    source $SETTINGS_PATH/boostup.vim
 endif
 " ------------------------
 " set leovim loaded

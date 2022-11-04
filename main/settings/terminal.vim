@@ -49,7 +49,6 @@ endif
 " --------------------------
 " terminal-help
 " --------------------------
-PackAdd 'vim-terminal-help'
 let g:terminal_plus = 'help'
 if get(g:, 'terminal_shell', '') == ''
     if WINDOWS()
@@ -63,10 +62,10 @@ let g:terminal_kill            = 'term'
 let g:terminal_auto_insert     = 1
 let g:terminal_skip_key_init   = 1
 let g:terminal_default_mapping = 0
+PackAdd 'vim-terminal-help'
 " --------------------------
 " floaterm
 " --------------------------
-PackAdd 'vim-floaterm'
 if get(g:, 'terminal_plus', '') == ''
     let g:terminal_plus = 'floaterm'
 else
@@ -98,3 +97,4 @@ nnoremap <M-j>h :FloatermFirst<Cr>
 nnoremap <M-j>l :FloatermLast<Cr>
 nnoremap <silent> <M-=> :FloatermToggle<CR>
 tnoremap <silent> <M-=> <C-\><C-n>:FloatermToggle<CR>
+PackAdd 'vim-floaterm'
