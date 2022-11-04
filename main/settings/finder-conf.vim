@@ -23,12 +23,12 @@ elseif InstalledFzf()
 else
     let g:fuzzy_finder = ''
 endif
-if InstalledTelescope() && InstalledLsp()
+if InstalledTelescope()
     luafile $LUA_PATH/telescope-config.lua
-    nnoremap <leader>fg :lua project_files()<Cr>
+    nnoremap <leader>fp :lua project_files()<Cr>
     nnoremap m<tab> <cmd>Telescope keymaps<Cr>
     nnoremap <M-u>q <cmd>Telescope quickfixhistory<Cr>
-    nnoremap <M-u>r <cmd>Telescope resume<Cr>
+    nnoremap <M-u>. <cmd>Telescope resume<Cr>
     if Installed('leaderf')
         nnoremap <M-C> :Telescope<Cr>
     else
@@ -110,8 +110,8 @@ elseif InstalledFzf()
             endif
         endif
     endfunction
-    command! FilesSearch call s:files_search()
-    nnoremap <silent> <leader>fg :FilesSearch<Cr>
+    command! ProjectFiles call s:files_search()
+    nnoremap <silent> <leader>fp :ProjectFiles<Cr>
 endif
 " --------------------------
 " using leaderf cache dir
