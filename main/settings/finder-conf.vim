@@ -168,7 +168,7 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     " jumps
     nnoremap <M-j><M-j> :Leaderf jumps<cr>
     " line
-    nnoremap <M-l><M-l> :Leaderf line --no-sort --regexMode<Cr>
+    nnoremap <M-l><M-l> :Leaderf line --all --no-sort --regexMode<Cr>
     nnoremap <M-l>a :Leaderf line --all --no-sort<Cr>
     nnoremap <M-l>l :Leaderf line --no-sort<Cr>
     " leader-filer
@@ -266,77 +266,69 @@ elseif InstalledFzf()
     nnoremap Z<S-Cr> :CloseQuickfix<Cr>:FZFQuickFix<CR>
     nnoremap Z<Cr>   :CloseQuickfix<Cr>:FZFLocList<CR>
     " FZF jumps
-    try
-        " if fail l:jl, jumps cannot be used
-        let l:jl = execute('jumps')
-        unlet l:jl
-        " functions
-        function! s:jumpListFormat(val) abort
-            let l:file_name = bufname('%')
-            let l:file_name = empty(l:file_name) ? 'Unknown file name' : l:file_name
-            let l:curpos = getcurpos()
-            let l:l = matchlist(a:val, '\(>\?\)\s*\(\d*\)\s*\(\d*\)\s*\(\d*\) \?\(.*\)')
-            let [l:mark, l:jump, l:line, l:col, l:content] = l:l[1:5]
-            if empty(trim(l:mark)) | let l:mark = '-' | endif
-            if filereadable(expand(fnameescape(l:content)))
-                let l:file_name = expand(l:content)
-                let l:bn = bufnr(l:file_name)
-                if l:bn > -1 && buflisted(l:bn) > 0
-                    let l:content = getbufline(l:bn, l:line)
-                    let l:content = empty(l:content) ? "" : l:content[0]
-                else
-                    let l:content = system("sed -n " . l:line . "p " . l:file_name)
-                endif
-            elseif empty(trim(l:content))
-                if empty(trim(l:line))
-                    let [l:line, l:col] = l:curpos[1:2]
-                endif
-                let l:content = getline(l:line, l:line)[0]
-            endif
-            return l:mark . " " . l:file_name . ":" . l:line . ":" . l:col . " " . l:content
-        endfunction
-        function! s:jumpList() abort
-            let l:jl = execute('jumps')
-            return map(reverse(split(l:jl, '\n')[1:]), 's:jumpListFormat(v:val)')
-        endfunction
-        function! s:jumpHandler(jp)
-            let l:l = matchlist(a:jp, '\(.\)\s\(.*\):\(\d\+\):\(\d\+\)\(.*\)')
-            let [l:file_name, l:line, l:col, l:content] = l:l[2:5]
-            if empty(l:file_name) || empty(l:line) | return | endif
-            " 判断文件是否已经存在 buffer 中
+    function! s:jumpListFormat(val) abort
+        let l:file_name = bufname('%')
+        let l:file_name = empty(l:file_name) ? 'Unknown file name' : l:file_name
+        let l:curpos = getcurpos()
+        let l:l = matchlist(a:val, '\(>\?\)\s*\(\d*\)\s*\(\d*\)\s*\(\d*\) \?\(.*\)')
+        let [l:mark, l:jump, l:line, l:col, l:content] = l:l[1:5]
+        if empty(trim(l:mark)) | let l:mark = '-' | endif
+        if filereadable(expand(fnameescape(l:content)))
+            let l:file_name = expand(l:content)
             let l:bn = bufnr(l:file_name)
-            " 未打开
-            if l:bn == -1 | if filereadable(l:file_name) | execute 'e ' . 'l:file_name' | endif
-            else | execute 'buffer ' . l:bn | endif
-            call cursor(str2nr(l:line), str2nr(l:col))
-            normal! zvzz
-        endfunction
-        function! s:FZFJumps() abort
-            if WINDOWS()
-                call fzf#run(fzf#wrap({
-                        \ 'source': s:jumpList(),
-                        \ 'sink': function('s:jumpHandler'),
-                        \ 'options': [
-                            \ '--prompt=Jumps>'
-                        \ ],
-                        \ }))
+            if l:bn > -1 && buflisted(l:bn) > 0
+                let l:content = getbufline(l:bn, l:line)
+                let l:content = empty(l:content) ? "" : l:content[0]
             else
-                call fzf#run(fzf#wrap({
-                        \ 'source': s:jumpList(),
-                        \ 'sink': function('s:jumpHandler'),
-                        \ 'options': [
-                            \ '--prompt=Jumps>',
-                            \ '--preview', $LEOVIM_PATH . '/bin/preview.sh {2}',
-                            \ '--preview-window=up:35%'
-                        \ ],
-                        \ }))
+                let l:content = system("sed -n " . l:line . "p " . l:file_name)
             endif
-        endfunction
-        command! -bang -nargs=* FZFJumps call s:FZFJumps()
-        nnoremap <M-j><M-j> :FZFJumps<cr>
-    catch
-        " pass
-    endtry
+        elseif empty(trim(l:content))
+            if empty(trim(l:line))
+                let [l:line, l:col] = l:curpos[1:2]
+            endif
+            let l:content = getline(l:line, l:line)[0]
+        endif
+        return l:mark . " " . l:file_name . ":" . l:line . ":" . l:col . " " . l:content
+    endfunction
+    function! s:jumpList() abort
+        let l:jl = Execute('jumps')
+        return map(reverse(split(l:jl, '\n')[1:]), 's:jumpListFormat(v:val)')
+    endfunction
+    function! s:jumpHandler(jp)
+        let l:l = matchlist(a:jp, '\(.\)\s\(.*\):\(\d\+\):\(\d\+\)\(.*\)')
+        let [l:file_name, l:line, l:col, l:content] = l:l[2:5]
+        if empty(l:file_name) || empty(l:line) | return | endif
+        " 判断文件是否已经存在 buffer 中
+        let l:bn = bufnr(l:file_name)
+        " 未打开
+        if l:bn == -1 | if filereadable(l:file_name) | execute 'e ' . 'l:file_name' | endif
+        else | execute 'buffer ' . l:bn | endif
+        call cursor(str2nr(l:line), str2nr(l:col))
+        normal! zvzz
+    endfunction
+    function! s:FZFJumps() abort
+        if WINDOWS()
+            call fzf#run(fzf#wrap({
+                    \ 'source': s:jumpList(),
+                    \ 'sink': function('s:jumpHandler'),
+                    \ 'options': [
+                        \ '--prompt=Jumps>'
+                    \ ],
+                    \ }))
+        else
+            call fzf#run(fzf#wrap({
+                    \ 'source': s:jumpList(),
+                    \ 'sink': function('s:jumpHandler'),
+                    \ 'options': [
+                        \ '--prompt=Jumps>',
+                        \ '--preview', $LEOVIM_PATH . '/bin/preview.sh {2}',
+                        \ '--preview-window=up:35%'
+                    \ ],
+                    \ }))
+        endif
+    endfunction
+    command! -bang -nargs=* FZFJumps call s:FZFJumps()
+    nnoremap <M-j><M-j> :FZFJumps<cr>
     nnoremap <M-l><M-l> :FZFBLines<CR>
     nnoremap <M-k><M-k> :FzfCommands<CR>
 endif
