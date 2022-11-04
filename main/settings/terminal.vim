@@ -63,6 +63,15 @@ let g:terminal_auto_insert     = 1
 let g:terminal_skip_key_init   = 1
 let g:terminal_default_mapping = 0
 PackAdd 'vim-terminal-help'
+" map
+let s:cmd = 'nnoremap <silent>'.(g:terminal_key). ' '
+exec s:cmd . ':call TerminalToggle()<cr>'
+let s:cmd = 'tnoremap <silent>'.(g:terminal_key). ' '
+if g:has_terminal == 2
+    exec s:cmd . '<c-_>:call TerminalToggle()<cr>'
+else
+    exec s:cmd . '<c-\><c-n>:call TerminalToggle()<cr>'
+endif
 " --------------------------
 " floaterm
 " --------------------------
