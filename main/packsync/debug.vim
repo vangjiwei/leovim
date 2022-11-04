@@ -21,6 +21,8 @@ if g:has_terminal > 0
         let g:repl_cursor_down      = 1
         let g:repl_python_automerge = 1
         let g:repl_console_name     = "REPL"
+        " python
+        let g:repl_python_auto_send_unfinish_line = 0
         let g:repl_predefine_python = {
                     \ 'pandas':     'import pandas as pd',
                     \ 'numpy':      'import numpy as np',

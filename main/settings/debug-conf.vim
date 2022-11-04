@@ -33,7 +33,7 @@ if Installed('iron.nvim')
     nmap <leader>C Vggcl<ESC><C-o>
     nmap <leader>E VGcl<ESC><C-o>
 elseif Installed("vim-repl")
-    let g:repl_python_auto_send_unfinish_line = 0
+    let g:repl_program = {}
     let g:repl_program.python = []
     if executable('ipython')
         let g:repl_program.python += ['ipython']
@@ -54,7 +54,7 @@ elseif Installed("vim-repl")
         endif
     endif
     " map
-    au Filetype python,sh,perl,javascript,lua call s:set_repl_map()
+    au Filetype python,sh,perl,javascript,lua,r call s:set_repl_map()
     function! s:set_repl_map()
         nmap \R :REPL
         nmap co :REPLToggle<Cr>
