@@ -1138,7 +1138,7 @@ nnoremap <leader>e<Cr> :source $LEOVIM_PATH/start.vim<Cr>
 " ------------------------
 nnoremap <leader>es :tabe $LEOVIM_PATH/start.vim<Cr>
 nnoremap <leader>el :tabe $HOME/.vimrc.local<Cr>
-nnoremap <leader>eb :tabe $SETTINGS_PATH/basic.vim<Cr>
+nnoremap <leader>eb :tabe $SETTINGS_PATH/boostup.vim<Cr>
 nnoremap <leader>ec :tabe $MAIN_PATH/common.vim<Cr>
 nnoremap <leader>eu :tabe ~/.leovim.conf/main/settings/lua/
 nnoremap <leader>er :tabe ~/.leovim.conf/runtime/
