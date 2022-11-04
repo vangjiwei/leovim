@@ -73,8 +73,8 @@ if exists('g:vscode')
     nmap , <Plug>(clever-f-repeat-back)
     xmap , <Plug>(clever-f-repeat-back)
 else
-    nmap - <Plug>(clever-f-repeat-back)
-    xmap - <Plug>(clever-f-repeat-back)
+    nmap ,, <Plug>(clever-f-repeat-back)
+    xmap ,, <Plug>(clever-f-repeat-back)
 endif
 " ------------------------
 " surround

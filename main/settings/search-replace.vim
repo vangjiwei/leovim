@@ -1,4 +1,9 @@
 " --------------------------
+" vimgrep in current file
+" --------------------------
+nnoremap \| :vimgrep <C-r>=expand('<cword>')<Cr> % \| copen<Cr>
+xnoremap \| :vimgrep <C-r>=GetVisualSelection()<Cr> % \| copen<Cr>
+" --------------------------
 " eregex.vim
 " --------------------------
 let g:eregex_force_case     = 0
@@ -6,12 +11,6 @@ let g:eregex_default_enable = 1
 let g:eregex_forward_delim  = ',/'
 let g:eregex_backward_delim = ',?'
 PackAdd 'eregex.vim'
-" --------------------------
-" vimgrep in current file
-
-" --------------------------
-nnoremap \| :vimgrep <C-r>=expand('<cword>')<Cr> % \| copen<Cr>
-xnoremap \| :vimgrep <C-r>=GetVisualSelection()<Cr> % \| copen<Cr>
 " --------------------------
 " vim-grepper
 " --------------------------

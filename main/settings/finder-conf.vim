@@ -149,13 +149,14 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
                 \ "Colorscheme": [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
                 \ }
     let g:Lf_CommandMap = {'<C-]>': ['<C-v>'], '<C-v>': ['<C-y>'], '<F5>': ['<F5>', '<C-l>'], '<C-l>': ['<C-e>'], '<Up>': ['<Up>', '<C-u>'], '<Down>': ['<Down>', '<C-d>']}
+    " history
+    nnoremap ,. :Leaderf searchHistory<Cr>
+    nnoremap ,; :Leaderf cmdHistory<Cr>
     " main selector
     nnoremap <leader>b :LeaderfBufferAll<Cr>
     nnoremap <leader>B :LeaderfTabBufferAll<Cr>
     nnoremap <leader>m :LeaderfMru<Cr>
     nnoremap <leader>M :LeaderfMruCwd<Cr>
-    nnoremap <M-u>s :Leaderf searchHistory<Cr>
-    nnoremap <M-u>h :Leaderf cmdHistory<Cr>
     nnoremap <leader>; :Leaderf --next<Cr>
     nnoremap <leader>, :Leaderf --previous<Cr>
     nnoremap <leader>. :Leaderf --recall<Cr>
@@ -243,11 +244,11 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     nnoremap Z<S-Cr> :CloseQuickfix<Cr>:Leaderf quickfix<Cr>
     nnoremap Z<Cr>   :CloseQuickfix<Cr>:Leaderf loclist<Cr>
 elseif InstalledTelescope()
+    nnoremap ,. <cmd>Telescope search_history<Cr>
+    nnoremap ,; <cmd>Telescope command_history<Cr>
     nnoremap <leader>b <cmd>Telescope buffers<Cr>
     nnoremap <leader>m <cmd>Telescope oldfiles<Cr>
     nnoremap <M-u>j <cmd>Telescope jumplist<cr>
-    nnoremap <M-u>s <cmd>Telescope search_history<Cr>
-    nnoremap <M-u>h <cmd>Telescope command_history<Cr>
     " replace origin command
     nnoremap <M-k>s <cmd>Telescope colorscheme<Cr>
     nnoremap <M-k>t <cmd>Telescope filetypes<Cr>
@@ -256,11 +257,11 @@ elseif InstalledTelescope()
     nnoremap Z<Cr>   :CloseQuickfix<Cr>:Telescope loclist<CR>
     nnoremap <leader>h <cmd>Telescope help_tags<CR>
 elseif InstalledFzf()
+    nnoremap ,. :FZFHistory/<CR>
+    nnoremap ,; :FZFHistory:<CR>
     let g:fuzzy_finder = get(g:, 'fuzzy_finder', 'fzf')
     nnoremap <leader>b :FzfBuffers<CR>
     nnoremap <leader>m :FZFMru<CR>
-    nnoremap <M-u>s :FZFHistory/<CR>
-    nnoremap <M-u>h :FZFHistory:<CR>
     " replace origin command
     nnoremap <M-k>s :FzfColors<CR>
     nnoremap <M-k>t :FzfFiletypes<CR>
