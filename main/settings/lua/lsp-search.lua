@@ -208,8 +208,8 @@ end
 map('n', '<C-q>', [[<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>]], opts)
 map('x', '<C-q>', [[<cmd>lua vim.lsp.buf.range_formatting()<CR><ESC>]], opts)
 -- call hierrachy
-map('n', '<M-,>', [[<cmd>lua vim.lsp.buf.incoming_calls()<CR>]], opts)
-map('n', '<M-.>', [[<cmd>lua vim.lsp.buf.outgoing_calls()<CR>]], opts)
+map('n', '<M-.>', [[<cmd>lua vim.lsp.buf.incoming_calls()<CR>]], opts)
+map('n', '<M-,>', [[<cmd>lua vim.lsp.buf.outgoing_calls()<CR>]], opts)
 -- definition type_definition declaration implementation
 map('n', '<C-]>', [[<cmd>lua vim.lsp.buf.definition()<CR>]],      opts)
 map('n', 'gh',    [[<cmd>lua vim.lsp.buf.type_definition()<CR>]], opts)
