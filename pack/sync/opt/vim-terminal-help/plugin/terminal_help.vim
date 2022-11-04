@@ -19,11 +19,6 @@ endif
 " configuration
 "----------------------------------------------------------------------
 
-" which key is used to toggle terminal
-if !exists('g:terminal_key')
-	let g:terminal_key = '<m-=>'
-endif
-
 " initialize shell directory
 " 0: vim's current working directory (which :pwd returns)
 " 1: file path of current file.
@@ -109,7 +104,6 @@ function! s:project_root()
 	let name = expand('%:p')
 	return s:find_root(name, g:terminal_rootmarkers, 0)
 endfunc
-
 
 "----------------------------------------------------------------------
 " open a new/previous terminal
@@ -271,7 +265,6 @@ function! TerminalClose()
 	endif
 endfunc
 
-
 "----------------------------------------------------------------------
 " process exit callback
 "----------------------------------------------------------------------
@@ -392,92 +385,6 @@ function! Tapi_TerminalEdit(bid, arglist)
 endfunc
 
 
-"----------------------------------------------------------------------
-" enable alt key in terminal vim
-"----------------------------------------------------------------------
-if has('nvim') == 0 && has('gui_running') == 0
-	set ttimeout
-	if $TMUX != ''
-		set ttimeoutlen=35
-	elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
-		set ttimeoutlen=85
-	endif
-	function! s:meta_code(key)
-		if get(g:, 'terminal_skip_key_init', 0) == 0
-			exec "set <M-".a:key.">=\e".a:key
-		endif
-	endfunc
-	for i in range(10)
-		call s:meta_code(nr2char(char2nr('0') + i))
-	endfor
-	for i in range(26)
-		call s:meta_code(nr2char(char2nr('a') + i))
-	endfor
-	for i in range(15) + range(16, 25)
-		call s:meta_code(nr2char(char2nr('A') + i))
-	endfor
-	for c in [',', '.', '/', ';', '{', '}']
-		call s:meta_code(c)
-	endfor
-	for c in ['?', ':', '-', '_', '+', '=', "'"]
-		call s:meta_code(c)
-	endfor
-	function! s:key_escape(name, code)
-		if get(g:, 'terminal_skip_key_init', 0) == 0
-			exec "set ".a:name."=\e".a:code
-		endif
-	endfunc
-	call s:key_escape('<F1>', 'OP')
-	call s:key_escape('<F2>', 'OQ')
-	call s:key_escape('<F3>', 'OR')
-	call s:key_escape('<F4>', 'OS')
-endif
-
-
-"----------------------------------------------------------------------
-" fast window switching: ALT+SHIFT+HJKL
-"----------------------------------------------------------------------
-if get(g:, 'terminal_default_mapping', 1)
-	noremap <m-H> <c-w>h
-	noremap <m-L> <c-w>l
-	noremap <m-J> <c-w>j
-	noremap <m-K> <c-w>k
-	inoremap <m-H> <esc><c-w>h
-	inoremap <m-L> <esc><c-w>l
-	inoremap <m-J> <esc><c-w>j
-	inoremap <m-K> <esc><c-w>k
-
-	if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
-		set termwinkey=<c-_>
-		tnoremap <m-H> <c-_>h
-		tnoremap <m-L> <c-_>l
-		tnoremap <m-J> <c-_>j
-		tnoremap <m-K> <c-_>k
-		tnoremap <m-N> <c-_>p
-		tnoremap <m-q> <c-\><c-n>
-		tnoremap <m--> <c-_>"0
-	elseif has('nvim')
-		tnoremap <m-H> <c-\><c-n><c-w>h
-		tnoremap <m-L> <c-\><c-n><c-w>l
-		tnoremap <m-J> <c-\><c-n><c-w>j
-		tnoremap <m-K> <c-\><c-n><c-w>k
-		tnoremap <m-N> <c-\><c-n><c-w>p
-		tnoremap <m-q> <c-\><c-n>
-		tnoremap <m--> <c-\><c-n>"0pa
-	endif
-
-	let s:cmd = 'nnoremap <silent>'.(g:terminal_key). ' '
-	exec s:cmd . ':call TerminalToggle()<cr>'
-
-	if has('nvim') == 0
-		let s:cmd = 'tnoremap <silent>'.(g:terminal_key). ' '
-		exec s:cmd . '<c-_>:call TerminalToggle()<cr>'
-	else
-		let s:cmd = 'tnoremap <silent>'.(g:terminal_key). ' '
-		exec s:cmd . '<c-\><c-n>:call TerminalToggle()<cr>'
-	endif
-endif
-
 
 "----------------------------------------------------------------------
 " drop a file and ask user to select a window for dropping if there
@@ -546,6 +453,3 @@ endfunc
 
 let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
 let g:asyncrun_runner.thelp = function('s:runner_proc')
-
-
-

@@ -63,10 +63,6 @@ rm -rf vim-grepper
 git clone --depth 1  https://github.com/mhinz/vim-grepper.git
 rm -rf vim-grepper/pictures
 
-# vim-terminal-help
-rm -rf vim-terminal-help
-git clone --depth 1 https://github.com/skywind3000/vim-terminal-help.git
-
 # vim-floaterm
 rm -rf vim-floaterm
 git clone --depth 1 https://github.com/voldikss/vim-floaterm.git

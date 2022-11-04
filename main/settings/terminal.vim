@@ -57,20 +57,14 @@ if get(g:, 'terminal_shell', '') == ''
         let g:terminal_shell = 'bash'
     endif
 endif
-let g:terminal_key             = '<M-->'
-let g:terminal_kill            = 'term'
-let g:terminal_auto_insert     = 1
-let g:terminal_skip_key_init   = 1
-let g:terminal_default_mapping = 0
+let g:terminal_kill = 'term'
+let g:terminal_auto_insert = 1
 PackAdd 'vim-terminal-help'
-" map
-let s:cmd = 'nnoremap <silent>'.(g:terminal_key). ' '
-exec s:cmd . ':call TerminalToggle()<cr>'
-let s:cmd = 'tnoremap <silent>'.(g:terminal_key). ' '
+nnoremap <silent> <M--> :call TerminalToggle()<cr>
 if g:has_terminal == 2
-    exec s:cmd . '<c-_>:call TerminalToggle()<cr>'
+    tnoremap <silent> <M--> <C-_>:call TerminalToggle()<cr>
 else
-    exec s:cmd . '<c-\><c-n>:call TerminalToggle()<cr>'
+    tnoremap <silent> <M--> <C-\><C-n>:call TerminalToggle()<cr>
 endif
 " --------------------------
 " floaterm
