@@ -103,16 +103,6 @@ if g:gui_running
     set guioptions-=M
 endif
 " --------------------------
-" has popup or floating window
-" --------------------------
-if has("popupwin") || exists('*nvim_open_win') && !exists('g:vscode')
-    let g:has_popup_float = 1
-    let g:floaterm_floating = 1
-else
-    let g:has_popup_float = 0
-    let g:floaterm_floating = 0
-endif
-" --------------------------
 " has_terminal
 " --------------------------
 if exists(':tnoremap') && !exists('g:vscode')
@@ -122,14 +112,22 @@ if exists(':tnoremap') && !exists('g:vscode')
     else
         let g:has_terminal=1
     endif
-    " if has('nvim')
-    "     let g:floaterm_floating = 1
-    " else
-    "     let g:floaterm_floating = 0
-    " endif
+    if has('nvim')
+        let g:floaterm_floating = 1
+    else
+        let g:floaterm_floating = 0
+    endif
 else
     let g:has_terminal = 0
     let g:floaterm_floating = 0
+endif
+" --------------------------
+" has popup or floating window
+" --------------------------
+if has("popupwin") || exists('*nvim_open_win') && !exists('g:vscode')
+    let g:has_popup_float = 1
+else
+    let g:has_popup_float = 0
 endif
 " --------------------------
 " System Type
