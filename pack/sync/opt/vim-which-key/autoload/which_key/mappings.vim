@@ -43,6 +43,7 @@ function! which_key#mappings#parse(key, dict, visual) " {{{
   if key ==# '<Tab>'
     call extend(lines, s:get_raw_map_info('<C-I>'))
   endif
+
   if !has('nvim') && key[0:2] == '<M-' && !has('patch-8.2.0815')
     let key = eval('"\' . key . '"')
   endif
@@ -52,7 +53,6 @@ function! which_key#mappings#parse(key, dict, visual) " {{{
     if empty(mapd) || mapd.lhs =~? '<Plug>.*' || mapd.lhs =~? '<SNR>.*'
       continue
     endif
-    " lua map compatible
     if has_key(mapd, 'desc')
       let mapd.rhs = mapd.desc
       unlet mapd.desc
@@ -66,6 +66,7 @@ function! which_key#mappings#parse(key, dict, visual) " {{{
     let mapd.lhs = substitute(mapd.lhs, '<Space>', ' ', 'g')
     let mapd.lhs = substitute(mapd.lhs, '<C-I>', '<Tab>', 'g')
     let mapd.rhs = substitute(mapd.rhs, '<SID>', '<SNR>'.mapd['sid'].'_', 'g')
+
     " eval the expression as the final {rhs}
     " Ref #60
     if mapd.expr
@@ -74,7 +75,6 @@ function! which_key#mappings#parse(key, dict, visual) " {{{
 
     if mapd.lhs !=# '' && mapd.display !~# 'WhichKey.*'
       if (match(mapd.mode, visual ? '[vx ]' : '[n ]') >= 0)
-        let mapd.lhs = which_key#char_handler#parse_raw(mapd.lhs)
         let mapd.lhs = s:string_to_keys(mapd.lhs)
         call s:add_map_to_dict(mapd, 0, a:dict[dk])
       endif
