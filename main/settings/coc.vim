@@ -125,9 +125,10 @@ if has('nvim') || has('patch-9.0.0252')
 else
     call coc#config('codeLens.enable', v:false)
 endif
+nnoremap <silent><F2>       <Plug>(coc-rename)
+nnoremap <silent><leader>ar <Plug>(coc-rename)
 nnoremap <silent><leader>a<Cr> <Plug>(coc-codeaction-line)
 xnoremap <silent><leader>a<Cr> <Plug>(coc-codeaction-selected)
-nnoremap <silent><leader>ar    <Plug>(coc-rename)
 nnoremap <silent><leader>aa    :CocFzfList actions<Cr>
 " ------------------------
 " Create mappings for function text object
