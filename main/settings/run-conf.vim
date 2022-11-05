@@ -1,4 +1,4 @@
-" --------------------------]
+" --------------------------
 " set asyncrun_open
 " --------------------------
 augroup SetAsyncRunOpen
@@ -185,7 +185,7 @@ if has('nvim') || has('timers') && has('channel') && has('job') && has('patch-7.
         PackAdd 'asynctasks.vim'
         let g:asynctasks_template     = $LEOVIM_PATH . "/scripts/tasks_template.ini"
         " open template
-        nnoremap <leader>r<Cr> :tabe $LEOVIM_PATH/scripts/tasks_template.ini<Cr>
+        nnoremap <leader>ro :tabe $LEOVIM_PATH/scripts/tasks_template.ini<Cr>
         " asynctask shortcuts
         nnoremap <leader>ra :AsyncTask
         nnoremap <leader>rm :AsyncTaskMacro<Cr>
