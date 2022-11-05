@@ -172,11 +172,11 @@ elseif Installed('vimspector')
     endif
     nnoremap ,D :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
     " core shortcuts
-    nnoremap ,v :Vimspector<Tab>
-    nnoremap ,d :call vimspector#<Tab>
+    nnoremap ,v :call vimspector#<Tab>
+    nnoremap ,V :Vimspector<Tab>
     nnoremap ,e :VimspectorEval<Space>
     nnoremap ,w :VimspectorWatch<Space>
-    nnoremap ,W :call vimspector#DeleteWatch()<Cr>
+    nnoremap ,d :call vimspector#DeleteWatch()<Cr>
     nnoremap ,a :call vimspector#AddWatch("")<Left><Left>
     nnoremap ,r :call vimspector#Launch()<Cr>
     nnoremap ,q :call vimspector#Stop()<Cr>
@@ -203,7 +203,7 @@ elseif Installed('vimspector')
     nnoremap <M-d>g :call vimspector#GetConfigurations()<Cr>
     nnoremap <M-d>t :call vimspector#SetCurrentThread()<Cr>
     nnoremap <M-d>e :call vimspector#ExpandVariable()<Cr>
-    nnoremap <M-d>r :call vimspector#Reset()<Cr>
+    nnoremap <M-d>O :call vimspector#Reset()<Cr>
     nnoremap <M-d>R :call vimspector#Restart()<Cr>
     " jump to windows in vimspector
     nnoremap <M-m>o :call GoToVimspectorWindow('output')<Cr>
@@ -259,6 +259,6 @@ elseif v:version >= 801 && !has('nvim') && Require('deubg') && executable('gdb')
     nnoremap ,e :Evaluate<Space>
     nnoremap <M-d>p :Program<Cr>
     nnoremap <M-d>o :Source<Cr>
-    nnoremap <M-d>g :Gdb<Cr>
+    nnoremap <M-d>d :Gdb<Cr>
     nnoremap <M-d>a :Asm<Cr>
 endif
