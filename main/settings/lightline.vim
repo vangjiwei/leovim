@@ -18,14 +18,15 @@ function! RootFilename()
 endfunction
 function UpdateBufGit()
     if g:git_version > 1.8
-        let b:git_root_path = system('git rev-parse --show-toplevel')[:-2] . '/'
+        " let b:git_root_path = system('git rev-parse --show-toplevel')[:-2] . '/'
+        let b:git_root_path = split(system('git rev-parse --show-toplevel'), "\\n")[-1]  . '/'
         if b:git_root_path =~ 'fatal:' && b:git_root_path =~ 'git'
             let b:git_root_path = ''
             let b:git_branch    = 'PATH'
         else
             if expand('%:t') !~ 'Tagbar\|Vista\|Gundo\|NERD\|coc\|fern' && &filetype !~ 'vimfiler' && &buftype !~ 'nofile'
                 try
-                    let b:git_branch = '@' . split(system('git rev-parse --abbrev-ref HEAD'), "\\n")[0]
+                    let b:git_branch = '@' . split(system('git rev-parse --abbrev-ref HEAD'), "\\n")[-1]
                     if b:git_branch =~ 'fatal:'
                         let b:git_branch = 'PATH'
                     endif
