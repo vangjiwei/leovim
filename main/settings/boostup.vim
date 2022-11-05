@@ -741,14 +741,14 @@ try
     source $SETTINGS_PATH/lightline.vim
 catch
     let g:currentmode={
-                \ 'n'  : 'NORMAL ',
-                \ 'v'  : 'VISUAL ',
-                \ 'V'  : 'V·Line ',
-                \ "\<C-V>" : 'V·Block ',
-                \ 'i'  : 'INSERT ',
-                \ 'R'  : 'R ',
-                \ 'Rv' : 'V·Replace ',
-                \ 'c'  : 'Command ',
+                \ 'n':      'NORMAL ',
+                \ 'v':      'VISUAL ',
+                \ 'V':      'V·Line ',
+                \ "\<C-V>": 'V·Block ',
+                \ 'i':      'INSERT ',
+                \ 'R':      'R ',
+                \ 'Rv':     'V·Replace ',
+                \ 'c':      'Command ',
                 \}
     set statusline=
     " show full file path

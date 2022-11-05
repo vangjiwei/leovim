@@ -12,8 +12,10 @@ function! YankFromBeginning() abort
     call setpos('.', original_cursor_position)
 endfunction
 nnoremap gy :call YankFromBeginning()<Cr>
-cnoremap <C-y> <C-r>"
+cnoremap <C-v> <C-r>"
+inoremap <C-v> <C-r>"
 cnoremap <M-'> <C-r>"
+inoremap <M-'> <C-r>"
 if has('clipboard')
     if UNIX()
         nnoremap <M-c>+ viw"+y
@@ -56,8 +58,6 @@ inoremap <M-x> <Del>
 inoremap <M-y> <BS>
 " switch 2 words
 xnoremap <M-V> <Esc>`.``gvp``P
-" yank from "
-inoremap <C-v> <C-r>"
 " ------------------------
 " pastemode toggle
 " ------------------------

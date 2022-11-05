@@ -82,7 +82,7 @@ elseif InstalledFzf()
                 \ 'enter':  'edit',
                 \ 'ctrl-t': 'tab split',
                 \ 'ctrl-x': 'split',
-                \ 'ctrl-v': 'vsplit'
+                \ 'ctrl-]': 'vsplit'
                 \ }
     " --------------------------
     "  fzf maps
@@ -148,7 +148,7 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
                 \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
                 \ "Colorscheme": [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
                 \ }
-    let g:Lf_CommandMap = {'<C-]>': ['<C-v>'], '<C-v>': ['<C-y>'], '<F5>': ['<F5>', '<C-l>'], '<C-l>': ['<C-e>'], '<Up>': ['<Up>', '<C-u>'], '<Down>': ['<Down>', '<C-d>']}
+    let g:Lf_CommandMap = {'<F5>': ['<F5>', '<C-l>'], '<C-l>': ['<C-e>'], '<Up>': ['<Up>', '<C-u>'], '<Down>': ['<Down>', '<C-d>']}
     " history
     nnoremap ,. :Leaderf searchHistory<Cr>
     nnoremap ,; :Leaderf cmdHistory<Cr>
@@ -192,7 +192,7 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
                 \ 'o':     'accept',
                 \ '<CR>':  'accept',
                 \ '<C-x>': 'accept_horizontal',
-                \ '<C-v>': 'accept_vertical',
+                \ '<C-]>': 'accept_vertical',
                 \ '<C-t>': 'accept_tab',
                 \ '<C-k>': 'page_up_in_preview',
                 \ '<C-j>': 'page_down_in_preview',
@@ -216,7 +216,7 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
                 \ '<C-c>':    'quit',
                 \ '<CR>':     'accept',
                 \ '<C-x>':    'accept_horizontal',
-                \ '<C-v>':    'accept_vertical',
+                \ '<C-]>':    'accept_vertical',
                 \ '<C-t>':    'accept_tab',
                 \ '<C-r>':    'toggle_regex',
                 \ '<BS>':     'backspace',

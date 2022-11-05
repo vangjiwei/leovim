@@ -289,9 +289,9 @@ else
         if g:ctags_type == ''
             nnoremap <silent><M-:> :call LspOrTagOrSearch("jumpDefinition")<Cr>
         endif
-        nnoremap <silent><C-]>  :call LspOrTagOrSearch()<Cr>
+        nnoremap <silent>g<Cr>  :call LspOrTagOrSearch()<Cr>
         nnoremap <silent><M-;>  :call LspOrTagOrSearch("jumpDefinition")<Cr>
-        nnoremap <silent>g<Cr>  :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
+        nnoremap <silent><C-]>  :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
         nnoremap <silent>g<Tab> :call LspOrTagOrSearch("jumpDefinition", "tabe")<Cr>
         " jumpTypeDefinition
         nnoremap <silent>gh :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
