@@ -8,13 +8,13 @@ PackAdd 'vim-eunuch'
 let g:conflict_marker_enable_mappings = 0
 PackAdd 'conflict-marker.vim'
 nnoremap <leader>cf /\v^[<\|=>]{7}( .*\|$)<CR>
-nnoremap <leader>cF ?\v^[<\|=>]{7}( .*\|$)<CR>
+nnoremap <leader>cp ?\v^[<\|=>]{7}( .*\|$)<CR>
 nnoremap <leader>ct :ConflictMarkerThemselves<Cr>
 nnoremap <leader>co :ConflictMarkerOurselves<Cr>
-nnoremap <leader>ce :ConflictMarkerNone<Cr>
+nnoremap <leader>cn :ConflictMarkerNone<Cr>
 nnoremap <leader>cb :ConflictMarkerBoth<Cr>
-nnoremap <leader>cn :ConflictMarkerNextHunk<Cr>
-nnoremap <leader>cp :ConflictMarkerPrevHunk<Cr>
+nnoremap <leader>c; :ConflictMarkerNextHunk<Cr>
+nnoremap <leader>c, :ConflictMarkerPrevHunk<Cr>
 " --------------------------
 " easyalign
 " --------------------------
