@@ -343,7 +343,7 @@ else
     PackAdd 'vim-preview'
     " preview open
     nmap <silent> ,E cd:PreviewGoto edit<Cr><C-w>z
-    nmap <silent> ,V cd:PreviewGoto vsplit<Cr><C-w>z
+    nmap <silent> ,G cd:PreviewGoto vsplit<Cr><C-w>z
     nmap <silent> ,S cd:PreviewGoto split<Cr><C-w>z
     nmap <silent> ,T cd:PreviewGoto tabe<Cr>gT<C-w>zgt
     " preview file

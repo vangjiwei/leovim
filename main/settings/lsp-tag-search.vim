@@ -150,11 +150,11 @@ if Installed('vim-gutentags')
     else
         let g:gutentags_ctags_extra_args += ['--c-kinds=+px', '--c++-kinds=+pxI']
     endif
-    nnoremap ,g<Cr> :GutentagsUpdate<Cr>
+    nnoremap <leader>gu :GutentagsUpdate<Cr>
     if WINDOWS()
-        nnoremap ,G :!del ~<Tab>\.leovim.d\.LfCache\gtags\*.* /a /q<Cr><Cr>
+        nnoremap <leader>G :!del ~<Tab>\.leovim.d\.LfCache\gtags\*.* /a /q<Cr><Cr>
     else
-        nnoremap ,G :!rm -rf ~/.leovim.d/.LfCache/gtags/* <Cr>
+        nnoremap <leader>G :!rm -rf ~/.leovim.d/.LfCache/gtags/* <Cr>
     endif
 endif
 " --------------------------
@@ -192,8 +192,8 @@ if g:symbol_tool =~ 'leaderfgtags'
     let g:Lf_GtagsGutentags      = 1
     let g:Lf_GtagsAutoGenerate   = 0
     " create remove
-    nnoremap <leader>g<Cr> :Leaderf gtags --update<Cr>
-    nnoremap <leader>G     :Leaderf gtags --remove<Cr>
+    nnoremap <leader>g<Cr>    :Leaderf gtags --update<Cr>
+    nnoremap <leader>g<space> :Leaderf gtags --remove<Cr>
     " map
     nnoremap <leader>gt :Leaderf gtags<Space>
     nnoremap <silent><leader>g/ :Leaderf gtags --all<Cr>
