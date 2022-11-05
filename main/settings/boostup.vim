@@ -22,14 +22,6 @@ function! GetVisualSelection()
     let lines[0] = lines[0][column_start - 1:]
     return join(lines, "\n")
 endfunction
-function! EscapedSearch() range
-    let l:saved_reg = @"
-    execute 'normal! vgvy'
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
 function! Has_Back_Space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1] =~ '\s'

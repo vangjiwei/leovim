@@ -13,6 +13,19 @@ function! StringToFloat(str)
     endtry
 endfunction
 " ------------------------
+" EnhancedSearch
+" ------------------------
+function! EnhancedSearch() range
+    let l:saved_reg = @"
+    execute 'normal! vgvy'
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+nmap <silent> * :<C-u>call EnhancedSearch()<CR>/<C-R>=@/<CR><CR>N
+nmap <silent> # :<C-u>call EnhancedSearch()<CR>?<C-R>=@/<CR><CR>N
+" ------------------------
 " mapleader
 " ------------------------
 let g:mapleader      = ' '
@@ -229,11 +242,6 @@ xmap !  :<C-u>!<C-R>=GetVisualSelection()<Cr>
 xmap .  :<C-u>normal .<Cr>
 xmap /  y/<C-R>"
 xmap ?  y?<C-R>"
-" --------------------------
-" EscapedSearch
-" --------------------------
-xmap <silent> * :<C-u>call EscapedSearch()<CR>/<C-R>=@/<CR><CR>N
-xmap <silent> # :<C-u>call EscapedSearch()<CR>?<C-R>=@/<CR><CR>N
 " --------------------------
 " filetype
 " --------------------------

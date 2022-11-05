@@ -362,4 +362,4 @@ else
     nmap g# g#``
     nmap <C-n> *cgn
 endif
-xmap <silent><C-n> :<C-u>call EscapedSearch()<CR>/<C-R>=@/<CR><CR>gvc
+xmap <silent><C-n> :<C-u>call EnhancedSearch()<CR>/<C-R>=@/<CR><CR>gvc
