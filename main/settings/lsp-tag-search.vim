@@ -60,9 +60,14 @@ function! PreviewTagOrSearchAll(tagname, ...)
     endif
     if g:symbol_tool =~ 'leaderfgtags'
         let ret=Execute("silent! Leaderf gtags -i -g " . tagname)
+        if let =~ 'not found'
+            let ret = ''
+            call feedkeys("\<ESC>", 'n')
+        endif
+    else
+        let ret=''
     endif
-    if ret =~ "not found"
-        call feedkeys("\<ESC>", 'n')
+    if ret =~ ''
         if a:0 == 0
             let tag_found = 0
         else
@@ -70,7 +75,7 @@ function! PreviewTagOrSearchAll(tagname, ...)
         endif
         if InstalledTelescope() && index(['vim', 'help'], &ft) >= 0
             execute 'TeleSearchAll ' . tagname
-        elseif g:ctags_type != '' && ctags_checked == 0
+        elseif g:ctags_type != '' && tag_found == 0
             if Installed('vim-gutentags')
                 let ret = Execute("silent! PreviewList ". tagname)
             endif
