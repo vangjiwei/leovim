@@ -215,7 +215,7 @@ if g:complete_engine == 'cmp' && InstalledTelescope() && InstalledLsp() && Insta
     luafile $LUA_PATH/lsp-search.lua
 else
     if Installed("coc.nvim")
-        nmap <silent><M-/> :call LspOrTagOrSearch("jumpReferences")<Cr>
+        nmap <silent><M-/> :call LspOrTagOrSearch("jumpReferences", "float")<Cr>
         nmap <silent><M-?> <Plug>(coc-refactor)
     else
         if get(g:, 'symbol_tool', '') =~ 'leaderfgtags'
@@ -246,31 +246,31 @@ else
                     \ 'items': [{'tagname': a:tagname, 'from': a:pos}]
                     \ }, 't')
     endfunction
-    function! LspOrTagOrSearch(...) abort
+    function! LspOrTagOrSearch(command, ...) abort
         let tagname = expand('<cword>')
         let winnr   = winnr()
         let pos     = getcurpos()
         let pos[0]  = bufnr('')
+        let command = a:command
+        if a:0 == 0
+            let position = ''
+        else
+            let position = a:1
+        endif
         " coc
         if g:complete_engine == 'coc'
             let g:coc_locations_change = v:false
             " a:0, then number of other paragrams: ...
-            if a:0 == 0
-                let command = 'jumpDefinition'
-                let ret = CocAction(command)
+            if position == 'float'
+                let ret = CocAction(command, v:false)
             else
-                let command = trim(a:1)
-                if a:0 == 1
-                    let ret = CocAction(command, v:false)
-                else
-                    let ret = CocAction(command)
-                endif
+                let ret = CocAction(command)
             endif
             if ret
                 echo "found by coc " . command
                 call s:settagstack(winnr, tagname, pos)
-                if !g:coc_locations_change && a:0 > 1
-                    call s:open_in_postion(a:2)
+                if !g:coc_locations_change
+                    call s:open_in_postion(position)
                 endif
             else
                 let l:res = 0
@@ -286,20 +286,19 @@ else
     if g:complete_engine == 'coc'
         au User CocLocationsChange let g:coc_locations_change = v:true
         " jumpDefinition
-        if g:ctags_type == ''
-            nnoremap <silent><M-:> :call LspOrTagOrSearch("jumpDefinition")<Cr>
-        endif
-        nnoremap <silent>g<Cr>  :call LspOrTagOrSearch()<Cr>
-        nnoremap <silent><M-;>  :call LspOrTagOrSearch("jumpDefinition")<Cr>
-        nnoremap <silent><C-]>  :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
+        nnoremap <silent><C-]>  :call LspOrTagOrSearch("jumpDefinition")<Cr>
+        nnoremap <silent><M-;>  :call LspOrTagOrSearch("jumpDefinition", "float")<Cr>
+        nnoremap <silent><C-g>  :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
+        nnoremap <silent>g<Cr>  :call LspOrTagOrSearch("jumpDefinition", "split")<Cr>
         nnoremap <silent>g<Tab> :call LspOrTagOrSearch("jumpDefinition", "tabe")<Cr>
         " jumpTypeDefinition
-        nnoremap <silent>gh :call LspOrTagOrSearch("jumpTypeDefinition")<Cr>
+        nnoremap <silent>gh :call LspOrTagOrSearch("jumpTypeDefinition", "float")<Cr>
         " jumpDeclaration
-        nnoremap <silent>gl :call LspOrTagOrSearch("jumpDeclaration")<Cr>
+        nnoremap <silent>gl :call LspOrTagOrSearch("jumpDeclaration", "float")<Cr>
         " jumpImplementation
-        nnoremap <silent>gm :call LspOrTagOrSearch("jumpImplementation")<Cr>
+        nnoremap <silent>gm :call LspOrTagOrSearch("jumpImplementation", "float")<Cr>
     else
-        nnoremap <silent><M-;> :call LspOrTagOrSearch()<Cr>
+        nnoremap <silent><M-;> :call LspOrTagOrSearch("")<Cr>
+        nnoremap <silent><C-g> <C-w><C-]>
     endif
 endif

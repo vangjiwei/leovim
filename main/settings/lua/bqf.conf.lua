@@ -25,7 +25,7 @@ require('bqf').setup({
     pscrollup   = '<C-k>',
     pscrolldown = '<C-j>',
     ptogglemode = '<M-I>',
-    vsplit      = '<C-]>',
+    vsplit      = '<C-g>',
     openc = 'e',
     drop  = 'E',
   },
