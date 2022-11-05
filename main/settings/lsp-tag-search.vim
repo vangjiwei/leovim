@@ -60,14 +60,14 @@ function! PreviewTagOrSearchAll(tagname, ...)
     endif
     if g:symbol_tool =~ 'leaderfgtags'
         let ret=Execute("silent! Leaderf gtags -i -g " . tagname)
-        if let =~ 'not found'
+        if ret =~ 'not found'
             let ret = ''
             call feedkeys("\<ESC>", 'n')
         endif
     else
         let ret=''
     endif
-    if ret =~ ''
+    if ret == ''
         if a:0 == 0
             let tag_found = 0
         else
@@ -289,7 +289,7 @@ function! LspOrTagOrSearch(command, ...) abort
             let l:tag_found = 0
         endif
     " tags
-    elseif g:ctags_type != ''
+    elseif g:ctags_type != '' && position != ''
         let ret = Execute("silent! tag ". tagname)
         if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
             let l:tag_found = 1
