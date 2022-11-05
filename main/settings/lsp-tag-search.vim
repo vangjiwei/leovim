@@ -58,24 +58,22 @@ function! PreviewTagOrSearchAll(tagname, ...)
     else
         let tagname = a:tagname
     endif
-    if a:0 == 0
-        let ctags_checked = 0
-    else
-        let ctags_checked = a:1
-    endif
     if g:symbol_tool =~ 'leaderfgtags'
-        let ret call Execute("silent! Leaderf gtags -i -g " . tagname)
+        let ret=Execute("silent! Leaderf gtags -i -g " . tagname)
     endif
-    if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
+    if ret =~ "not found"
+        call feedkeys("\<ESC>", 'n')
+        if a:0 == 0
+            let tag_found = 0
+        else
+            let tag_found = a:1
+        endif
         if InstalledTelescope() && index(['vim', 'help'], &ft) >= 0
             execute 'TeleSearchAll ' . tagname
         elseif g:ctags_type != '' && ctags_checked == 0
             if Installed('vim-gutentags')
                 let ret = Execute("silent! PreviewList ". tagname)
-            else
-                let ret = Execute("silent! PreviewTag ". tagname)
             endif
-            " tag found
             if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
                 if get(g:, 'search_all_cmd', '') == ''
                     echom "No tag found, and cannot do global grep search."
@@ -277,30 +275,31 @@ function! LspOrTagOrSearch(command, ...) abort
         endif
         if ret
             echo "found by coc " . command
+            let l:tag_found = 2
             call s:settagstack(winnr, tagname, pos)
             if !g:coc_locations_change
                 call s:open_in_postion(position)
             endif
         else
-            let l:ctags_checked = 0
+            let l:tag_found = 0
         endif
     " tags
     elseif g:ctags_type != ''
         let ret = Execute("silent! tag ". tagname)
         if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
-            let l:ctags_checked = 1
+            let l:tag_found = 1
         else
-            let l:ctags_checked = 2
+            let l:tag_found = 2
             call s:settagstack(winnr, tagname, pos)
             call s:open_in_postion(position)
         endif
     else
-        let l:ctags_checked = 0
+        let l:tag_found = 0
     endif
-    " ctags_checked == 0 : ctags not checked
-    " ctags_checked == 1 : ctags checked but found none
-    if get(l:, 'ctags_checked', 2) < 2
-        call PreviewTagOrSearchAll(tagname, l:ctags_checked)
+    " tag_found == 0 : ctags not checked
+    " tag_found == 1 : ctags checked but found none
+    if get(l:, 'tag_found', 2) < 2
+        call PreviewTagOrSearchAll(tagname, l:tag_found)
     endif
 endfunction
 if g:complete_engine == 'coc'
