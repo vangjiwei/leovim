@@ -50,7 +50,7 @@ if get(g:, 'ctags_type', '') != ''
     endif
 endif
 " --------------------------
-" M-t is Specially defined
+" tag_or_searchall
 " --------------------------
 function! s:tag_or_searchall(tagname, ...)
     if a:tagname == ''
@@ -68,6 +68,7 @@ function! s:tag_or_searchall(tagname, ...)
         let ret=''
     endif
     if ret == ''
+        let not_found = "No tag found, and cannot do global grep search."
         if a:0 == 0
             let tag_found = 0
         else
@@ -81,7 +82,7 @@ function! s:tag_or_searchall(tagname, ...)
             endif
             if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
                 if get(g:, 'search_all_cmd', '') == ''
-                    echom "No tag found, and cannot do global grep search."
+                    echom not_found
                 else
                     execute g:search_all_cmd . ' ' . tagname
                 endif
@@ -91,12 +92,12 @@ function! s:tag_or_searchall(tagname, ...)
         elseif get(g:, 'search_all_cmd', '') != ''
             execute g:search_all_cmd . ' ' . tagname
         else
-            echom "No tag found, and cannot do global grep search."
+            echom not_found
         endif
     endif
 endfunction
-command! PreviewTagOrSearchAll call s:tag_or_searchall('')
-nnoremap <silent><M-t> :PreviewTagOrSearchAll<Cr>
+command! TagOrSearchAll call s:tag_or_searchall('')
+nnoremap <silent><M-t> :TagOrSearchAll<Cr>
 " --------------------------
 " symbols in buf
 " --------------------------
