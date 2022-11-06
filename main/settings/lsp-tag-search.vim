@@ -52,7 +52,7 @@ endif
 " --------------------------
 " M-t is Specially defined
 " --------------------------
-function! PreviewTagOrSearchAll(tagname, ...)
+function! s:tag_or_searchall(tagname, ...)
     if a:tagname == ''
         let tagname = expand('<cword>')
     else
@@ -95,7 +95,7 @@ function! PreviewTagOrSearchAll(tagname, ...)
         endif
     endif
 endfunction
-command! PreviewTagOrSearchAll call PreviewTagOrSearchAll('')
+command! PreviewTagOrSearchAll call s:tag_or_searchall('')
 nnoremap <silent><M-t> :PreviewTagOrSearchAll<Cr>
 " --------------------------
 " symbols in buf
@@ -304,7 +304,7 @@ function! LspOrTagOrSearch(command, ...) abort
     " tag_found == 0 : ctags not checked
     " tag_found == 1 : ctags checked but found none
     if get(l:, 'tag_found', 2) < 2
-        call PreviewTagOrSearchAll(tagname, l:tag_found)
+        call s:tag_or_searchall(tagname, l:tag_found)
     endif
 endfunction
 if g:complete_engine == 'coc'
