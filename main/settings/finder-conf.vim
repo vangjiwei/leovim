@@ -383,7 +383,7 @@ endif
 if Installed('leaderf-changes')
     nnoremap <silent><M-u><M-u> :Leaderf changes<Cr>
 elseif Installed('telescope-changes.nvim')
-    nnoremap <silent><M-u><M-u> :Telescope Changes<Cr>
+    nnoremap <silent><M-u><M-u> :Telescope changes<Cr>
 elseif Installed('coc.nvim')
     nnoremap <silent><M-u><M-u> :CocFzfList changes<Cr>
 endif
