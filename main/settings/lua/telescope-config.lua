@@ -28,6 +28,10 @@ telescope.setup {
     scroll_strategy  = 'limit',
     mappings         = {
       i = {
+        ["<CR>"]   = actions.select_default,
+        ["<C-x>"]  = actions.select_horizontal,
+        ["<C-g>"]  = actions.select_vertical,
+        ["<C-t>"]  = actions.select_tab,
         ["<C-j>"]  = actions.move_selection_next,
         ["<C-k>"]  = actions.move_selection_previous,
         ["<Down>"] = actions.move_selection_next,
@@ -40,6 +44,10 @@ telescope.setup {
         ['<C-q>']  = actions.send_to_qflist.open_qflist,
       },
       n = {
+        ["<CR>"]   = actions.select_default,
+        ["<C-x>"]  = actions.select_horizontal,
+        ["<C-g>"]  = actions.select_vertical,
+        ["<C-t>"]  = actions.select_tab,
         ["<C-j>"]  = actions.move_selection_next,
         ["<C-k>"]  = actions.move_selection_previous,
         ["<Down>"] = actions.move_selection_next,
