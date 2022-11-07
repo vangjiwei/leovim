@@ -249,6 +249,7 @@ elseif InstalledTelescope()
     nnoremap <leader>m <cmd>Telescope oldfiles<Cr>
     nnoremap <M-j><M-j> <cmd>Telescope jumplist<cr>
     nnoremap <M-k><M-k> <cmd>Telescope commands<cr>
+    nnoremap <M-l><M-l> <cmd>Telescope current_buffer_fuzzy_find<cr>
     " replace origin command
     nnoremap <M-k>s <cmd>Telescope colorscheme<Cr>
     nnoremap <M-k>t <cmd>Telescope filetypes<Cr>
