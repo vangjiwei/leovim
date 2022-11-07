@@ -110,6 +110,9 @@ if Installed('nvim-notify') then
   telescope.load_extension('notify')
   map('n', ',N', [[<cmd>Telescope notify<CR>]], opts)
 end
+if Installed('telescope-changes.nvim') then
+  telescope.load_extension('changes')
+end
 -- project_files
 _G.project_files = function()
   local search_opts = {}
