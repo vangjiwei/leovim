@@ -109,7 +109,6 @@ endif
 " searchall in telescope or fzf
 " --------------------------
 if InstalledTelescope()
-    nnoremap <Leader>T :Telescope<Space>
     let g:search_tool = 'grepper-telescope'
     function! s:telescope_search(...) abort
         " a:0 代表参数数量, a1 代表第一个参数
