@@ -23,13 +23,13 @@ lspsaga.init_lsp_saga({
     tabe   = '<C-t>',
     quit   = '<M-q>',
   },
-  move_in_saga     = { prev = '<C-k>', next = '<C-j>' },
-  code_action_keys = {
+  move_in_saga           = { prev = '<C-k>', next = '<C-j>' },
+  code_action_keys       = {
     quit = { "<M-q>", "<C-c>", "<ESC>" },
     exec = "<Cr>",
   },
-  rename_action_quit = "<C-c>",
-  show_outline = {
+  rename_action_quit     = "<C-c>",
+  show_outline           = {
     win_position = 'left',
     win_width = 40,
     auto_enter = false,
@@ -79,7 +79,7 @@ if vim.fn.has('nvim-0.8') > 0 then
     local file_path = ''
     for _, cur in ipairs(path_list) do
       file_path = (cur == '.' or cur == '~') and '' or
-      file_path .. cur .. ' ' .. '%#LspSagaWinbarSep#>%*' .. ' %*'
+          file_path .. cur .. ' ' .. '%#LspSagaWinbarSep#>%*' .. ' %*'
     end
     return file_path .. file_name
   end
@@ -118,12 +118,7 @@ if vim.fn.has('nvim-0.8') > 0 then
     pattern = 'LspsagaUpdateSymbol',
     callback = function() config_winbar_or_statusline() end,
   })
-
 end
---------------------------------
--- each lsp server config
---------------------------------
-local capabilities = vim.lsp.protocol.make_client_capabilities()
 -----------------
 -- ufo
 -----------------
@@ -131,21 +126,32 @@ if Installed('nvim-ufo') and Installed('promise-async') then
   require('ufo').setup()
 end
 -----------------
--- mason/lspconfig
+-- mason/lspconfig/lspsetup
 -----------------
-local lspconfig       = require('lspconfig')
-local mason           = require('mason')
-local mason_lspconfig = require('mason-lspconfig')
-lspconfig.setup({})
-mason.setup({})
-mason_lspconfig.setup({
+require('mason').setup({
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗"
+    }
+  }
+})
+require('mason-lspconfig').setup({
   automatic_installation = true,
   ensure_installed = vim.g.lsp_installer_servers,
 })
 map('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
 -- lsp-setup
 require('lsp-setup').setup({
+  default_mappings = false,
   capabilities = vim.lsp.protocol.make_client_capabilities(),
+  on_attach = function(client, bufnr)
+    -- Support custom the on_attach function for global
+    -- Formatting on save as default
+    require('lsp-setup.utils').format_on_save(client)
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  end,
   servers = {
     pylsp = {
       settings = {
@@ -177,23 +183,17 @@ map('x', '<C-q>', [[<cmd>lua vim.lsp.buf.range_formatting()<CR><ESC>]], opts)
 map('n', '<M-.>', [[<cmd>lua vim.lsp.buf.incoming_calls()<CR>]], opts)
 map('n', '<M-,>', [[<cmd>lua vim.lsp.buf.outgoing_calls()<CR>]], opts)
 -- definition type_definition declaration implementation
-map('n', '<C-]>', [[<cmd>lua vim.lsp.buf.definition()<CR>]],      opts)
-map('n', 'gh',    [[<cmd>lua vim.lsp.buf.type_definition()<CR>]], opts)
-map('n', 'gl',    [[<cmd>lua vim.lsp.buf.declaration()<CR>]],     opts)
-map('n', 'gm',    [[<cmd>lua vim.lsp.buf.implementation()<CR>]],  opts)
-map('n', '<M-/>', [[<cmd>lua vim.lsp.buf.references()<CR>]],      opts)
-map('n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]],                       opts)
-map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
-map('n', 'ZL',    [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]],               opts)
-if vim.g.ctags_type == '' then
-  map('n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
-end
+map('n', '<C-]>', [[<cmd>lua vim.lsp.buf.definition()<CR>]], opts)
+map('n', 'gh', [[<cmd>lua vim.lsp.buf.type_definition()<CR>]], opts)
+map('n', 'gl', [[<cmd>lua vim.lsp.buf.declaration()<CR>]], opts)
+map('n', 'gm', [[<cmd>lua vim.lsp.buf.implementation()<CR>]], opts)
+map('n', '<M-/>', [[<cmd>lua vim.lsp.buf.references()<CR>]], opts)
 -- lspsaga maps
-map('n', '<F2>',       [[<cmd>Lspsaga rename<Cr>]], opts)
+map('n', '<F2>', [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<C-h>', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
 map('n', '<M-:>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
 map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)
 map('n', "<leader>a<cr>", [[<cmd>Lspsaga code_action<Cr>]], opts)
 map('x', "<leader>a<cr>", [[<cmd>Lspsaga range_code_action<CR>]], opts)
-map('n', '<leader>al',    [[:Lspsaga ]], { noremap = true, silent = false })
+map('n', '<leader>al', [[:Lspsaga ]], { noremap = true, silent = false })

@@ -5,11 +5,11 @@ local actions        = require("telescope.actions")
 local actions_layout = require("telescope.actions.layout")
 telescope.setup {
   defaults = {
-    layout_strategy  = 'flex',
-    layout_config    = { prompt_position = "top" },
-    sorting_strategy = 'ascending',
-    scroll_strategy  = 'limit',
-    mappings         = {
+    layout_strategy   = 'flex',
+    layout_config     = { prompt_position = "top" },
+    sorting_strategy  = 'ascending',
+    scroll_strategy   = 'limit',
+    mappings          = {
       i = {
         ["<CR>"]   = actions.select_default,
         ["<C-x>"]  = actions.select_horizontal,
@@ -44,6 +44,16 @@ telescope.setup {
         ["K"]      = actions_layout.toggle_preview,
       },
     },
+    vimgrep_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+      "--trim"
+    }
   },
 }
 -- fzf core
@@ -63,21 +73,6 @@ if Installed('telescope-fzf-native.nvim') then
   -- load_extension, somewhere after setup function:
   telescope.load_extension('fzf')
 end
--- rg
-telescope.setup {
-  defaults = {
-    vimgrep_arguments = {
-      "rg",
-      "--color=never",
-      "--no-heading",
-      "--with-filename",
-      "--line-number",
-      "--column",
-      "--smart-case",
-      "--trim"
-    }
-  }
-}
 -- find_files
 if executable('fd') then
   telescope.setup {
@@ -93,6 +88,13 @@ map('n', ',<Tab>', [[<cmd>Telescope find_files<CR>]], opts)
 -- extensions
 if Installed('telescope-lsp-handlers.nvim') then
   telescope.load_extension('lsp_handlers')
+  map('n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]], opts)
+  map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
+  map('n', 'ZL', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
+  -- leader t
+  if vim.g.ctags_type == '' then
+    map('n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
+  end
 end
 if Installed('telescope-changes.nvim') then
   telescope.load_extension('changes')
