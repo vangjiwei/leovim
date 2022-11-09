@@ -1,14 +1,6 @@
 local opts = { noremap = true, silent = true }
 local map  = vim.api.nvim_set_keymap
 --------------------------------
--- telescope
---------------------------------
-local telescope    = require('telescope')
-if Installed('telescope-lsp-handlers.nvim') then
-  telescope.load_extension('lsp_handlers')
-  telescope.setup({})
-end
---------------------------------
 -- lspsaga
 --------------------------------
 local lspsaga = require('lspsaga')
@@ -141,66 +133,40 @@ end
 -----------------
 -- mason/lspconfig
 -----------------
-local mason = require('mason')
-mason.setup()
--- mason_lspconfig
 local lspconfig       = require('lspconfig')
+local mason           = require('mason')
 local mason_lspconfig = require('mason-lspconfig')
+lspconfig.setup({})
+mason.setup({})
 mason_lspconfig.setup({
   automatic_installation = true,
   ensure_installed = vim.g.lsp_installer_servers,
 })
-mason_lspconfig.setup_handlers({
-  -- The first entry (without a key) will be the default handler
-  -- and will be called for each Installed server that doesn't have
-  -- a dedicated handler.
-  function(server_name) -- default handler (optional)
-    lspconfig[server_name].setup {
-      capabilities = capabilities
-    }
-  end,
-  -- Next, you can provide targeted overrides for specific servers.
-  ["sumneko_lua"] = function()
-    lspconfig.sumneko_lua.setup {
+map('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
+-- lsp-setup
+require('lsp-setup').setup({
+  capabilities = vim.lsp.protocol.make_client_capabilities(),
+  servers = {
+    pylsp = {
       settings = {
-        Lua = {
-          diagnostics = {
-            globals = { "vim", "lua" }
-          }
-        }
-      }
-    }
-  end,
-})
-if Installed('rust-tools.nvim') then
-  local rust_tools = require('rust-tools')
-  mason_lspconfig.setup_handlers({
-    ["rust_analyzer"] = function()
-      rust_tools.setup({})
-    end,
-  })
-end
-if executable('pylsp') then
-  local pylsp_args = { '--max-line-length=160', '--ignore=' .. vim.g.python_lint_ignore }
-  lspconfig.pylsp.setup({
-    settings = {
-      pylsp = {
-        plugins = {
-          pylint = { enabled = true, executable = 'pylint', args = pylsp_args },
-          pyflakes = { enabled = false },
-          pycodestyle = { enabled = false },
-          jedi_completion = { fuzzy = false },
-          pyls_isort = { enabled = false },
-          pyls_flake8 = { enabled = true, executable = 'flake8', args = pylsp_args },
-          pylrp_mypy = { enabled = false },
+        pylsp = {
+          plugins = {
+            pylint = { enabled = true, executable = 'pylint', args = pylsp_args },
+            pyflakes = { enabled = false },
+            pycodestyle = { enabled = false },
+            jedi_completion = { fuzzy = false },
+            pyls_isort = { enabled = false },
+            pyls_flake8 = { enabled = true, executable = 'flake8', args = pylsp_args },
+            pylrp_mypy = { enabled = false },
+          },
         },
       },
-    },
-    flags = {
-      debounce_text_changes = 200,
-    },
-  })
-end
+      flags = {
+        debounce_text_changes = 200,
+      },
+    }
+  }
+})
 -----------------
 -- keymap
 -----------------
@@ -231,5 +197,3 @@ map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)
 map('n', "<leader>a<cr>", [[<cmd>Lspsaga code_action<Cr>]], opts)
 map('x', "<leader>a<cr>", [[<cmd>Lspsaga range_code_action<CR>]], opts)
 map('n', '<leader>al',    [[:Lspsaga ]], { noremap = true, silent = false })
--- mason
-map('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
