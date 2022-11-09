@@ -88,13 +88,6 @@ map('n', ',<Tab>', [[<cmd>Telescope find_files<CR>]], opts)
 -- extensions
 if Installed('telescope-lsp-handlers.nvim') then
   telescope.load_extension('lsp_handlers')
-  map('n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]], opts)
-  map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
-  map('n', 'ZL', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
-  -- leader t
-  if vim.g.ctags_type == '' then
-    map('n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
-  end
 end
 if Installed('telescope-changes.nvim') then
   telescope.load_extension('changes')
