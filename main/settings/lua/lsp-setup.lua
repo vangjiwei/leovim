@@ -115,12 +115,6 @@ if vim.fn.has('nvim-0.8') > 0 then
   })
 end
 -----------------
--- ufo
------------------
-if Installed('nvim-ufo') and Installed('promise-async') then
-  require('ufo').setup()
-end
------------------
 -- mason/lspconfig/lspsetup
 -----------------
 require('mason').setup({

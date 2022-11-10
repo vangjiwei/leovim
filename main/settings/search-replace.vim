@@ -336,6 +336,12 @@ else
     endif
 endif
 " ----------------------------------
+" ufo
+" ----------------------------------
+if Installed('nvim-ufo', 'promise-async')
+  lua require('ufo').setup()
+end
+" ----------------------------------
 " hl searchindex && multi replace
 " ----------------------------------
 try
