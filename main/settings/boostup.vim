@@ -151,6 +151,23 @@ if executable('node') && executable('npm')
 else
     let g:node_version = ''
 endif
+" ------------------------------
+" ctags version
+" ------------------------------
+if Require('tags')
+    if WINDOWS()
+        let g:ctags_type = 'Universal-json'
+    elseif executable('ctags') && has('patch-7.4.330')
+        let g:ctags_type = system('ctags --version')[0:8]
+        if g:ctags_type == 'Universal' && system('ctags --list-features | grep json') =~ 'json'
+            let g:ctags_type = 'Universal-json'
+        endif
+    else
+        let g:ctags_type = ''
+    endif
+else
+    let g:ctags_type = ''
+endif
 " --------------------------
 " set TERM && screen
 " --------------------------
@@ -618,7 +635,7 @@ try
     set completeopt=menuone,noselect,noinsert
 catch
     try
-        set completeopt=menuone,noselect
+        set completeopt=menu,menuone,noselect
         let g:complete_engine = 'apc'
     catch
         let g:complete_engine = 'non'
@@ -628,7 +645,7 @@ if exists('+completepopup') != 0
     set completeopt+=popup
     set completepopup=align:menu,border:off,highlight:WildMenu
 endif
-if CYGWIN() || get(g:, 'complete_engin', '') == 'non'
+if CYGWIN() || get(g:, 'complete_engine', '') == 'non'
     let g:complete_engine = "non"
 elseif get(g:, 'complete_engin', '') == 'apc'
     let g:complete_engine = "apc"
@@ -660,23 +677,6 @@ if index(['coc', 'cmp'], get(g:, 'complete_engine', '')) >= 0
     let g:advanced_complete_engine = 1
 else
     let g:advanced_complete_engine = 0
-endif
-" ------------------------------
-" ctags version
-" ------------------------------
-if Require('tags')
-    if WINDOWS()
-        let g:ctags_type = 'Universal-json'
-    elseif executable('ctags') && has('patch-7.4.330')
-        let g:ctags_type = system('ctags --version')[0:8]
-        if g:ctags_type == 'Universal' && system('ctags --list-features | grep json') =~ 'json'
-            let g:ctags_type = 'Universal-json'
-        endif
-    else
-        let g:ctags_type = ''
-    endif
-else
-    let g:ctags_type = ''
 endif
 " ------------------------------
 " pack_tool
@@ -787,10 +787,8 @@ if InstalledCmp()
     source $SETTINGS_PATH/cmp.vim
 elseif Installed('coc.nvim')
     source $SETTINGS_PATH/coc.vim
-elseif g:complete_engine != 'non' && &completeopt =~ 'noselect'
+elseif g:complete_engine != 'non'
     let g:complete_engine = 'apc'
-else
-    let g:complete_engine = 'non'
 endif
 if g:complete_engine == 'apc'
     source $SETTINGS_PATH/apc.vim
