@@ -242,7 +242,7 @@ set timeout
 set ttimeout
 set timeoutlen=300
 set updatetime=200
-if g:gui_running == 0 && executable('tmux')
+if g:gui_running == 0
     let g:tmux_navigator_no_mappings = 1
     PackAdd 'vim-tmux-navigator'
     nnoremap <silent><M-H> :TmuxNavigateLeft<cr>
@@ -415,20 +415,21 @@ nnoremap <Tab>H <C-w>H
 nnoremap <Tab>J <C-w>J
 nnoremap <Tab>K <C-w>K
 nnoremap <Tab>L <C-w>L
-nnoremap <Tab>v :vsplit<Space>
-nnoremap <Tab>s :split<Space>
+nnoremap <Tab>g :vsplit<Space>
+nnoremap <Tab>x :split<Space>
+nnoremap <Tab>t :tabe<space>
 " ------------------------
 " basic toggle and show
 " ------------------------
+nnoremap <leader>n :set relativenumber \| set number<Cr>
 nnoremap <M-k>n :set nonu! nonu?<Cr>
-nnoremap <M-k>N :set norelativenumber \| set nonumber<Cr>
+nnoremap <M-k>r :set norelativenumber \| set nonumber<Cr>
 nnoremap <M-k>f :set nofoldenable! nofoldenable?<Cr>
 nnoremap <M-k>w :set nowrap! nowrap?<Cr>
 nnoremap <M-k>h :set nohlsearch? nohlsearch!<Cr>
 nnoremap <M-k>i :set invrelativenumber<Cr>
 nnoremap <M-k>s :colorscheme<Space>
 nnoremap <M-k>t :setfiletype<Space>
-nnoremap <M-k>r :set relativenumber \| set number<Cr>
 nnoremap <M-'>  :registers<Cr>
 " ------------------------
 " buffers mark messages
@@ -466,7 +467,6 @@ inoremap <silent> <M-8>  <C-o>:tabn8<Cr>
 inoremap <silent> <M-9>  <C-o>:tabn9<Cr>
 inoremap <silent> <M-0>  <C-o>:tablast<Cr>
 " open window in tab
-nnoremap <leader><Tab> :tabe<space>
 nnoremap <leader><Cr>  :e!<Cr>
 " make tabline in terminal mode
 nnoremap <silent><Tab>n :tabnext<CR>
