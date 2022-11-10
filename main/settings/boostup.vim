@@ -415,9 +415,10 @@ nnoremap <Tab>H <C-w>H
 nnoremap <Tab>J <C-w>J
 nnoremap <Tab>K <C-w>K
 nnoremap <Tab>L <C-w>L
-nnoremap <Tab>g :vsplit<Space>
-nnoremap <Tab>x :split<Space>
-nnoremap <Tab>t :tabe<space>
+" open in vsplit/split/tab
+nnoremap <Tab>v       :vsplit<Space>
+nnoremap <Tab>s       :split<Space>
+nnoremap <Tab><Space> :tabe<space>
 " ------------------------
 " basic toggle and show
 " ------------------------
