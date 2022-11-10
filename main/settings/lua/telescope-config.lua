@@ -1,8 +1,61 @@
-local map           = vim.api.nvim_set_keymap
-local opts          = { noremap = true, silent = true }
-local telescope     = require('telescope')
-local actions       = require("telescope.actions")
-local action_layout = require("telescope.actions.layout")
+local map            = vim.api.nvim_set_keymap
+local opts           = { noremap = true, silent = true }
+local telescope      = require('telescope')
+local actions        = require("telescope.actions")
+local actions_layout = require("telescope.actions.layout")
+telescope.setup {
+  defaults = {
+    layout_strategy   = 'flex',
+    layout_config     = { prompt_position = "top" },
+    sorting_strategy  = 'ascending',
+    scroll_strategy   = 'limit',
+    mappings          = {
+      i = {
+        ["<CR>"]   = actions.select_default,
+        ["<C-x>"]  = actions.select_horizontal,
+        ["<C-g>"]  = actions.select_vertical,
+        ["<C-t>"]  = actions.select_tab,
+        ["<C-j>"]  = actions.move_selection_next,
+        ["<C-k>"]  = actions.move_selection_previous,
+        ["<Down>"] = actions.move_selection_next,
+        ["<Up>"]   = actions.move_selection_previous,
+        ['<tab>']  = toggle_modes,
+        ["<esc>"]  = actions.close,
+        ["<C-c>"]  = actions.close,
+        ["<M-q>"]  = actions.close,
+        ['<C-s>']  = actions.toggle_selection,
+        ['<C-q>']  = actions.send_to_qflist.open_qflist,
+      },
+      n = {
+        ["<CR>"]   = actions.select_default,
+        ["<C-x>"]  = actions.select_horizontal,
+        ["<C-g>"]  = actions.select_vertical,
+        ["<C-t>"]  = actions.select_tab,
+        ["<C-j>"]  = actions.move_selection_next,
+        ["<C-k>"]  = actions.move_selection_previous,
+        ["<Down>"] = actions.move_selection_next,
+        ["<Up>"]   = actions.move_selection_previous,
+        ['<tab>']  = toggle_modes,
+        ["<esc>"]  = actions.close,
+        ["<C-c>"]  = actions.close,
+        ["<M-q>"]  = actions.close,
+        ['<C-s>']  = actions.toggle_selection,
+        ['<C-q>']  = actions.send_to_qflist.open_qflist,
+        ["K"]      = actions_layout.toggle_preview,
+      },
+    },
+    vimgrep_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+      "--trim"
+    }
+  },
+}
 -- fzf core
 if Installed('telescope-fzf-native.nvim') then
   telescope.setup {
@@ -20,56 +73,6 @@ if Installed('telescope-fzf-native.nvim') then
   -- load_extension, somewhere after setup function:
   telescope.load_extension('fzf')
 end
-telescope.setup {
-  defaults = {
-    layout_strategy  = 'flex',
-    layout_config    = { prompt_position = "top" },
-    sorting_strategy = 'ascending',
-    scroll_strategy  = 'limit',
-    mappings         = {
-      i = {
-        ["<C-j>"]  = actions.move_selection_next,
-        ["<C-k>"]  = actions.move_selection_previous,
-        ["<Down>"] = actions.move_selection_next,
-        ["<Up>"]   = actions.move_selection_previous,
-        ['<tab>']  = toggle_modes,
-        ["<esc>"]  = actions.close,
-        ["<C-c>"]  = actions.close,
-        ["<M-q>"]  = actions.close,
-        ['<C-s>']  = actions.toggle_selection,
-        ['<C-q>']  = actions.send_to_qflist.open_qflist,
-      },
-      n = {
-        ["<C-j>"]  = actions.move_selection_next,
-        ["<C-k>"]  = actions.move_selection_previous,
-        ["<Down>"] = actions.move_selection_next,
-        ["<Up>"]   = actions.move_selection_previous,
-        ['<tab>']  = toggle_modes,
-        ["<esc>"]  = actions.close,
-        ["<C-c>"]  = actions.close,
-        ["<M-q>"]  = actions.close,
-        ["<C-h>"]  = action_layout.toggle_preview,
-        ['<C-s>']  = actions.toggle_selection,
-        ['<C-q>']  = actions.send_to_qflist.open_qflist,
-      },
-    },
-  },
-}
--- rg
-telescope.setup {
-  defaults = {
-    vimgrep_arguments = {
-      "rg",
-      "--color=never",
-      "--no-heading",
-      "--with-filename",
-      "--line-number",
-      "--column",
-      "--smart-case",
-      "--trim"
-    }
-  }
-}
 -- find_files
 if executable('fd') then
   telescope.setup {
@@ -82,8 +85,10 @@ if executable('fd') then
 end
 -- keymaps
 map('n', ',<Tab>', [[<cmd>Telescope find_files<CR>]], opts)
-map('n', '<M-l>f', [[<cmd>Telescope current_buffer_fuzzy_find<Cr>]], opts)
 -- extensions
+if Installed('telescope-lsp-handlers.nvim') then
+  telescope.load_extension('lsp_handlers')
+end
 if Installed('telescope-changes.nvim') then
   telescope.load_extension('changes')
   map('n', '<M-y>', [[<cmd>Telescope changes<CR>]], opts)
@@ -109,6 +114,9 @@ end
 if Installed('nvim-notify') then
   telescope.load_extension('notify')
   map('n', ',N', [[<cmd>Telescope notify<CR>]], opts)
+end
+if Installed('telescope-changes.nvim') then
+  telescope.load_extension('changes')
 end
 -- project_files
 _G.project_files = function()

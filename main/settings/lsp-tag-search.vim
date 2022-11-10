@@ -166,7 +166,7 @@ if Installed('vim-gutentags')
     if WINDOWS()
         nnoremap ,g<Space> :!del ~<Tab>\.leovim.d\.LfCache\gtags\*.* /a /q<Cr><Cr>
     else
-        nnoremap <leader>G :!rm -rf ~/.leovim.d/.LfCache/gtags/* <Cr>
+        nnoremap ,g<Space> :!rm -rf ~/.leovim.d/.LfCache/gtags/* <Cr>
     endif
 endif
 " --------------------------
@@ -224,10 +224,10 @@ endif
 " lsp or references
 " --------------------------
 if g:complete_engine == 'cmp' && InstalledTelescope() && InstalledLsp() && InstalledCmp()
-    luafile $LUA_PATH/lsp-search.lua
+    luafile $LUA_PATH/lsp-setup.lua
 else
     if Installed("coc.nvim")
-        nmap <silent><M-/> :call LspOrTagOrSearch("jumpReferences", "float")<Cr>
+        nmap <silent><M-/> :call LspOrTagOrSearchAll("jumpReferences", "float")<Cr>
         nmap <silent><M-?> <Plug>(coc-refactor)
     else
         if get(g:, 'symbol_tool', '') =~ 'leaderfgtags'
@@ -259,7 +259,7 @@ function! s:settagstack(winnr, tagname, pos)
                 \ 'items': [{'tagname': a:tagname, 'from': a:pos}]
                 \ }, 't')
 endfunction
-function! LspOrTagOrSearch(command, ...) abort
+function! LspOrTagOrSearchAll(command, ...) abort
     let tagname = expand('<cword>')
     let winnr   = winnr()
     let pos     = getcurpos()
@@ -311,22 +311,22 @@ endfunction
 if g:complete_engine == 'coc'
     au User CocLocationsChange let g:coc_locations_change = v:true
     " jumpDefinition
-    nnoremap <silent><C-]>  :call LspOrTagOrSearch("jumpDefinition")<Cr>
-    nnoremap <silent><M-;>  :call LspOrTagOrSearch("jumpDefinition", "float")<Cr>
-    nnoremap <silent><C-g>  :call LspOrTagOrSearch("jumpDefinition", "vsplit")<Cr>
-    nnoremap <silent>g<Cr>  :call LspOrTagOrSearch("jumpDefinition", "split")<Cr>
-    nnoremap <silent>g<Tab> :call LspOrTagOrSearch("jumpDefinition", "tabe")<Cr>
+    nnoremap <silent><C-]>  :call LspOrTagOrSearchAll("jumpDefinition")<Cr>
+    nnoremap <silent><M-;>  :call LspOrTagOrSearchAll("jumpDefinition", "float")<Cr>
+    nnoremap <silent><C-g>  :call LspOrTagOrSearchAll("jumpDefinition", "vsplit")<Cr>
+    nnoremap <silent>g<Cr>  :call LspOrTagOrSearchAll("jumpDefinition", "split")<Cr>
+    nnoremap <silent>g<Tab> :call LspOrTagOrSearchAll("jumpDefinition", "tabe")<Cr>
     " jumpTypeDefinition
-    nnoremap <silent>gh :call LspOrTagOrSearch("jumpTypeDefinition", "float")<Cr>
+    nnoremap <silent>gh :call LspOrTagOrSearchAll("jumpTypeDefinition", "float")<Cr>
     " jumpDeclaration
-    nnoremap <silent>gl :call LspOrTagOrSearch("jumpDeclaration", "float")<Cr>
+    nnoremap <silent>gl :call LspOrTagOrSearchAll("jumpDeclaration", "float")<Cr>
     " jumpImplementation
-    nnoremap <silent>gm :call LspOrTagOrSearch("jumpImplementation", "float")<Cr>
+    nnoremap <silent>gm :call LspOrTagOrSearchAll("jumpImplementation", "float")<Cr>
 else
     if g:complete_engine != 'cmp'
-        nnoremap <silent><M-;> :call LspOrTagOrSearch("")<Cr>
+        nnoremap <silent><M-;> :call LspOrTagOrSearchAll("")<Cr>
     endif
-    nnoremap <silent><C-g>  :call LspOrTagOrSearch("", "vsplit")<Cr>
-    nnoremap <silent>g<Cr>  :call LspOrTagOrSearch("", "split")<Cr>
-    nnoremap <silent>g<Tab> :call LspOrTagOrSearch("", "tabe")<Cr>
+    nnoremap <silent><C-g>  :call LspOrTagOrSearchAll("", "vsplit")<Cr>
+    nnoremap <silent>g<Cr>  :call LspOrTagOrSearchAll("", "split")<Cr>
+    nnoremap <silent>g<Tab> :call LspOrTagOrSearchAll("", "tabe")<Cr>
 endif

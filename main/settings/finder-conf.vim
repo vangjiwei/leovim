@@ -249,6 +249,7 @@ elseif InstalledTelescope()
     nnoremap <leader>m <cmd>Telescope oldfiles<Cr>
     nnoremap <M-j><M-j> <cmd>Telescope jumplist<cr>
     nnoremap <M-k><M-k> <cmd>Telescope commands<cr>
+    nnoremap <M-l><M-l> <cmd>Telescope current_buffer_fuzzy_find<cr>
     " replace origin command
     nnoremap <M-k>s <cmd>Telescope colorscheme<Cr>
     nnoremap <M-k>t <cmd>Telescope filetypes<Cr>
@@ -367,14 +368,16 @@ if Installed('vim-quickui')
         nmap <silent><expr> <C-j> quickui#preview#visible() > 0 ? "\<F13>" : "\%"
         nmap <silent><expr> <C-k> quickui#preview#visible() > 0 ? "\<F14>" : "\g%"
     endif
-    " preview in popup
-    function! s:PreviewFileW(filename) abort
-        let filename = a:filename
-        let fopts = {'cursor':-1, 'number':1, 'persist':0, 'w':80, 'h':64}
-        call quickui#preview#open(filename, fopts)
-    endfunction
-    command! -nargs=1 -complete=file PreviewFileW call s:PreviewFileW(<f-args>)
-    nnoremap ,<Tab> :PreviewFileW<Space>
+    if g:complete_engine != 'cmp'
+        " preview in popup
+        function! s:PreviewFileW(filename) abort
+            let filename = a:filename
+            let fopts = {'cursor':-1, 'number':1, 'persist':0, 'w':80, 'h':64}
+            call quickui#preview#open(filename, fopts)
+        endfunction
+        command! -nargs=1 -complete=file PreviewFileW call s:PreviewFileW(<f-args>)
+        nnoremap ,<Tab> :PreviewFileW<Space>
+    endif
     " au FileType python nnoremap K call quickui#tools#python_help("")
 endif
 " --------------------------
@@ -382,6 +385,8 @@ endif
 " --------------------------
 if Installed('leaderf-changes')
     nnoremap <silent><M-u><M-u> :Leaderf changes<Cr>
+elseif Installed('telescope-changes.nvim')
+    nnoremap <silent><M-u><M-u> :Telescope changes<Cr>
 elseif Installed('coc.nvim')
     nnoremap <silent><M-u><M-u> :CocFzfList changes<Cr>
 endif
@@ -440,15 +445,15 @@ elseif !has('nvim') && WINDOWS() && g:gui_running
     nnoremap <M-O> :tabm<space>
 endif
 if Installed('neo-tree.nvim')
-    nnoremap <silent><leader>n :NeoTreeFloatToggle<Cr>
+    nnoremap <silent><leader><Tab> :NeoTreeFloatToggle<Cr>
 elseif has('nvim') && Installed('coc.nvim')
     function! CocFile() abort
         exec("CocCommand explorer --toggle --position floating --floating-width " . float2nr(&columns * 0.8) . " --floating-height " . float2nr(&lines * 0.8))
     endfunction
     command! CocFile call CocFile()
-    nnoremap <silent><leader>n :CocFile<Cr>
+    nnoremap <silent><leader><Tab> :CocFile<Cr>
 elseif InstalledFzf()
-    nnoremap <silent><leader>n :FZFFiles .<Cr>
+    nnoremap <silent><leader><Tab> :FZFFiles .<Cr>
 endif
 " --------------------------
 " floaterm windows

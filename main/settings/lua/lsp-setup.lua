@@ -1,23 +1,15 @@
 local opts = { noremap = true, silent = true }
 local map  = vim.api.nvim_set_keymap
 --------------------------------
--- telescope
---------------------------------
-local telescope    = require('telescope')
-if Installed('telescope-lsp-handlers.nvim') then
-  telescope.load_extension('lsp_handlers')
-  telescope.setup({})
-end
---------------------------------
 -- lspsaga
 --------------------------------
 local lspsaga = require('lspsaga')
 lspsaga.init_lsp_saga({
-  diagnostic_header      = { '😡', '😥', '😤', '😐' },
-  code_action_icon       = '💡',
-  finder_icons           = { def = '  ', ref = '諭 ', link = '  ' },
-  max_preview_lines      = 32,
-  finder_action_keys     = {
+  diagnostic_header  = { '😡', '😥', '😤', '😐' },
+  code_action_icon   = '💡',
+  finder_icons       = { def = '  ', ref = '諭 ', link = '  ' },
+  max_preview_lines  = 32,
+  finder_action_keys = {
     open   = "<Cr>",
     vsplit = "<C-g>",
     split  = "<C-x>",
@@ -25,11 +17,11 @@ lspsaga.init_lsp_saga({
     quit   = { "<M-q>", "<C-c>", "<ESC>" },
   },
   definition_action_keys = {
-    edit   = '<Cr>',
-    vsplit = '<C-g>',
-    split  = '<C-x>',
-    tabe   = '<C-t>',
-    quit   = '<M-q>',
+    edit   = "<Cr>",
+    vsplit = "<C-g>",
+    split  = "<C-x>",
+    tabe   = "<C-t>",
+    quit   = "<M-q>",
   },
   move_in_saga     = { prev = '<C-k>', next = '<C-j>' },
   code_action_keys = {
@@ -37,7 +29,7 @@ lspsaga.init_lsp_saga({
     exec = "<Cr>",
   },
   rename_action_quit = "<C-c>",
-  show_outline = {
+  show_outline       = {
     win_position = 'left',
     win_width = 40,
     auto_enter = false,
@@ -77,7 +69,6 @@ if vim.fn.has('nvim-0.8') > 0 then
       end
     }
   })
-
   local function get_file_symbol()
     local file_name = require('lspsaga.symbolwinbar').get_file_name()
     if vim.fn.bufname '%' == '' then return '' end
@@ -87,11 +78,10 @@ if vim.fn.has('nvim-0.8') > 0 then
     local file_path = ''
     for _, cur in ipairs(path_list) do
       file_path = (cur == '.' or cur == '~') and '' or
-      file_path .. cur .. ' ' .. '%#LspSagaWinbarSep#>%*' .. ' %*'
+          file_path .. cur .. ' ' .. '%#LspSagaWinbarSep#>%*' .. ' %*'
     end
     return file_path .. file_name
   end
-
   local function config_winbar_or_statusline()
     local exclude = {
       ['terminal'] = true,
@@ -114,96 +104,68 @@ if vim.fn.has('nvim-0.8') > 0 then
       -- vim.wo.stl = win_val
     end
   end
-
   local events = { 'BufEnter', 'BufWinEnter', 'CursorMoved' }
-
   vim.api.nvim_create_autocmd(events, {
     pattern = '*',
     callback = function() config_winbar_or_statusline() end,
   })
-
   vim.api.nvim_create_autocmd('User', {
     pattern = 'LspsagaUpdateSymbol',
     callback = function() config_winbar_or_statusline() end,
   })
-
-end
---------------------------------
--- each lsp server config
---------------------------------
-local capabilities = vim.lsp.protocol.make_client_capabilities()
------------------
--- ufo
------------------
-if Installed('nvim-ufo') and Installed('promise-async') then
-  require('ufo').setup()
 end
 -----------------
--- mason/lspconfig
+-- mason/lspconfig/lspsetup
 -----------------
-local mason = require('mason')
-mason.setup()
--- mason_lspconfig
-local lspconfig       = require('lspconfig')
-local mason_lspconfig = require('mason-lspconfig')
-mason_lspconfig.setup({
+require('mason').setup({
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗"
+    }
+  }
+})
+require('mason-lspconfig').setup({
   automatic_installation = true,
   ensure_installed = vim.g.lsp_installer_servers,
 })
-mason_lspconfig.setup_handlers({
-  -- The first entry (without a key) will be the default handler
-  -- and will be called for each Installed server that doesn't have
-  -- a dedicated handler.
-  function(server_name) -- default handler (optional)
-    lspconfig[server_name].setup {
-      capabilities = capabilities
-    }
+-- lsp-setup
+require('lsp-setup').setup({
+  default_mappings = false,
+  capabilities = vim.lsp.protocol.make_client_capabilities(),
+  on_attach = function(client, bufnr)
+    local bufmap = vim.api.nvim_buf_set_keymap
+    -- Support custom the on_attach function for global
+    -- Formatting on save as default
+    require('lsp-setup.utils').format_on_save(client)
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   end,
-  -- Next, you can provide targeted overrides for specific servers.
-  ["sumneko_lua"] = function()
-    lspconfig.sumneko_lua.setup {
+  servers = {
+    pylsp = {
       settings = {
-        Lua = {
-          diagnostics = {
-            globals = { "vim", "lua" }
-          }
-        }
-      }
-    }
-  end,
-})
-if Installed('rust-tools.nvim') then
-  local rust_tools = require('rust-tools')
-  mason_lspconfig.setup_handlers({
-    ["rust_analyzer"] = function()
-      rust_tools.setup({})
-    end,
-  })
-end
-if executable('pylsp') then
-  local pylsp_args = { '--max-line-length=160', '--ignore=' .. vim.g.python_lint_ignore }
-  lspconfig.pylsp.setup({
-    settings = {
-      pylsp = {
-        plugins = {
-          pylint = { enabled = true, executable = 'pylint', args = pylsp_args },
-          pyflakes = { enabled = false },
-          pycodestyle = { enabled = false },
-          jedi_completion = { fuzzy = false },
-          pyls_isort = { enabled = false },
-          pyls_flake8 = { enabled = true, executable = 'flake8', args = pylsp_args },
-          pylrp_mypy = { enabled = false },
+        pylsp = {
+          plugins = {
+            pylint = { enabled = true, executable = 'pylint', args = pylsp_args },
+            pyflakes = { enabled = false },
+            pycodestyle = { enabled = false },
+            jedi_completion = { fuzzy = false },
+            pyls_isort = { enabled = false },
+            pyls_flake8 = { enabled = true, executable = 'flake8', args = pylsp_args },
+            pylrp_mypy = { enabled = false },
+          },
         },
       },
-    },
-    flags = {
-      debounce_text_changes = 200,
-    },
-  })
-end
+      flags = {
+        debounce_text_changes = 200,
+      },
+    }
+  }
+})
 -----------------
--- keymap
+-- keymaps
 -----------------
+map('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
 -- format
 map('n', '<C-q>', [[<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>]], opts)
 map('x', '<C-q>', [[<cmd>lua vim.lsp.buf.range_formatting()<CR><ESC>]], opts)
@@ -211,25 +173,22 @@ map('x', '<C-q>', [[<cmd>lua vim.lsp.buf.range_formatting()<CR><ESC>]], opts)
 map('n', '<M-.>', [[<cmd>lua vim.lsp.buf.incoming_calls()<CR>]], opts)
 map('n', '<M-,>', [[<cmd>lua vim.lsp.buf.outgoing_calls()<CR>]], opts)
 -- definition type_definition declaration implementation
-map('n', '<C-]>', [[<cmd>lua vim.lsp.buf.definition()<CR>]],      opts)
-map('n', 'gh',    [[<cmd>lua vim.lsp.buf.type_definition()<CR>]], opts)
-map('n', 'gl',    [[<cmd>lua vim.lsp.buf.declaration()<CR>]],     opts)
-map('n', 'gm',    [[<cmd>lua vim.lsp.buf.implementation()<CR>]],  opts)
-map('n', '<M-/>', [[<cmd>lua vim.lsp.buf.references()<CR>]],      opts)
-map('n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]],                       opts)
-map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
-map('n', 'ZL',    [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]],               opts)
-if vim.g.ctags_type == '' then
-  map('n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
-end
--- lspsaga maps
-map('n', '<F2>',       [[<cmd>Lspsaga rename<Cr>]], opts)
+map('n', '<C-]>', [[<cmd>lua vim.lsp.buf.definition()<CR>]], opts)
+map('n', 'gh', [[<cmd>lua vim.lsp.buf.type_definition()<CR>]], opts)
+map('n', 'gl', [[<cmd>lua vim.lsp.buf.declaration()<CR>]], opts)
+map('n', 'gm', [[<cmd>lua vim.lsp.buf.implementation()<CR>]], opts)
+map('n', '<M-/>', [[<cmd>lua vim.lsp.buf.references()<CR>]], opts)
+-- lspsaga
+map('n', '<F2>', [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<C-h>', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
 map('n', '<M-:>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
 map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)
 map('n', "<leader>a<cr>", [[<cmd>Lspsaga code_action<Cr>]], opts)
 map('x', "<leader>a<cr>", [[<cmd>Lspsaga range_code_action<CR>]], opts)
-map('n', '<leader>al',    [[:Lspsaga ]], { noremap = true, silent = false })
--- mason
-map('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
+map('n', '<leader>al', [[:Lspsaga ]], { noremap = true, silent = false })
+-- Telescope
+map('n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]], opts)
+map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
+map('n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
+map('n', 'ZL', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
