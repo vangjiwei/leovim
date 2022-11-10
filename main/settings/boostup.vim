@@ -616,15 +616,20 @@ endif
 try
     set completeopt=menuone,noselect,noinsert
 catch
-    let g:complete_engine = 'non'
+    try
+        set completeopt=menuone,noselect
+        let g:complete_engine = 'apc'
+    catch
+        let g:complete_engine = 'non'
+    endtry
 endtry
 if exists('+completepopup') != 0
     set completeopt+=popup
     set completepopup=align:menu,border:off,highlight:WildMenu
 endif
-if Require('non') || CYGWIN()
+if CYGWIN() || get(g:, 'complete_engin', '') == 'non'
     let g:complete_engine = "non"
-elseif Require('apc') && &completeopt =~ 'noselect'
+elseif get(g:, 'complete_engin', '') == 'apc'
     let g:complete_engine = "apc"
 elseif Require('cmp')
     if has('nvim')
@@ -641,9 +646,11 @@ elseif Require('coc')
 else
     let s:smart_engine_select = 1
 endif
-if get(s:, 'smart_engine_select', 0)
+if get(s:, 'smart_engine_select', 0) > 0
     if get(g:, 'node_version', '') != '' && (has('nvim') || has('patch-8.2.0750'))
         let g:complete_engine = 'coc'
+    elseif has('nvim')
+        let g:complete_engine = 'cmp'
     else
         let g:complete_engine = 'apc'
     endif
