@@ -166,7 +166,7 @@ if Installed('vim-gutentags')
     if WINDOWS()
         nnoremap ,g<Space> :!del ~<Tab>\.leovim.d\.LfCache\gtags\*.* /a /q<Cr><Cr>
     else
-        nnoremap <leader>G :!rm -rf ~/.leovim.d/.LfCache/gtags/* <Cr>
+        nnoremap ,g<Space> :!rm -rf ~/.leovim.d/.LfCache/gtags/* <Cr>
     endif
 endif
 " --------------------------

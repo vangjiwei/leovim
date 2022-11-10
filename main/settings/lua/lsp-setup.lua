@@ -1,14 +1,15 @@
 local opts = { noremap = true, silent = true }
+local map  = vim.api.nvim_set_keymap
 --------------------------------
 -- lspsaga
 --------------------------------
 local lspsaga = require('lspsaga')
 lspsaga.init_lsp_saga({
-  diagnostic_header      = { '😡', '😥', '😤', '😐' },
-  code_action_icon       = '💡',
-  finder_icons           = { def = '  ', ref = '諭 ', link = '  ' },
-  max_preview_lines      = 32,
-  finder_action_keys     = {
+  diagnostic_header  = { '😡', '😥', '😤', '😐' },
+  code_action_icon   = '💡',
+  finder_icons       = { def = '  ', ref = '諭 ', link = '  ' },
+  max_preview_lines  = 32,
+  finder_action_keys = {
     open   = "<Cr>",
     vsplit = "<C-g>",
     split  = "<C-x>",
@@ -16,19 +17,19 @@ lspsaga.init_lsp_saga({
     quit   = { "<M-q>", "<C-c>", "<ESC>" },
   },
   definition_action_keys = {
-    edit   = '<Cr>',
-    vsplit = '<C-g>',
-    split  = '<C-x>',
-    tabe   = '<C-t>',
-    quit   = '<M-q>',
+    edit   = "<Cr>",
+    vsplit = "<C-g>",
+    split  = "<C-x>",
+    tabe   = "<C-t>",
+    quit   = "<M-q>",
   },
-  move_in_saga           = { prev = '<C-k>', next = '<C-j>' },
-  code_action_keys       = {
+  move_in_saga     = { prev = '<C-k>', next = '<C-j>' },
+  code_action_keys = {
     quit = { "<M-q>", "<C-c>", "<ESC>" },
     exec = "<Cr>",
   },
-  rename_action_quit     = "<C-c>",
-  show_outline           = {
+  rename_action_quit = "<C-c>",
+  show_outline       = {
     win_position = 'left',
     win_width = 40,
     auto_enter = false,
@@ -68,7 +69,6 @@ if vim.fn.has('nvim-0.8') > 0 then
       end
     }
   })
-
   local function get_file_symbol()
     local file_name = require('lspsaga.symbolwinbar').get_file_name()
     if vim.fn.bufname '%' == '' then return '' end
@@ -82,7 +82,6 @@ if vim.fn.has('nvim-0.8') > 0 then
     end
     return file_path .. file_name
   end
-
   local function config_winbar_or_statusline()
     local exclude = {
       ['terminal'] = true,
@@ -105,14 +104,11 @@ if vim.fn.has('nvim-0.8') > 0 then
       -- vim.wo.stl = win_val
     end
   end
-
   local events = { 'BufEnter', 'BufWinEnter', 'CursorMoved' }
-
   vim.api.nvim_create_autocmd(events, {
     pattern = '*',
     callback = function() config_winbar_or_statusline() end,
   })
-
   vim.api.nvim_create_autocmd('User', {
     pattern = 'LspsagaUpdateSymbol',
     callback = function() config_winbar_or_statusline() end,
@@ -140,46 +136,16 @@ require('mason-lspconfig').setup({
   automatic_installation = true,
   ensure_installed = vim.g.lsp_installer_servers,
 })
-vim.api.nvim_set_keymap('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
 -- lsp-setup
 require('lsp-setup').setup({
   default_mappings = false,
   capabilities = vim.lsp.protocol.make_client_capabilities(),
   on_attach = function(client, bufnr)
+    local bufmap = vim.api.nvim_buf_set_keymap
     -- Support custom the on_attach function for global
     -- Formatting on save as default
     require('lsp-setup.utils').format_on_save(client)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    -----------------
-    -- keymap
-    -----------------
-    local bufmap = vim.api.nvim_buf_set_keymap
-    -- format
-    bufmap(bufnr, 'n', '<C-q>', [[<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>]], opts)
-    bufmap(bufnr, 'x', '<C-q>', [[<cmd>lua vim.lsp.buf.range_formatting()<CR><ESC>]], opts)
-    -- call hierrachy
-    bufmap(bufnr, 'n', '<M-.>', [[<cmd>lua vim.lsp.buf.incoming_calls()<CR>]], opts)
-    bufmap(bufnr, 'n', '<M-,>', [[<cmd>lua vim.lsp.buf.outgoing_calls()<CR>]], opts)
-    -- definition type_definition declaration implementation
-    bufmap(bufnr, 'n', '<C-]>', [[<cmd>lua vim.lsp.buf.definition()<CR>]], opts)
-    bufmap(bufnr, 'n', 'gh', [[<cmd>lua vim.lsp.buf.type_definition()<CR>]], opts)
-    bufmap(bufnr, 'n', 'gl', [[<cmd>lua vim.lsp.buf.declaration()<CR>]], opts)
-    bufmap(bufnr, 'n', 'gm', [[<cmd>lua vim.lsp.buf.implementation()<CR>]], opts)
-    bufmap(bufnr, 'n', '<M-/>', [[<cmd>lua vim.lsp.buf.references()<CR>]], opts)
-    -- lspsaga maps
-    bufmap(bufnr, 'n', '<F2>', [[<cmd>Lspsaga rename<Cr>]], opts)
-    bufmap(bufnr, 'n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
-    bufmap(bufnr, 'n', '<C-h>', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
-    bufmap(bufnr, 'n', '<M-:>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
-    bufmap(bufnr, 'n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)
-    bufmap(bufnr, 'n', "<leader>a<cr>", [[<cmd>Lspsaga code_action<Cr>]], opts)
-    bufmap(bufnr, 'x', "<leader>a<cr>", [[<cmd>Lspsaga range_code_action<CR>]], opts)
-    bufmap(bufnr, 'n', '<leader>al', [[:Lspsaga ]], { noremap = true, silent = false })
-    -- Telescope
-    bufmap(bufnr, 'n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]], opts)
-    bufmap(bufnr, 'n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
-    bufmap(bufnr, 'n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
-    bufmap(bufnr, 'n', 'ZL', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
   end,
   servers = {
     pylsp = {
@@ -202,3 +168,33 @@ require('lsp-setup').setup({
     }
   }
 })
+-----------------
+-- keymaps
+-----------------
+map('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
+-- format
+map('n', '<C-q>', [[<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>]], opts)
+map('x', '<C-q>', [[<cmd>lua vim.lsp.buf.range_formatting()<CR><ESC>]], opts)
+-- call hierrachy
+map('n', '<M-.>', [[<cmd>lua vim.lsp.buf.incoming_calls()<CR>]], opts)
+map('n', '<M-,>', [[<cmd>lua vim.lsp.buf.outgoing_calls()<CR>]], opts)
+-- definition type_definition declaration implementation
+map('n', '<C-]>', [[<cmd>lua vim.lsp.buf.definition()<CR>]], opts)
+map('n', 'gh', [[<cmd>lua vim.lsp.buf.type_definition()<CR>]], opts)
+map('n', 'gl', [[<cmd>lua vim.lsp.buf.declaration()<CR>]], opts)
+map('n', 'gm', [[<cmd>lua vim.lsp.buf.implementation()<CR>]], opts)
+map('n', '<M-/>', [[<cmd>lua vim.lsp.buf.references()<CR>]], opts)
+-- lspsaga
+map('n', '<F2>', [[<cmd>Lspsaga rename<Cr>]], opts)
+map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
+map('n', '<C-h>', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
+map('n', '<M-:>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
+map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)
+map('n', "<leader>a<cr>", [[<cmd>Lspsaga code_action<Cr>]], opts)
+map('x', "<leader>a<cr>", [[<cmd>Lspsaga range_code_action<CR>]], opts)
+map('n', '<leader>al', [[:Lspsaga ]], { noremap = true, silent = false })
+-- Telescope
+map('n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]], opts)
+map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
+map('n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
+map('n', 'ZL', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
