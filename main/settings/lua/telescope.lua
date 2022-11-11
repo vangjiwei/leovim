@@ -89,10 +89,6 @@ map('n', ',<Tab>', [[<cmd>Telescope find_files<CR>]], opts)
 if Installed('telescope-lsp-handlers.nvim') then
   telescope.load_extension('lsp_handlers')
 end
-if Installed('telescope-changes.nvim') then
-  telescope.load_extension('changes')
-  map('n', '<M-y>', [[<cmd>Telescope changes<CR>]], opts)
-end
 if Installed('telescope-ultisnips.nvim') then
   telescope.load_extension('ultisnips')
   map('i', '<C-x><C-x>', [[<ESC><cmd>Telescope ultisnips<CR>]], opts)
@@ -104,9 +100,6 @@ if Installed('telescope-floaterm.nvim') then
   telescope.load_extension('floaterm')
   map('n', '<M-j>w', [[<cmd>Telescope floaterm<CR>]], opts)
 end
-if Installed('telescope-ui-select.nvim') then
-  telescope.load_extension("ui-select")
-end
 if Installed('telescope-buffer-lines.nvim') then
   telescope.load_extension('buffer_lines')
   map('i', '<C-x><C-l>', [[<ESC><cmd>Telescope buffer_lines<CR>]], opts)
@@ -117,6 +110,10 @@ if Installed('nvim-notify') then
 end
 if Installed('telescope-changes.nvim') then
   telescope.load_extension('changes')
+end
+if Installed('telescope-changes.nvim') then
+  telescope.load_extension('changes')
+  map('n', '<M-y>', [[<cmd>Telescope changes<CR>]], opts)
 end
 -- project_files
 _G.project_files = function()

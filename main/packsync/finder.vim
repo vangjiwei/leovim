@@ -15,10 +15,7 @@ if g:complete_engine == 'cmp'
                 \| PackAdd 'MunifTanjim/nui.nvim'
                 \| PackAdd 'nvim-neo-tree/neo-tree.nvim'
                 \| PackAdd 'nvim-telescope/telescope.nvim'
-                \| PackAdd 'nvim-telescope/telescope-ui-select.nvim'
                 \| PackAdd 'nvim-telescope/telescope-symbols.nvim'
-                \| PackAdd 'jeetsukumaran/telescope-buffer-lines.nvim'
-                \| PackAdd 'LinArcX/telescope-changes.nvim'
     if UNIX() && executable('make')
         let g:telescope_fzf_make_cmd = get(g:, 'telescope_fzf_make_cmd', 'make')
     endif
@@ -27,8 +24,10 @@ if g:complete_engine == 'cmp'
     endif
     if !Planned('leaderf')
         PackAdd 'LinArcX/telescope-changes.nvim'
+                    \| PackAdd 'jeetsukumaran/telescope-buffer-lines.nvim'
                     \| PackAdd 'dawsers/telescope-floaterm.nvim'
                     \| PackAdd 'GustavoKatel/telescope-asynctasks.nvim'
+                    \| PackAdd 'LinArcX/telescope-changes.nvim'
     endif
 else
     if WINDOWS()
