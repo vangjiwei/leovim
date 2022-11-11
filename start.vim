@@ -92,7 +92,7 @@ elseif has('nvim')
 else
     let g:gui_running = 0
 endif
-if g:gui_running
+if g:gui_running > 0
     set guioptions-=e
     set guioptions-=T
     set guioptions-=r
@@ -135,19 +135,19 @@ endif
 function! CYGWIN()
     return has('win32unix') && !has('macunix')
 endfunction
-function! WINDOWS() abort
+function! WINDOWS()
     return has('win32') || has('win64')
 endfunction
-function! LINUX() abort
+function! LINUX()
     return has('unix') && !has('macunix') && !has('win32unix')
 endfunction
-function! MACOS() abort
+function! MACOS()
     return has('macunix')
 endfunction
-function! UNIX() abort
+function! UNIX()
     return LINUX() || MACOS()
 endfunction
-function! MACVIM() abort
+function! MACVIM()
     return has('gui_running') && MACOS()
 endfunction
 if WINDOWS()
