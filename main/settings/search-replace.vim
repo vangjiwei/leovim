@@ -76,15 +76,15 @@ if exists('*matchstrpos')
     if g:complete_engine != 'coc'
         nnoremap <M-?> :GrepperSearchAll <C-r>=expand('<cword>')<Cr><Cr>
     endif
-    nnoremap s<Cr> :GrepperSearchAll <C-r>=expand('<cword>')<Cr>
-    xnoremap s<Cr> :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr>
-    nnoremap s' :GrepperSearchAll ""<left>
-    nnoremap s, :GrepperSearchAllLast<Cr>
+    nnoremap s<Cr>      :GrepperSearchAll <C-r>=expand('<cword>')<Cr>
+    xnoremap s<Cr>      :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr>
+    nnoremap s'         :GrepperSearchAll ""<left>
+    nnoremap <silent>s. :GrepperSearchAllLast<Cr>
     " GrepperSearch
-    nnoremap S<cr> :GrepperSearch <C-r>=expand('<cword>')<Cr>
-    xnoremap S<cr> :<C-u>GrepperSearch <C-r>=GetVisualSelection()<Cr>
-    nnoremap S'    :GrepperSearch ""<Left>
-    nnoremap S,    :GrepperSearchLast<Cr>
+    nnoremap S<cr>      :GrepperSearch <C-r>=expand('<cword>')<Cr>
+    xnoremap S<cr>      :<C-u>GrepperSearch <C-r>=GetVisualSelection()<Cr>
+    nnoremap S'         :GrepperSearch ""<Left>
+    nnoremap <silent>S. :GrepperSearchLast<Cr>
     " cdo for replace
     cnoremap <M-r> cdo s///gc<Left><Left><Left>
     cnoremap <M-S> cfdo up
@@ -162,7 +162,7 @@ if InstalledTelescope()
     xnoremap s; :<C-u>TeleSearchAll <C-r>=GetVisualSelection()<Cr>
     nnoremap s/ :TeleSearchAll <C-r>=expand('<cword>')<Cr><Cr>
     xnoremap s/ :<C-u>TeleSearchAll <C-r>=GetVisualSelection()<Cr><Cr>
-    nnoremap <silent>s. :TeleSearchAllLast<Cr>
+    nnoremap <silent>s, :TeleSearchAllLast<Cr>
 elseif InstalledFzf() && exists('*systemlist')
     if get(g:, 'search_tool', '') == 'grepper'
         let g:search_tool = 'grepper-fzfsearch'
@@ -220,17 +220,17 @@ elseif InstalledFzf() && exists('*systemlist')
     let g:search_all_cmd = 'FZFSearchAll'
     nnoremap s; :FZFSearchAll <C-r>=expand('<cword>')<Cr>
     xnoremap s; :<C-u>FZFSearchAll <C-r>=GetVisualSelection()<Cr>
-    nnoremap s/ :FZFSearchAll <C-r>=expand('<cword>')<Cr><Cr>
-    xnoremap s/ :<C-u>FZFSearchAll <C-r>=GetVisualSelection()<Cr><Cr>
-    nnoremap <silent>s. :FZFSearchAllLast<Cr>
+    nnoremap <silent>s/ :FZFSearchAll <C-r>=expand('<cword>')<Cr><Cr>
+    xnoremap <silent>s/ :<C-u>FZFSearchAll <C-r>=GetVisualSelection()<Cr><Cr>
+    nnoremap <silent>s, :FZFSearchAllLast<Cr>
 elseif get(g:, 'search_tool', '') =~ 'grepper'
     " searchall
     let g:search_all_cmd = 'GrepperSearchAll'
     nnoremap s; :GrepperSearchAll <C-r>=expand('<cword>')<Cr>
     xnoremap s; :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr>
-    nnoremap s/ :GrepperSearchAll <C-r>=expand('<cword>')<Cr><Cr>
-    xnoremap s/ :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr><Cr>
-    nnoremap <silent>s. :GrepperSearchAllLast<Cr>
+    nnoremap <silent>s/ :GrepperSearchAll <C-r>=expand('<cword>')<Cr><Cr>
+    xnoremap <silent>s/ :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr><Cr>
+    nnoremap <silent>s, :GrepperSearchAllLast<Cr>
 endif
 " --------------------------
 " fuzzysearch with rg
