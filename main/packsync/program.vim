@@ -25,6 +25,7 @@ if g:complete_engine == 'coc'
             \ 'coc-highlight',
             \ 'coc-vimlsp',
             \ 'coc-pyright',
+            \ 'coc-symbol-line',
             \ ]
     if Require('c') && executable('clangd')
         let g:coc_global_extensions += ['coc-clangd', 'coc-cmake']
