@@ -93,15 +93,13 @@ if vim.fn.has('nvim-0.8') > 0 then
     if vim.api.nvim_win_get_config(0).zindex or exclude[vim.bo.filetype] then
       vim.wo.winbar = ''
     else
-      local ok, lspsaga = pcall(require, 'lspsaga.symbolwinbar')
+      local ok, saga = pcall(require, 'lspsaga.symbolwinbar')
       local sym
-      if ok then sym = lspsaga.get_symbol_node() end
+      if ok then sym = saga.get_symbol_node() end
       local win_val = ''
       win_val = get_file_symbol() -- set to true to include path
       if sym ~= nil then win_val = win_val .. sym end
       vim.wo.winbar = win_val
-      -- if work in statusline
-      -- vim.wo.stl = win_val
     end
   end
   local events = { 'BufEnter', 'BufWinEnter', 'CursorMoved' }

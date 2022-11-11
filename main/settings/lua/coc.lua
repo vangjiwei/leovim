@@ -10,10 +10,8 @@ vim.api.nvim_create_autocmd(
   {
     pattern = "*",
     callback = function()
-      if vim.b.coc_symbol_line and vim.bo.buftype == '' then
-        if vim.opt_local.winbar:get() == '' then
-          vim.opt_local.winbar = '%!v:lua.symbol_line()'
-        end
+      if vim.b.coc_symbol_line and vim.bo.buftype == '' and vim.opt_local.winbar:get() == '' then
+        vim.opt_local.winbar = '%!v:lua.symbol_line()'
       else
         vim.opt_local.winbar = ''
       end
