@@ -742,7 +742,7 @@ endif
 " lightline
 " --------------------------
 try
-    set laststatus=2
+    set laststatus=
     PackAdd 'lightline.vim'
     source $SETTINGS_PATH/lightline.vim
 catch
@@ -820,7 +820,7 @@ endif
 source $SETTINGS_PATH/differ.vim
 source $SETTINGS_PATH/search-replace.vim
 source $SETTINGS_PATH/sidebar.vim
-source $SETTINGS_PATH/run-conf.vim
+source $SETTINGS_PATH/run.vim
 source $SETTINGS_PATH/marks.vim
 source $SETTINGS_PATH/query.vim
 source $SETTINGS_PATH/fold.vim
