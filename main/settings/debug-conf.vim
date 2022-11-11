@@ -4,7 +4,7 @@
 imap <M-e> # %%
 imap <M-t> # %%STEP
 if Installed('sniprun')
-    luafile $LUA_PATH/sniprun-config.lua
+    luafile $LUA_PATH/sniprun.lua
     nmap cs <Plug>SnipRunOperator
     nmap <leader>rs :Snip
     nmap <silent><leader>r<Cr> vaB:SnipRun<Cr>gv<Esc><Down>
@@ -18,7 +18,7 @@ if Installed('sniprun')
     nmap <silent>\R  ggVG:SnipRun<Cr><C-o>
 endif
 if Installed('iron.nvim')
-    luafile $LUA_PATH/iron-config.lua
+    luafile $LUA_PATH/iron.lua
     nmap co :IronRepl<Cr>
     nmap cO :IronRestart<Cr>
     nmap cn cl<Down>
@@ -81,7 +81,7 @@ endif
 if Installed('nvim-dap', 'nvim-dap-ui')
     let g:debug_tool = 'nvim-dap'
     if get(g:, 'leovim_loaded', 0) == 0
-        luafile $LUA_PATH/dap.conf.lua
+        luafile $LUA_PATH/dap.lua
     endif
     nnoremap ,D :tabe ~/.leovim.conf/nvim-dap/dap.example.lua<Cr>:tabe ~/.leovim.d/dap.local.lua<Cr>
     if filereadable(expand("~/.leovim.d/dap.local.lua"))

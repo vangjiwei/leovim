@@ -839,7 +839,7 @@ if has('patch-7.4.330') && get(g:, 'which_key_type', 'vim') == ''
     echo "which key is disabled"
 elseif has('nvim') && get(g:, 'which_key_type', 'vim') == 'nvim'
     PackAdd 'which-key.nvim'
-    luafile $LUA_PATH/which-key-config.lua
+    luafile $LUA_PATH/which-key.lua
 elseif has('patch-7.4.330')
     let g:which_key_type = 'vim'
     if v:version >= 800

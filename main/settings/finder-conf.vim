@@ -24,7 +24,7 @@ else
     let g:fuzzy_finder = ''
 endif
 if InstalledTelescope()
-    luafile $LUA_PATH/telescope-config.lua
+    luafile $LUA_PATH/telescope.lua
     nnoremap <leader>fp :lua project_files()<Cr>
     nnoremap m<tab> <cmd>Telescope keymaps<Cr>
     nnoremap <M-u>q <cmd>Telescope quickfixhistory<Cr>

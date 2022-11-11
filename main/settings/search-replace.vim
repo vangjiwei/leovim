@@ -307,7 +307,7 @@ endif
 " bqf && quickui
 " ----------------------------
 if Installed('nvim-bqf')
-    luafile $LUA_PATH/bqf.conf.lua
+    luafile $LUA_PATH/bqf.lua
     hi default link BqfPreviewFloat Normal
     hi default link BqfPreviewBorder Normal
     hi default link BqfPreviewCursor Cursor
