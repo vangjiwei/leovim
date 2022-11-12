@@ -632,7 +632,7 @@ endif
 " complete engine
 " ------------------------------
 try
-    set completeopt=menuone,noselect,noinsert
+    set completeopt=menu,menuone,noselect,noinsert
 catch
     try
         set completeopt=menu,menuone,noselect
@@ -645,9 +645,9 @@ if exists('+completepopup') != 0
     set completeopt+=popup
     set completepopup=align:menu,border:off,highlight:WildMenu
 endif
-if CYGWIN() || get(g:, 'complete_engine', '') == 'non'
+if CYGWIN() || get(g:, 'complete_engine', '') == 'non' || Require('non')
     let g:complete_engine = "non"
-elseif get(g:, 'complete_engin', '') == 'apc'
+elseif get(g:, 'complete_engin', '') == 'apc' || Require('apc')
     let g:complete_engine = "apc"
 elseif Require('cmp')
     if has('nvim')
