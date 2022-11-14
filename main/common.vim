@@ -25,6 +25,7 @@ function! EnhancedSearch() range
 endfunction
 nmap <silent> * :<C-u>call EnhancedSearch()<CR>/<C-R>=@/<CR><CR>N
 nmap <silent> # :<C-u>call EnhancedSearch()<CR>?<C-R>=@/<CR><CR>N
+inoremap <leader> <leader><c-g>u
 " ------------------------
 " mapleader
 " ------------------------
