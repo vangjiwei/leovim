@@ -67,15 +67,6 @@ local cmp_opts = {
         end
       end,
     }),
-    ['<Cr>'] = {
-      c = cmp.mapping.confirm({
-        select = false,
-      }),
-      i = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = true,
-      }),
-    },
     ['<Tab>'] = cmp.mapping({
       c = function()
         if cmp.visible() then
@@ -89,6 +80,12 @@ local cmp_opts = {
         select = true,
       }),
     }),
+    ['<Cr>'] = {
+      c = cmp.mapping.confirm({
+        select = false,
+      }),
+      i = cmp.mapping.abort(),
+    },
   }),
   -- 使用lspkind-nvim显示类型图标
   formatting = {
