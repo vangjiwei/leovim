@@ -51,12 +51,13 @@ nnoremap cK :call RClearAll()<Cr>
 nnoremap <leader>C :call SendAboveLinesToR()<CR>
 nnoremap <leader>E VG:call SendLineToR('down')<CR>
 nnoremap <leader>I :call SendLineToRAndInsertOutput()<CR>0
+nnoremap <leader>V :call RAction('viewobj')<CR>
 
-nnoremap <leader>t :call RAction('viewobj')<CR>
-" input
-inoremap %% <space>%>%<space>
-inoremap >> <space>\|><space>
+" insert remap
+inoremap >> <space>%>%<space>
 inoremap << <space><-<space>
+inoremap ?? <space>\|><space>
+
 " run script
 nnoremap <M-R> :call StartR('R')<Cr>
 nnoremap <M-B> :RStop<Cr>
