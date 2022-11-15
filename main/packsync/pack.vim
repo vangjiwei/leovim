@@ -58,13 +58,6 @@ endif
 if has('signs')
     PackAdd 'kshenoy/vim-signature'
     PackAdd 'rhysd/conflict-marker.vim'
-    if executable('go') && UNIX() && v:version >= 800
-        PackAdd 'RRethy/vim-hexokinase', {'for': ['css', 'html', 'less', 'scss', 'sass', 'stylus', 'vim'], 'do': 'make hexokinase'}
-        let g:Hexokinase_highlighters  = ['backgroundfull']
-        nnoremap <M-k>o :HexokinaseToggle<Cr>
-    else
-        PackAdd 'gorodinskiy/vim-coloresque', {'for': ['css', 'html', 'less', 'scss', 'sass', 'stylus']}
-    endif
 endif
 " --------------------------
 " indentline
