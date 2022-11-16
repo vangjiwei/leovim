@@ -14,7 +14,7 @@ unlet s:symbol_tool
 " --------------------------
 let &tags = './.tags;,.tags'
 let g:gutentags_cache_dir = expand(g:Lf_CacheDirectory.'/.LfCache/gtags')
-if isdirectory(g:gutentags_cache_dir)
+if !isdirectory(g:gutentags_cache_dir)
     silent! call mkdir(g:gutentags_cache_dir, 'p')
 endif
 " ctags with leaderf quickui
