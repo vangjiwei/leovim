@@ -58,42 +58,31 @@ function! s:tag_or_searchall(tagname, ...)
     else
         let tagname = a:tagname
     endif
-    if g:symbol_tool =~ 'leaderfgtags'
-        let ret=Execute("silent! Leaderf gtags -i -g " . tagname)
-        if ret =~ 'not found'
-            let ret = ''
-            call feedkeys("\<ESC>", 'n')
-        endif
+    let no_found_msg = "No tag found, and cannot do global grep search."
+    if a:0 == 0
+        let tag_found = 0
     else
-        let ret=''
+        let tag_found = a:1
     endif
-    if ret == ''
-        let not_found = "No tag found, and cannot do global grep search."
-        if a:0 == 0
-            let tag_found = 0
-        else
-            let tag_found = a:1
+    if InstalledTelescope() && index(['vim', 'help'], &ft) >= 0
+        execute 'TeleSearchAll ' . tagname
+    elseif g:ctags_type != '' && tag_found == 0
+        if Installed('vim-gutentags')
+            let ret = Execute("silent! PreviewList ". tagname)
         endif
-        if InstalledTelescope() && index(['vim', 'help'], &ft) >= 0
-            execute 'TeleSearchAll ' . tagname
-        elseif g:ctags_type != '' && tag_found == 0
-            if Installed('vim-gutentags')
-                let ret = Execute("silent! PreviewList ". tagname)
-            endif
-            if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
-                if get(g:, 'search_all_cmd', '') == ''
-                    echom not_found
-                else
-                    execute g:search_all_cmd . ' ' . tagname
-                endif
+        if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
+            if get(g:, 'search_all_cmd', '') == ''
+                echom no_found_msg
             else
-                execute "copen " . g:asyncrun_open
+                execute g:search_all_cmd . ' ' . tagname
             endif
-        elseif get(g:, 'search_all_cmd', '') != ''
-            execute g:search_all_cmd . ' ' . tagname
         else
-            echom not_found
+            execute "copen " . g:asyncrun_open
         endif
+    elseif get(g:, 'search_all_cmd', '') != ''
+        execute g:search_all_cmd . ' ' . tagname
+    else
+        echom no_found_msg
     endif
 endfunction
 command! TagOrSearchAll call s:tag_or_searchall('')
