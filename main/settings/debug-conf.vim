@@ -13,9 +13,9 @@ if Installed('sniprun')
     nmap <silent><leader>rn :SnipRun<Cr><Down>
     xmap <silent><leader>rn :SnipRun<Cr>gv<Esc><Down>
     nmap <silent><leader>ri :SnipInfo<Cr>
-    nmap <silent><leader>rO :SnipReset<Cr>
+    nmap <silent><leader>rR :SnipReset<Cr>
     nmap <silent>\C  Vgg:SnipRun<Cr><C-o>
-    nmap <silent>\R  ggVG:SnipRun<Cr><C-o>
+    nmap <silent>\S  ggVG:SnipRun<Cr><C-o>
 endif
 if Installed('iron.nvim')
     luafile $LUA_PATH/iron.lua
