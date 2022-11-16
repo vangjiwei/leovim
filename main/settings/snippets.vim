@@ -31,7 +31,7 @@ if InstalledFzf()
     if LINUX()
         inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
     else
-        imap <c-x><c-l> <plug>(fzf-complete-path)
+        imap <c-x><c-f> <plug>(fzf-complete-path)
     endif
 endif
 " for apc
