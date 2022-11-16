@@ -188,9 +188,13 @@ endif
 " ----------------------------
 " semanticTokens
 " ----------------------------
-let g:coc_default_semantic_highlight_groups = 1
-" semanticTokensFiletypes
-call coc#config('semanticTokens.filetypes',  g:highlight_filetypes)
+if Installed('nvim-treesitter')
+    let g:coc_default_semantic_highlight_groups = 0
+else
+    let g:coc_default_semantic_highlight_groups = 1
+    " semanticTokensFiletypes
+    call coc#config('semanticTokens.filetypes',  g:highlight_filetypes)
+endif
 " ------------------------
 " coc config for nvim-0.8
 " ------------------------

@@ -17,7 +17,7 @@ require 'nvim-treesitter.configs'.setup {
     enable = true,
   },
   fold = {
-    enable = false,
+    enable = true,
   },
   indent = {
     enable = false,

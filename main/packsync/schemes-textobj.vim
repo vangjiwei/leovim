@@ -1,20 +1,13 @@
-if g:complete_engine != 'coc' && has('nvim') && (UNIX() && get(g:, 'nvim_treesitter_install', 1) || WINDOWS() && get(g:, 'nvim_treesitter_install', 0))
+if has('nvim') && (UNIX() && get(g:, 'nvim_treesitter_install', 1) || WINDOWS() && get(g:, 'nvim_treesitter_install', 0))
     let g:nvim_treesitter_install = 1
     PackAdd 'kevinhwang91/nvim-treesitter'
                 \| PackAdd 'm-demare/hlargs.nvim'
                 \| PackAdd 'spywhere/detect-language.nvim'
-    if g:complete_engine == 'cmp'
+    if g:complete_engine != 'coc'
         PackAdd 'mfussenegger/nvim-treehopper'
-    endif
-    if g:complete_engine != 'coc' && get(g:, 'nvim_treesitter_textobjects', 0) > 0
-        let g:nvim_treesitter_textobjects = 1
-        PackAdd 'nvim-treesitter/nvim-treesitter-textobjects'
-    else
-        let g:nvim_treesitter_textobjects = 0
     endif
 else
     let g:nvim_treesitter_install     = 0
-    let g:nvim_treesitter_textobjects = 0
 endif
 if v:version >= 704 && g:advanced_complete_engine == 0 && get(g:, 'install_textobj_plus', 1)
     PackAdd 'kana/vim-textobj-function'
