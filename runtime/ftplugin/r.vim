@@ -54,9 +54,11 @@ nnoremap <leader>I :call SendLineToRAndInsertOutput()<CR>0
 nnoremap <leader>V :call RAction('viewobj')<CR>
 
 " insert remap
-inoremap >> <space>%>%<space>
+inoremap >> <space>-><space>
 inoremap << <space><-<space>
-inoremap -- <space>\|><space>
+inoremap ?? <space>%>%<space>
+inoremap <> <space>%<>%<space>
+inoremap >< <space>\|><space>
 
 " run script
 nnoremap <M-R> :call StartR('R')<Cr>
