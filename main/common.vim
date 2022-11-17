@@ -177,7 +177,6 @@ function! InstalledCmp()
                 \ 'cmp-cmdline',
                 \ 'cmp-nvim-lsp-signature-help',
                 \ 'cmp-nvim-lsp-document-symbol',
-                \ 'cmp-dictionary',
                 \ 'lspkind-nvim',
                 \ )
 endfunction
