@@ -17,7 +17,6 @@ if g:complete_engine == 'coc'
             \ 'coc-powershell',
             \ 'coc-lists',
             \ 'coc-marketplace',
-            \ 'coc-dictionary',
             \ 'coc-snippets',
             \ 'coc-explorer',
             \ 'coc-pairs',
@@ -71,7 +70,6 @@ elseif g:complete_engine == 'cmp'
                 \| PackAdd 'hrsh7th/cmp-cmdline'
                 \| PackAdd 'hrsh7th/cmp-nvim-lsp-signature-help'
                 \| PackAdd 'hrsh7th/cmp-nvim-lsp-document-symbol'
-                \| PackAdd 'uga-rosa/cmp-dictionary'
                 \| PackAdd 'onsails/lspkind-nvim'
 endif
 " ------------------------------

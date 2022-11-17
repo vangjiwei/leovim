@@ -4,7 +4,7 @@
 local cmp = require('cmp')
 local lspkind = require('lspkind')
 -- snippets
-local snippets = { { name = 'nvim_lsp' } ,   { name = 'nvim_lua' } }
+local snippets = { { name = 'nvim_lsp' }, { name = 'nvim_lua' } }
 local snippets_opts = {}
 if Installed('ultisnips') then
   table.insert(snippets, { name = 'ultisnips' })
@@ -34,7 +34,6 @@ local cmp_opts = {
     { name = 'omni' },
     { name = 'buffer' },
     { name = 'path' },
-    { name = 'dictionary' },
     { name = 'nvim_lsp_signature_help' },
   }),
   mapping = cmp.mapping.preset.insert({
