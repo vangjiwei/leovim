@@ -69,9 +69,10 @@ if vim.fn.has('nvim-0.8') > 0 then
       end
     }
   })
-  local function get_file_symbol()
+  local function get_file_symbol(include_path)
     local file_name = require('lspsaga.symbolwinbar').get_file_name()
     if vim.fn.bufname '%' == '' then return '' end
+    if include_path == false then return file_name end
     -- Else if include path: ./lsp/saga.lua -> lsp > saga.lua
     local sep = vim.loop.os_uname().sysname == 'Windows' and '\\' or '/'
     local path_list = vim.split(string.gsub(vim.fn.expand '%:~:.:h', '%%', ''), sep)
@@ -97,12 +98,12 @@ if vim.fn.has('nvim-0.8') > 0 then
       local sym
       if ok then sym = saga.get_symbol_node() end
       local win_val = ''
-      win_val = get_file_symbol() -- set to true to include path
+      win_val = get_file_symbol(false)
       if sym ~= nil then win_val = win_val .. sym end
       vim.wo.winbar = win_val
     end
   end
-  local events = { 'BufEnter', 'BufWinEnter', 'CursorMoved' }
+  local events = {'WinEnter', 'BufWinEnter', 'CursorMoved', 'CursorHold'}
   vim.api.nvim_create_autocmd(events, {
     pattern = '*',
     callback = function() config_winbar_or_statusline() end,
