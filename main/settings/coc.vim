@@ -198,6 +198,9 @@ endif
 " ------------------------
 " coc config for nvim-0.8
 " ------------------------
-if has('nvim-0.8')
+if has('nvim-0.8.1')
+    call coc#config("coc.preferences.currentFunctionSymbolAutoUpdate", v:false)
     luafile $LUA_PATH/coc.lua
+else
+    call coc#config("coc.preferences.currentFunctionSymbolAutoUpdate", v:true)
 endif
