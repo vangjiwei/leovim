@@ -650,7 +650,7 @@ if CYGWIN() || get(g:, 'complete_engine', '') == 'non' || Require('non')
 elseif get(g:, 'complete_engin', '') == 'apc' || Require('apc')
     let g:complete_engine = "apc"
 elseif Require('cmp')
-    if has('nvim') && UNIX()
+    if has('nvim')
         let g:complete_engine = 'cmp'
     else
         let s:smart_engine_select = 1
@@ -667,7 +667,7 @@ endif
 if get(s:, 'smart_engine_select', 0) > 0
     if get(g:, 'node_version', '') != '' && (has('nvim') || has('patch-8.2.0750'))
         let g:complete_engine = 'coc'
-    elseif has('nvim') && UNIX()
+    elseif has('nvim')
         let g:complete_engine = 'cmp'
     else
         let g:complete_engine = 'apc'
