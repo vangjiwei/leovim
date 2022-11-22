@@ -4,9 +4,6 @@ if Require('c')
     if executable('clangd')
         let g:lsp_installer_servers += ['clangd']
     endif
-    if executable('ccls')
-        let g:lsp_installer_servers += ['ccls']
-    endif
 endif
 if Require('web')
     let g:lsp_installer_servers += ['cssls', 'tsserver', 'eslint', 'html', 'vuels', 'angularls']

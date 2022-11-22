@@ -10,14 +10,14 @@ endif
 " --------------------------
 " C language
 " --------------------------
-if Require('c') || Require('clangd') || Require('ccls')
+if Require('c')
     PackAdd 'chxuan/cpp-mode', {'for': g:c_filetypes}
     PackAdd 'jackguo380/vim-lsp-cxx-highlight', {'for': g:c_filetypes}
-    if executable('ccls') && executable('ccls')
-        PackAdd 'm-pilia/vim-ccls', {'for': g:c_filetypes}
-    endif
     if executable('cppman')
         PackAdd 'skywind3000/vim-cppman', {'for': g:c_filetypes}
+    endif
+    if executable('ccls')
+        PackAdd 'm-pilia/vim-ccls', {'for': g:c_filetypes}
     endif
 endif
 " --------------------------

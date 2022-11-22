@@ -39,7 +39,7 @@ if g:complete_engine == 'coc'
             \ 'coc-vetur',
             \ ]
     endif
-    if Require('c') && executable('clangd')
+    if Require('c')
         let g:coc_global_extensions += ['coc-clangd', 'coc-cmake']
     endif
     if Require('R')
