@@ -8,9 +8,7 @@ if Require('c')
         let g:lsp_installer_servers += ['ccls']
     endif
 endif
-if Require('web')
-    let g:lsp_installer_servers += ['cssls', 'tsserver', 'eslint', 'html', 'vuels', 'angularls']
-endif
+let g:lsp_installer_servers += ['cssls', 'tsserver', 'eslint', 'html', 'vuels', 'angularls']
 if Require('rust')
     let g:lsp_installer_servers += ['rust_analyzer']
 endif

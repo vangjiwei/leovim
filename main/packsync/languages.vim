@@ -66,18 +66,6 @@ if Require('R') && v:version >= 800
     augroup END
 endif
 " --------------------------
-" web
-" --------------------------
-if Require('web')
-    " javascript && typescript
-    PackAdd 'posva/vim-vue', {'for': ['vue']}
-    PackAdd 'pangloss/vim-javascript', {'for': ['javascript']}
-    let g:javascript_plugin_jsdoc = 1
-    let g:javascript_plugin_ngdoc = 1
-    let g:javascript_plugin_flow  = 1
-    PackAdd 'HerringtonDarkholme/yats.vim', {'for': ['typescript']}
-endif
-" --------------------------
 " julia
 " --------------------------
 if Require('julia') && v:version >= 800

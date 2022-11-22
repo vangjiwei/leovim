@@ -12,17 +12,14 @@ endif
 if v:version >= 704 && g:advanced_complete_engine == 0 && get(g:, 'install_textobj_plus', 1)
     PackAdd 'kana/vim-textobj-function'
     PackAdd 'thinca/vim-textobj-function-perl', {'for': 'perl'}
+    PackAdd 'kentaro/vim-textobj-function-php', {'for': 'php'}
+    PackAdd 'thinca/vim-textobj-function-javascript', {'for': ['javascript', 'typescript']}
     if g:python_version > 0
         PackAdd 'bps/vim-textobj-python', {'for': 'python'}
     endif
     " latex
     if Require('latex')
         PackAdd 'rbonvall/vim-textobj-latex', {'for': 'latex'}
-    endif
-    " web
-    if Require('web')
-        PackAdd 'kentaro/vim-textobj-function-php', {'for': 'php'}
-        PackAdd 'thinca/vim-textobj-function-javascript', {'for': ['javascript', 'typescript']}
     endif
 endif
 if g:has_truecolor > 0
