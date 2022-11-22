@@ -1,4 +1,4 @@
-let g:lsp_installer_servers = ['pylsp', 'vimls']
+let g:lsp_installer_servers = ['pyright', 'vimls']
 if Require('c')
     let g:lsp_installer_servers += ['cmake']
     if executable('clangd')
@@ -8,7 +8,9 @@ if Require('c')
         let g:lsp_installer_servers += ['ccls']
     endif
 endif
-let g:lsp_installer_servers += ['cssls', 'tsserver', 'eslint', 'html', 'vuels', 'angularls']
+if Require('web')
+    let g:lsp_installer_servers += ['cssls', 'tsserver', 'eslint', 'html', 'vuels', 'angularls']
+endif
 if Require('rust')
     let g:lsp_installer_servers += ['rust_analyzer']
 endif

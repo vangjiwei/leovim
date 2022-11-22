@@ -27,17 +27,18 @@ if g:complete_engine == 'coc'
             \ 'coc-pyright',
             \ 'coc-symbol-line',
             \ ]
-    " web
-    let g:coc_global_extensions += [
-        \ 'coc-html',
-        \ 'coc-css',
-        \ 'coc-yaml',
-        \ 'coc-phpls',
-        \ 'coc-emmet',
-        \ 'coc-tsserver',
-        \ 'coc-angular',
-        \ 'coc-vetur',
-        \ ]
+    if Require('web')
+        let g:coc_global_extensions += [
+            \ 'coc-html',
+            \ 'coc-css',
+            \ 'coc-yaml',
+            \ 'coc-phpls',
+            \ 'coc-emmet',
+            \ 'coc-tsserver',
+            \ 'coc-angular',
+            \ 'coc-vetur',
+            \ ]
+    endif
     if Require('c') && executable('clangd')
         let g:coc_global_extensions += ['coc-clangd', 'coc-cmake']
     endif
