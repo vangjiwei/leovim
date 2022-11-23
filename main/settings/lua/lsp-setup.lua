@@ -143,7 +143,7 @@ require('lsp-setup').setup({
   servers = {
     pylsp = {
       settings = {
-        pylsp = {
+        pyright = {
           plugins = {
             pylint = { enabled = true, executable = 'pylint', args = pylsp_args },
             pyflakes = { enabled = false },
