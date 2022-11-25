@@ -21,3 +21,4 @@ if Require('java') && executable('java')
     let g:lsp_installer_servers += ['jdtls']
 endif
 luafile $LUA_PATH/cmp.lua
+
