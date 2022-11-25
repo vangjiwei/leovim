@@ -1214,6 +1214,9 @@ endfunction
 command! -bang -complete=buffer -nargs=? Bclose call <SID>Bclose(<q-bang>, <q-args>)
 nnoremap <silent> Q :Bclose<CR>
 xnoremap <silent> Q <ESC>
+" kill other BD
+command! BdOther silent! execute "%bd|e#|bd#"
+nnoremap <silent><leader>Q :BdOther<Cr>
 " ------------------------
 " edit start.vim
 " ------------------------
