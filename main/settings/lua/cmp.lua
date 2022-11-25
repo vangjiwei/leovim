@@ -3,39 +3,37 @@
 -----------------
 local cmp = require('cmp')
 local lspkind = require('lspkind')
--- snippets
-local snippets = { { name = 'nvim_lsp' }, { name = 'nvim_lua' } }
-local snippets_opts = {}
+-- sources
+local sources = {
+  { name = 'nvim_lsp_signature_help' },
+  { name = 'nvim_lsp' },
+  { name = 'nvim_lua' },
+  { name = 'omni' },
+  { name = 'buffer' },
+  { name = 'path' },
+}
 if Installed('ultisnips') then
-  table.insert(snippets, { name = 'ultisnips' })
-  snippets_opts = {
-    snippet = {
-      expand = function(args)
-        vim.fn["UltiSnips#Anon"](args.body)
-      end
-    }
-  }
+  table.insert(sources, 1,  { name = 'ultisnips' })
 elseif Installed('luasnip') then
-  table.insert(snippets, { name = 'luasnip' })
+  table.insert(sources, 1,  { name = 'luasnip' })
   if Installed('friendly-snippets') then
     require("luasnip.loaders.from_vscode").lazy_load()
   end
-  snippets_opts = {
-    snippet = {
-      expand = function(args)
-        require('luasnip').lsp_expand(args.body)
-      end
-    }
-  }
 end
 -- core setup
-local cmp_opts = {
-  sources = cmp.config.sources(snippets, {
-    { name = 'omni' },
-    { name = 'buffer' },
-    { name = 'path' },
-    { name = 'nvim_lsp_signature_help' },
-  }),
+cmp.setup({
+  sources = cmp.config.sources(sources),
+  snippet = function (args)
+    if Installed('ultisnips') then
+      vim.fn["UltiSnips#Anon"](args.body)
+    elseif Installed('luasnip') then
+      require('luasnip').lsp_expand(args.body)
+    end
+  end,
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
   mapping = cmp.mapping.preset.insert({
     ['<C-n>'] = {
       c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
@@ -72,19 +70,6 @@ local cmp_opts = {
         end
       end
     }),
-    ['<Tab>'] = cmp.mapping({
-      c = function()
-        if cmp.visible() then
-          cmp.select_next_item()
-        else
-          cmp.complete()
-        end
-      end,
-      i = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-      })
-    }),
     ['<Cr>'] = {
       c = cmp.mapping.confirm({
         select = false,
@@ -104,12 +89,27 @@ local cmp_opts = {
       end
     })
   }
-}
-for k, v in pairs(snippets_opts) do cmp_opts[k] = v end
-cmp.setup(
-  cmp_opts
-)
+})
+-- for k, v in pairs(snippet_opts) do cmp_opts[k] = v end
+-- cmp.setup(
+--   cmp_opts
+-- )
+    -- ['<Tab>'] = cmp.mapping({
+    --   c = function()
+    --     if cmp.visible() then
+    --       cmp.select_next_item()
+    --     else
+    --       cmp.complete()
+    --     end
+    --   end,
+    --   i = cmp.mapping.confirm({
+    --     behavior = cmp.ConfirmBehavior.Insert,
+    --     select = true,
+    --   })
+    -- }),
+----------------------------------
 -- Use buffer source for `/`.
+----------------------------------
 require 'cmp'.setup.cmdline('/', {
   sources = cmp.config.sources({
     { name = 'nvim_lsp_document_symbol' }
@@ -117,7 +117,9 @@ require 'cmp'.setup.cmdline('/', {
     { name = 'buffer' }
   })
 })
+----------------------------------
 -- Use cmdline & path source for ':'.
+----------------------------------
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
     { name = 'path' }
@@ -125,7 +127,9 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
+----------------------------------
 -- gitcommit
+----------------------------------
 cmp.setup.filetype('gitcommit', {
   sources = cmp.config.sources({
     { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were Installed it.
