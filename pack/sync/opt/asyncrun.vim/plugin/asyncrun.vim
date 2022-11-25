@@ -3,7 +3,7 @@
 " Maintainer: skywind3000 (at) gmail.com, 2016-2022
 " Homepage: https://github.com/skywind3000/asyncrun.vim
 "
-" Last Modified: 2022/11/19 01:07
+" Last Modified: 2022/11/21 09:33
 "
 " Run shell command in background and output to quickfix:
 "     :AsyncRun[!] [options] {cmd} ...
@@ -1300,6 +1300,9 @@ function! s:terminal_init(opts)
 					let opts.cwd = cwd
 				endif
 			endif
+			if has('patch-8.1.1630')
+				let opts.term_name = s:term_gen_name(1, a:opts, -1)
+			endif
 			try
 				let bid = term_start(command, opts)
 			catch /^.*/
@@ -1319,6 +1322,7 @@ function! s:terminal_init(opts)
 			let success = (job_status(jid) != 'fail')? 1 : 0
 		endif
 		let pid = (success)? (job_info(jid)['process']) : -1
+		let processid = pid
 	else
 		let opts = {}
 		let opts.on_exit = function('s:terminal_exit')
@@ -1341,6 +1345,7 @@ function! s:terminal_init(opts)
 		endif
 		let success = (jid > 0)? 1 : 0
 		let pid = (success)? jid : -1
+		let processid = (success)? jobpid(jid) : -1
 	endif
 	if success == 0
 		call s:ErrorMsg('Process creation failed')
@@ -1366,7 +1371,6 @@ function! s:terminal_init(opts)
 		endif
 		if has_key(a:opts, 'hidden') || t != ''
 			exec 'setlocal bufhidden=' . t
-			unsilent echom 't=' . t
 		endif
 		if exists('*win_getid')
 			let info.winid = win_getid()
@@ -1382,8 +1386,11 @@ function! s:terminal_init(opts)
 	let info.pid = pid
 	let info.jid = jid
 	let info.bid = bid
+	let info.cmd = a:opts.cmd
+	let info.processid = processid
 	let info.close = get(a:opts, 'close', 0)
 	let s:async_term[pid] = info
+	call setbufvar(bid, 'asyncrun_term_pid', pid)
 	return pid
 endfunc
 
@@ -1396,11 +1403,32 @@ function! s:terminal_open(opts)
 	if a:opts.cwd != ''
 		silent! call s:chdir(a:opts.cwd)
 	endif
-	let hr = s:terminal_init(a:opts)
+	let pid = s:terminal_init(a:opts)
 	if a:opts.cwd != ''
 		silent! call s:chdir(previous)
 	endif
-	return hr
+	if pid >= 0
+		if get(a:opts, 'reuse', 0)
+			let bid = get(a:opts, '_terminal_wipe', -1)
+			if bid > 0
+				if bufexists(bid)
+					silent! exec 'bw '  . bid
+				endif
+			endif
+		endif
+		if has_key(s:async_term, pid)
+			let info = s:async_term[pid]
+			let rename = get(g:, 'asyncrun_term_rename', -1)
+			if rename >= 0
+				let name = s:term_gen_name(rename, a:opts, info.processid)
+				if name != ''
+					" echom 'name: ' . name
+					exec 'file! ' . name
+				endif
+			endif
+		endif
+	endif
+	return pid
 endfunc
 
 
@@ -1448,6 +1476,77 @@ endfunc
 
 
 "----------------------------------------------------------------------
+" check terminal is still running
+"----------------------------------------------------------------------
+function! s:term_alive(bid)
+	if getbufvar(a:bid, '&buftype') != 'terminal'
+		return 0
+	endif
+	if has('nvim') == 0
+		return (term_getstatus(a:bid) == 'finished')? 0 : 1
+	else
+		let ch = getbufvar(a:bid, '&channel')
+		let status = (jobwait([ch], 0)[0] == -1)? 1 : 0
+		return (status == 0)? 0 : 1
+	endif
+	return 0
+endfunc
+
+
+"----------------------------------------------------------------------
+" get a proper name
+"----------------------------------------------------------------------
+function! s:term_gen_name(mode, opts, pid)
+	let mode = a:mode
+	let command = a:opts.cmd
+	let pid = a:pid
+	let wipe = get(a:opts, '_terminal_wipe', -1)
+	if mode == 0
+		let mode = has('nvim')? 2 : 1
+	endif
+	if mode == 1
+		let name = '!' . command
+	elseif mode == 2
+		let name = printf('term://~//%d:%s', pid, command)
+	elseif mode == 3
+		let name = printf(':AsyncRun %s', command)
+	else
+		let name = printf('!(%d) %s', pid, command)
+	endif
+	if !bufexists(name)
+		return name
+	elseif get(a:opts, 'reuse', 0)
+		let bid = bufnr(name)
+		if bid == bufnr('%')
+			if !s:term_alive(bid)
+				if wipe == bid
+					return name
+				endif
+			endif
+		endif
+	endif
+	let index = 1
+	while 1
+		let test = printf('%s (%d)', name, index)
+		if !bufexists(test)
+			return test
+		elseif get(a:opts, 'reuse', 0)
+			let bid = bufnr(test)
+			if bid == bufnr('%')
+				if !s:term_alive(bid)
+					if wipe == bid
+						return test
+					endif
+				endif
+			endif
+		endif
+		let index += 1
+	endwhile
+	return ''
+endfunc
+
+
+"----------------------------------------------------------------------
 " run in a terminal
 "----------------------------------------------------------------------
 function! s:start_in_terminal(opts)
@@ -1457,6 +1556,7 @@ function! s:start_in_terminal(opts)
 		return -1
 	endif
 	let avail = -1
+	let a:opts._terminal_wipe = -1
 	for ii in range(winnr('$'))
 		let wid = ii + 1
 		if getwinvar(wid, '&bt') == 'terminal'
@@ -1512,6 +1612,7 @@ function! s:start_in_terminal(opts)
 				endif
 			else
 				exec 'tabn ' . avail
+				let a:opts._terminal_wipe = bufnr('%')
 			endif
 		endif
 		let hr = s:terminal_open(a:opts)
@@ -1554,6 +1655,7 @@ function! s:start_in_terminal(opts)
 	endif
 	if avail > 0 
 		exec "normal! ". avail . "\<c-w>\<c-w>"
+		let a:opts._terminal_wipe = bufnr('%')
 	endif
 	let uid = win_getid()
 	keepalt noautocmd call win_gotoid(origin)
@@ -2124,7 +2226,7 @@ endfunc
 " asyncrun - version
 "----------------------------------------------------------------------
 function! asyncrun#version()
-	return '2.11.3'
+	return '2.11.6'
 endfunc
 
 
