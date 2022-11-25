@@ -40,7 +40,10 @@ if g:complete_engine == 'coc'
             \ ]
     endif
     if Require('c')
-        let g:coc_global_extensions += ['coc-clangd', 'coc-cmake']
+        let g:coc_global_extensions += ['coc-cmake']
+        if executable('clangd')
+            let g:coc_global_extensions += ['coc-clangd']
+        endif
     endif
     if Require('R')
         let g:coc_global_extensions += ['coc-r-lsp']
@@ -54,7 +57,7 @@ if g:complete_engine == 'coc'
     if Require('latex')
         let g:coc_global_extensions += ['coc-vimtex']
     endif
-    if Require('java')
+    if Require('java') && executable('java')
         let g:coc_global_extensions += ['coc-java', 'coc-java-intellicode']
     endif
 elseif g:complete_engine == 'cmp'
