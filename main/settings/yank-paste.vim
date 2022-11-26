@@ -12,8 +12,6 @@ function! YankFromBeginning() abort
     call setpos('.', original_cursor_position)
 endfunction
 nnoremap gy :call YankFromBeginning()<Cr>
-cnoremap <C-v> <C-r>"
-inoremap <C-v> <C-r>"
 cnoremap <M-'> <C-r>"
 inoremap <M-'> <C-r>"
 if has('clipboard')

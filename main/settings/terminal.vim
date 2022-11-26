@@ -5,16 +5,17 @@ tnoremap <expr> <C-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'
 tnoremap <M-q> <C-\><C-n>:q!<CR>
 tnoremap <M-w> <C-\><C-n>:ChooseWin<CR>
 tnoremap <C-g> <C-\><C-n>
+" floaterm
 tnoremap <silent><M-}> <C-\><C-n>:FloatermNext<Cr>
 tnoremap <silent><M-{> <C-\><C-n>:FloatermPrev<Cr>
+" c-v as prefix
+tmap <C-v> <C-\><C-n>
 " --------------------------
 " XXX: cannot paste in floaterm when using vim9.0
 " --------------------------
 if g:has_terminal == 1
-    tnoremap <C-v> <C-\><C-n>""pa
     tnoremap <M-'> <C-\><C-n>""pa
 else
-    tnoremap <C-v> <C-_>""
     tnoremap <M-'> <C-_>""
 endif
 if has('clipboard')
