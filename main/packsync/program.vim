@@ -80,31 +80,25 @@ endif
 " complete_snippets
 " ------------------------------
 if g:complete_engine == 'cmp'
-    if g:python_version > 3
-        let g:complete_snippets = 'ultisnips'
-    else
-        let g:complete_snippets = 'luasnip'
-    endif
+    let g:complete_snippets = 'luasnip'
 elseif g:complete_engine == 'coc'
     if g:python_version > 3.6
         let g:complete_snippets = 'ultisnips-coc-snippets'
     else
         let g:complete_snippets = 'coc-snippets'
     endif
-else
-    let g:complete_snippets = ''
+elseif g:complete_engine == 'apc'
+    if g:python_version > 3.6
+        let g:complete_snippets = 'ultinsips'
+    else
+        let g:complete_snippets = 'vsnip'
+    endif
 endif
 if g:complete_snippets =~ 'ultisnips'
     PackAdd 'SirVer/ultisnips' | PackAdd 'honza/vim-snippets'
-    if g:complete_engine == 'cmp'
-        PackAdd 'quangnguyen30192/cmp-nvim-ultisnips' | PackAdd 'fhill2/telescope-ultisnips.nvim'
-    else
-        PackAdd 'skywind3000/leaderf-snippet'
-    endif
+    PackAdd 'skywind3000/leaderf-snippet'
 elseif g:complete_snippets =~ 'luasnip'
     PackAdd 'L3MON4D3/luasnip' | PackAdd 'saadparwaiz1/cmp_luasnip' | PackAdd 'benfowler/telescope-luasnip.nvim'
-elseif g:complete_snippets =~ 'vsnip'
-    PackAdd 'hrsh7th/vim-vsnip'
 endif
 if g:complete_snippets =~ 'vsnip' || g:complete_snippets =~ 'luasnip' || g:complete_snippets =~ 'coc'
     PackAdd 'rafamadriz/friendly-snippets'

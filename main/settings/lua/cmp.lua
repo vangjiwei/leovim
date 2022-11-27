@@ -2,9 +2,14 @@
 -- cmp config
 -----------------
 local cmp = require('cmp')
+local luasnip = require('luasnip')
 local lspkind = require('lspkind')
 -- sources
+if Installed('friendly-snippets') then
+  require("luasnip.loaders.from_vscode").lazy_load()
+end
 local sources = {
+  { name = 'luasnip' },
   { name = 'nvim_lsp_signature_help' },
   { name = 'nvim_lsp' },
   { name = 'nvim_lua' },
@@ -12,29 +17,21 @@ local sources = {
   { name = 'buffer' },
   { name = 'path' },
 }
-if Installed('ultisnips') then
-  table.insert(sources, 1,  { name = 'ultisnips' })
-elseif Installed('luasnip') then
-  table.insert(sources, 1,  { name = 'luasnip' })
-  if Installed('friendly-snippets') then
-    require("luasnip.loaders.from_vscode").lazy_load()
-  end
-end
 -- core setup
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
 cmp.setup({
   sources = cmp.config.sources(sources),
   snippet = function (args)
-    if Installed('ultisnips') then
-      vim.fn["UltiSnips#Anon"](args.body)
-    elseif Installed('luasnip') then
-      require('luasnip').lsp_expand(args.body)
-    end
+    luasnip.lsp_expand(args.body)
   end,
   window = {
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
   },
-  mapping = cmp.mapping.preset.insert({
+  mapping = cmp.mapping({
     ['<C-n>'] = {
       c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
       i = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
@@ -54,7 +51,13 @@ cmp.setup({
         select = false,
       })
     },
-    ["<S-Tab>"] = cmp.mapping({
+    ['<Cr>'] = {
+      c = cmp.mapping.confirm({
+        select = false,
+      }),
+      i = cmp.mapping.abort(),
+    },
+    ["<S-Tab>"] = {
       c = function()
         if cmp.visible() then
           cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
@@ -69,13 +72,36 @@ cmp.setup({
           fallback()
         end
       end
-    }),
-    ['<Cr>'] = {
-      c = cmp.mapping.confirm({
-        select = false,
-      }),
-      i = cmp.mapping.abort(),
     },
+    ['<Tab>'] = {
+      c = function()
+        if cmp.visible() then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+        else
+          cmp.complete()
+        end
+      end,
+      i = function(fallback)
+        if luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        elseif cmp.visible() then
+          cmp.select_next_item()
+        elseif has_words_before() then
+          cmp.complete()
+        else
+          fallback()
+        end
+      end,
+      s = function(fallback)
+        if luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        elseif has_words_before() then
+          cmp.complete()
+        else
+          fallback()
+        end
+      end,
+    }
   }),
   -- 使用lspkind-nvim显示类型图标
   formatting = {
@@ -90,30 +116,12 @@ cmp.setup({
     })
   }
 })
--- for k, v in pairs(snippet_opts) do cmp_opts[k] = v end
--- cmp.setup(
---   cmp_opts
--- )
-    -- ['<Tab>'] = cmp.mapping({
-    --   c = function()
-    --     if cmp.visible() then
-    --       cmp.select_next_item()
-    --     else
-    --       cmp.complete()
-    --     end
-    --   end,
-    --   i = cmp.mapping.confirm({
-    --     behavior = cmp.ConfirmBehavior.Insert,
-    --     select = true,
-    --   })
-    -- }),
 ----------------------------------
 -- Use buffer source for `/`.
 ----------------------------------
-require 'cmp'.setup.cmdline('/', {
+cmp.setup.cmdline('/', {
   sources = cmp.config.sources({
-    { name = 'nvim_lsp_document_symbol' }
-  }, {
+    { name = 'nvim_lsp_document_symbol' },
     { name = 'buffer' }
   })
 })
@@ -122,8 +130,7 @@ require 'cmp'.setup.cmdline('/', {
 ----------------------------------
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
+    { name = 'path' },
     { name = 'cmdline' }
   })
 })
@@ -147,8 +154,8 @@ if Installed('nvim-autopairs') then
   })
   local cmp_autopairs = require('nvim-autopairs.completion.cmp')
   cmp.event:on(
-    'confirm_done',
-    cmp_autopairs.on_confirm_done()
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
   )
   if Installed('nvim-treesitter') then
     autopairs.setup({
@@ -165,9 +172,9 @@ if Installed('nvim-autopairs') then
     local Rule = require('nvim-autopairs.rule')
     autopairs.add_rules({
       Rule("%", "%", "lua")
-          :with_pair(ts_conds.is_ts_node({ 'string', 'comment' })),
+      :with_pair(ts_conds.is_ts_node({ 'string', 'comment' })),
       Rule("$", "$", "lua")
-          :with_pair(ts_conds.is_not_ts_node({ 'function' }))
+      :with_pair(ts_conds.is_not_ts_node({ 'function' }))
     })
   end
 end

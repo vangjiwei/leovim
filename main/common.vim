@@ -178,6 +178,7 @@ function! InstalledCmp()
                 \ 'cmp-nvim-lsp-signature-help',
                 \ 'cmp-nvim-lsp-document-symbol',
                 \ 'lspkind-nvim',
+                \ 'luasnip',
                 \ )
 endfunction
 " -----------------------------------
