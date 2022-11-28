@@ -1,6 +1,3 @@
-if CYGWIN()
-    finish
-endif
 if g:advanced_complete_engine
     if (v:version >= 802 && (Require('debug') || Require('vimspector')) || has('nvim') && Require('vimspector')) && g:python_version > 3.6
         let vimspector_install = " ./install_gadget.py --update-gadget-config"
