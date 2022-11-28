@@ -159,7 +159,9 @@ if Require('tags')
         let g:ctags_type = 'Universal-json'
     elseif executable('ctags') && has('patch-7.4.330')
         let g:ctags_type = system('ctags --version')[0:8]
-        if g:ctags_type == 'Universal' && system('ctags --list-features | grep json') =~ 'json'
+        if g:ctags_type == 'Exuberant'
+            let g:ctags_type = ''
+        elseif g:ctags_type == 'Universal' && system('ctags --list-features | grep json') =~ 'json'
             let g:ctags_type = 'Universal-json'
         endif
     else
