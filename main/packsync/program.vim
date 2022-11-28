@@ -93,6 +93,8 @@ elseif g:complete_engine == 'apc'
     else
         let g:complete_snippets = 'vsnip'
     endif
+else
+    let g:complete_snippets = ''
 endif
 if g:complete_snippets =~ 'ultisnips'
     PackAdd 'SirVer/ultisnips' | PackAdd 'honza/vim-snippets'
