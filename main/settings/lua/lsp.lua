@@ -149,7 +149,7 @@ require('lsp-setup').setup({
 -----------------
 map('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
 -- format
-map('n', '<C-q>', [[<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>]], opts)
+map('n', '<C-q>', [[<cmd>lua vim.lsp.buf.format()<CR>]], opts)
 map('x', '<C-q>', [[<cmd>lua vim.lsp.buf.range_formatting()<CR><ESC>]], opts)
 -- call hierrachy
 map('n', '<M-.>', [[<cmd>lua vim.lsp.buf.incoming_calls()<CR>]], opts)
