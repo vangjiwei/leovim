@@ -213,7 +213,7 @@ endif
 " lsp or references
 " --------------------------
 if g:complete_engine == 'cmp' && InstalledTelescope() && InstalledLsp() && InstalledCmp()
-    luafile $LUA_PATH/lsp-setup.lua
+    luafile $LUA_PATH/lsp.lua
 else
     if Installed("coc.nvim")
         nmap <silent><M-/> :call LspOrTagOrSearchAll("jumpReferences", "float")<Cr>

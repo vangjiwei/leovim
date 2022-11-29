@@ -1,15 +1,15 @@
-local opts = { noremap = true, silent = true }
-local map  = vim.api.nvim_set_keymap
+local opts    = { noremap = true, silent = true }
+local map     = vim.api.nvim_set_keymap
 --------------------------------
 -- lspsaga
 --------------------------------
 local lspsaga = require('lspsaga')
 lspsaga.init_lsp_saga({
-  diagnostic_header  = { '😡', '😥', '😤', '😐' },
-  code_action_icon   = '💡',
-  finder_icons       = { def = '  ', ref = '諭 ', link = '  ' },
-  max_preview_lines  = 32,
-  finder_action_keys = {
+  diagnostic_header      = { '😡', '😥', '😤', '😐' },
+  code_action_icon       = '💡',
+  finder_icons           = { def = '  ', ref = '諭 ', link = '  ' },
+  max_preview_lines      = 32,
+  finder_action_keys     = {
     open   = "<Cr>",
     vsplit = "<C-g>",
     split  = "<C-x>",
@@ -23,13 +23,13 @@ lspsaga.init_lsp_saga({
     tabe   = "<C-t>",
     quit   = "<M-q>",
   },
-  move_in_saga     = { prev = '<C-k>', next = '<C-j>' },
-  code_action_keys = {
+  move_in_saga           = { prev = '<C-k>', next = '<C-j>' },
+  code_action_keys       = {
     quit = { "<M-q>", "<C-c>", "<ESC>" },
     exec = "<Cr>",
   },
-  rename_action_quit = "<C-c>",
-  show_outline       = {
+  rename_action_quit     = "<C-c>",
+  show_outline           = {
     win_position = 'left',
     win_width = 40,
     auto_enter = false,
@@ -83,6 +83,7 @@ if vim.fn.has('nvim-0.8') > 0 then
     end
     return file_path .. file_name
   end
+
   local function config_winbar_or_statusline()
     local exclude = {
       ['terminal'] = true,
@@ -103,7 +104,8 @@ if vim.fn.has('nvim-0.8') > 0 then
       vim.wo.winbar = win_val
     end
   end
-  local events = {'WinEnter', 'BufWinEnter', 'CursorMoved', 'CursorHold'}
+
+  local events = { 'WinEnter', 'BufWinEnter', 'CursorMoved', 'CursorHold' }
   vim.api.nvim_create_autocmd(events, {
     pattern = '*',
     callback = function() config_winbar_or_statusline() end,
@@ -130,6 +132,7 @@ require('mason-lspconfig').setup({
   ensure_installed = vim.g.lsp_installer_servers,
 })
 -- lsp-setup
+local servers = {}
 require('lsp-setup').setup({
   default_mappings = false,
   capabilities = vim.lsp.protocol.make_client_capabilities(),
@@ -137,29 +140,9 @@ require('lsp-setup').setup({
     local bufmap = vim.api.nvim_buf_set_keymap
     -- Support custom the on_attach function for global
     -- Formatting on save as default
-    require('lsp-setup.utils').format_on_save(client)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   end,
-  servers = {
-    pylsp = {
-      settings = {
-        pyright = {
-          plugins = {
-            pylint = { enabled = true, executable = 'pylint', args = pylsp_args },
-            pyflakes = { enabled = false },
-            pycodestyle = { enabled = false },
-            jedi_completion = { fuzzy = false },
-            pyls_isort = { enabled = false },
-            pyls_flake8 = { enabled = true, executable = 'flake8', args = pylsp_args },
-            pylrp_mypy = { enabled = false },
-          },
-        },
-      },
-      flags = {
-        debounce_text_changes = 200,
-      },
-    }
-  }
+  servers = servers
 })
 -----------------
 -- keymaps
