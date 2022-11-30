@@ -95,11 +95,6 @@ xmap <C-q> <Plug>(coc-format-selected)
 nmap <C-q> <Plug>(coc-format)
 " Use CTRL-s for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
-if !Installed('nvim-treehopper')
-    nmap <C-s> <Plug>(coc-range-select)
-    xmap <C-s> <Plug>(coc-range-select)
-    omap <C-s> <Plug>(coc-range-select)
-endif
 " Add `:Format` command to format current buffeX.
 command! -nargs=0 Format :call CocAction('format')
 " Add `:Fold` command to fold current buffer.
@@ -190,12 +185,16 @@ endif
 " ----------------------------
 " semanticTokens
 " ----------------------------
-if Installed('nvim-treesitter')
+if Installed('nvim-treesitter', 'nvim-treehopper')
     let g:coc_default_semantic_highlight_groups = 0
 else
-    let g:coc_default_semantic_highlight_groups = 1
     " semanticTokensFiletypes
+    let g:coc_default_semantic_highlight_groups = 1
     call coc#config('semanticTokens.filetypes',  g:highlight_filetypes)
+    " trseesiter
+    nmap <C-s> <Plug>(coc-range-select)
+    xmap <C-s> <Plug>(coc-range-select)
+    omap <C-s> <Plug>(coc-range-select)
 endif
 " ------------------------
 " coc config for nvim-0.8

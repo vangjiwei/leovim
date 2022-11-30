@@ -72,7 +72,7 @@ else
     colorscheme hybrid
 endif
 " nvim-treesitter
-if Installed('nvim-treesitter')
+if Installed('nvim-treesitter', 'nvim-treehopper')
     " parser_install_dir
     if UNIX()
         let g:parser_install_dir = expand("~/.local/share/nvim/parsers")
