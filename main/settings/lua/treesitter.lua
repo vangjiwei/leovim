@@ -1,4 +1,10 @@
 local map = vim.api.nvim_set_keymap
+local parser_install_dir = ''
+if UNIX() then
+  parser_install_dir = vim.fn.expand("~/.local/share/nvim/parsers")
+else
+  parser_install_dir = vim.fn.expand("~/AppData/Local/nvim-data/parsers")
+end
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = vim.g.highlight_filetypes,
   sync_install = true,
@@ -24,8 +30,11 @@ require 'nvim-treesitter.configs'.setup {
   },
   incrcmental_selection = {
     enable = false,
-  }
+  },
+  parser_install_dir = parser_install_dir
 }
+vim.opt.runtimepath:append(parser_install_dir)
+
 require 'nvim-treesitter.install'.prefer_git = true
 if Installed('nvim-treehopper') then
   map('o', '<C-s>', [[<cmd>lua require('tsht').nodes()<CR>]], { noremap = true, silent = true })
