@@ -3,7 +3,7 @@
 " Maintainer: skywind3000 (at) gmail.com, 2016-2022
 " Homepage: https://github.com/skywind3000/asyncrun.vim
 "
-" Last Modified: 2022/11/21 09:33
+" Last Modified: 2022/11/29 07:05
 "
 " Run shell command in background and output to quickfix:
 "     :AsyncRun[!] [options] {cmd} ...
@@ -255,7 +255,7 @@ function! s:chdir(path)
 	else
 		let cmd = haslocaldir()? ((haslocaldir() == 1)? 'lcd' : 'tcd') : 'cd'
 	endif
-	silent execute cmd . ' '. fnameescape(a:path)
+	silent! noautocmd execute cmd . ' '. fnameescape(a:path)
 endfunc
 
 " safe shell escape for neovim
@@ -409,11 +409,7 @@ endfunc
 
 " find quickfix window and scroll to the bottom then return last window
 function! s:AsyncRun_Job_AutoScroll()
-	if s:async_quick == 0
-		if &buftype == 'quickfix'
-			silent exec 'normal! G'
-		endif
-	else
+	if s:async_quick != 0
 		cbottom
 	endif
 endfunc
@@ -867,7 +863,7 @@ function! s:AsyncRun_Job_Start(cmd)
 			if type(t) == type('')
 				let format = t
 			elseif type(t) == type(0)
-				let format = (t != 0)? '%Y/%m/%d %T' : ''
+				let format = (t != 0)? '%Y/%m/%d %H:%M:%S' : ''
 			endif
 			if format != ''
 				let t = strftime(format, s:async_start)
@@ -1262,6 +1258,7 @@ function! s:terminal_init(opts)
 	let pos = (pos == 'background')? 'hide' : pos
 	let cwd = get(a:opts, 'cwd', '')
 	let cwd = (cwd != '' && isdirectory(cwd))? cwd : ''
+	let bid = -1
 	if get(a:opts, 'safe', get(g:, 'asyncrun_term_safe', 0)) != 0
 		let command = s:ScriptWrite(command, 0)
 		if stridx(command, ' ') >= 0
@@ -1356,6 +1353,7 @@ function! s:terminal_init(opts)
 		setlocal nonumber signcolumn=no norelativenumber
 		let b:asyncrun_cmd = a:opts.cmd
 		let b:asyncrun_name = get(a:opts, 'name', '')
+		let b:asyncrun_bid = bid
 		if get(a:opts, 'listed', 1) == 0
 			setlocal nobuflisted
 		endif
@@ -1390,7 +1388,9 @@ function! s:terminal_init(opts)
 	let info.processid = processid
 	let info.close = get(a:opts, 'close', 0)
 	let s:async_term[pid] = info
-	call setbufvar(bid, 'asyncrun_term_pid', pid)
+	if bid >= 0
+		call setbufvar(bid, 'asyncrun_pid', pid)
+	endif
 	return pid
 endfunc
 
@@ -1494,6 +1494,27 @@ endfunc
 
 
 "----------------------------------------------------------------------
+" check terminal is reusable
+"----------------------------------------------------------------------
+function! s:term_reusable(bid)
+	if getbufvar(a:bid, '&buftype') != 'terminal'
+		return 0
+	endif
+	if getbufvar(a:bid, 'asyncrun_bid', -1) < 0
+		return 0
+	endif
+	if has('nvim') == 0
+		return (term_getstatus(a:bid) == 'finished')? 1 : 0
+	else
+		let ch = getbufvar(a:bid, '&channel')
+		let status = (jobwait([ch], 0)[0] == -1)? 1 : 0
+		return (status == 0)? 1 : 0
+	endif
+	return 0
+endfunc
+
+
+"----------------------------------------------------------------------
 " get a proper name
 "----------------------------------------------------------------------
 function! s:term_gen_name(mode, opts, pid)
@@ -1559,21 +1580,10 @@ function! s:start_in_terminal(opts)
 	let a:opts._terminal_wipe = -1
 	for ii in range(winnr('$'))
 		let wid = ii + 1
-		if getwinvar(wid, '&bt') == 'terminal'
-			if has('nvim') == 0
-				let bid = winbufnr(wid)
-				if term_getstatus(bid) == 'finished'
-					let avail = wid
-					break
-				endif
-			else
-				let ch = getwinvar(wid, '&channel')
-				let status = (jobwait([ch], 0)[0] == -1)? 1 : 0
-				if status == 0
-					let avail = wid
-					break
-				endif
-			endif
+		let bid = winbufnr(wid)
+		if s:term_reusable(bid)
+			let avail = wid
+			break
 		endif
 	endfor
 	let focus = get(a:opts, 'focus', 1)
@@ -1588,20 +1598,9 @@ function! s:start_in_terminal(opts)
 			for i in range(tabpagenr('$'))
 				if tabpagewinnr(i + 1, '$') == 1
 					let bid = tabpagebuflist(i + 1)[0]
-					if getbufvar(bid, '&bt', '') == 'terminal'
-						if has('nvim') == 0
-							if term_getstatus(bid) == 'finished'
-								let avail = i + 1
-								break
-							endif
-						else
-							let ch = getbufvar(bid, '&channel')
-							let status = (jobwait([ch], 0)[0] == -1)? 1 : 0
-							if status == 0
-								let avail = i + 1
-								break
-							endif
-						endif
+					if s:term_reusable(bid)
+						let avail = i + 1
+						break
 					endif
 				endif
 			endfor
@@ -1618,7 +1617,12 @@ function! s:start_in_terminal(opts)
 		let hr = s:terminal_open(a:opts)
 		if hr >= 0
 			if focus == 0
-				exec has('nvim')? 'stopinsert' : ''
+				if has('nvim')
+					stopinsert
+					if get(a:opts, 'scroll', 1)
+						exec 'normal! ggG'
+					endif
+				endif
 				let last_tid = tabpagenr('#')
 				if last_tid > 0
 					" Go to the last accessed tab page.
@@ -1638,7 +1642,7 @@ function! s:start_in_terminal(opts)
 	keepalt noautocmd windo call s:save_restore_view(0)
 	keepalt noautocmd call win_gotoid(uid)
 	let origin = win_getid()
-	if avail < 0 || get(a:opts, 'reuse', 1) == 0
+	if avail < 0 || get(a:opts, 'reuse', 0) == 0
 		let rows = get(a:opts, 'rows', '')
 		let cols = get(a:opts, 'cols', '')
 		if pos == 'top'
@@ -1664,7 +1668,12 @@ function! s:start_in_terminal(opts)
 	noautocmd call win_gotoid(uid)
 	let hr = s:terminal_open(a:opts)
 	if focus == 0 && hr >= 0
-		exec has('nvim')? 'stopinsert' : ''
+		if has('nvim')
+			stopinsert
+			if get(a:opts, 'scroll', 1)
+				exec 'normal! ggG'
+			endif
+		endif
 		call win_gotoid(origin)
 	endif
 	return 0
@@ -2029,6 +2038,10 @@ function! s:run(opts)
 		endif
 	elseif l:mode == 6
 		let opts.cmd = l:command
+		if has_key(opts, 'reuse') == 0
+			let pos = get(opts, 'pos', '')
+			let opts.reuse = (pos ==? 'tab')? 0 : 1
+		endif
 		call s:start_in_terminal(opts)
 	endif
 
@@ -2226,7 +2239,7 @@ endfunc
 " asyncrun - version
 "----------------------------------------------------------------------
 function! asyncrun#version()
-	return '2.11.6'
+	return '2.11.14'
 endfunc
 
 
