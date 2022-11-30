@@ -95,9 +95,11 @@ xmap <C-q> <Plug>(coc-format-selected)
 nmap <C-q> <Plug>(coc-format)
 " Use CTRL-s for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
-nmap <C-s> <Plug>(coc-range-select)
-xmap <C-s> <Plug>(coc-range-select)
-omap <C-s> <Plug>(coc-range-select)
+if !Installed('nvim-treehopper')
+    nmap <C-s> <Plug>(coc-range-select)
+    xmap <C-s> <Plug>(coc-range-select)
+    omap <C-s> <Plug>(coc-range-select)
+endif
 " Add `:Format` command to format current buffeX.
 command! -nargs=0 Format :call CocAction('format')
 " Add `:Fold` command to fold current buffer.
