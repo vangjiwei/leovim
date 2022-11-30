@@ -45,17 +45,10 @@ cmp.setup({
       i = cmp.mapping.abort(),
     },
     ['<C-y>'] = {
-      c = cmp.mapping.complete(),
-      i = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = false,
-      })
-    },
-    ['<Cr>'] = {
       c = cmp.mapping.confirm({
         select = false,
       }),
-      i = cmp.mapping.abort(),
+      i = cmp.mapping.complete(),
     },
     ["<S-Tab>"] = {
       c = function()
@@ -72,6 +65,13 @@ cmp.setup({
           fallback()
         end
       end
+    },
+    ['<Cr>'] = {
+      c = cmp.mapping.complete(),
+      i = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = false,
+      })
     },
     ['<Tab>'] = {
       c = function()

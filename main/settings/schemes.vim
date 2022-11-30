@@ -73,7 +73,16 @@ else
 endif
 " nvim-treesitter
 if Installed('nvim-treesitter')
-    luafile $LUA_PATH/treesitter.lua
+    " parser_install_dir
+    if UNIX()
+        let g:parser_install_dir = expand("~/.local/share/nvim/parsers")
+    else
+        let g:parser_install_dir = expand("~/AppData/Local/nvim-data/parsers")
+    endif
+    silent! call mkdir(g:parser_install_dir . "/parser", "p")
+    exec "set rtp+=" . g:parser_install_dir
+    " map and config
     nnoremap <M-l>u :TSUpdate<Space>
     nnoremap <M-l>i :TSInstall<Space>
+    luafile $LUA_PATH/treesitter.lua
 endif
