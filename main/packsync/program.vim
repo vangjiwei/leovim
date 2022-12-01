@@ -74,6 +74,7 @@ elseif g:complete_engine == 'cmp'
                 \| PackAdd 'hrsh7th/cmp-cmdline'
                 \| PackAdd 'hrsh7th/cmp-nvim-lsp-signature-help'
                 \| PackAdd 'hrsh7th/cmp-nvim-lsp-document-symbol'
+                \| PackAdd 'petertriho/cmp-git'
                 \| PackAdd 'onsails/lspkind-nvim'
 endif
 " ------------------------------

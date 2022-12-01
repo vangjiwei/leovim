@@ -67,7 +67,9 @@ cmp.setup({
       end
     },
     ['<Cr>'] = {
-      c = cmp.mapping.complete(),
+      c = function(fallback)
+        fallback()
+      end,
       i = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
         select = false,
@@ -140,7 +142,6 @@ cmp.setup.cmdline(':', {
 cmp.setup.filetype('gitcommit', {
   sources = cmp.config.sources({
     { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were Installed it.
-
     { name = 'buffer' },
   })
 })
