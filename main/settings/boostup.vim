@@ -152,7 +152,7 @@ else
     let g:node_version = ''
 endif
 " ------------------------------
-" ctags version
+" ctags_type
 " ------------------------------
 if Require('tags')
     if WINDOWS()
@@ -163,8 +163,6 @@ if Require('tags')
             if system('ctags --list-features | grep json') =~ 'json'
                 let g:ctags_type = 'Universal-json'
             endif
-        else
-            let g:ctags_type = ''
         endif
     else
         let g:ctags_type = ''

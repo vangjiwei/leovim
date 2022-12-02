@@ -34,7 +34,7 @@ if g:complete_engine == 'cmp'
 elseif g:complete_engine == 'coc'
     call SymbolRequire('coc')
     call SymbolRequire('vista')
-elseif v:version >= 800 && get(g:, 'ctags_type', '') != ''
+elseif v:version >= 800 && get(g:, 'ctags_type', '') =~ 'Universal'
     call SymbolRequire('vista')
 endif
 " ------------------------------
