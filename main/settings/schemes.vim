@@ -35,12 +35,9 @@ elseif Require('sonokai')
     call SetScheme('sonokai', 'sublime')
 elseif Require('everforest')
     call SetScheme('everforest', 'deus')
-" additional schemes
-elseif Require('moonfly') && Installed('vim-moonlfy-colors')
-    call SetScheme('moonfly')
+" themes must be installed
 elseif Require('nightfly') && Installed('vim-nightfly-guicolors')
     call SetScheme('nightfly')
-" nightfox
 elseif Require('carbonfox') && Installed('nightfox.nvim')
     call SetScheme('carbonfox')
 elseif Require('dawnfox') && Installed('nightfox.nvim')

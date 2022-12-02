@@ -137,8 +137,8 @@ endif
 function! UpdateLightline() abort
     if get(g:, 'colors_name', '') =~ 'code'
         let g:lightline.colorscheme = 'codedark'
-    elseif get(g:, 'colors_name', '') =~ 'fly'
-        let g:lightline.colorscheme = g:colors_name
+    elseif get(g:, 'colors_name', '') == 'nightfly'
+        let g:lightline.colorscheme = 'nightfly'
     elseif get(g:, 'colors_name', '') =~ 'fox'
         let g:lightline.colorscheme = 'jellybeans'
     elseif get(g:, 'colors_name', '') == 'sublime'

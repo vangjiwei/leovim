@@ -27,11 +27,8 @@ if g:has_truecolor > 0
     PackAdd 'sainnhe/everforest'
     PackAdd 'sainnhe/gruvbox-material'
     " other themes
-    if Require('themes')
-        PackAdd 'bluz71/vim-moonfly-colors'
-        PackAdd 'bluz71/vim-nightfly-guicolors'
-        if has('nvim')
-            PackAdd 'EdenEast/nightfox.nvim'
-        endif
+    PackAdd 'bluz71/vim-nightfly-guicolors'
+    if has('nvim')
+        PackAdd 'EdenEast/nightfox.nvim'
     endif
 endif
