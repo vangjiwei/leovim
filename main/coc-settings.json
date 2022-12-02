@@ -161,5 +161,6 @@
         "gd":      "listDrive",
         ">>":      "gitStage",
         "<<":      "gitUnstage"
-    }
+    },
+    "coc.preferences.extensionUpdateCheck": "never"
 }

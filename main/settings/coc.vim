@@ -32,12 +32,12 @@ else
 endif
 let g:coc_config_home = expand("$MAIN_PATH")
 " basic map
-nnoremap <M-l>c :Coc
+nnoremap <M-l>o :Coc
 nnoremap <silent><M-l>e :CocList extensions<Cr>
+nnoremap <silent><M-l>c :CocFzfList commands<Cr>
 nnoremap <silent><M-l>. :CocFzfListResume<Cr>
 nnoremap <silent><M-l>; :CocNext<CR>
 nnoremap <silent><M-l>, :CocPrev<CR>
-nnoremap <silent><M-l>C :CocFzfList commands<Cr>
 nnoremap <silent><M-u>. :call CocAction('repeatCommand')<Cr>
 nnoremap <silent><M-M>  :CocFzfList marketplace<Cr>
 " hover
