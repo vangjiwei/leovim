@@ -16,6 +16,7 @@ cnoremap <M-'> <C-r>"
 cnoremap <C-y> <C-r>"
 inoremap <M-'> <C-r>"
 if has('clipboard')
+    inoremap <C-y> <C-r>"
     if UNIX()
         nnoremap <M-c>+ viw"+y
         xnoremap <M-c>+ "+y
@@ -34,25 +35,23 @@ if has('clipboard')
     xnoremap <silent><M-y> "*X:let  @*=trim(@*)<Cr>
     nnoremap <M-X> "*dd
     xnoremap <M-X> "*dd
-    " yank for beginning / to ending
-    nnoremap ,y :0,-"*y<Cr>
-    nnoremap ,Y vG"*y
 else
     cnoremap <M-v> <C-r>"
     inoremap <M-v> <C-r>"
     nnoremap <M-v> P
     xnoremap <M-v> P
     " M-x/y
-    nnoremap <M-X> S
-    xnoremap <M-X> S
     nnoremap <M-x> x
     xnoremap <M-x> x
     nnoremap <M-y> X
     xnoremap <M-y> X
-    " yank for beginning / to ending
-    nnoremap ,y :0,-y<Cr>
-    nnoremap ,Y vGy
+    nnoremap <M-X> S
+    xnoremap <M-X> S
 endif
+" yank from beginning / to ending
+nnoremap ,y :0,-y<Cr>
+nnoremap ,Y vGy
+" del/bs
 inoremap <M-x> <Del>
 inoremap <M-y> <BS>
 " switch 2 words

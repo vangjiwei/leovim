@@ -48,7 +48,13 @@ cmp.setup({
       c = cmp.mapping.confirm({
         select = false,
       }),
-      i = cmp.mapping.complete(),
+      i = function(fallback)
+        if cmp.visible() then
+          cmp.mapping.complete()
+        else
+          fallback()
+        end
+      end
     },
     ["<S-Tab>"] = {
       c = function()
