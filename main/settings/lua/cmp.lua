@@ -32,30 +32,6 @@ cmp.setup({
     documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping({
-    ['<C-n>'] = {
-      c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-      i = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-    },
-    ['<C-p>'] = {
-      c = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-      i = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-    },
-    ['<C-e>'] = {
-      c = cmp.mapping.close(),
-      i = cmp.mapping.abort(),
-    },
-    ['<C-y>'] = {
-      c = cmp.mapping.confirm({
-        select = false,
-      }),
-      i = function(fallback)
-        if cmp.visible() then
-          cmp.mapping.complete()
-        else
-          fallback()
-        end
-      end
-    },
     ["<S-Tab>"] = {
       c = function()
         if cmp.visible() then
@@ -72,32 +48,62 @@ cmp.setup({
         end
       end
     },
+    ['<C-n>'] = {
+      c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+      i = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+    },
+    ['<C-p>'] = {
+      c = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      i = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    },
+    ['<C-e>'] = {
+      c = cmp.mapping.abort(),
+      i = cmp.mapping.abort(),
+    },
+    ['<C-y>'] = {
+      c = cmp.mapping.confirm({
+        select = false,
+      }),
+      i = function()
+        if cmp.visible() then
+          cmp.close()
+        else
+          vim.fn.feedkeys(vim.fn.getreg('"'))
+        end
+      end
+    },
     ['<Cr>'] = {
       c = function(fallback)
         fallback()
       end,
-      i = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = false,
-      })
+      i = function(fallback)
+        if cmp.visible() then
+          cmp.close()
+        else
+          fallback()
+        end
+      end
     },
     ['<Tab>'] = {
-      c = function()
-        if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-        else
-          cmp.complete()
-        end
-      end,
       i = function(fallback)
-        if luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        elseif cmp.visible() then
-          cmp.select_next_item()
+        if cmp.visible() then
+          local entry = cmp.get_selected_entry()
+          if entry then
+            cmp.confirm()
+          else
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+          end
         elseif has_words_before() then
           cmp.complete()
         else
           fallback()
+        end
+      end,
+      c = function()
+        if cmp.visible() then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+        elseif has_words_before() then
+          cmp.complete()
         end
       end,
       s = function(fallback)

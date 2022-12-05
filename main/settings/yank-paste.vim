@@ -15,8 +15,10 @@ nnoremap gy :call YankFromBeginning()<Cr>
 cnoremap <M-'> <C-r>"
 cnoremap <C-y> <C-r>"
 inoremap <M-'> <C-r>"
+if g:advanced_complete_engine == 0
+    inoremap <expr><C-y> pumvisible()? "\<C-e>":"\<C-r>\""
+endif
 if has('clipboard')
-    inoremap <C-y> <C-r>"
     if UNIX()
         nnoremap <M-c>+ viw"+y
         xnoremap <M-c>+ "+y
