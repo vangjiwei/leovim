@@ -137,10 +137,8 @@ endif
 function! UpdateLightline() abort
     if get(g:, 'colors_name', '') =~ 'code'
         let g:lightline.colorscheme = 'codedark'
-    elseif get(g:, 'colors_name', '') == 'nightfly'
-        let g:lightline.colorscheme = 'nightfly'
-    elseif get(g:, 'colors_name', '') =~ 'fox'
-        let g:lightline.colorscheme = 'jellybeans'
+    elseif get(g:, 'colors_name', '') =~ 'space'
+        let g:lightline.colorscheme = 'simpleblack'
     elseif get(g:, 'colors_name', '') == 'sublime'
         let g:lightline.colorscheme = 'molokai'
     elseif get(g:, 'colors_name', '') == 'deus'
@@ -157,6 +155,10 @@ function! UpdateLightline() abort
         let g:lightline.colorscheme = 'edge'
     elseif get(g:, 'colors_name', '') == 'everforest'
         let g:lightline.colorscheme = 'everforest'
+    elseif get(g:, 'colors_name', '') == 'nightfly'
+        let g:lightline.colorscheme = 'nightfly'
+    elseif get(g:, 'colors_name', '') =~ 'fox'
+        let g:lightline.colorscheme = 'jellybeans'
     else
         let g:lightline.colorscheme = 'default'
     endif
