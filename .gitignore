@@ -18,12 +18,13 @@ __pycache__
 .svn
 .asynctasks
 .vim
+.github
 expand*
 *tmp*
 *tags*
 *backup*
 core.[0-9]*
-.github
+adapter.lua
 Gemfile
 GPATH
 GRTAGS

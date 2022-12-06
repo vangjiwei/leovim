@@ -83,15 +83,14 @@ if Installed('nvim-dap', 'nvim-dap-ui')
     if get(g:, 'leovim_loaded', 0) == 0
         luafile $LUA_PATH/dap.lua
     endif
-    nnoremap ,D :tabe ~/.leovim.conf/nvim-dap/dap.example.lua<Cr>:tabe ~/.leovim.d/dap.local.lua<Cr>
-    if filereadable(expand("~/.leovim.d/dap.local.lua"))
-        luafile ~/.leovim.d/dap.local.lua
+    nnoremap ,D :tabe ~/.leovim.conf/nvim-dap/dap.example.lua<Cr>:tabe ~/.leovim.conf/adapter.lua<Cr>
+    if filereadable(expand("~/.leovim.conf/adapter.lua"))
+        luafile ~/.leovim.conf/adapter.lua
     endif
     nnoremap ,d :lua require("dap").
     " basic
     nnoremap <silent> ,c <cmd>lua require("dap").run_to_cursor()<CR>
     nnoremap <silent> ,n <cmd>lua require("dap").continue()<CR>
-    nnoremap <silent> ,R <cmd>lua require("dap").run_last()<CR>
     nnoremap <silent> ,s <cmd>lua require("dap").step_into()<CR>
     nnoremap <silent> ,S <cmd>lua require("dap").step_back()<CR>
     nnoremap <silent> ,o <cmd>lua require("dap").step_over()<CR>
@@ -119,6 +118,8 @@ if Installed('nvim-dap', 'nvim-dap-ui')
     nnoremap <silent> <M-d>o <cmd>lua require("dap").repl.open({}, 'split')<CR>
     nnoremap <silent> <M-d>O <cmd>lua require("dap").repl.open({}, 'vsplit')<CR>
     nnoremap <silent> <M-d>c <cmd>lua require("dap").repl.close()<CR>
+    " runlast
+    nnoremap <silent> <M-d>r <cmd>lua require("dap").run_last()<CR>
     " auto attach
     au FileType dap-repl lua require('dap.ext.autocompl').attach()
     " --------------------------------------
@@ -128,11 +129,11 @@ if Installed('nvim-dap', 'nvim-dap-ui')
     nnoremap <silent> ,r <cmd>lua require("dapui").toggle()<CR>
     " watch
     nnoremap <silent> ,e <cmd>lua require("dapui").eval()<CR>
-    nnoremap <silent> ,O <cmd>lua require("dapui").float_element('repl')<Cr>
-    nnoremap <silent> ,C <cmd>lua require("dapui").float_element('console')<Cr>
     nnoremap <silent> <M-m>f <cmd>lua require("dapui").float_element()<Cr>
+    nnoremap <silent> <M-m>r <cmd>lua require("dapui").float_element('repl')<Cr>
     nnoremap <silent> <M-m>b <cmd>lua require("dapui").float_element('breakpoints')<Cr>
     nnoremap <silent> <M-m>s <cmd>lua require("dapui").float_element('stacks')<Cr>
+    nnoremap <silent> <M-m>c <cmd>lua require("dapui").float_element('console')<Cr>
     nnoremap <silent> <M-m>w <cmd>lua require("dapui").float_element('watches')<Cr>
     " jump to windows in dapui
     nnoremap <silent><M-m>1 :call GoToDAPWindows("DAP Scopes")<Cr>
@@ -249,7 +250,7 @@ elseif v:version >= 801 && !has('nvim') && Require('deubg') && executable('gdb')
     nnoremap ,B :Clear<Cr>
     " debug
     nnoremap ,d :Termdebug
-    nnoremap ,c :TermdebugCommand<Space>
+    nnoremap ,D :TermdebugCommand<Space>
     nnoremap ,n :Continue<Cr>
     nnoremap ,s :Step<Cr>
     nnoremap ,o :Over<Cr>

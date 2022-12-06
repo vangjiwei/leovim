@@ -2,7 +2,7 @@
 -- dap
 ---------------------
 local dap = require("dap")
-dap.defaults.fallback.exception_breakpoints = { 'raised' }
+dap.defaults.fallback.exception_breakpoints = { 'default' }
 vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
 ---------------------
 -- dapui
