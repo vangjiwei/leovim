@@ -1,5 +1,5 @@
 au VimEnter,BufNewFile,BufRead tmux.conf set filetype=tmux
-au VimEnter,BufNewFile,BufRead .configrc set filetype=bash
+au VimEnter,BufNewFile,BufRead .configrc set filetype=sh
 au VimEnter,BufNewFile,BufRead *.jl set filetype=julia
 au VimEnter,BufNewFile,BufRead *.idr set filetype=idris
 au VimEnter,BufNewFile,BufRead *.conf set filetype=conf
