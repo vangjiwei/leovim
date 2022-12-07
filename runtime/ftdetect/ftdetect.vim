@@ -1,3 +1,5 @@
+au VimEnter,BufNewFile,BufRead tmux.conf set filetype=tmux
+au VimEnter,BufNewFile,BufRead .configrc set filetype=bash
 au VimEnter,BufNewFile,BufRead *.jl set filetype=julia
 au VimEnter,BufNewFile,BufRead *.idr set filetype=idris
 au VimEnter,BufNewFile,BufRead *.conf set filetype=conf
@@ -9,5 +11,3 @@ au VimEnter,BufNewFile,BufRead *.vimrc*,*.vim,*.nvim set filetype=vim
 au VimEnter,BufNewFile,BufRead *.ts,*.vue set filetype=typescript
 au VimEnter,BufNewFile,BufRead *.R,*.Rnw,*.Rd set filetype=r
 au VimEnter,BufNewFile,BufRead *.md,*.markdown,*readme*,*.Rmd set filetype=markdown
-
-au VimEnter,BufNewFile,BufRead tmux.conf set filetype=tmux
