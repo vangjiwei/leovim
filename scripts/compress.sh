@@ -1,5 +1,5 @@
 #!/bin/bash
-![ -d ~/.leovim ] && mkdir ~/.leovim
+! [ -d ~/.leovim ] && mkdir ~/.leovim
 
 [ -f ~/.leovim/leovim.tar.gz ] && rm ~/.leovim/leovim.tar.gz
 
