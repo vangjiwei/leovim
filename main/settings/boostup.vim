@@ -884,7 +884,7 @@ elseif has('patch-7.4.330')
     nnoremap <M-u> :WhichKey "\<M-u\>"<Cr>
     nnoremap <M-c> :WhichKey       "\<M-c\>"<Cr>
     xnoremap <M-c> :WhichKeyVisual "\<M-c\>"<Cr>
-    if index(['nvim-dap', 'termdebug', 'vimspector'], get(g:, 'debug_tool', '')) >= 0
+    if get(g:, 'debug_tool', '') != ''
         nnoremap <M-m> :WhichKey "\<M-m\>"<Cr>
         nnoremap <M-d> :WhichKey "\<M-d\>"<Cr>
     endif
