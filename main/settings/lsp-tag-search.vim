@@ -13,7 +13,7 @@ unlet s:symbol_tool
 " NOTE: directories must be defined before lsp_tag_search
 " --------------------------
 let &tags = './.tags;,.tags'
-let g:gutentags_cache_dir = expand(g:Lf_CacheDirectory.'/.LfCache/gtags')
+let g:gutentags_cache_dir = g:Lf_CacheDirectory.'/.LfCache/gtags'
 if !isdirectory(g:gutentags_cache_dir)
     silent! call mkdir(g:gutentags_cache_dir, 'p')
 endif

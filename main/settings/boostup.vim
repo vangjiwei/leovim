@@ -773,10 +773,26 @@ catch
     hi User1 ctermfg=0 ctermbg=114
     hi User2 ctermfg=114 ctermbg=0
 endtry
+" -----------------------------------
+" menu
+" -----------------------------------
+set wildmenu
+if has('nvim')
+    set wildoptions+=pum
+    cmap <expr> <down> pumvisible() ? '<right>' : '<down>'
+    cmap <expr> <up>   pumvisible() ? '<left>'  : '<up>'
+    cmap <expr> <C-j>  pumvisible() ? '<right>' : '<C-n>'
+    cmap <expr> <C-k>  pumvisible() ? '<left>'  : '<C-p>'
+else
+    set wildmode=longest,list
+    if has('patch-8.2.4500')
+        set wildoptions+=pum,fuzzy
+    endif
+endif
 " ------------------------
 " home end
 " ------------------------
-source $SETTINGS_PATH/finder-conf.vim
+source $SETTINGS_PATH/finder.vim
 cmap <C-a> <Home>
 cmap <C-e> <End>
 imap <expr><C-b> pumvisible()? "\<C-b>":"\<C-o>I"
@@ -799,22 +815,6 @@ if g:complete_engine != 'non'
     source $SETTINGS_PATH/snippets.vim
     source $SETTINGS_PATH/format.vim
     source $SETTINGS_PATH/debug-conf.vim
-endif
-" -----------------------------------
-" menu
-" -----------------------------------
-set wildmenu
-if has('nvim')
-    set wildoptions+=pum
-    cmap <expr> <down> pumvisible() ? '<right>' : '<down>'
-    cmap <expr> <up>   pumvisible() ? '<left>'  : '<up>'
-    cmap <expr> <C-j>  pumvisible() ? '<right>' : '<C-n>'
-    cmap <expr> <C-k>  pumvisible() ? '<left>'  : '<C-p>'
-else
-    set wildmode=longest,list
-    if has('patch-8.2.4500')
-        set wildoptions+=pum,fuzzy
-    endif
 endif
 " --------------------------
 " settings
