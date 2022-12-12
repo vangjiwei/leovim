@@ -6,7 +6,6 @@ if Installed('vim-fugitive')
     nnoremap <M-G>  :Git
     nnoremap <M-g>g :G
     nnoremap <M-g>m :Git commit -av<Cr>
-    nnoremap <M-g>i :Git<Space>
     nnoremap <M-g>u :Git push<CR>
     nnoremap <M-g>U :Git push<Space>
     " compare with history version
@@ -21,13 +20,11 @@ if Installed('vim-fugitive')
 elseif Installed('asyncrun.vim') && g:has_terminal && UNIX()
     nnoremap <M-G>  :AsyncRun -mode=term -focus=1 git
     nnoremap <M-g>m :AsyncRun -mode=term -focus=1 git commit -a -m ""<Left>
-    nnoremap <M-g>i :AsyncRun -mode=term -focus=1 git<Space>
     nnoremap <M-g>u :AsyncRun -mode=term -focus=1 git push<Cr>
     nnoremap <M-g>U :AsyncRun -mode=term -focus=1 git push<Space>
 else
     nnoremap <M-G>  :!git
     nnoremap <M-g>m :!git commit -a -m ""<Left>
-    nnoremap <M-g>i :!git<Space>
     nnoremap <M-g>u :!git push<Cr>
     nnoremap <M-g>U :!git push<Space>
 endif
