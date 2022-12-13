@@ -166,11 +166,11 @@ if executable('ccls')
                 \ "filetypes": g:c_filetypes,
                 \ "rootPatterns": g:root_patterns,
                 \ "initializationOptions": {
-                \ "cache": {
-                \ "directory": $HOME . "/.leovim.d/ccls"
+                    \ "cache": {
+                    \ "directory": $HOME . "/.leovim.d/ccls"
+                    \ }
                 \ }
-                \ }
-                \ })
+            \ })
 endif
 " ------------------------
 " coc fzf
