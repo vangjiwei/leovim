@@ -1,5 +1,5 @@
 if g:python_version > 3
-  PackAdd 'jmcantrell/vim-virtualenv'
+    PackAdd 'jmcantrell/vim-virtualenv', {'for': 'python'}
 endif
 " ------------------------------
 " ps1
