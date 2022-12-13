@@ -64,12 +64,14 @@ function! GetPyxVersion()
     if l:pyx_version > 3
         python3 << Python3EOF
 try:
+    import vim
     import pygments
 except Exception:
     pass
 else:
     vim.command('let g:pygments_import = 1')
 try:
+    import vim
     import tagls
 except Exception:
     pass
