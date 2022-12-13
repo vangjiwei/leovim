@@ -36,7 +36,7 @@ elseif g:complete_engine == 'coc'
     call PackSymbol('vista')
 elseif v:version >= 800 && get(g:, 'ctags_type', '') =~ 'Universal'
     call PackSymbol('vista')
-elseif get(g:, 'ctags_type', '') =~ ''
+elseif get(g:, 'ctags_type', '') != ''
     call PackSymbol('tagbar')
 endif
 " ------------------------------
