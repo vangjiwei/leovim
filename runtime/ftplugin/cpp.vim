@@ -1,1 +1,1 @@
-source $LEOVIM_PATH/ftplugin/c.vim
+source $RUNTIME_PATH/ftplugin/c.vim
