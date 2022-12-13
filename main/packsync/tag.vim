@@ -1,8 +1,3 @@
-" File              : tag.vim
-" Author            : leoatchina <leoatchina@outlook.com>
-" Date              : 2022.12.13
-" Last Modified Date: 2022.12.13
-" Last Modified By  : leoatchina <leoatchina@outlook.com>
 " ------------------------------
 "  symbol_tool
 " ------------------------------
@@ -59,8 +54,17 @@ if executable('gtags-cscope') && executable('gtags') && filereadable(get(g:, 'Lf
     let g:gtags_version = StringToFloat(s:gtags_version)
     if g:gtags_version >= 6.67
         call PackSymbol('plus')
-        if Planned('leaderf')
+        if Planned('leaderf') && g:python_version > 3
             call PackSymbol('leaderfgtags')
+            python3 << Python3EOF
+try:
+    import vim
+    import tagls
+except Exception:
+    pass
+else:
+    vim.command('let g:tagls_import = 1')
+Python3EOF
         endif
     else
         echom "gtags 6.67+ is required"

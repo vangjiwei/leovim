@@ -106,7 +106,7 @@ function! GetPyxVersion()
 " python import
 " --------------------------
     if l:pyx_version > 3
-python3 << Python3EOF
+        python3 << Python3EOF
 try:
     import vim
     import pygments
