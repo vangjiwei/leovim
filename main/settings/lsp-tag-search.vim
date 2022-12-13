@@ -117,7 +117,19 @@ endif
 " --------------------------
 " siderbar tag config
 " --------------------------
-if Installed('vista.vim')
+if Installed('tagbar')
+    let g:tagbar_position = 'leftabove vertical'
+    let g:tagbar_sort  = 0
+    let g:tagbar_width = 35
+    let g:tagbar_autoclose_netrw = 1
+    let g:tagbar_type_css = {
+                \ 'ctagstype' : 'css',
+                \ 'kinds' : [
+                    \ 'c:classes',
+                    \ 's:selectors',
+                    \ 'i:identities'
+                    \ ]}
+elseif Installed('vista.vim')
     let g:vista_sidebar_position     = 'vertical topleft'
     let g:vista_sidebar_width        = 35
     let g:vista_echo_cursor          = 0

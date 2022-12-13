@@ -4,7 +4,17 @@ endfunction
 PackAdd 'vim-sidebar-manager'
 let g:sidebars = {}
 " symbol_tool
-if Installed('lspsaga.nvim')
+if Installed('tagbar')
+    function! s:check_tags(nr) abort
+        return s:check_buf_ft('tagbar', a:nr)
+    endfunction
+    let g:sidebars.tags = {
+                \ 'position': 'left',
+                \ 'check_win': function('s:check_tags'),
+                \ 'open': 'TagbarOpen',
+                \ 'close': 'TagbarClose'
+                \ }
+elseif Installed('lspsaga.nvim')
     let g:sidebars.tags = {
                 \ 'position': 'left',
                 \ 'check_win': function('s:check_buf_ft', ['lspsagaoutline']),
