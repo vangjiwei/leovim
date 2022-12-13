@@ -56,15 +56,6 @@ if executable('gtags-cscope') && executable('gtags') && filereadable(get(g:, 'Lf
         call PackSymbol('plus')
         if Planned('leaderf') && g:python_version > 3
             call PackSymbol('leaderfgtags')
-            python3 << Python3EOF
-try:
-    import vim
-    import tagls
-except Exception:
-    pass
-else:
-    vim.command('let g:tagls_import = 1')
-Python3EOF
         endif
     else
         echom "gtags 6.67+ is required"

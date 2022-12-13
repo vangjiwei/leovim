@@ -30,50 +30,6 @@ function! FileReadonly()
     return &readonly && &filetype !=# 'help' ? 'RO' : ''
 endfunction
 " --------------------------
-" vim tabline
-" --------------------------
-function! Vim_NeatBuffer(bufnr, fullname)
-    let l:name = bufname(a:bufnr)
-    if getbufvar(a:bufnr, '&modifiable')
-        if l:name == ''
-            return '[No Name]'
-        else
-            if a:fullname
-                return fnamemodify(l:name, ':p')
-            else
-                return fnamemodify(l:name, ':t')
-            endif
-        endif
-    else
-        let l:buftype = getbufvar(a:bufnr, '&buftype')
-        if l:buftype == 'quickfix'
-            return '[Quickfix]'
-        elseif l:name != ''
-            if a:fullname
-                return '-'.fnamemodify(l:name, ':p')
-            else
-                return '-'.fnamemodify(l:name, ':t')
-            endif
-        else
-            return '[No Name]'
-        endif
-    endif
-endfunc
-function! Vim_NeatTabLabel(n)
-    let l:buflist = tabpagebuflist(a:n)
-    let l:winnr = tabpagewinnr(a:n)
-    let l:bufnr = l:buflist[l:winnr - 1]
-    return Vim_NeatBuffer(l:bufnr, 0)
-endfun
-" get a single tab label in gui
-function! Vim_NeatGuiTabLabel()
-    let l:num = v:lnum
-    let l:buflist = tabpagebuflist(l:num)
-    let l:winnr = tabpagewinnr(l:num)
-    let l:bufnr = l:buflist[l:winnr - 1]
-    return Vim_NeatBuffer(l:bufnr, 0)
-endfunc
-" --------------------------
 " Execute function
 " --------------------------
 function! Execute(cmd)
@@ -108,25 +64,21 @@ function! GetPyxVersion()
     if l:pyx_version > 3
         python3 << Python3EOF
 try:
-    import vim
     import pygments
 except Exception:
     pass
 else:
     vim.command('let g:pygments_import = 1')
+try:
+    import tagls
+except Exception:
+    pass
+else:
+    vim.command('let g:tagls_import = 1')
 Python3EOF
     endif
     return l:pyx_version
 endfunction
-" ------------------------
-" get a single tab label
-" ------------------------
-" setup new tabline, just like %M%t in macvim
-if g:gui_running
-    set guitablabel=%{Vim_NeatGuiTabLabel()}
-else
-    set tabline=%!Vim_NeatTabLine()
-endif
 " ------------------------------
 " node_version
 " ------------------------------
@@ -494,10 +446,57 @@ nnoremap <silent><Tab>p :tabprevious<CR>
 nnoremap <silent><Tab>N :tabm +1<CR>
 nnoremap <silent><Tab>P :tabm -1<CR>
 nnoremap <Tab>M         :tabm<Space>
-" ------------------------
 " open in tab
-" ------------------------
 nnoremap <leader>T <C-w>T
+" set tab label
+function! Vim_NeatBuffer(bufnr, fullname)
+    let l:name = bufname(a:bufnr)
+    if getbufvar(a:bufnr, '&modifiable')
+        if l:name == ''
+            return '[No Name]'
+        else
+            if a:fullname
+                return fnamemodify(l:name, ':p')
+            else
+                return fnamemodify(l:name, ':t')
+            endif
+        endif
+    else
+        let l:buftype = getbufvar(a:bufnr, '&buftype')
+        if l:buftype == 'quickfix'
+            return '[Quickfix]'
+        elseif l:name != ''
+            if a:fullname
+                return '-'.fnamemodify(l:name, ':p')
+            else
+                return '-'.fnamemodify(l:name, ':t')
+            endif
+        else
+            return '[No Name]'
+        endif
+    endif
+endfunc
+" get a single tab label
+function! Vim_NeatTabLabel(n)
+    let l:buflist = tabpagebuflist(a:n)
+    let l:winnr = tabpagewinnr(a:n)
+    let l:bufnr = l:buflist[l:winnr - 1]
+    return Vim_NeatBuffer(l:bufnr, 0)
+endfun
+" get a single tab label in gui
+function! Vim_NeatGuiTabLabel()
+    let l:num = v:lnum
+    let l:buflist = tabpagebuflist(l:num)
+    let l:winnr = tabpagewinnr(l:num)
+    let l:bufnr = l:buflist[l:winnr - 1]
+    return Vim_NeatBuffer(l:bufnr, 0)
+endfunc
+" set tab label
+if g:gui_running
+    set guitablabel=%{Vim_NeatGuiTabLabel()}
+else
+    set tabline=%!Vim_NeatTabLine()
+endif
 " ------------------------
 " choosewin
 " ------------------------
