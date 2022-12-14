@@ -34,22 +34,32 @@ if InstalledFzf()
         imap <c-x><c-f> <plug>(fzf-complete-path)
     endif
 endif
-" for apc
+" for apc && mcm
 if g:advanced_complete_engine == 0
-    function! Map_Tab() abort
+    function! MapTabCr(istab) abort
+        let istab = a:istab
         if pumvisible()
-            if Installed('ultisnips') && (UltiSnips#CanExpandSnippet() || UltiSnips#CanJumpForwards())
-                return UltiSnips#ExpandSnippetOrJump()
-            elseif Installed('vim-vsnip') && vsnip#available(1)
-                return "normal \<Plug>(vsnip-expand-or-jump)"
+            if istab > 0
+                if Installed('ultisnips') && (UltiSnips#CanExpandSnippet() || UltiSnips#CanJumpForwards())
+                    return UltiSnips#ExpandSnippetOrJump()
+                elseif Installed('vim-vsnip') && vsnip#available(1)
+                    return "normal \<Plug>(vsnip-expand-or-jump)"
+                else
+                    return "\<C-n>"
+                endif
             else
-                return "\<C-n>"
+                return "\<C-e>"
             endif
         elseif Has_Back_Space()
-            return "\<Tab>"
+            if istab > 0
+                return "\<Tab>"
+            else
+                return "\<Cr>"
+            endif
         else
             return "\<C-y>"
         endif
     endfunction
-    au BufEnter * exec "imap <silent> <Tab> <C-R>=Map_Tab()<cr>"
+    au BufEnter * exec "imap <silent> <Tab> <C-R>=MapTabCr(1)<cr>"
+    au BufEnter * exec "imap <silent> <Cr>  <C-R>=MapTabCr(0)<cr>"
 endif

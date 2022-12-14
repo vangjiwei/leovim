@@ -245,10 +245,17 @@ endif
 " find wich lsp or tags
 " --------------------------
 function! s:settagstack(winnr, tagname, pos)
-    call settagstack(a:winnr, {
-                \ 'curidx': gettagstack()['curidx'],
-                \ 'items': [{'tagname': a:tagname, 'from': a:pos}]
-                \ }, 't')
+    if g:advanced_complete_engine
+        call settagstack(a:winnr, {
+                    \ 'curidx': gettagstack()['curidx'],
+                    \ 'items': [{'tagname': a:tagname, 'from': a:pos}]
+                    \ }, 't')
+    else
+        call settagstack(a:winnr, {
+                    \ 'curidx': gettagstack()['curidx'],
+                    \ 'items': [{'tagname': a:tagname, 'from': a:pos}]
+                    \ }, 'a')
+    endif
 endfunction
 function! s:open_in_postion(position) abort
     if a:position == 'vsplit'
