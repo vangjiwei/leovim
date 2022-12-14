@@ -324,8 +324,6 @@ function! LspOrTagOrSearchAll(command, ...) abort
     else
         let position = a:1
     endif
-    " set tag_found to 0 at first
-    let l:tag_found = 0
     " coc
     if g:complete_engine == 'coc'
         let g:coc_locations_change = v:false
@@ -349,8 +347,7 @@ function! LspOrTagOrSearchAll(command, ...) abort
     else
         let l:tag_found = 0
     endif
-    " tag_found == 0 : ctags not checked
-    " tag_found == 1 : ctags checked but not found
+    " XXX:tag_found == 0 : ctags not checked,  XXX: tag_found == 1 : ctags checked but not found
     if get(l:, 'tag_found', 2) < 2
         call s:tag_or_searchall(tagname, l:tag_found)
     endif
