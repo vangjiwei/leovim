@@ -277,6 +277,23 @@ function! s:open_in_postion(position) abort
         execute("silent! normal \<C-w>T")
     endif
 endfunction
+" ------------------------
+" tagls_import
+" ------------------------
+if get(g:, 'tagls_import', 0) > 0
+    if Installed('coc.nvim')
+        call coc#config('languageserver.tagls', {
+                    \ "command": "python",
+                    \ "args": ["-m", "tagls"],
+                    \ "filetypes": g:highlight_filetypes,
+                    \ "rootPatterns": g:root_patterns,
+                    \ "initializationOptions": {
+                        \ "gtags_provider": "leaderf",
+                        \ "cach_dir": g:gutentags_cache_dir
+                    \ }
+                \ })
+    endif
+endif
 function! CocOrTagls(jumpCommand, position, tagls_import)
     let jumpCommand = a:jumpCommand
     try

@@ -158,7 +158,7 @@ xmap ag <Plug>(coc-git-chunk-outer)
 nmap <leader>vg vig
 nmap <leader>vG vag
 " ------------------------
-" coc c language
+" ccls language
 " ------------------------
 if executable('ccls')
     call coc#config('languageserver.ccls', {
