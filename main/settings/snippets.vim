@@ -40,8 +40,12 @@ if g:advanced_complete_engine == 0
         let istab = a:istab
         if pumvisible()
             if istab > 0
-                if Installed('ultisnips') && (UltiSnips#CanExpandSnippet() || UltiSnips#CanJumpForwards())
-                    return UltiSnips#ExpandSnippetOrJump()
+                if Installed('ultisnips') && UltiSnips#CanExpandSnippet()
+                    if g:complete_engine == 'mcm'
+                        return mucomplete#ultisnips#expand_snippet("\<cr>")
+                    else
+                        return UltiSnips#ExpandSnippet()
+                    endif
                 elseif Installed('vim-vsnip') && vsnip#available(1)
                     return "normal \<Plug>(vsnip-expand-or-jump)"
                 else

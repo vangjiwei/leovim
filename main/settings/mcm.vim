@@ -10,5 +10,14 @@ else
     let g:jedi#popup_on_dot = 1
 endif
 if Installed('ultisnips')
-    let g:mucomplete#ultisnips#match_at_start = 1
+    let g:mucomplete#ultisnips#match_at_start = 0
+    let g:mucomplete#chains = {
+                \ 'default' : ['path', 'omni', 'keyn', 'dict', 'ulti', 'uspl'],
+                \ 'vim'     : ['path', 'cmd', 'keyn']
+                \ }
+else
+    let g:mucomplete#chains = {
+                \ 'default' : ['path', 'omni', 'keyn', 'dict', 'ulti', 'uspl'],
+                \ 'vim'     : ['path', 'cmd', 'keyn']
+                \ }
 endif
