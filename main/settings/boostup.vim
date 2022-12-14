@@ -932,14 +932,14 @@ function! Version()
                 \ 'pack_tool':       g:pack_tool,
                 \ 'complete_engine': g:complete_engine
                 \ }
+    if get(g:, 'python_exe_path', '') != ''
+        let params_dict['python_exe_path'] = g:python_exe_path
+    endif
     if get(g:, 'fuzzy_finder', '') != ''
         let params_dict['fuzzy_finder'] = g:fuzzy_finder
     endif
     if get(g:, 'complete_snippets', '') != ''
         let params_dict['complete_snippets'] = g:complete_snippets
-    endif
-    if get(g:, 'python_exe_path', '') != ''
-        let params_dict['python_exe_path'] = g:python_exe_path
     endif
     if get(g:, 'search_tool', '') != ''
         let params_dict['search_tool'] = g:search_tool
@@ -958,9 +958,6 @@ function! Version()
     endif
     if get(g:, 'input_method', '') != ''
         let params_dict['input_method'] = g:input_method
-    endif
-    if get(g:, 'pygments_import', 0)
-        let params_dict['pygments_import'] = g:pygments_import
     endif
     if has('nvim') && exists('$TERM') && $TERM != ''
         let params_dict['term'] = $TERM
