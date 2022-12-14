@@ -245,16 +245,25 @@ endif
 " find wich lsp or tags
 " --------------------------
 function! s:settagstack(winnr, tagname, pos)
-    if g:advanced_complete_engine
-        call settagstack(a:winnr, {
-                    \ 'curidx': gettagstack()['curidx'],
-                    \ 'items': [{'tagname': a:tagname, 'from': a:pos}]
-                    \ }, 't')
+    if get(g:, 'check_settagstack', '') == ''
+        try
+            call settagstack(a:winnr, {
+                        \ 'curidx': gettagstack()['curidx'],
+                        \ 'items': [{'tagname': a:tagname, 'from': a:pos}]
+                        \ }, 't')
+            let g:check_settagstack = 't'
+        catch /.*/
+            call settagstack(a:winnr, {
+                        \ 'curidx': gettagstack()['curidx'],
+                        \ 'items': [{'tagname': a:tagname, 'from': a:pos}]
+                        \ }, 'a')
+            let g:check_settagstack = 'a'
+        endtry
     else
         call settagstack(a:winnr, {
                     \ 'curidx': gettagstack()['curidx'],
                     \ 'items': [{'tagname': a:tagname, 'from': a:pos}]
-                    \ }, 'a')
+                    \ }, g:check_settagstack)
     endif
 endfunction
 function! s:open_in_postion(position) abort
