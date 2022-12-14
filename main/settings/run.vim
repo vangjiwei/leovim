@@ -47,7 +47,7 @@ if has('nvim') || has('timers') && has('channel') && has('job')
     nnoremap <silent><Tab>c :AsyncStop<CR>
     nnoremap <silent><Tab>q :AsyncStop!<CR>
     nnoremap <leader>R :AsyncRun
-    let g:run_command = "AsyncRun "
+    let g:run_command = "AsyncRun"
 else
     let g:run_command = "! "
     nnoremap <leader>R :!
@@ -64,7 +64,7 @@ function! s:RunNow(type)
     let type = a:type
     if type < 0 | let type = 0 | endif
     if &filetype != '' && &filetype != 'markdown' && &filetype != 'startify'
-        if g:run_command == "! "
+        if g:run_command == "!"
             let params = " "
         elseif g:has_terminal
             if type == 2
@@ -100,7 +100,7 @@ function! s:RunNow(type)
                 if WINDOWS()
                     exec g:run_command . params . ' ptime python %'
                 else
-                    exec g:run_command . params . ' time  python %'
+                    exec g:run_command . params . ' time python %'
                 endif
             endif
         elseif &filetype ==# 'rust' && executable('cargo')
@@ -125,13 +125,13 @@ function! s:RunNow(type)
             endif
         elseif &filetype ==# 'javascript' && executable('node')
             if WINDOWS()
-                exec 'AsyncRun! ' . params . ' ptime node %'
+                exec g:run_command . params . ' ptime node %'
             else
-                exec 'AsyncRun! ' . params . ' time  node %'
+                exec g:run_command . params . ' time node %'
             endif
-        elseif &filetype == 'c' && UNIX()
+        elseif &filetype == 'c' && get(g:, 'gcc_cmd', '') != ''
             exec g:run_command . params . ' '. g:gcc_cmd
-        elseif &filetype == 'cpp' && UNIX()
+        elseif &filetype == 'cpp' && get(g:, 'gpp_cmd', '') != ''
             exec g:run_command . params . ' '. g:gpp_cmd
         else
             let s:qf_to_side = 0
