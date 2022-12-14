@@ -638,19 +638,15 @@ try
     set completeopt=menu,menuone,noselect,noinsert
 catch
     try
-        set completeopt=menu,menuone,noselect
-        let g:complete_engine = 'apc'
+        set completeopt=menuone,noselect
+        let g:complete_engine = 'mcm'
     catch
         let g:complete_engine = 'non'
     endtry
 endtry
-if exists('+completepopup') != 0
-    set completeopt+=popup
-    set completepopup=align:menu,border:off,highlight:WildMenu
-endif
 if CYGWIN() || get(g:, 'complete_engine', '') == 'non' || Require('non')
     let g:complete_engine = "non"
-elseif get(g:, 'complete_engin', '') == 'apc' || Require('apc')
+elseif v:version >= 800 && Require('apc')
     let g:complete_engine = "apc"
 elseif Require('cmp')
     if has('nvim')
@@ -664,6 +660,12 @@ elseif Require('coc')
     else
         let s:smart_engine_select = 1
     endif
+elseif Require('mcm')
+    if &completeop =~ 'menuone' && (&completeopt =~ 'noselect' || &completeopt =~ 'noinsert')
+        let g:complete_engine = 'mcm'
+    else
+        let s:smart_engine_select = 1
+    endif
 else
     let s:smart_engine_select = 1
 endif
@@ -672,12 +674,18 @@ if get(s:, 'smart_engine_select', 0) > 0
         let g:complete_engine = 'coc'
     elseif has('nvim')
         let g:complete_engine = 'cmp'
-    else
+    elseif &completeopt =~ 'menuone' && (&completeopt =~ 'noselect' || &completeopt =~ 'noinsert')
+        let g:complete_engine = 'mcm'
+    elseif v:version >= 800
         let g:complete_engine = 'apc'
     endif
 endif
 if index(['coc', 'cmp'], get(g:, 'complete_engine', '')) >= 0
     let g:advanced_complete_engine = 1
+    if exists('+completepopup') != 0
+        set completeopt+=popup
+        set completepopup=align:menu,border:off,highlight:WildMenu
+    endif
 else
     let g:advanced_complete_engine = 0
 endif
@@ -811,6 +819,8 @@ elseif Installed('coc.nvim')
     elseif UNIX() && isdirectory(expand('~/.local/share/nvim/mason/bin'))
         let $PATH = expand('~/.local/share/nvim/mason/bin') . ":" . $PATH
     endif
+elseif Installed('vim-mucomplete')
+    source $SETTINGS_PATH/mcm.vim
 elseif g:complete_engine != 'non'
     let g:complete_engine = 'apc'
 endif
