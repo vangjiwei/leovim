@@ -1,6 +1,9 @@
 " ------------------------------
 "  symbol_tool
 " ------------------------------
+if exists('g:symbol_tool')
+    unlet g:symbol_tool
+endif
 let g:symbol_tool = []
 function! RequireSymbol(plug) abort
     return count(g:symbol_tool, a:plug)

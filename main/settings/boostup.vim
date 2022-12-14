@@ -738,6 +738,34 @@ else
         endif
     endfor
 endif
+" --------------------------
+" M-key map
+" --------------------------
+if get(g:, 'leovim_loaded', 0) == 0 && !has('nvim') && g:gui_running == 0
+    function! s:metacode(key)
+        exec "set <M-".a:key.">=\e".a:key
+    endfunction
+    for i in range(26)
+        " 97 is ascii of a
+        call s:metacode(nr2char(97 + i))
+        " 65 is ascii of A
+        call s:metacode(nr2char(65 + i))
+    endfor
+    for i in range(10)
+        call s:metacode(nr2char(char2nr('0') + i))
+    endfor
+    for c in [",", ".", ";", ":", "/", "?", "-", "_", "{", "}", "=", "+", "'"]
+        call s:metacode(c)
+    endfor
+endif
+imap <M-{> <C-o><M-{>
+imap <M-}> <C-o><M-}>
+imap <M-,> <C-o><M-,>
+imap <M-.> <C-o><M-.>
+imap <M-/> <C-o><M-/>
+imap <M-?> <C-o><M-?>
+imap <M-;> <C-o><M-;>
+imap <M-:> <C-o><M-:>
 " ------------------------
 " save
 " ------------------------
@@ -865,4 +893,28 @@ xnoremap <silent> Q <ESC>
 " kill other BD
 command! BdOther silent! execute "%bd|e#|bd#"
 nnoremap <silent><leader>Q :BdOther<Cr>
+" ------------------------
+" source start.vim
+" ------------------------
+nnoremap <leader>e<Cr> :source $LEOVIM_PATH/start.vim<Cr>
+" ------------------------
+" open config file
+" ------------------------
+nnoremap <leader>es :tabe $LEOVIM_PATH/start.vim<Cr>
+nnoremap <leader>el :tabe $HOME/.vimrc.local<Cr>
+nnoremap <leader>eb :tabe $SETTINGS_PATH/boostup.vim<Cr>
+nnoremap <leader>ec :tabe $MAIN_PATH/common.vim<Cr>
+nnoremap <leader>eu :tabe ~/.leovim.conf/main/settings/lua/
+nnoremap <leader>er :tabe ~/.leovim.conf/runtime/
+nnoremap <leader>em :tabe ~/.leovim.conf/main/
+" ------------------------
+" set filetype unix and trim \r
+" ------------------------
+nnoremap <leader>ef :set ff=unix<Cr>:%s/\r//g<Cr>
+" ------------------------
+" open ide config files
+" ------------------------
+nnoremap <leader>ej :tabe $LEOVIM_PATH/jetbrains/idea.vim<Cr>
+nnoremap <leader>en :tabe $LEOVIM_PATH/vscode/neovim.vim<Cr>
+nnoremap <leader>ek :tabe $LEOVIM_PATH/vscode/keybindings.json<Cr>
 source $SETTINGS_PATH/installed.vim
