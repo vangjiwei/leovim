@@ -679,6 +679,8 @@ if get(s:, 'smart_engine_select', 0) > 0
         let g:complete_engine = 'cmp'
     elseif &completeopt =~ 'menuone' && (&completeopt =~ 'noselect' || &completeopt =~ 'noinsert')
         let g:complete_engine = 'mcm'
+    else
+        let g:complete_engine = 'ncc'
     endif
 endif
 if index(['coc', 'cmp'], get(g:, 'complete_engine', '')) >= 0
