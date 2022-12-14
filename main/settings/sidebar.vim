@@ -32,6 +32,7 @@ elseif Installed('vista.vim')
                 \ 'close': 'Vista!!'
                 \ }
 endif
+nnoremap ,t <C-t>
 if has_key(g:sidebars, 'tags')
     nnoremap <silent><C-t> :call sidebar#toggle('tags')<CR>
 endif
