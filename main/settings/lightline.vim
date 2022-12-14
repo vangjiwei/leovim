@@ -137,7 +137,7 @@ endif
 function! UpdateLightline() abort
     if get(g:, 'colors_name', '') =~ 'code'
         let g:lightline.colorscheme = 'codedark'
-    elseif get(g:, 'colors_name', '') =~ 'space'
+    elseif get(g:, 'colors_name', '') =~ 'space-vim'
         let g:lightline.colorscheme = 'simpleblack'
     elseif get(g:, 'colors_name', '') == 'sublime'
         let g:lightline.colorscheme = 'molokai'
@@ -145,6 +145,8 @@ function! UpdateLightline() abort
         let g:lightline.colorscheme = 'deus'
     elseif get(g:, 'colors_name', '') == 'hybrid'
         let g:lightline.colorscheme = 'nord'
+    elseif get(g:, 'colors_name', '') == 'one'
+        let g:lightline.colorscheme = 'one'
     elseif get(g:, 'colors_name', '') == 'gruvbox'
         let g:lightline.colorscheme = 'gruvboxdark'
     elseif get(g:, 'colors_name', '') == 'gruvbox-material'

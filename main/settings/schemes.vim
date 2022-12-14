@@ -69,7 +69,7 @@ elseif g:complete_engine == 'apc'
 elseif g:complete_engine == 'ncc'
     colorscheme hybrid
 else
-    colorscheme slate
+    colorscheme one
 endif
 " nvim-treesitter
 if Installed('nvim-treesitter', 'nvim-treehopper')
