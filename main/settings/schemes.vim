@@ -64,9 +64,9 @@ elseif g:complete_engine == 'coc'
 elseif g:complete_engine == 'cmp'
     call SetScheme('sonokai', 'sublime')
 elseif g:complete_engine == 'mcm'
-    call SetScheme('nightfly', 'space-vim-dark')
-elseif g:complete_engine == 'apc'
     call SetScheme('edge', 'codedark')
+elseif g:complete_engine == 'apc'
+    call SetScheme('nightfly', 'space-vim-dark')
 else
     colorscheme hybrid
 endif
