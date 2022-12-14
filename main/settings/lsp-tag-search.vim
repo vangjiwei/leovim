@@ -242,8 +242,14 @@ else
     endif
 endif
 " --------------------------
-" find wich coc or ctags
+" find wich lsp or tags
 " --------------------------
+function! s:settagstack(winnr, tagname, pos)
+    call settagstack(a:winnr, {
+                \ 'curidx': gettagstack()['curidx'],
+                \ 'items': [{'tagname': a:tagname, 'from': a:pos}]
+                \ }, 't')
+endfunction
 function! s:open_in_postion(position) abort
     if a:position == 'vsplit'
         vsplit
@@ -257,31 +263,38 @@ function! s:open_in_postion(position) abort
         execute("silent! normal \<C-w>T")
     endif
 endfunction
-function! s:settagstack(winnr, tagname, pos)
-    call settagstack(a:winnr, {
-                \ 'curidx': gettagstack()['curidx'],
-                \ 'items': [{'tagname': a:tagname, 'from': a:pos}]
-                \ }, 't')
-endfunction
-function! CocLspTaglsCallAction(jumpCommand, position, tagls_import)
-    if a:position == 'float'
-        let ret = CocAction(a:jumpCommand, v:false)
-    else
-        let ret = CocAction(a:jumpCommand)
-    endif
+function! CocOrTagls(jumpCommand, position, tagls_import)
+    let jumpCommand = a:jumpCommand
+    try
+        if a:position == 'float'
+            let ret = CocAction(jumpCommand, v:false)
+        else
+            let ret = CocAction(jumpCommand)
+        endif
+    catch /.*/
+        let ret = ''
+    endtry
     if ret
-        echo "found by coc " . a:jumpCommand
+        echo "found by coc " . jumpCommand
     else
         if a:tagls_import
-            let tagls_action = tolower(substitute(a:jumpCommand, "jump", "", ""))
-            let ret = CocLocations('tagls', '$tagls/textDocument/' . tagls_action)
+            let tagls_action = tolower(substitute(jumpCommand, "jump", "", ""))
+            try
+                if a:position == 'float'
+                    let ret = CocLocations('tagls', '$tagls/textDocument/' . tagls_action, {}, v:false)
+                else
+                    let ret = CocLocations('tagls', '$tagls/textDocument/' . tagls_action)
+                endif
+            catch /.*/
+                let ret = ''
+            endtry
             if ret
                 echo "found by tagls " . tagls_action
             else
                 echohl WarningMsg | echom tagls_action . " not found by neither coc nor tagls" | echohl None
             endif
         else
-            echohl WarningMsg | echom a:jumpCommand . " not found by coc " | echohl None
+            echohl WarningMsg | echom jumpCommand . " not found by coc " | echohl None
         endif
     endif
     return ret
@@ -302,7 +315,7 @@ function! LspOrTagOrSearchAll(command, ...) abort
     " coc
     if g:complete_engine == 'coc'
         let g:coc_locations_change = v:false
-        if CocLspTaglsCallAction(command, position, get(g:, 'tagls_import', 0))
+        if CocOrTagls(command, position, get(g:, 'tagls_import', 0))
             let l:tag_found = 2
             call s:settagstack(winnr, tagname, pos)
             if !g:coc_locations_change
@@ -323,7 +336,7 @@ function! LspOrTagOrSearchAll(command, ...) abort
         let l:tag_found = 0
     endif
     " tag_found == 0 : ctags not checked
-    " tag_found == 1 : ctags checked but found none
+    " tag_found == 1 : ctags checked but not found
     if get(l:, 'tag_found', 2) < 2
         call s:tag_or_searchall(tagname, l:tag_found)
     endif
