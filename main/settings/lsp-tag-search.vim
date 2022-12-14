@@ -143,6 +143,9 @@ elseif Installed('vista.vim')
         let g:vista_fzf_preview = ['up:30%']
     endif
 endif
+" --------------------------
+" gutentags
+" --------------------------
 if Installed('vim-gutentags')
     set cscopetag
     " exclude files
@@ -260,6 +263,29 @@ function! s:settagstack(winnr, tagname, pos)
                 \ 'items': [{'tagname': a:tagname, 'from': a:pos}]
                 \ }, 't')
 endfunction
+function! CocLspTaglsCallAction(jumpCommand, position, tagls_import)
+    if a:position == 'float'
+        let ret = CocAction(a:jumpCommand, v:false)
+    else
+        let ret = CocAction(a:jumpCommand)
+    endif
+    if ret
+        echo "found by coc " . a:jumpCommand
+    else
+        if a:tagls_import
+            let tagls_action = tolower(substitute(a:jumpCommand, "jump", "", ""))
+            let ret = CocLocations('tagls', '$tagls/textDocument/' . tagls_action)
+            if ret
+                echo "found by tagls " . tagls_action
+            else
+                echohl WarningMsg | echom tagls_action . " not found by neither coc nor tagls" | echohl None
+            endif
+        else
+            echohl WarningMsg | echom a:jumpCommand . " not found by coc " | echohl None
+        endif
+    endif
+    return ret
+endfunction
 function! LspOrTagOrSearchAll(command, ...) abort
     let tagname = expand('<cword>')
     let winnr   = winnr()
@@ -271,24 +297,17 @@ function! LspOrTagOrSearchAll(command, ...) abort
     else
         let position = a:1
     endif
+    " set tag_found to 0 at first
+    let l:tag_found = 0
     " coc
-    if g:complete_engine == 'coc' && command =~ 'jump'
+    if g:complete_engine == 'coc'
         let g:coc_locations_change = v:false
-        " a:0, then number of other paragrams: ...
-        if position == 'float'
-            let ret = CocAction(command, v:false)
-        else
-            let ret = CocAction(command)
-        endif
-        if ret
-            echo "found by coc " . command
+        if CocLspTaglsCallAction(command, position, get(g:, 'tagls_import', 0))
             let l:tag_found = 2
             call s:settagstack(winnr, tagname, pos)
             if !g:coc_locations_change
                 call s:open_in_postion(position)
             endif
-        else
-            let l:tag_found = 0
         endif
     " tags
     elseif g:ctags_type != '' && position != ''
