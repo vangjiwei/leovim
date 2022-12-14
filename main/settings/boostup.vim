@@ -640,6 +640,11 @@ catch
     try
         set completeopt=menuone,noselect
         let g:complete_engine = 'mcm'
+        try
+            set completeopt+=noinsert
+        catch
+            " pass
+        endtry
     catch
         let g:complete_engine = 'non'
     endtry
@@ -676,8 +681,6 @@ if get(s:, 'smart_engine_select', 0) > 0
         let g:complete_engine = 'cmp'
     elseif &completeopt =~ 'menuone' && (&completeopt =~ 'noselect' || &completeopt =~ 'noinsert')
         let g:complete_engine = 'mcm'
-    elseif v:version >= 800
-        let g:complete_engine = 'apc'
     endif
 endif
 if index(['coc', 'cmp'], get(g:, 'complete_engine', '')) >= 0
@@ -821,7 +824,7 @@ elseif Installed('coc.nvim')
     endif
 elseif Installed('vim-mucomplete')
     source $SETTINGS_PATH/mcm.vim
-elseif g:complete_engine != 'non'
+elseif g:complete_engine != 'non' && v:version >= 800
     let g:complete_engine = 'apc'
 endif
 if g:complete_engine == 'apc'

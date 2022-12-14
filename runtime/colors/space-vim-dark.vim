@@ -1,4 +1,4 @@
-<F24><F25>" Vim color file
+" Vim color file
 "
 " Author: Liu-Cheng Xu
 " URL: https://github.com/liuchengxu/space-vim-dark
