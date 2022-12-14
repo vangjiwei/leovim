@@ -67,9 +67,7 @@ function! s:tag_or_searchall(tagname, ...)
     if InstalledTelescope() && index(['vim', 'help'], &ft) >= 0
         execute 'TeleSearchAll ' . tagname
     elseif g:ctags_type != '' && tag_found == 0
-        if Installed('vim-gutentags')
-            let ret = Execute("silent! PreviewList ". tagname)
-        endif
+        let ret = Execute("silent! PreviewList ". tagname)
         if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
             if get(g:, 'search_all_cmd', '') == ''
                 echom no_found_msg
