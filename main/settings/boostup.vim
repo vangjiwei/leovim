@@ -634,17 +634,13 @@ endif
 " --------------------------
 " complete engine
 " ------------------------------
+set completeopt-=preview
 try
     set completeopt=menu,menuone,noselect,noinsert
 catch
     try
-        set completeopt=menuone,noselect
+        set completeopt=menuone,noselect,noinsert
         let g:complete_engine = 'mcm'
-        try
-            set completeopt+=noinsert
-        catch
-            " pass
-        endtry
     catch
         let g:complete_engine = 'non'
     endtry
