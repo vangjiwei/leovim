@@ -9,4 +9,6 @@ if g:python_version == 0
 else
     let g:jedi#popup_on_dot = 1
 endif
-imap <expr><Cr> pumvisible()? "\<Plug>(MUcompleteFwd)":"\<Cr>"
+if Installed('ultisnips')
+    let g:mucomplete#ultisnips#match_at_start = 1
+endif

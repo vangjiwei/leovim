@@ -90,28 +90,15 @@ elseif g:complete_engine == 'coc'
     else
         let g:complete_snippets = 'coc-snippets'
     endif
-elseif g:complete_engine == 'mcm'
-	if exists('##TextChangedP')
-		if g:python_version > 3
-			let g:complete_snippets = 'ultisnips'
-		else
-			let g:complete_snippets = 'vsnip'
-		endif
-	else
-		let g:complete_snippets = ''
-	endif
-elseif g:complete_engine == 'apc'
-    if g:python_version > 3.6
-        let g:complete_snippets = 'ultinsips'
-    else
-        let g:complete_snippets = 'vsnip'
-    endif
+elseif g:complete_engine == 'mcm' && exists('##TextChangedP') && g:python_version > 3.6
+    let g:complete_snippets = 'ultisnips'
+elseif g:complete_engine == 'apc' && g:python_version > 3.6
+    let g:complete_snippets = 'ultinsips'
 else
     let g:complete_snippets = ''
 endif
 if g:complete_snippets =~ 'ultisnips'
-    PackAdd 'SirVer/ultisnips' | PackAdd 'honza/vim-snippets'
-    PackAdd 'skywind3000/leaderf-snippet'
+    PackAdd 'SirVer/ultisnips' | PackAdd 'honza/vim-snippets' | PackAdd 'skywind3000/leaderf-snippet'
 elseif g:complete_snippets =~ 'luasnip'
     PackAdd 'L3MON4D3/luasnip' | PackAdd 'saadparwaiz1/cmp_luasnip' | PackAdd 'benfowler/telescope-luasnip.nvim'
 endif
