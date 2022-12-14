@@ -642,13 +642,13 @@ catch
         set completeopt=menuone,noselect,noinsert
         let g:complete_engine = 'mcm'
     catch
-        let g:complete_engine = 'non'
+        let g:complete_engine = 'ncc'
     endtry
 endtry
-if CYGWIN() || get(g:, 'complete_engine', '') == 'non' || Require('non')
-    let g:complete_engine = "non"
+if CYGWIN() || get(g:, 'complete_engine', '') == 'ncc' || Require('ncc')
+    let g:complete_engine = 'ncc'
 elseif v:version >= 800 && Require('apc')
-    let g:complete_engine = "apc"
+    let g:complete_engine = 'apc'
 elseif Require('cmp')
     if has('nvim')
         let g:complete_engine = 'cmp'
@@ -786,11 +786,11 @@ endtry
 " -----------------------------------
 set wildmenu
 if has('nvim')
-    set wildoptions+=pum
     cmap <expr> <down> pumvisible() ? '<right>' : '<down>'
     cmap <expr> <up>   pumvisible() ? '<left>'  : '<up>'
     cmap <expr> <C-j>  pumvisible() ? '<right>' : '<C-n>'
     cmap <expr> <C-k>  pumvisible() ? '<left>'  : '<C-p>'
+    set wildoptions+=pum
 else
     set wildmode=longest,list
     if has('patch-8.2.4500')
@@ -820,17 +820,15 @@ elseif Installed('coc.nvim')
     endif
 elseif Installed('vim-mucomplete')
     source $SETTINGS_PATH/mcm.vim
-elseif g:complete_engine != 'non' && v:version >= 800
+elseif Installed('neocomplcache.vim')
+    source $SETTINGS_PATH/ncc.vim
+elseif g:complete_engine != 'ncc' && v:version >= 800
     let g:complete_engine = 'apc'
-endif
-if g:complete_engine == 'apc'
     source $SETTINGS_PATH/apc.vim
 endif
-if g:complete_engine != 'non'
-    source $SETTINGS_PATH/snippets.vim
-    source $SETTINGS_PATH/format.vim
-    source $SETTINGS_PATH/debug-conf.vim
-endif
+source $SETTINGS_PATH/snippets.vim
+source $SETTINGS_PATH/format.vim
+source $SETTINGS_PATH/debug-conf.vim
 " --------------------------
 " settings
 " --------------------------

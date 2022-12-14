@@ -78,6 +78,8 @@ elseif g:complete_engine == 'cmp'
                 \| PackAdd 'onsails/lspkind-nvim'
 elseif g:complete_engine == 'mcm'
 	PackAdd 'lifepillar/vim-mucomplete'
+elseif g:complete_engine == 'ncc'
+    PackAdd 'Shougo/neocomplcache.vim'
 endif
 " ------------------------------
 " complete_snippets

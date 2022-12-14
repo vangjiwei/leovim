@@ -39,7 +39,7 @@ command! OpenQuickfix   call s:open_close_qf(2)
 " --------------------------
 " asyncrun
 " --------------------------
-if has('nvim') || has('timers') && has('channel') && has('job') && has('patch-7.4.1829')
+if has('nvim') || has('timers') && has('channel') && has('job')
     if WINDOWS()
         let g:asyncrun_encs = get(g:, 'asyncrun_encs', 'gbk')
     endif
@@ -288,4 +288,6 @@ if has('nvim') || has('timers') && has('channel') && has('job') && has('patch-7.
             nnoremap <silent><M-r> :FZFAsyncTask<Cr>
         endif
     endif
+else
+    " TODO, config it without asyncrun
 endif
