@@ -243,6 +243,9 @@ endif
 " find wich lsp or tags
 " --------------------------
 function! s:settagstack(winnr, tagname, pos)
+    if !exists('*settagstack') || !exists('*gettagstack')
+        return
+    endif
     if get(g:, 'check_settagstack', '') == ''
         try
             call settagstack(a:winnr, {
