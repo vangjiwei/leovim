@@ -103,7 +103,7 @@ git clone --depth 1 https://github.com/leoatchina/vim-repl.git
 
 # iron.nvim
 rm -rf iron.nvim
-git clone --depth 1 https://github.com/hkupty/iron.nvim.git
+git clone --depth 1 https://github.com/leoatchina/iron.nvim.git
 
 # delete files and dirs
 find . -type f | grep -i \.gitignore$ | xargs rm -f
