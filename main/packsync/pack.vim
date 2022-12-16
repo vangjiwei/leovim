@@ -70,6 +70,8 @@ if g:complete_engine == 'cmp'
     PackAdd 'windwp/nvim-autopairs'
 elseif g:complete_engine != 'coc' && v:version >= 800
     PackAdd 'tmsvg/pear-tree'
+elseif has('patch-7.4.849')
+    PackAdd 'jiangmiao/auto-pairs'
 endif
 " ------------------------------
 " translate && document
