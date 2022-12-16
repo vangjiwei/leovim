@@ -1,10 +1,10 @@
 # pack_tool
-curl -fLo ../../../runtime/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-sed -i -e 's/ *$//g' ../../../runtime/autoload/plug.vim
+curl -fLo ../../../pack/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+sed -i -e 's/ *$//g' ../../../pack/plug.vim
 
-curl -fLo ../../../runtime/autoload/jetpack.vim https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
-sed -i -e 's/ *$//g' ../../../runtime/autoload/jetpack.vim
-sed -i -e 's/40vnew/to 80vnew/g' ../../../runtime/autoload/jetpack.vim
+curl -fLo ../../../pack/jetpack.vim https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
+sed -i -e 's/ *$//g' ../../../pack/jetpack.vim
+sed -i -e 's/40vnew/to 80vnew/g' ../../../pack/jetpack.vim
 
 # vim-preview
 rm -rf vim-preview

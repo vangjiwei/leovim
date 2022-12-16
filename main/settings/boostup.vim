@@ -711,8 +711,10 @@ endif
 " --------------------------
 " pack begin
 if g:pack_tool == 'jetpack'
+    source ~/.leovim.conf/pack/jetpack.vim
     call jetpack#begin($INSTALL_PATH)
 else
+    source ~/.leovim.conf/pack/plug.vim
     call plug#begin($INSTALL_PATH)
 endif
 source $PACKSYNC_PATH/pack.vim
