@@ -94,7 +94,7 @@ elseif g:complete_engine == 'coc'
     endif
 elseif g:complete_engine == 'mcm' && exists('##TextChangedP') && g:python_version > 3.6
     let g:complete_snippets = 'ultisnips'
-elseif g:complete_engine == 'apc' && g:python_version > 3.6
+elseif g:complete_engine == 'ncc' && g:python_version > 3.6
     let g:complete_snippets = 'ultinsips'
 else
     let g:complete_snippets = ''
@@ -104,7 +104,7 @@ if g:complete_snippets =~ 'ultisnips'
 elseif g:complete_snippets =~ 'luasnip'
     PackAdd 'L3MON4D3/luasnip' | PackAdd 'saadparwaiz1/cmp_luasnip' | PackAdd 'benfowler/telescope-luasnip.nvim'
 endif
-if g:complete_snippets =~ 'vsnip' || g:complete_snippets =~ 'luasnip' || g:complete_snippets =~ 'coc'
+if g:complete_snippets =~ 'luasnip' || g:complete_snippets == 'coc-snippets'
     PackAdd 'rafamadriz/friendly-snippets'
 endif
 " ------------------------------
