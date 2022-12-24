@@ -25,7 +25,7 @@ if Installed('leaderf-snippet')
     let g:Lf_PreviewResult = get(g:, 'Lf_PreviewResult', {})
     let g:Lf_PreviewResult.snippet = 1
     inoremap <silent><C-x><C-x> <C-\><C-o>:Leaderf snippet<Cr>
-elseif Installed(coc.nvim)
+elseif Installed('coc.nvim')
     inoremap <silent><C-x><C-x> <C-\><C-o>:CocFzfList snippets<Cr>
 endif
 if InstalledFzf()
