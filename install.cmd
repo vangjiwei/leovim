@@ -4,7 +4,6 @@
 
 REM mkdir necesarry
 call md "%HOME%\AppData\local\nvim"
-call md "%HOME%\.leovim.d\tags"
 
 REM mklink of config dir
 IF "%APP_PATH%" == "%HOME%\.leovim.conf" (
@@ -50,9 +49,9 @@ IF NOT EXIST "%HOME%\.vimrc.local" (
 )
 
 REM setup vim tools for windows
-IF NOT EXIST "%HOME%\.leovim.d\windows" (
-    call git clone --depth=1 https://gitee.com/leoatchina/leovim-windows.git "%HOME%\.leovim.d\windows"
+IF NOT EXIST "%HOME%\.leovim.windows" (
+    call git clone --depth=1 https://gitee.com/leoatchina/leovim-windows.git "%HOME%\.leovim.windows"
 ) ELSE (
-    call cd "%HOME%\.leovim.d\windows"
+    call cd "%HOME%\.leovim.windows"
     call git pull
 )

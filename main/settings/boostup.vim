@@ -128,8 +128,8 @@ endif
 " set TERM && screen
 " --------------------------
 if WINDOWS()
-    if isdirectory($HOME . "\\.leovim.d\\windows") && get(g:,'leovim_loaded',0) == 0
-        let $PATH = $HOME  . "\\.leovim.d\\windows\\tools;" . $HOME  . "\\.leovim.d\\windows\\gtags\\bin;" . $HOME  . "\\.leovim.d\\windows\\cppcheck;" . $PATH
+    if isdirectory($HOME . "\\.leovim.windows") && get(g:,'leovim_loaded',0) == 0
+        let $PATH = $HOME  . "\\.leovim.windows\\tools;" . $HOME  . "\\.leovim.windows\\gtags\\bin;" . $HOME  . "\\.leovim.windows\\cppcheck;" . $PATH
     endif
     set winaltkeys=no
     if g:gui_running
@@ -137,7 +137,7 @@ if WINDOWS()
         set columns=999
     endif
     if has('libcall') && !has('nvim') && g:gui_running
-        let g:gvimfullscreendll = $HOME ."\\.leovim.d\\windows\\tools\\gvimfullscreen.dll"
+        let g:gvimfullscreendll = $HOME ."\\.leovim.windows\\tools\\gvimfullscreen.dll"
         function! ToggleFullScreen()
             call libcallnr(g:gvimfullscreendll, "ToggleFullScreen", -1)
         endfunction
