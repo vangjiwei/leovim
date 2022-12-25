@@ -108,7 +108,7 @@ endif
 " ------------------------------
 " ctags_type
 " ------------------------------
-if Require('tags')
+if WINDOWS() && Require('tags') || UNIX()
     if WINDOWS()
         let g:ctags_type = 'Universal-json'
     elseif executable('ctags') && has('patch-7.4.330')
