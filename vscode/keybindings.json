@@ -131,19 +131,19 @@
     },
     // typeDefinition
     {
-        "key": "<alt+[>",
+        "key": "alt+[",
         "command": "editor.action.peektypeDefinition",
         "when": "editorTextFocus && !isInEmbeddedEditor"
     },
     // declaration
     {
-        "key": "<alt+]>",
+        "key": "alt+]",
         "command": "editor.action.peekDeclaration",
         "when": "editorTextFocus && !isInEmbeddedEditor"
     },
     // implementation 
     {
-        "key": "<alt+'>",
+        "key": "alt+'",
         "command": "editor.action.peekImplementation",
         "when": "editorTextFocus && !isInEmbeddedEditor"
     },
