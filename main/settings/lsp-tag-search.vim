@@ -139,6 +139,7 @@ if Installed('vim-gutentags')
     let g:gutentags_ctags_exclude = ["*.min.js", "*.min.css", "build", "vendor", "node_modules", "*.vim/bundle/*", ".ccls_cache", "__pycache__", ".idea", ".vscode"]
     " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
     let g:gutentags_project_root = g:root_patterns
+    let g:gutentags_add_default_project_roots = 0
     " 所生成的数据文件的名称
     let g:gutentags_ctags_tagfile = '.tags'
     " modules
@@ -174,7 +175,7 @@ if Installed('gutentags_plus')
     let g:gutentags_define_advanced_commands = 1
     let g:gutentags_plus_switch              = 1
     let g:gutentags_plus_nomap               = 1
-    let g:gutentags_auto_add_gtags_cscope    = 1
+    let g:gutentags_auto_add_gtags_cscope    = 0
     nnoremap <silent>,gs :GscopeFind s <C-r>=expand('<cword>')<Cr><cr>
     nnoremap <silent>,gg :GscopeFind g <C-r>=expand('<cword>')<Cr><cr>
     nnoremap <silent>,gd :GscopeFind d <C-r>=expand('<cword>')<Cr><cr>
