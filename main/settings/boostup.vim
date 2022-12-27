@@ -915,10 +915,11 @@ nnoremap <leader>em :tabe ~/.leovim.conf/main/
 " set filetype unix and trim \r
 " ------------------------
 nnoremap <leader>ef :set ff=unix<Cr>:%s/\r//g<Cr>
-" ------------------------
-" open ide config files
-" ------------------------
-nnoremap <leader>ej :tabe $LEOVIM_PATH/jetbrains/idea.vim<Cr>
-nnoremap <leader>en :tabe $LEOVIM_PATH/vscode/neovim.vim<Cr>
-nnoremap <leader>ek :tabe $LEOVIM_PATH/vscode/keybindings.json<Cr>
 source $SETTINGS_PATH/installed.vim
+" ------------------------
+" after config
+" ------------------------
+nnoremap <leader>ea :tabe ~/.vimrc.after<Cr>
+if filereadable(expand('~/.vimrc.after'))
+    source ~/.vimrc.after
+endif

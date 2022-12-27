@@ -297,6 +297,12 @@ if get(g:, 'leovim_startify', 1) > 0
     nnoremap <leader>sl :SLoad<Space>
     nnoremap <leader>sd :SDelete<Space>
 endif
+" ------------------------
+" open ide config files
+" ------------------------
+nnoremap <leader>ej :tabe $LEOVIM_PATH/jetbrains/idea.vim<Cr>
+nnoremap <leader>en :tabe $LEOVIM_PATH/vscode/neovim.vim<Cr>
+nnoremap <leader>ek :tabe $LEOVIM_PATH/vscode/keybindings.json<Cr>
 " --------------------------
 " IDE integration
 " --------------------------
@@ -388,11 +394,4 @@ if exists("g:vscode_keybindings_dir") && isdirectory(g:vscode_keybindings_dir)
     endfunction
     command! CopyKeybindings call s:copykeybindings()
     nnoremap <leader>eK :CopyKeybindings<Cr>
-endif
-" ------------------------
-" after config
-" ------------------------
-nnoremap <leader>ea :tabe ~/.vimrc.after<Cr>
-if filereadable(expand('~/.vimrc.after'))
-    source ~/.vimrc.after
 endif
