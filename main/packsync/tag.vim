@@ -8,7 +8,7 @@ let g:symbol_tool = []
 function! RequireSymbol(plug) abort
     return count(g:symbol_tool, a:plug)
 endfunction
-function! PackSymbol(plug) abort
+function! AddSymbol(plug) abort
     if RequireSymbol(a:plug) <= 0
         let g:symbol_tool += [a:plug]
     endif
@@ -18,35 +18,35 @@ endfunction
 " ------------------------------
 if get(g:, 'ctags_type', '') != ''
     if Planned('leaderf')
-        call PackSymbol("leaderfctags")
+        call AddSymbol("leaderfctags")
     else
-        call PackSymbol("fzfctags")
+        call AddSymbol("fzfctags")
     endif
     if Planned('vim-quickui')
-        call PackSymbol('quickui')
+        call AddSymbol('quickui')
     endif
 endif
 " ------------------------------
 " lsp or vista
 " ------------------------------
 if g:complete_engine == 'cmp'
-    call PackSymbol('lsp')
-    call PackSymbol('telescope')
+    call AddSymbol('lsp')
+    call AddSymbol('telescope')
     PackAdd 'glepnir/lspsaga.nvim'
       \| PackAdd 'gbrlsnchs/telescope-lsp-handlers.nvim'
 elseif g:complete_engine == 'coc'
-    call PackSymbol('coc')
-    call PackSymbol('vista')
+    call AddSymbol('coc')
+    call AddSymbol('vista')
 elseif v:version >= 800 && get(g:, 'ctags_type', '') =~ 'Universal'
-    call PackSymbol('vista')
+    call AddSymbol('vista')
 elseif get(g:, 'ctags_type', '') != ''
-    call PackSymbol('tagbar')
+    call AddSymbol('tagbar')
 endif
 " ------------------------------
 " gutentags
 " ------------------------------
 if v:version >= 800 && get(g:, 'ctags_type', '') != ''
-    call PackSymbol("gutentags")
+    call AddSymbol("gutentags")
 endif
 " ------------------------------
 " gtags
@@ -58,9 +58,9 @@ if executable('gtags-cscope') && executable('gtags') && filereadable(get(g:, 'Lf
     let s:gtags_version = matchstr(system('gtags --version'), '\v\zs\d{1,2}.\d{1,2}.\d{1,2}\ze')
     let g:gtags_version = StringToFloat(s:gtags_version)
     if g:gtags_version >= 6.67
-        call PackSymbol('plus')
+        call AddSymbol('plus')
         if Planned('leaderf') && g:python_version > 3
-            call PackSymbol('leaderfgtags')
+            call AddSymbol('leaderfgtags')
         endif
     else
         echom "gtags 6.67+ is required"

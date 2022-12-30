@@ -92,7 +92,7 @@ else
 endif
 source $SETTINGS_PATH/snippets.vim
 source $SETTINGS_PATH/format.vim
-source $SETTINGS_PATH/debug-conf.vim
+source $SETTINGS_PATH/debug.vim
 " --------------------------
 " settings
 " --------------------------
