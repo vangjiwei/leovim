@@ -191,14 +191,14 @@ elseif Installed('vimspector')
     nmap <silent> ,b <Plug>VimspectorToggleBreakpoint
     nmap <silent> ,B :call vimspector#ToggleAllBreakpointsViewBreakpoint()<Cr>
     nmap <silent> ,l :call vimspector#ListBreakpoints()<Cr>
+    nmap <silent> <M-d>f <Plug>VimspectorAddFunctionBreakpoint
+    nmap <silent> <M-d>c <Plug>VimspectorToggleConditionalBreakpoint
+    nmap <silent> <F7>   <Plug>VimspectorToggleConditionalBreakpoint
     " debug
     nmap <silent> ,p     :call vimspector#Pause()<Cr>
     nmap <silent> <M-d>u :call vimspector#UpFrame()<Cr>
     nmap <silent> <M-d>d :call vimspector#DownFrame()<Cr>
     nmap <silent> <M-d>b <Plug>VimspectorBalloonEval
-    nmap <silent> <M-d>f <Plug>VimspectorAddFunctionBreakpoint
-    nmap <silent> <M-d>c <Plug>VimspectorToggleConditionalBreakpoint
-    nmap <silent> <F7>   <Plug>VimspectorToggleConditionalBreakpoint
     " other commands
     nnoremap <M-d>i :VimspectorInstall <Tab>
     nnoremap <M-d>g :call vimspector#GetConfigurations()<Cr>
