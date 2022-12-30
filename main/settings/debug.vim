@@ -189,7 +189,7 @@ elseif Installed('vimspector')
     nmap <silent> ,u <Plug>VimspectorStepOut
     " breakpoint
     nmap <silent> ,b <Plug>VimspectorToggleBreakpoint
-    nmap <silent> ,B :call ToggleAllBreakpointsViewBreakpoint()<Cr>
+    nmap <silent> ,B :call vimspector#ToggleAllBreakpointsViewBreakpoint()<Cr>
     nmap <silent> ,l :call vimspector#ListBreakpoints()<Cr>
     " debug
     nmap <silent> ,p     :call vimspector#Pause()<Cr>
