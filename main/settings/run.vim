@@ -45,7 +45,7 @@ endif
 
 if has('nvim') || has('timers') && has('channel') && has('job')
     nnoremap <silent><Tab>c :AsyncStop<CR>
-    nnoremap <silent><Tab>q :AsyncStop!<CR>
+    nnoremap <silent><Tab>C :AsyncStop!<CR>
     nnoremap <leader>R :AsyncRun
     let g:run_command = "AsyncRun"
 else

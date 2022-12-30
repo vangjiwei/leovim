@@ -789,8 +789,6 @@ snoremap <C-g> <ESC>
 " ------------------------
 " close and quit
 " ------------------------
-nnoremap <silent><leader>q    :q!<Cr>
-nnoremap <silent><leader><BS> :qall!<Cr>
 inoremap <M-q> <ESC>
 xnoremap <M-q> <ESC>
 cnoremap <M-q> <ESC>
@@ -804,7 +802,7 @@ function! ConfirmQuit() abort
     else
         try
             if getbufinfo('%')[0].changed
-                let l:confirmed = confirm('Do you really want to `Both save and quit` or `quit only`?', "&Both\n&Yes\n&No", 3)
+                let l:confirmed = confirm('Do you really want to `Both save and quit` or `quit only`?', "&Both\n&Quit\n&No", 3)
                 if l:confirmed <= 2
                     if l:confirmed == 1
                         wq!
@@ -897,6 +895,10 @@ xnoremap <silent> Q <ESC>
 " kill other BD
 command! BdOther silent! execute "%bd|e#|bd#"
 nnoremap <silent><leader>Q :BdOther<Cr>
+" close
+nnoremap <silent><leader>q :q!<Cr>
+nnoremap <silent><tab>q    :tabclose<Cr>
+nnoremap <silent><leader><BS> :qall!<Cr>
 " ------------------------
 " source start.vim
 " ------------------------
