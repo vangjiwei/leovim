@@ -179,8 +179,8 @@ elseif Installed('vimspector')
     nnoremap ,w :VimspectorWatch<Space>
     nnoremap ,d :call vimspector#DeleteWatch()<Cr>
     nnoremap ,a :call vimspector#AddWatch("")<Left><Left>
-    nnoremap ,r :call vimspector#Launch()<Cr>
     nnoremap ,q :call vimspector#Stop()<Cr>
+    nnoremap ,r :call vimspector#Reset()<Cr>
     " run
     nmap <silent> ,c <Plug>VimspectorRunToCursor
     nmap <silent> ,n <Plug>VimspectorContinue
@@ -204,8 +204,7 @@ elseif Installed('vimspector')
     nnoremap <M-d>g :call vimspector#GetConfigurations()<Cr>
     nnoremap <M-d>t :call vimspector#SetCurrentThread()<Cr>
     nnoremap <M-d>e :call vimspector#ExpandVariable()<Cr>
-    nnoremap <M-d>O :call vimspector#Reset()<Cr>
-    nnoremap <M-d>R :call vimspector#Restart()<Cr>
+    nnoremap <M-d>r :call vimspector#Restart()<Cr>
     " jump to windows in vimspector
     nnoremap <M-m>o :call GoToVimspectorWindow('output')<Cr>
     nnoremap <M-m>e :call GoToVimspectorWindow('stderr')<Cr>
