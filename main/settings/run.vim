@@ -58,6 +58,9 @@ if UNIX()
     call system("mkdir -p ~/.cache/build/cpp")
     let g:gcc_cmd = get(g:, 'gcc_cmd', 'time gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$HOME/.cache/build/c/$(VIM_FILENOEXT)" && time "$HOME/.cache/build/c/$(VIM_FILENOEXT)"')
     let g:gpp_cmd = get(g:, 'gpp_cmd', 'time g++ -Wall -O2 "$(VIM_FILEPATH)" -o "$HOME/.cache/build/cpp/$(VIM_FILENOEXT)" && time "$HOME/.cache/build/cpp/$(VIM_FILENOEXT)"')
+elseif WINDOWS()
+    let g:gcc_cmd = get(g:, 'gcc_cmd', 'ptime gcc $(VIM_FILEPATH) -o $(VIM_FILENOEXT) & ptime $(VIM_FILENOEXT)')
+    let g:gpp_cmd = get(g:, 'gpp_cmd', 'ptime g++ $(VIM_FILEPATH) -o $(VIM_FILENOEXT) & ptime $(VIM_FILENOEXT)')
 endif
 function! s:RunNow(type)
     w!
