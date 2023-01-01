@@ -28,8 +28,8 @@ if InstalledTelescope()
     luafile $LUA_PATH/telescope.lua
     nnoremap <leader>fp :lua project_files()<Cr>
     nnoremap m<tab> <cmd>Telescope keymaps<Cr>
-    nnoremap <M-u>q <cmd>Telescope quickfixhistory<Cr>
-    nnoremap <M-u>. <cmd>Telescope resume<Cr>
+    nnoremap <M-h>q <cmd>Telescope quickfixhistory<Cr>
+    nnoremap <M-h>. <cmd>Telescope resume<Cr>
     if Installed('leaderf')
         nnoremap <M-C> :Telescope<Cr>
     else
@@ -384,11 +384,11 @@ endif
 " changes
 " --------------------------
 if Installed('leaderf-changes')
-    nnoremap <silent><M-u><M-u> :Leaderf changes<Cr>
+    nnoremap <silent><M-h><M-h> :Leaderf changes<Cr>
 elseif Installed('telescope-changes.nvim')
-    nnoremap <silent><M-u><M-u> :Telescope changes<Cr>
+    nnoremap <silent><M-h><M-h> :Telescope changes<Cr>
 elseif Installed('coc.nvim')
-    nnoremap <silent><M-u><M-u> :CocFzfList changes<Cr>
+    nnoremap <silent><M-h><M-h> :CocFzfList changes<Cr>
 endif
 " --------------------
 " browser files all

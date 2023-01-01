@@ -154,11 +154,9 @@ elseif has('patch-7.4.330')
     xnoremap <C-f> :WhichKeyVisual "\<C-f\>"<Cr>
     " M- keys
     nnoremap <M-g> :WhichKey "\<M-g\>"<Cr>
-    nnoremap <M-h> :WhichKey "\<M-h\>"<Cr>
     nnoremap <M-j> :WhichKey "\<M-j\>"<Cr>
     nnoremap <M-k> :WhichKey "\<M-k\>"<Cr>
     nnoremap <M-l> :WhichKey "\<M-l\>"<Cr>
-    nnoremap <M-u> :WhichKey "\<M-u\>"<Cr>
     nnoremap <M-c> :WhichKey       "\<M-c\>"<Cr>
     xnoremap <M-c> :WhichKeyVisual "\<M-c\>"<Cr>
     if get(g:, 'debug_tool', '') != ''

@@ -38,7 +38,7 @@ nnoremap <silent><M-l>c :CocFzfList commands<Cr>
 nnoremap <silent><M-l>. :CocFzfListResume<Cr>
 nnoremap <silent><M-l>; :CocNext<CR>
 nnoremap <silent><M-l>, :CocPrev<CR>
-nnoremap <silent><M-u>. :call CocAction('repeatCommand')<Cr>
+nnoremap <silent><M-h>. :call CocAction('repeatCommand')<Cr>
 nnoremap <silent><M-M>  :CocFzfList marketplace<Cr>
 " hover
 function! Show_documentation()
