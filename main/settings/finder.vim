@@ -96,16 +96,8 @@ elseif InstalledFZF()
     " --------------------------
     command! -bang -nargs=* FZFGGrep
                 \ call fzf#vim#grep(
-                \    'git grep -I --line-number --color=always -- '.shellescape(empty(<q-args>) ? '^' : <q-args>),
-                \     0,
-                \     {'options': '--delimiter : --nth 3..', 'dir': systemlist('git rev-parse --show-toplevel')[0]},
-                \     <bang>0)
-    command! -bang -nargs=* FZFGrep
-                \ call fzf#vim#grep(
-                \    'grep -I --line-number --color=always -r -- '.shellescape(empty(<q-args>) ? '^' : <q-args>).' .',
-                \     0,
-                \     {'options': '--delimiter : --nth 3..'},
-                \     <bang>0)
+                \   'git grep --line-number -- '.shellescape(<q-args>), 0,
+                \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
     " -------------------------
     "  fzf files
     " --------------------------
