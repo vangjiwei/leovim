@@ -18,9 +18,9 @@ elseif Installed('coc.nvim')
 elseif InstalledTelescope()
     let g:fuzzy_finder = 'telescope'
     nnoremap <silent><C-p> :Telescope<Cr>
-elseif InstalledFzf()
+elseif InstalledFZF()
     let g:fuzzy_finder = 'fzf'
-    nnoremap <silent><C-p> :Fzf<Tab>
+    nnoremap <silent><C-p> :FZF<Tab>
 else
     let g:fuzzy_finder = ''
 endif
@@ -35,7 +35,7 @@ if InstalledTelescope()
     else
         nnoremap <M-C> yy:echo "Yank the line" <Cr>
     endif
-elseif InstalledFzf()
+elseif InstalledFZF()
     " --------------------------
     "  fzf basic settings
     " --------------------------
@@ -43,12 +43,12 @@ elseif InstalledFzf()
         if Installed('coc.nvim')
             nnoremap <M-C> :CocFzfList<Cr>
         else
-            nnoremap <M-C> :Fzf<Tab>
+            nnoremap <M-C> :FZF<Tab>
         endif
     else
-        nnoremap <M-C> :Fzf<Tab>
+        nnoremap <M-C> :FZF<Tab>
     endif
-    let $Fzf_DEFAULT_OPTS = '--layout=reverse-list --border=sharp'
+    let $FZF_DEFAULT_OPTS = '--layout=reverse-list --border=sharp'
     if has('nvim') || has('patch-8.2.191')
         let g:fzf_layout = {'up':'~90%',
             \ 'window': {'width': 0.8, 'height': 0.8, 'yoffset': 0.5, 'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp'}
@@ -66,7 +66,7 @@ elseif InstalledFzf()
     au FileType fzf tnoremap <buffer> <C-n> <Nop>
     au FileType fzf tnoremap <buffer> <C-p> <Nop>
     " preview position
-    let g:fzf_command_prefix = 'Fzf'
+    let g:fzf_command_prefix = 'FZF'
     " [Buffers] Jump to the existing window if possible
     let g:fzf_buffers_jump = 1
     " [[B]Commits] Customize the options used by 'git log':
@@ -91,23 +91,34 @@ elseif InstalledFzf()
     nmap m<tab> <plug>(fzf-maps-n)
     xmap m<tab> <plug>(fzf-maps-x)
     omap m<tab> <plug>(fzf-maps-o)
+    " --------------------------
+    "  fzf grep
+    " --------------------------
+    command! -bang -nargs=* FZFGGrep
+                \ call fzf#vim#grep(
+                \    'git grep -I --line-number --color=always -- '.shellescape(empty(<q-args>) ? '^' : <q-args>),
+                \     0,
+                \     {'options': '--delimiter : --nth 3..', 'dir': systemlist('git rev-parse --show-toplevel')[0]},
+                \     <bang>0)
+    command! -bang -nargs=* FZFGrep
+                \ call fzf#vim#grep(
+                \    'grep -I --line-number --color=always -r -- '.shellescape(empty(<q-args>) ? '^' : <q-args>).' .',
+                \     0,
+                \     {'options': '--delimiter : --nth 3..'},
+                \     <bang>0)
     " -------------------------
     "  fzf files
     " --------------------------
-    if UNIX() | nnoremap <leader>fl :FzfLocate<Space> | endif
-    command! -bang -nargs=? -complete=dir FzfGFiles
-          \ call fzf#vim#gitfiles(<q-args>,
-          \     fzf_preview#p(<bang>0),
-          \     <bang>0)
+    if UNIX() | nnoremap <leader>fl :FZFLocate<Space> | endif
     function! s:files_search()
         if get(g:, 'coc_git_status', '') != '' || get(b:, 'git_root_path', '') != ''
-            FzfGFiles
+            FZFGitFiles
         else
             lcd %:p:h
             if Installed('leaderf')
                 LeaderfFile
             else
-                Fzf
+                FZF
             endif
         endif
     endfunction
@@ -255,16 +266,16 @@ elseif InstalledTelescope()
     nnoremap <M-k>t <cmd>Telescope filetypes<Cr>
     nnoremap Z<S-Cr> :CloseQuickfix<Cr>:Telescope quickfix<CR>
     nnoremap Z<Cr>   :CloseQuickfix<Cr>:Telescope loclist<CR>
-elseif InstalledFzf()
+elseif InstalledFZF()
     let g:fuzzy_finder = get(g:, 'fuzzy_finder', 'fzf')
-    nnoremap ,. :FzfHistory/<CR>
-    nnoremap ,; :FzfHistory:<CR>
-    nnoremap <leader>b :FzfBuffers<CR>
-    nnoremap <leader>m :FzfMru<CR>
+    nnoremap ,. :FZFHistory/<CR>
+    nnoremap ,; :FZFHistory:<CR>
+    nnoremap <leader>b :FZFBuffers<CR>
+    nnoremap <leader>m :FZFMru<CR>
     " replace origin command
-    nnoremap <M-k>s :FzfColors<CR>
-    nnoremap <M-k>t :FzfFiletypes<CR>
-    " Fzf jumps
+    nnoremap <M-k>s :FZFColors<CR>
+    nnoremap <M-k>t :FZFFiletypes<CR>
+    " FZF jumps
     function! s:jumpListFormat(val) abort
         let l:file_name = bufname('%')
         let l:file_name = empty(l:file_name) ? 'Unknown file name' : l:file_name
@@ -305,7 +316,7 @@ elseif InstalledFzf()
         call cursor(str2nr(l:line), str2nr(l:col))
         normal! zvzz
     endfunction
-    function! s:FzfJumps() abort
+    function! s:FZFJumps() abort
         if WINDOWS()
             call fzf#run(fzf#wrap({
                     \ 'source': s:jumpList(),
@@ -326,10 +337,10 @@ elseif InstalledFzf()
                     \ }))
         endif
     endfunction
-    command! -bang -nargs=* FzfJumps call s:FzfJumps()
-    nnoremap <M-j><M-j> :FzfJumps<cr>
-    nnoremap <M-l><M-l> :FzfBLines<CR>
-    nnoremap <M-k><M-k> :FzfCommands<CR>
+    command! -bang -nargs=* FZFJumps call s:FZFJumps()
+    nnoremap <M-j><M-j> :FZFJumps<cr>
+    nnoremap <M-l><M-l> :FZFBLines<CR>
+    nnoremap <M-k><M-k> :FZFCommands<CR>
 endif
 " --------------------------
 " notify
@@ -394,8 +405,8 @@ endif
 if Installed('leaderf')
     let g:Lf_ShortcutF = '<leader>ff'
     nnoremap <silent><leader>ff :lcd %:p:h \| LeaderfFile<Cr>
-elseif InstalledFzf()
-    nnoremap <silent><leader>ff :lcd %:p:h \| Fzf<Cr>
+elseif InstalledFZF()
+    nnoremap <silent><leader>ff :lcd %:p:h \| FZF<Cr>
 endif
 " map config and open file using system browser when has gui
 if g:gui_running
@@ -450,8 +461,8 @@ elseif has('nvim') && Installed('coc.nvim')
     endfunction
     command! CocFile call CocFile()
     nnoremap <silent><leader><Tab> :CocFile<Cr>
-elseif InstalledFzf()
-    nnoremap <silent><leader><Tab> :FzfFiles .<Cr>
+elseif InstalledFZF()
+    nnoremap <silent><leader><Tab> :FZFFiles .<Cr>
 endif
 " --------------------------
 " floaterm windows

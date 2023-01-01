@@ -144,11 +144,10 @@ function! Planned(...)
     endfor
     return 1
 endfunction
-function! InstalledFzf()
+function! InstalledFZF()
     return Installed(
                 \ 'fzf',
                 \ 'fzf.vim',
-                \ 'fzf-preview.vim',
                 \ )
 endfunction
 function! InstalledTelescope()

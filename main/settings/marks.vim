@@ -45,7 +45,7 @@ if Installed('leaderf-marks')
     nnoremap <C-f>m :Leaderf marks<Cr>
 elseif InstalledTelescope()
     nnoremap <C-f>m :Telescope marks<Cr>
-elseif InstalledFzf()
+elseif InstalledFZF()
     nnoremap <C-f>m :FzfMarks<CR>
 endif
 if Installed('indentLine')

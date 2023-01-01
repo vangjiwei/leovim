@@ -37,7 +37,7 @@ endif
 if InstalledTelescope()
     nnoremap <M-g>c :Telescope git_bcommits<Cr>
     nnoremap <M-g>f :Telescope git_files<CR>
-elseif InstalledFzf()
+elseif InstalledFZF()
     if Installed('coc.nvim') && WINDOWS()
         nnoremap <M-g>c :CocFzfList bcommits<Cr>
         nnoremap <M-g>f :CocFzfList gfiles<CR>

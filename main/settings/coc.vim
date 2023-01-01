@@ -175,7 +175,7 @@ endif
 " ------------------------
 " coc fzf
 " ------------------------
-if Installed('coc-fzf') && InstalledFzf()
+if Installed('coc-fzf') && InstalledFZF()
     if WINDOWS()
         let g:coc_fzf_preview=''
     else
