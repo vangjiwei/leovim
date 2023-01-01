@@ -56,7 +56,7 @@ elseif InstalledFZF()
         if WINDOWS()
             let g:fzf_preview_window = []
         else
-            let g:fzf_preview_window = ['right:40%', 'ctrl-/']
+            let g:fzf_preview_window = ['right,50%,<70(up,40%)', 'ctrl-/']
         endif
     else
         let g:fzf_layout = {'down': '~30%'}
