@@ -664,7 +664,7 @@ elseif Require('coc')
         let s:smart_engine_select = 1
     endif
 elseif Require('mcm')
-    if &completeop =~ 'menuone' && (&completeopt =~ 'noselect' || &completeopt =~ 'noinsert')
+    if &completeopt =~ 'menuone' && (&completeopt =~ 'noselect' || &completeopt =~ 'noinsert')
         let g:complete_engine = 'mcm'
     else
         let s:smart_engine_select = 1
