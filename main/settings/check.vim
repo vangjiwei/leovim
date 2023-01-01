@@ -113,9 +113,7 @@ if Installed('ale')
     " map
     function! s:showLint() abort
         ALELint
-        if UNIX() && g:has_popup_float
-            FZFLocList
-        elseif WINDOWS() && !has('nvim') && Installed('leaderf')
+        if Installed('leaderf')
             lclose
             LeaderfLocList
         endif

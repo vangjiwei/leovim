@@ -98,7 +98,7 @@ elseif g:complete_engine != 'cmp' && g:ctags_type != ''
     elseif Installed('vista.vim')
         nnoremap <silent><leader>t :Vista finder!<Cr>
     elseif g:symbol_tool =~ 'fzfctags'
-        nnoremap <silent><leader>t :FZFBTags<Cr>
+        nnoremap <silent><leader>t :FzfBTags<Cr>
     endif
 endif
 " --------------------------

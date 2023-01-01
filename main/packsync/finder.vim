@@ -35,7 +35,7 @@ else
     else
         PackAdd 'junegunn/fzf', {'do': './install --all', 'dir': expand('~/.local/fzf')}
     endif
-    PackAdd 'junegunn/fzf.vim' | PackAdd 'chengzeyi/fzf-preview.vim'
+    PackAdd 'junegunn/fzf.vim'
     if !Planned('leaderf')
         PackAdd 'pbogut/fzf-mru.vim'
                 \| PackAdd 'leoatchina/fzf-registers'

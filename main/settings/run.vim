@@ -294,7 +294,7 @@ if has('nvim') || v:version >= 801
             endif
             call fzf#run(opts)
         endfunction
-        command! -nargs=0 FZFAsyncTask call s:fzf_task()
-        nnoremap <silent><M-r> :FZFAsyncTask<Cr>
+        command! -nargs=0 FzfAsyncTask call s:fzf_task()
+        nnoremap <silent><M-r> :FzfAsyncTask<Cr>
     endif
 endif

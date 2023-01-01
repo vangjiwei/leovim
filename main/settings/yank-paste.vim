@@ -74,12 +74,12 @@ if Installed('leaderf-registers')
     xnoremap <silent> <M-a> :<C-u>LeaderfAppendV<Cr>
     inoremap <silent> <M-a> <ESC>:LeaderfAppendI<Cr>
 elseif Installed('fzf-registers')
-    nnoremap <silent> <M-'> :FZFRegisterPaste<Cr>
-    xnoremap <silent> <M-'> :<C-u>FZFRegisterPasteV<Cr>
-    inoremap <silent> <M-'> <C-o>:FZFRegisterPaste<Cr>
-    nnoremap <silent> <M-a> :FZFRegisterAppend<Cr>
-    xnoremap <silent> <M-a> :<C-u>FZFRegisterAppendV<Cr>
-    inoremap <silent> <M-a> <C-o>:FZFRegisterAppend<Cr>
+    nnoremap <silent> <M-'> :FzfRegisterPaste<Cr>
+    xnoremap <silent> <M-'> :<C-u>FzfRegisterPasteV<Cr>
+    inoremap <silent> <M-'> <C-o>:FzfRegisterPaste<Cr>
+    nnoremap <silent> <M-a> :FzfRegisterAppend<Cr>
+    xnoremap <silent> <M-a> :<C-u>FzfRegisterAppendV<Cr>
+    inoremap <silent> <M-a> <C-o>:FzfRegisterAppend<Cr>
 elseif InstalledTelescope()
     nnoremap <silent> <M-'> :Telescope registers<Cr>
     xnoremap <silent> <M-'> :<C-u>Telescope registers<Cr>
