@@ -633,7 +633,7 @@ else
 endif
 " --------------------------
 " complete engine
-" ------------------------------
+" --------------------------
 set completeopt-=preview
 try
     set completeopt=menu,menuone,noselect,noinsert
