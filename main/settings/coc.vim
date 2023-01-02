@@ -73,6 +73,9 @@ imap <silent><expr> <C-j> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<
 imap <silent><expr> <C-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<C-k>"
 xmap <silent><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\%"
 xmap <silent><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\g%"
+" refactor
+nnoremap <silent><M-.> :call CocAction('showIncomingCalls')<Cr>
+nnoremap <silent><M-,> :call CocAction('showOutgoingCalls')<Cr>
 " --------------------------
 " coc snippets
 " --------------------------
@@ -101,10 +104,6 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
-" refactor
-nnoremap <silent><M-.> :call CocAction('showIncomingCalls')<Cr>
-nnoremap <silent><M-,> :call CocAction('showOutgoingCalls')<Cr>
-autocmd BufRead acwrite set ma
 " ----------------------------
 " codeLens and codeaction
 " ----------------------------
