@@ -8,7 +8,6 @@ if get(g:, "complete_engine", '') != ''
     source $PACKSYNC_PATH/languages.vim
 endif
 source $PACKSYNC_PATH/tag.vim
-source $PACKSYNC_PATH/debug.vim
 " ------------------------------
 " fullscreen
 " ------------------------------
