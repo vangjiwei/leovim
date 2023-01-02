@@ -7,8 +7,8 @@ PackAdd 'vim-eunuch'
 " ------------------------
 let g:conflict_marker_enable_mappings = 0
 PackAdd 'conflict-marker.vim'
-nnoremap <leader>cf /\v^[<\|=>]{7}( .*\|$)<CR>
-nnoremap <leader>cp ?\v^[<\|=>]{7}( .*\|$)<CR>
+nnoremap <leader>c/ /\v^[<\|=>]{7}( .*\|$)<CR>
+nnoremap <leader>c? ?\v^[<\|=>]{7}( .*\|$)<CR>
 nnoremap <leader>ct :ConflictMarkerThemselves<Cr>
 nnoremap <leader>co :ConflictMarkerOurselves<Cr>
 nnoremap <leader>cn :ConflictMarkerNone<Cr>
