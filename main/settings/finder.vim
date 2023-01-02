@@ -10,8 +10,8 @@ if Installed('leaderf')
     else
         let g:fuzzy_finder = 'leaderf-fzf'
     endif
-    nnoremap <silent><C-p> :Leaderf self<Cr>
     nnoremap <leader>F :Leaderf
+    nnoremap <silent><C-p> :Leaderf self<Cr>
     nnoremap <silent><M-h>h :LeaderfHelp<Cr>
 elseif Installed('coc.nvim')
     let g:fuzzy_finder = 'coc-fzf'
