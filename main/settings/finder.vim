@@ -154,8 +154,8 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
                 \ }
     let g:Lf_CommandMap = {'<C-]>': ['<C-g>'], '<F5>': ['<F5>', '<C-l>'], '<C-l>': ['<C-e>'], '<Up>': ['<Up>', '<C-u>'], '<Down>': ['<Down>', '<C-d>']}
     " history
-    nnoremap ,. :Leaderf searchHistory<Cr>
-    nnoremap ,; :Leaderf cmdHistory<Cr>
+    nnoremap <M-h>/ :Leaderf searchHistory<Cr>
+    nnoremap <M-h>c :Leaderf cmdHistory<Cr>
     " main selector
     nnoremap <leader>b :LeaderfBufferAll<Cr>
     nnoremap <leader>B :LeaderfTabBufferAll<Cr>
@@ -247,8 +247,8 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     nnoremap Z<S-Cr> :CloseQuickfix<Cr>:Leaderf quickfix<Cr>
     nnoremap Z<Cr>   :CloseQuickfix<Cr>:Leaderf loclist<Cr>
 elseif InstalledTelescope()
-    nnoremap ,. <cmd>Telescope search_history<Cr>
-    nnoremap ,; <cmd>Telescope command_history<Cr>
+    nnoremap <M-h>/ <cmd>Telescope search_history<Cr>
+    nnoremap <M-h>c <cmd>Telescope command_history<Cr>
     nnoremap <leader>b <cmd>Telescope buffers<Cr>
     nnoremap <leader>m <cmd>Telescope oldfiles<Cr>
     nnoremap <M-j><M-j> <cmd>Telescope jumplist<cr>
@@ -261,8 +261,8 @@ elseif InstalledTelescope()
     nnoremap Z<Cr>   :CloseQuickfix<Cr>:Telescope loclist<CR>
 elseif InstalledFZF()
     let g:fuzzy_finder = get(g:, 'fuzzy_finder', 'fzf')
-    nnoremap ,. :FZFHistory/<CR>
-    nnoremap ,; :FZFHistory:<CR>
+    nnoremap <M-h>/ :FZFHistory/<CR>
+    nnoremap <M-h>c :FZFHistory:<CR>
     nnoremap <leader>b :FZFBuffers<CR>
     nnoremap <leader>m :FZFMru<CR>
     " replace origin command
@@ -348,9 +348,9 @@ if Installed("nvim-notify")
         lua require('notify')(vim.g.notify_messages, 'info', {title = 'messages'})
         unlet g:notify_messages
     endfunction
-    nnoremap <silent>,m :call Notify_messages()<Cr>
+    nnoremap <silent><M-h>m :call Notify_messages()<Cr>
     if !InstalledTelescope()
-        nnoremap <silent>,N :lua require("notify").history()<Cr>
+        nnoremap <silent><M-h>n :lua require("notify").history()<Cr>
     endif
 endif
 " --------------------------
@@ -359,7 +359,7 @@ endif
 if Installed('vim-quickui')
     let g:quickui_border_style = 2
     if !Installed('nvim-notify')
-        nnoremap <silent>,m :call quickui#tools#display_messages()<Cr>
+        nnoremap <silent><M-h>m :call quickui#tools#display_messages()<Cr>
     endif
     nnoremap <F13> :call quickui#preview#scroll(1)<Cr>
     nnoremap <F14> :call quickui#preview#scroll(-1)<Cr>

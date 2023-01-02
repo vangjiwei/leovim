@@ -409,8 +409,8 @@ nnoremap <M-'>  :registers<Cr>
 " buffers mark messages
 " ------------------------
 nnoremap <leader>b :ls<Cr>
-nnoremap <C-f>m    :marks<Cr>
-nnoremap ,m        :messages<Cr>
+nnoremap <C-f>m :marks<Cr>
+nnoremap <M-h>m :messages<Cr>
 " ------------------------
 " tab control
 " ------------------------

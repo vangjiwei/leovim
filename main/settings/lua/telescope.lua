@@ -95,7 +95,7 @@ if Installed('telescope-floaterm.nvim') then
 end
 if Installed('nvim-notify') then
   telescope.load_extension('notify')
-  map('n', ',N', [[<cmd>Telescope notify<CR>]], opts)
+  map('n', '<M-h>n', [[<cmd>Telescope notify<CR>]], opts)
 end
 if Installed('telescope-changes.nvim') then
   telescope.load_extension('changes')
