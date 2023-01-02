@@ -12,12 +12,14 @@ if Installed('leaderf')
     endif
     nnoremap <silent><C-p> :Leaderf self<Cr>
     nnoremap <leader>F :Leaderf
+    nnoremap <silent><M-h>h :LeaderfHelp<Cr>
 elseif Installed('coc.nvim')
     let g:fuzzy_finder = 'coc-fzf'
     nnoremap <silent><C-p> :CocFzfList<Cr>
 elseif InstalledTelescope()
     let g:fuzzy_finder = 'telescope'
     nnoremap <silent><C-p> :Telescope<Cr>
+    nnoremap <silent><M-h>h :Telescope help_tags<Cr>
 elseif InstalledFZF()
     let g:fuzzy_finder = 'fzf'
     nnoremap <silent><C-p> :FZF<Tab>
