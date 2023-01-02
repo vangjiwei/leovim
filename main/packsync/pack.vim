@@ -1,8 +1,8 @@
 " --------------------------
 " Important plugins
 " --------------------------
-"  NOTE: finder shuould be installed before complete_lint
-source $PACKSYNC_PATH/finder.vim
+"  NOTE: assist shuould be installed before complete_lint
+source $PACKSYNC_PATH/assist.vim
 if get(g:, "complete_engine", '') != ''
     source $PACKSYNC_PATH/program.vim
     source $PACKSYNC_PATH/languages.vim
