@@ -63,13 +63,13 @@ elseif g:complete_engine == 'coc'
 elseif g:complete_engine == 'cmp'
     call SetScheme('sonokai', 'sublime')
 elseif g:complete_engine == 'mcm'
-    call SetScheme('edge', 'codedark')
+    call SetScheme('edge', 'one')
 elseif g:complete_engine == 'apc'
     call SetScheme('nightfly', 'space-vim-dark')
 elseif g:complete_engine == 'ncc'
     colorscheme hybrid
 else
-    colorscheme one
+    colorscheme codedark
 endif
 " nvim-treesitter
 if Installed('nvim-treesitter', 'nvim-treehopper')
