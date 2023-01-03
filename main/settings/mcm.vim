@@ -9,15 +9,11 @@ if g:python_version == 0
 else
     let g:jedi#popup_on_dot = 1
 endif
+let g:mucomplete#chains = {}
+let g:mucomplete#chains.vim = ['path', 'cmd', 'keyn']
 if Installed('ultisnips')
     let g:mucomplete#ultisnips#match_at_start = 0
-    let g:mucomplete#chains = {
-                \ 'default' : ['path', 'omni', 'keyn', 'dict', 'ulti', 'uspl'],
-                \ 'vim'     : ['path', 'cmd', 'keyn']
-                \ }
+    let g:mucomplete#chains.default = ['path', 'omni', 'keyn', 'ulti', 'dict']
 else
-    let g:mucomplete#chains = {
-                \ 'default' : ['path', 'omni', 'keyn', 'dict', 'ulti', 'uspl'],
-                \ 'vim'     : ['path', 'cmd', 'keyn']
-                \ }
+    let g:mucomplete#chains.default = ['path', 'omni', 'keyn', 'dict']
 endif
