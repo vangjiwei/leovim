@@ -1,4 +1,4 @@
-let g:lsp_installer_servers = ['vimls']
+let g:lsp_installer_servers = ['vimls', 'pyright', 'bash-language-server']
 if Require('c')
     let g:lsp_installer_servers += ['cmake']
     if executable('clangd')
@@ -21,4 +21,3 @@ if Require('java') && executable('java')
     let g:lsp_installer_servers += ['jdtls']
 endif
 luafile $LUA_PATH/cmp.lua
-
