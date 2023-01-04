@@ -25,6 +25,7 @@ expand*
 *backup*
 core.[0-9]*
 adapter.lua
+plus.vim
 Gemfile
 GPATH
 GRTAGS

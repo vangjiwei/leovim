@@ -447,7 +447,7 @@ nnoremap <silent><Tab>n :tabnext<CR>
 nnoremap <silent><Tab>p :tabprevious<CR>
 nnoremap <silent><Tab>N :tabm +1<CR>
 nnoremap <silent><Tab>P :tabm -1<CR>
-nnoremap <Tab>M         :tabm<Space>
+nnoremap <Tab>m         :tabm<Space>
 " open in tab
 nnoremap <leader>T <C-w>T
 " set tab label
@@ -719,8 +719,8 @@ else
 endif
 source $PACKSYNC_PATH/pack.vim
 nnoremap <leader>ep :tabe $PACKSYNC_PATH/pack.vim<Cr>
-nnoremap <leader>eP :tabe ~/.leovim.d/plus.vim<Cr>
-if filereadable(expand("~/.leovim.d/plus.vim")) | source $HOME/.leovim.d/plus.vim | endif
+nnoremap <leader>eP :tabe ~/.leovim.conf/plus.vim<Cr>
+if filereadable(expand("~/.leovim.conf/plus.vim")) | source $HOME/.leovim.conf/plus.vim | endif
 " pack end, check installed
 if g:pack_tool == 'jetpack'
     call jetpack#end()
