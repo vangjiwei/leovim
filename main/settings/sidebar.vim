@@ -18,8 +18,8 @@ elseif Installed('lspsaga.nvim')
     let g:sidebars.tags = {
                 \ 'position': 'left',
                 \ 'check_win': function('s:check_buf_ft', ['lspsagaoutline']),
-                \ 'open': 'LSoutlineToggle',
-                \ 'close': 'LSoutlineToggle'
+                \ 'open': 'lspsaga outline',
+                \ 'close': 'lspsaga outline'
                 \ }
 elseif Installed('vista.vim')
     function! s:check_vista(nr) abort
