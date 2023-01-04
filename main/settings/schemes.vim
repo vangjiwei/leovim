@@ -8,7 +8,7 @@ set background=dark
 " --------------------------
 function! SetScheme(scheme, ...) abort
     let scheme = a:scheme
-    let defaultscheme = get(a:, 1, 'slate')
+    let defaultscheme = get(a:, 1, 'hybrid')
     try
         if get(g:, 'has_truecolor', 0) > 0
             let s:tried_true_color = 1
@@ -20,7 +20,7 @@ function! SetScheme(scheme, ...) abort
         try
             execute('colorscheme '. defaultscheme)
         catch
-            colorscheme slate
+            colorscheme hybrid
         endtry
     endtry
 endfunction
@@ -67,9 +67,9 @@ elseif g:complete_engine == 'mcm'
 elseif g:complete_engine == 'apc'
     call SetScheme('nightfly', 'space-vim-dark')
 elseif g:complete_engine == 'ncc'
-    colorscheme hybrid
-else
     colorscheme codedark
+else
+    colorscheme hybrid
 endif
 " nvim-treesitter
 if Installed('nvim-treesitter', 'nvim-treehopper')
