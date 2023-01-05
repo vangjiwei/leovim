@@ -76,6 +76,7 @@ elseif Installed('fzf-registers')
     xnoremap <silent> <M-'> :<C-u>FzfRegisterPasteV<Cr>
 elseif InstalledTelescope()
     nnoremap <silent> <M-'> :Telescope registers<Cr>
+    inoremap <silent> <M-'> <C-o>:Telescope registers<Cr>
     xnoremap <silent> <M-'> :<C-u>Telescope registers<Cr>
 endif
 " ------------------------
