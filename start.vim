@@ -18,8 +18,6 @@ end
 let $LEOVIM_PATH = expand('~/.leovim.conf')
 " set opt
 let $OPT_PATH = expand($LEOVIM_PATH . '/pack/sync/opt')
-" set runtime
-let $RUNTIME_PATH = expand($LEOVIM_PATH . '/runtime')
 " set conf_path
 let $MAIN_PATH = expand($LEOVIM_PATH . '/main')
 " set packsync/settings
@@ -30,7 +28,7 @@ let $LUA_PATH = expand($SETTINGS_PATH . '/lua')
 " ------------------------
 " runtime
 " ------------------------
-set rtp=$RUNTIME_PATH,$VIMRUNTIME
+set rtp=$VIMRUNTIME
 if exists(':packadd')
 	set packpath=$LEOVIM_PATH
 endif
@@ -167,3 +165,6 @@ endif
 " source commom.vim for vim/neovim/vscode
 " ----------------------------------------------------
 source $MAIN_PATH/common.vim
+" set runtime
+let $RUNTIME_PATH = expand($LEOVIM_PATH . '/runtime')
+set rtp+=$RUNTIME_PATH
