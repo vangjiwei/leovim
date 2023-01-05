@@ -68,18 +68,12 @@ nnoremap <M-i> :set nopaste! nopaste?<CR>
 " --------------------
 if Installed('leaderf-registers')
     nnoremap <silent> <M-'> :LeaderfPaste<Cr>
-    xnoremap <silent> <M-'> :<C-u>LeaderfPasteV<Cr>
     inoremap <silent> <M-'> <ESC>:LeaderfPasteI<Cr>
-    nnoremap <silent> <M-a> :LeaderfAppend<Cr>
-    xnoremap <silent> <M-a> :<C-u>LeaderfAppendV<Cr>
-    inoremap <silent> <M-a> <ESC>:LeaderfAppendI<Cr>
+    xnoremap <silent> <M-'> :<C-u>LeaderfPasteV<Cr>
 elseif Installed('fzf-registers')
     nnoremap <silent> <M-'> :FzfRegisterPaste<Cr>
-    xnoremap <silent> <M-'> :<C-u>FzfRegisterPasteV<Cr>
     inoremap <silent> <M-'> <C-o>:FzfRegisterPaste<Cr>
-    nnoremap <silent> <M-a> :FzfRegisterAppend<Cr>
-    xnoremap <silent> <M-a> :<C-u>FzfRegisterAppendV<Cr>
-    inoremap <silent> <M-a> <C-o>:FzfRegisterAppend<Cr>
+    xnoremap <silent> <M-'> :<C-u>FzfRegisterPasteV<Cr>
 elseif InstalledTelescope()
     nnoremap <silent> <M-'> :Telescope registers<Cr>
     xnoremap <silent> <M-'> :<C-u>Telescope registers<Cr>

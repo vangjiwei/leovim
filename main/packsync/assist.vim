@@ -13,7 +13,7 @@ endif
 if g:complete_engine == 'cmp'
     PackAdd 'nvim-lua/plenary.nvim'
                 \| PackAdd 'MunifTanjim/nui.nvim'
-                \| PackAdd 'nvim-neo-tree/neo-tree.nvim'
+                \| PackAdd 'nvim-neo-tree/neo-tree.nvim', {'branch', 'v2.x'}
                 \| PackAdd 'nvim-telescope/telescope.nvim'
                 \| PackAdd 'nvim-telescope/telescope-symbols.nvim'
     if UNIX() && executable('make')
