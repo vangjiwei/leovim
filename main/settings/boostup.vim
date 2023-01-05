@@ -255,6 +255,7 @@ nmap <M-j>t <C-w>f<C-w>T
 nmap <M-j>v <C-w>f<C-w>L
 imap <M-O> <C-o>O
 nmap <M-O> O
+nmap <M-a> ggVG
 nmap <M-A> ggVG
 " ------------------------
 " second window
