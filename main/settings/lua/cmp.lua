@@ -18,9 +18,14 @@ local sources = {
   { name = 'path' },
 }
 -- core setup
+local MAX_LABEL_WIDTH = 32
+local ELLIPSIS_CHAR = '...'
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+local get_ws = function(max, len)
+  return (" "):rep(max - len)
 end
 cmp.setup({
   sources = cmp.config.sources(sources),
@@ -120,12 +125,20 @@ cmp.setup({
   -- 使用lspkind-nvim显示类型图标
   formatting = {
     format = lspkind.cmp_format({
+      mode = 'symbol',
       with_text = true,
-      maxwidth = 50,
-      before = function(entry, vim_item)
+      maxwidth = MAX_LABEL_WIDTH,
+      ellipsis_char = ELLIPSIS_CHAR,
+      before = function(entry, item)
         -- Source 显示提示来源
-        vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
-        return vim_item
+        local content = item.abbr
+        if #content > MAX_LABEL_WIDTH then
+          item.abbr = vim.fn.strcharpart(content, 0, MAX_LABEL_WIDTH) .. ELLIPSIS_CHAR
+        else
+          item.abbr = content .. get_ws(MAX_LABEL_WIDTH, #content)
+        end
+        item.menu = "[" .. string.upper(entry.source.name) .. "]"
+        return item
       end
     })
   }
