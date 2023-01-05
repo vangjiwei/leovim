@@ -13,6 +13,7 @@ endif
 " ccls
 if Installed('vim-ccls')
     nnoremap <leader>wl :Ccls<Tab>
+    xnoremap <leader>wv :CclsVars<Cr>
     nnoremap <leader>wb :CclsBase<Cr>
     nnoremap <leader>wB :CclsBaseHierarchy<Cr>
     nnoremap <leader>wd :CclsDerived<Cr>
@@ -21,8 +22,7 @@ if Installed('vim-ccls')
     nnoremap <leader>wC :CclsCallHierarchy<Cr>
     nnoremap <leader>we :CclsCallees<Cr>
     nnoremap <leader>wE :CclsCalleeHierarchy<Cr>
-    xnoremap <leader>wv :CclsVars<Cr>
-
+    " CclsMembers
     nnoremap <leader>Wb :CclsMembers<Cr>
     nnoremap <leader>Wh :CclsMemberHierarchy<Cr>
     nnoremap <leader>Wf :CclsMemberFunctions<Cr>
@@ -30,7 +30,16 @@ if Installed('vim-ccls')
     nnoremap <leader>Wt :CclsMemberTypes<Cr>
     nnoremap <leader>WT :CclsMemberTypeHierarchy<Cr>
 endif
-
-nmap <leader>Ws :IHS<CR>
-nmap <leader>WS :IHS<CR>:A<CR>
-nmap <leader>WH :IHN<CR>
+" for a.vim
+if Installed('a.vim')
+    nnoremap <leader>ph :A<Cr>
+    nnoremap <leader>ps :AS<Cr>
+    nnoremap <leader>pv :AV<Cr>
+    nnoremap <leader>pt :AT<Cr>
+    nnoremap <leader>pn :AN<Cr>
+    nnoremap <leader>pih :IH<Cr>
+    nnoremap <leader>pis :IHS<Cr>
+    nnoremap <leader>piv :IHV<Cr>
+    nnoremap <leader>pit :IHT<Cr>
+    nnoremap <leader>pin :IHN<Cr>
+endif

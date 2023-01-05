@@ -13,6 +13,7 @@ endif
 if Require('c')
     PackAdd 'chxuan/cpp-mode', {'for': g:c_filetypes}
     PackAdd 'jackguo380/vim-lsp-cxx-highlight', {'for': g:c_filetypes}
+    PackAdd 'vim-scripts/a.vim', {'for': g:c_filetypes}
     if executable('cppman')
         PackAdd 'skywind3000/vim-cppman', {'for': g:c_filetypes}
     endif
