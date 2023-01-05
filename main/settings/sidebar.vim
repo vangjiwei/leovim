@@ -18,8 +18,8 @@ elseif Installed('lspsaga.nvim')
     let g:sidebars.tags = {
                 \ 'position': 'left',
                 \ 'check_win': function('s:check_buf_ft', ['lspsagaoutline']),
-                \ 'open': 'lspsaga outline',
-                \ 'close': 'lspsaga outline'
+                \ 'open':  'Lspsaga outline',
+                \ 'close': 'Lspsaga outline'
                 \ }
 elseif Installed('vista.vim')
     function! s:check_vista(nr) abort
@@ -32,9 +32,9 @@ elseif Installed('vista.vim')
                 \ 'close': 'Vista!!'
                 \ }
 endif
-nnoremap ,t <C-t>
 if has_key(g:sidebars, 'tags')
     nnoremap <silent><C-t> :call sidebar#toggle('tags')<CR>
+    nnoremap ,t <C-t>
 endif
 " tree_browser
 if Installed('coc.nvim')
