@@ -13,11 +13,7 @@ function! YankFromBeginning() abort
 endfunction
 nnoremap gy :call YankFromBeginning()<Cr>
 cnoremap <M-'> <C-r>"
-cnoremap <C-y> <C-r>"
 inoremap <M-'> <C-r>"
-if g:advanced_complete_engine == 0
-    inoremap <expr><C-y> pumvisible()? "\<C-y>":"\<C-r>\""
-endif
 if has('clipboard')
     if UNIX()
         nnoremap <M-c>+ viw"+y

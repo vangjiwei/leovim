@@ -229,7 +229,7 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
                 \ '<C-u>':    'clear_line',
                 \ '<C-w>':    'delete_left_word',
                 \ '<C-d>':    'delete',
-                \ '<C-y>':    'paste',
+                \ '<C-v>':    'paste',
                 \ '<C-a>':    'home',
                 \ '<C-e>':    'end',
                 \ '<C-b>':    'left',
