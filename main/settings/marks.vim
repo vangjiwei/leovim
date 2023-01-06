@@ -46,7 +46,7 @@ if Installed('leaderf-marks')
 elseif InstalledTelescope()
     nnoremap <C-f>m :Telescope marks<Cr>
 elseif InstalledFZF()
-    nnoremap <C-f>m :FzfMarks<CR>
+    nnoremap <C-f>m :FZFMarks<CR>
 endif
 if Installed('indentLine')
     let g:indentLine_color_dark      = 1 " (default: 2)

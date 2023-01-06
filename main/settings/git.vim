@@ -42,8 +42,8 @@ elseif InstalledFZF()
         nnoremap <M-g>c :CocFzfList bcommits<Cr>
         nnoremap <M-g>f :CocFzfList gfiles<CR>
     else
-        nnoremap <M-g>c :FzfBCommits<Cr>
-        nnoremap <M-g>f :FzfGFiles?<CR>
+        nnoremap <M-g>c :FZFBCommits<Cr>
+        nnoremap <M-g>f :FZFGFiles?<CR>
     endif
 endif
 "########## Merge ##########{{{
