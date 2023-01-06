@@ -264,10 +264,12 @@ function! s:open_in_postion(position) abort
     elseif a:position == 'split'
         split
         call Tools_PreviousCursor('ctrlo')
-    else
+    elseif a:position == 'tabe'
         split
         call Tools_PreviousCursor('ctrlo')
         execute("silent! normal \<C-w>T")
+    else
+        return
     endif
 endfunction
 " ------------------------
@@ -340,7 +342,7 @@ function! LspOrTagOrSearchAll(command, ...) abort
         if CocOrTagls(command, position, get(g:, 'tagls_import', 0))
             let l:tag_found = 2
             call s:settagstack(winnr, tagname, pos)
-            if !g:coc_locations_change
+            if !g:coc_locations_change && position != ''
                 call s:open_in_postion(position)
             endif
         endif
