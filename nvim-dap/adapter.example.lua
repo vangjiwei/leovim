@@ -1,12 +1,12 @@
 ---------------------
--- function get_adapter
+-- function get_mason_adapter
 ---------------------
-function _G.get_adapter(adapter)
+function _G.get_mason_adapter(adapter)
   local adp = ""
   if WINDOWS() then
-    adp = vim.fn.expand("$HOME/AppData/Local/nvim-data/mason/") .. "bin\\" .. adapter .. ".cmd"
+    adp = vim.fn.expand("$HOME\\AppData\\Local\\nvim-data\\mason\\bin\\") .. adapter .. ".cmd"
   elseif UNIX() then
-    adp = vim.fn.expand("$HOME/.local/share/nvim/mason/") .. "bin/" .. adapter
+    adp = vim.fn.expand("$HOME/.local/share/nvim/mason/bin/")  .. adapter
   else
     return nil
   end
@@ -48,11 +48,11 @@ dap.configurations.python = {
   }
 }
 -- lldb
-if vim.g.dap_cpprust == 'vscode-cpptools' then
+if vim.g.dap_cpprust == 'cpptools' then
   dap.adapters.cppdbg = {
     id = 'cppdbg',
     type = 'executable',
-    command = dap_install_path .. '/cpptools/extension/debugAdapters/bin/OpenDebugAD7',
+    command = get_mason_adapter('OpenDebugAD7')
   }
   dap.configurations.cpp = {
     {
@@ -82,7 +82,7 @@ else
   dap.adapters.codelldb = function(on_adapter)
     local stdout       = vim.loop.new_pipe(false)
     local stderr       = vim.loop.new_pipe(false)
-    local cmd          = dap_install_path .. '/codelldb/extension/adapter/codelldb'
+    local cmd          = get_mason_adapter()
     local handle, pid_or_err
     local opts         = {
       stdio = { nil, stdout, stderr },
@@ -144,5 +144,5 @@ dap.configurations.rust = dap.configurations.cpp
 dap.adapters.node       = {
   type    = 'executable';
   command = 'node';
-  args    = { dap_install_path .. '/jsnode/out/src/nodeDebug.js' };
+  args    = { get_mason_adapter('nodeDebug.js') };
 }
