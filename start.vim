@@ -28,7 +28,8 @@ let $LUA_PATH = expand($SETTINGS_PATH . '/lua')
 " ------------------------
 " runtime
 " ------------------------
-set rtp=$VIMRUNTIME
+let $RUNTIME_PATH = expand($LEOVIM_PATH . '/runtime')
+set rtp=$VIMRUNTIME,$RUNTIME_PATH
 if exists(':packadd')
 	set packpath=$LEOVIM_PATH
 endif
@@ -166,5 +167,3 @@ endif
 " ----------------------------------------------------
 source $MAIN_PATH/common.vim
 " set runtime
-let $RUNTIME_PATH = expand($LEOVIM_PATH . '/runtime')
-set rtp+=$RUNTIME_PATH
