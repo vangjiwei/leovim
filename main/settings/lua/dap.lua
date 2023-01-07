@@ -11,6 +11,15 @@ local dapui = require("dapui")
 dapui.setup({
   -- Expand lines larger than the window
   expand_lines = true,
+  mappings = {
+    -- Use a table to apply multiple mappings
+    expand = { "<CR>", "<2-LeftMouse>" },
+    open = "o",
+    remove = "d",
+    edit = "e",
+    repl = "r",
+    toggle = "t",
+  },
   layouts = {
     {
       elements = {
@@ -45,8 +54,10 @@ dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
-  dapui.close()
+  dapui.close({})
+  dap.repl.close()
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
-  dapui.close()
+  dapui.close({})
+  dap.repl.close()
 end
