@@ -129,21 +129,26 @@ require('mason').setup({
 })
 require('mason-lspconfig').setup({
   automatic_installation = true,
-  ensure_installed = vim.g.lsp_installer_servers,
 })
--- lsp-setup
-local servers = {}
-require('lsp-setup').setup({
-  default_mappings = false,
-  capabilities = vim.lsp.protocol.make_client_capabilities(),
+-- lsp-zero
+local lsp = require('lsp-zero')
+lsp.preset('recommended')
+-- Install these servers
+lsp.ensure_installed(vim.g.lsp_installer_servers)
+-- Pass arguments to a language server
+lsp.configure('tsserver', {
   on_attach = function(client, bufnr)
-    local bufmap = vim.api.nvim_buf_set_keymap
-    -- Support custom the on_attach function for global
-    -- Formatting on save as default
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    print('hello tsserver')
   end,
-  servers = servers
+  settings = {
+    completions = {
+      completeFunctionCalls = true
+    }
+  }
 })
+-- Configure lua language server for neovim
+lsp.nvim_workspace()
+lsp.setup()
 -----------------
 -- keymaps
 -----------------
