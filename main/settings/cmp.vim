@@ -1,4 +1,4 @@
-let g:lsp_installer_servers = ['vimls', 'pyright', 'tsserver']
+let g:lsp_installer_servers = ['vimls', 'pyright']
 if Require('c')
     let g:lsp_installer_servers += ['cmake']
     if executable('clangd')
