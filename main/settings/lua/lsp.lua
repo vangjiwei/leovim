@@ -1,5 +1,44 @@
 local opts    = { noremap = true, silent = true }
 local map     = vim.api.nvim_set_keymap
+-----------------
+-- mason/lspconfig/lspsetup
+-----------------
+require('mason').setup({
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗"
+    }
+  }
+})
+require('mason-lspconfig').setup({
+  automatic_installation = true,
+  ensure_installed = vim.g.lsp_installer_servers,
+})
+local lspconfig = require('lspconfig')
+local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+local lsp_attach = function(client, bufnr)
+  -- format
+  vim.keymap.set('n', '<C-q>', vim.lsp.buf.format, {buffer=bufnr})
+  vim.keymap.set('x', '<C-q>', vim.lsp.buf.range_formatting, {buffer=bufnr})
+  -- call hierrachy
+  vim.keymap.set('n', '<M-.>', vim.lsp.buf.incoming_calls, {buffer=bufnr})
+  vim.keymap.set('n', '<M-,>', vim.lsp.buf.outgoing_calls, {buffer=bufnr})
+  -- definition type_definition declaration implementation
+  vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {buffer=bufnr})
+  vim.keymap.set('n', 'gh', vim.lsp.buf.type_definition, {buffer=bufnr})
+  vim.keymap.set('n', 'gl', vim.lsp.buf.declaration, {buffer=bufnr})
+  vim.keymap.set('n', 'gm', vim.lsp.buf.implementation, {buffer=bufnr})
+  vim.keymap.set('n', '<M-/>', vim.lsp.buf.references, {buffer=bufnr})
+end
+local get_servers = require('mason-lspconfig').get_installed_servers
+for _, server_name in ipairs(get_servers()) do
+  lspconfig[server_name].setup({
+    on_attach = lsp_attach,
+    capabilities = lsp_capabilities,
+  })
+end
 --------------------------------
 -- lspsaga
 --------------------------------
@@ -116,50 +155,10 @@ if vim.fn.has('nvim-0.8') > 0 then
   })
 end
 -----------------
--- mason/lspconfig/lspsetup
------------------
-require('mason').setup({
-  ui = {
-    icons = {
-      package_installed = "✓",
-      package_pending = "➜",
-      package_uninstalled = "✗"
-    }
-  }
-})
-require('mason-lspconfig').setup({
-  automatic_installation = true,
-  ensure_installed = vim.g.lsp_installer_servers,
-})
--- lsp-setup
-local servers = {}
-require('lsp-setup').setup({
-  default_mappings = false,
-  capabilities = vim.lsp.protocol.make_client_capabilities(),
-  on_attach = function(client, bufnr)
-    local bufmap = vim.api.nvim_buf_set_keymap
-    -- Support custom the on_attach function for global
-    -- Formatting on save as default
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  end,
-  servers = servers
-})
------------------
 -- keymaps
 -----------------
+-- Mason
 map('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
--- format
-map('n', '<C-q>', [[<cmd>lua vim.lsp.buf.format()<CR>]], opts)
-map('x', '<C-q>', [[<cmd>lua vim.lsp.buf.range_formatting()<CR><ESC>]], opts)
--- call hierrachy
-map('n', '<M-.>', [[<cmd>lua vim.lsp.buf.incoming_calls()<CR>]], opts)
-map('n', '<M-,>', [[<cmd>lua vim.lsp.buf.outgoing_calls()<CR>]], opts)
--- definition type_definition declaration implementation
-map('n', '<C-]>', [[<cmd>lua vim.lsp.buf.definition()<CR>]], opts)
-map('n', 'gh', [[<cmd>lua vim.lsp.buf.type_definition()<CR>]], opts)
-map('n', 'gl', [[<cmd>lua vim.lsp.buf.declaration()<CR>]], opts)
-map('n', 'gm', [[<cmd>lua vim.lsp.buf.implementation()<CR>]], opts)
-map('n', '<M-/>', [[<cmd>lua vim.lsp.buf.references()<CR>]], opts)
 -- lspsaga
 map('n', '<F2>', [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)

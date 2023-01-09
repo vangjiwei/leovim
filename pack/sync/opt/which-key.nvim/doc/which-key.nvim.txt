@@ -1,20 +1,20 @@
-*which-key.txt*          For NVIM v0.8.0          Last change: 2023 January 04
+*which-key.nvim.txt*      For Neovim >= 0.8.0     Last change: 2023 January 07
 
 ==============================================================================
-Table of Contents                                *which-key-table-of-contents*
+Table of Contents                           *which-key.nvim-table-of-contents*
 
-1. 💥 Which Key                                   |which-key-💥-which-key|
-  - ✨ Features                                      |which-key-✨-features|
-  - ⚡️ Requirements                        |which-key-⚡️-requirements|
-  - 📦 Installation                            |which-key-📦-installation|
-  - ⚙️ Configuration                      |which-key-⚙️-configuration|
-  - 🪄 Setup                                          |which-key-🪄-setup|
-  - 🚀 Usage                                          |which-key-🚀-usage|
-  - 🔥 Plugins                                      |which-key-🔥-plugins|
-  - 🎨 Colors                                        |which-key-🎨-colors|
+1. Which Key                                        |which-key.nvim-which-key|
+  - Features                                         |which-key.nvim-features|
+  - Requirements                                 |which-key.nvim-requirements|
+  - Installation                                 |which-key.nvim-installation|
+  - Configuration                               |which-key.nvim-configuration|
+  - 🪄 Setup                                     |which-key.nvim-🪄-setup|
+  - Usage                                               |which-key.nvim-usage|
+  - Plugins                                           |which-key.nvim-plugins|
+  - Colors                                             |which-key.nvim-colors|
 
 ==============================================================================
-1. 💥 Which Key                                   *which-key-💥-which-key*
+1. Which Key                                        *which-key.nvim-which-key*
 
 **WhichKey** is a lua plugin for Neovim 0.5 that displays a popup with possible
 key bindings of the command you started typing. Heavily inspired by the
@@ -26,7 +26,7 @@ vim-which-key <https://github.com/liuchengxu/vim-which-key>.
 <p class="caption">image</p>
 </div>
 
-✨ FEATURES                                          *which-key-✨-features*
+FEATURES                                             *which-key.nvim-features*
 
 
 - for Neovim 0.7 and higher, it uses the `desc` attributes of your mappings as the default label
@@ -43,19 +43,19 @@ vim-which-key <https://github.com/liuchengxu/vim-which-key>.
     - **spelling:** spelling suggestions inside the which-key popup
 
 
-⚡️ REQUIREMENTS                            *which-key-⚡️-requirements*
+REQUIREMENTS                                     *which-key.nvim-requirements*
 
 
 - Neovim >= 0.5.0
 
 
-📦 INSTALLATION                                *which-key-📦-installation*
+INSTALLATION                                     *which-key.nvim-installation*
 
 Install the plugin with your preferred package manager:
 
 VIM-PLUG <HTTPS://GITHUB.COM/JUNEGUNN/VIM-PLUG> ~
 
->
+>vim
     " Vim Script
     Plug 'folke/which-key.nvim'
     
@@ -71,7 +71,7 @@ VIM-PLUG <HTTPS://GITHUB.COM/JUNEGUNN/VIM-PLUG> ~
 
 PACKER <HTTPS://GITHUB.COM/WBTHOMASON/PACKER.NVIM> ~
 
->
+>lua
     -- Lua
     use {
       "folke/which-key.nvim",
@@ -86,29 +86,29 @@ PACKER <HTTPS://GITHUB.COM/WBTHOMASON/PACKER.NVIM> ~
 <
 
 
-⚙️ CONFIGURATION                          *which-key-⚙️-configuration*
+CONFIGURATION                                   *which-key.nvim-configuration*
 
 
-  ❗️ IMPORTANT: the timeout when **WhichKey** opens is controlled by the vim
-  setting |timeoutlen|. Please refer to the documentation to properly set it up.
-  Setting it to `0`, will effectively always show **WhichKey** immediately, but a
-  setting of `500` (500ms) is probably more appropriate.
+  IMPORTANT: the timeout when **WhichKey** opens is controlled by the vim setting
+  |timeoutlen|. Please refer to the documentation to properly set it up. Setting
+  it to `0`, will effectively always show **WhichKey** immediately, but a setting
+  of `500` (500ms) is probably more appropriate.
 
 
 
-  ❗️ don’t create any keymappings yourself to trigger WhichKey. Unlike with
+  don’t create any keymappings yourself to trigger WhichKey. Unlike with
   _vim-which-key_, we do this fully automatically. Please remove any left-over
   triggers you might have from using _vim-which-key_.
 
 
 
-  🚑 You can run `:checkhealth which_key` to see if there’s any conflicting
+  You can run `:checkhealth which_key` to see if there’s any conflicting
   keymaps that will prevent triggering **WhichKey**
 
 
 WhichKey comes with the following defaults:
 
->
+>lua
     {
       plugins = {
         marks = true, -- shows a list of your marks on ' and `
@@ -141,7 +141,7 @@ WhichKey comes with the following defaults:
       },
       icons = {
         breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-        separator = "➜", -- symbol used between a key and it's label
+        separator = "", -- symbol used between a key and it's label
         group = "+", -- symbol prepended to a group
       },
       popup_mappings = {
@@ -184,7 +184,7 @@ WhichKey comes with the following defaults:
 <
 
 
-🪄 SETUP                                              *which-key-🪄-setup*
+🪄 SETUP                                         *which-key.nvim-🪄-setup*
 
 With the default settings, **WhichKey** will work out of the box for most
 builtin keybindings, but the real power comes from documenting and organizing
@@ -193,7 +193,7 @@ your own keybindings.
 To document and/or setup your own mappings, you need to call the `register`
 method
 
->
+>lua
     local wk = require("which-key")
     wk.register(mappings, opts)
 <
@@ -201,7 +201,7 @@ method
 
 Default options for `opts`
 
->
+>lua
     {
       mode = "n", -- NORMAL mode
       -- prefix: use "<leader>f" for example for mapping everything related to finding files
@@ -216,15 +216,15 @@ Default options for `opts`
 
 
 
-  ❕ When you specify a command in your mapping that starts with `<Plug>`, then
-  we automatically set `noremap=false`, since you always want recursive
-  keybindings in this case
+  When you specify a command in your mapping that starts with `<Plug>`, then we
+  automatically set `noremap=false`, since you always want recursive keybindings
+  in this case
 
 
-⌨️ MAPPINGS ~
+MAPPINGS ~
 
 
-  ⌨ for **Neovim 0.7** and higher, which key will use the `desc` attribute of
+  for **Neovim 0.7** and higher, which key will use the `desc` attribute of
   existing mappings as the default label
 
 
@@ -232,15 +232,15 @@ Group names use the special `name` key in the tables. There’s multiple ways
 to define the mappings. `wk.register` can be called multiple times from
 anywhere in your config files.
 
->
+>lua
     local wk = require("which-key")
     -- As an example, we will create the following mappings:
-    --  * <leader>ff find files
-    --  * <leader>fr show recent files
-    --  * <leader>fb Foobar
+    --   <leader>ff find files
+    --   <leader>fr show recent files
+    --   <leader>fb Foobar
     -- we'll document:
-    --  * <leader>fn new file
-    --  * <leader>fe edit file
+    --   <leader>fn new file
+    --   <leader>fe edit file
     -- and hide <leader>1
     
     wk.register({
@@ -259,7 +259,7 @@ anywhere in your config files.
 
 Click to see more examples
 
->
+>lua
     -- all of the mappings below are equivalent
     
     -- method 2
@@ -297,7 +297,7 @@ Click to see more examples
 **Tips:** The default label is `keymap.desc` or `keymap.rhs` or `""`, `:h
 nvim_set_keymap()` to get more details about `desc` and `rhs`.
 
-🚙 OPERATORS, MOTIONS AND TEXT OBJECTS ~
+OPERATORS, MOTIONS AND TEXT OBJECTS ~
 
 **WhichKey** provides help to work with operators, motions and text objects.
 
@@ -319,7 +319,7 @@ nvim_set_keymap()` to get more details about `desc` and `rhs`.
 
 How to disable some operators? (like v)
 
->
+>lua
     -- make sure to run this code before calling setup()
     -- refer to the full lists at https://github.com/folke/which-key.nvim/blob/main/lua/which-key/plugins/presets/init.lua
     local presets = require("which-key.plugins.presets")
@@ -327,7 +327,7 @@ How to disable some operators? (like v)
 <
 
 
-🚀 USAGE                                              *which-key-🚀-usage*
+USAGE                                                   *which-key.nvim-usage*
 
 When the **WhichKey** popup is open, you can use the following key bindings
 (they are also displayed at the bottom of the screen):
@@ -344,12 +344,12 @@ Apart from the automatic opening, you can also manually open **WhichKey** for a
 certain `prefix`:
 
 
-  ❗️ don’t create any keymappings yourself to trigger WhichKey. Unlike with
+  don’t create any keymappings yourself to trigger WhichKey. Unlike with
   _vim-which-key_, we do this fully automatically. Please remove any left-over
   triggers you might have from using _vim-which-key_.
 
 
->
+>vim
     :WhichKey " show all mappings
     :WhichKey <leader> " show all <leader> mappings
     :WhichKey <leader> v " show all <leader> mappings for VISUAL mode
@@ -357,7 +357,7 @@ certain `prefix`:
 <
 
 
-🔥 PLUGINS                                          *which-key-🔥-plugins*
+PLUGINS                                               *which-key.nvim-plugins*
 
 Four built-in plugins are included with **WhichKey**.
 
@@ -400,7 +400,7 @@ suggestions window by a list of suggestions within **WhichKey**.
 <p class="caption">image</p>
 </div>
 
-🎨 COLORS                                            *which-key-🎨-colors*
+COLORS                                                 *which-key.nvim-colors*
 
 The table below shows all the highlight groups defined for **WhichKey** with
 their default link.
