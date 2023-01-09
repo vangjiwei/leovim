@@ -172,8 +172,8 @@ elseif g:has_terminal > 0
 endif
 if has('nvim') || has('timers') && has('channel') && has('job')
     let g:asyncrun_rootmarks = g:root_patterns
-    nnoremap <silent><Tab>c :AsyncStop<CR>
-    nnoremap <silent><Tab>C :AsyncStop!<CR>
+    nnoremap <silent><Tab>q :AsyncStop<CR>
+    nnoremap <silent><Tab>c :AsyncStop!<CR>
     nnoremap <leader>R :AsyncRun
     let g:run_command = "AsyncRun "
     PackAdd 'asyncrun.vim'

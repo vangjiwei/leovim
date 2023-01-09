@@ -382,7 +382,7 @@ if Installed('vim-quickui')
         command! -nargs=1 -complete=file PreviewFileW call s:PreviewFileW(<f-args>)
         nnoremap ,<Tab> :PreviewFileW<Space>
     endif
-    " au FileType python nnoremap K call quickui#tools#python_help("")
+    au FileType python nnoremap K call quickui#tools#python_help("")
 endif
 " --------------------------
 " changes

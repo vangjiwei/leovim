@@ -417,8 +417,10 @@ nnoremap <M-h>m :messages<Cr>
 " ------------------------
 set tabpagemax=10
 set showtabline=2
-nnoremap <M-W> :tabonly<Cr>
-xnoremap <M-W> <ESC>:tabonly<Cr>
+nnoremap <silent><M-w> :tabclose<Cr>
+xnoremap <silent><M-w> <ESC>:tabclose<Cr>
+nnoremap <silent><M-W> :tabonly<Cr>
+xnoremap <silent><M-W> <ESC>:tabonly<Cr>
 nnoremap <silent> <Tab>1 :tabm 0<Cr>
 nnoremap <silent> <Tab>0 :tabm<Cr>
 nnoremap <silent> <M-1>  :tabn1<Cr>
@@ -500,11 +502,6 @@ if g:gui_running
 else
     set tabline=%!Vim_NeatTabLine()
 endif
-" ------------------------
-" choosewin
-" ------------------------
-PackAdd 'vim-choosewin'
-nmap <M-w> <Plug>(choosewin)
 " ------------------------
 " windows resize
 " ------------------------
@@ -897,9 +894,9 @@ xnoremap <silent> Q <ESC>
 command! BdOther silent! execute "%bd|e#|bd#"
 nnoremap <silent><leader>Q :BdOther<Cr>
 " close
-nnoremap <silent><leader>q :q!<Cr>
-nnoremap <silent><tab>q    :tabclose<Cr>
+nnoremap <silent><leader>q    :q!<Cr>
 nnoremap <silent><leader><BS> :qall!<Cr>
+"
 " ------------------------
 " source start.vim
 " ------------------------

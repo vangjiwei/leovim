@@ -54,10 +54,6 @@ git clone --depth 1 https://github.com/tpope/vim-eunuch.git
 rm -rf vim-sandwich
 git clone --depth 1 https://github.com/machakann/vim-sandwich.git
 
-# vim-choosewin
-rm -rf vim-choosewin
-git clone --depth 1 https://github.com/t9md/vim-choosewin.git
-
 # vim-grepper
 rm -rf vim-grepper
 git clone --depth 1  https://github.com/mhinz/vim-grepper.git
