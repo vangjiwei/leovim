@@ -53,6 +53,7 @@ else
 endif
 let g:asyncrun_rootmarks = g:root_patterns
 if UNIX()
+    call system("mkdir -p ~/.cache/build")
     let g:gcc_cmd = get(g:, 'gcc_cmd', 'time gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$HOME/.cache/build/$(VIM_FILENOEXT)" && time "$HOME/.cache/build/$(VIM_FILENOEXT)"')
     let g:gpp_cmd = get(g:, 'gpp_cmd', 'time g++ -Wall -O2 "$(VIM_FILEPATH)" -o "$HOME/.cache/build/$(VIM_FILENOEXT)" && time "$HOME/.cache/build/$(VIM_FILENOEXT)"')
 elseif WINDOWS() && executable('gcc')
