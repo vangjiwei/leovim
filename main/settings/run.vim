@@ -53,13 +53,11 @@ else
 endif
 let g:asyncrun_rootmarks = g:root_patterns
 if UNIX()
-    call system("mkdir -p ~/.cache/build")
     let g:gcc_cmd = get(g:, 'gcc_cmd', 'time gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$HOME/.cache/build/$(VIM_FILENOEXT)" && time "$HOME/.cache/build/$(VIM_FILENOEXT)"')
     let g:gpp_cmd = get(g:, 'gpp_cmd', 'time g++ -Wall -O2 "$(VIM_FILEPATH)" -o "$HOME/.cache/build/$(VIM_FILENOEXT)" && time "$HOME/.cache/build/$(VIM_FILENOEXT)"')
 elseif WINDOWS() && executable('gcc')
-    call system("md %HOME%\\.cache\\build")
-    let g:gcc_cmd = get(g:, 'gcc_cmd', 'ptime gcc $(VIM_FILEPATH) -o %HOME%\\.cache\\build\\$(VIM_FILENOEXT) & ptime %HOME%\\.cache\\build\\$(VIM_FILENOEXT)')
-    let g:gpp_cmd = get(g:, 'gpp_cmd', 'ptime g++ $(VIM_FILEPATH) -o %HOME%\\.cache\\build\\$(VIM_FILENOEXT) & ptime %HOME%\\.cache\\build\\$(VIM_FILENOEXT)')
+    let g:gcc_cmd = get(g:, 'gcc_cmd', 'md build 2>NULL & ptime gcc $(VIM_FILEPATH) -o build/$(VIM_FILENOEXT) & ptime build/$(VIM_FILENOEXT)')
+    let g:gpp_cmd = get(g:, 'gpp_cmd', 'md build 2>NULL & ptime g++ $(VIM_FILEPATH) -o build/$(VIM_FILENOEXT) & ptime build/$(VIM_FILENOEXT)')
 endif
 function! s:RunNow(type)
     w!
