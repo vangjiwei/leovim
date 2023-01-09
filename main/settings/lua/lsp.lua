@@ -163,13 +163,17 @@ map('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
 map('n', '<F2>', [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<C-h>', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
-map('n', '<M-:>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
 map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)
 map('n', "<leader>a<cr>", [[<cmd>Lspsaga code_action<Cr>]], opts)
 map('x', "<leader>a<cr>", [[<cmd>Lspsaga range_code_action<CR>]], opts)
 map('n', '<leader>al', [[:Lspsaga ]], { noremap = true, silent = false })
+if WINDOWS() then
+  map('n', '<M-:>', [[<cmd>Lspsaga preview_definition<CR>]], opts)
+else
+  map('n', '<M-:>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
+end
 -- Telescope
-map('n', 't<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]], opts)
+map('n', 't<Cr>', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
 map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
 map('n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
 map('n', 'ZL', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
