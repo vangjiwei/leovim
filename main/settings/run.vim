@@ -42,16 +42,6 @@ command! OpenQuickfix   call s:open_close_qf(2)
 if WINDOWS()
     let g:asyncrun_encs = get(g:, 'asyncrun_encs', 'gbk')
 endif
-if has('nvim') || has('timers') && has('channel') && has('job')
-    nnoremap <silent><Tab>c :AsyncStop<CR>
-    nnoremap <silent><Tab>C :AsyncStop!<CR>
-    nnoremap <leader>R :AsyncRun
-    let g:run_command = "AsyncRun"
-else
-    let g:run_command = "! "
-    nnoremap <leader>R :!
-endif
-let g:asyncrun_rootmarks = g:root_patterns
 if UNIX()
     call system("mkdir -p ~/.cache/build")
     let g:gcc_cmd = get(g:, 'gcc_cmd', 'time gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$HOME/.cache/build/$(VIM_FILENOEXT)" && time "$HOME/.cache/build/$(VIM_FILENOEXT)"')
@@ -65,7 +55,7 @@ function! s:RunNow(type)
     let type = a:type
     if type < 0 | let type = 0 | endif
     if &filetype != '' && &filetype != 'markdown' && &filetype != 'startify'
-        if g:run_command == "!"
+        if g:run_command =~ "!"
             let params = " "
         elseif g:has_terminal
             if type == 2
@@ -180,7 +170,17 @@ elseif g:has_terminal > 0
     command! RunFloaterm call <SID>RunNow(3)
     nnoremap <M-F> :RunFloaterm<CR>
 endif
-PackAdd 'asyncrun.vim'
+if has('nvim') || has('timers') && has('channel') && has('job')
+    let g:asyncrun_rootmarks = g:root_patterns
+    nnoremap <silent><Tab>c :AsyncStop<CR>
+    nnoremap <silent><Tab>C :AsyncStop!<CR>
+    nnoremap <leader>R :AsyncRun
+    let g:run_command = "AsyncRun "
+    PackAdd 'asyncrun.vim'
+else
+    let g:run_command = "! "
+    nnoremap <leader>R :!
+endif
 " ----------------
 " asynctasks
 " ----------------
