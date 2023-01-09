@@ -162,6 +162,7 @@ function! InstalledLsp()
                 \ 'nvim-lspconfig',
                 \ 'mason.nvim',
                 \ 'mason-lspconfig.nvim',
+                \ 'cmp-nvim-lsp',
                 \ 'lspsaga.nvim',
                 \ )
 endfunction
@@ -169,6 +170,7 @@ function! InstalledCmp()
     return Installed(
                 \ 'nvim-cmp',
                 \ 'cmp-nvim-lsp',
+                \ 'cmp-nvim-lua',
                 \ 'cmp-path',
                 \ 'cmp-buffer',
                 \ 'cmp-omni',
