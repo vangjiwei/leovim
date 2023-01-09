@@ -162,7 +162,6 @@ function! InstalledLsp()
                 \ 'nvim-lspconfig',
                 \ 'mason.nvim',
                 \ 'mason-lspconfig.nvim',
-                \ 'lsp-zero.nvim',
                 \ 'lspsaga.nvim',
                 \ )
 endfunction
