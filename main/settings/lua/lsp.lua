@@ -127,12 +127,11 @@ require('mason').setup({
     }
   }
 })
-require('mason-lspconfig').setup({
-  automatic_installation = true,
-})
+require('mason-lspconfig').setup({})
 -- lsp-zero
 local lsp = require('lsp-zero')
 lsp.preset('recommended')
+lsp.extend_lspconfig()
 -- Install these servers
 lsp.ensure_installed(vim.g.lsp_installer_servers)
 -- Pass arguments to a language server
