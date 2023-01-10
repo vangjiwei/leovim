@@ -320,7 +320,12 @@ if has('clipboard')
     " yank
     nnoremap Y  "*y$:echo "Yank to the line ending to clipboard"<Cr>
     nnoremap yy "*yy:echo "Yank the line to clipboard"<Cr>
-    xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
+    if !exists('g:vscode')
+    if has('nvim')
+        xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
+    else
+        xnoremap <C-c> "*y:echo "Yank selected to clipboard"<Cr>
+    endif
 else
     nnoremap Y y$
     xnoremap <C-c> y
