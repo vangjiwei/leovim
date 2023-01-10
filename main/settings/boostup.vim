@@ -896,7 +896,6 @@ nnoremap <silent><leader>Q :BdOther<Cr>
 " close
 nnoremap <silent><leader>q    :q!<Cr>
 nnoremap <silent><leader><BS> :qall!<Cr>
-"
 " ------------------------
 " source start.vim
 " ------------------------
