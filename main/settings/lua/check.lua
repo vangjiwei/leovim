@@ -11,8 +11,8 @@ map('n', '[e', [[<cmd>lua LspsagaJumpError(0)<Cr>]], opts)
 map('n', ']e', [[<cmd>lua LspsagaJumpError(1)<Cr>]], opts)
 map('n', '[d', [[<cmd>Lspsaga diagnostic_jump_prev<Cr>]], opts)
 map('n', ']d', [[<cmd>Lspsaga diagnostic_jump_next<Cr>]], opts)
-map('n', '<leader>I', [[<cmd>Lspsaga show_line_diagnostics<Cr>]], opts)
-map('n', '<leader>i', [[<cmd>Lspsaga show_cursor_diagnostics<Cr>]], opts)
+map('n', '<M-h>d', [[<cmd>Lspsaga show_cursor_diagnostics<Cr>]], opts)
+map('n', '<M-h>D', [[<cmd>Lspsaga show_line_diagnostics<Cr>]], opts)
 -- toggle diagnostic
 vim.g.diagnostics_enable = true
 function _G.toggle_diagnostics()
@@ -51,4 +51,3 @@ vim.diagnostic.config({
   underline = false,
 })
 map('n', "<leader>D", [[<cmd>lua toggle_diagnostics_hightlights()<Cr>]], {silent = true, noremap = true})
-

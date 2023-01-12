@@ -21,7 +21,6 @@ elseif Installed('coc.nvim')
         else
             nnoremap <silent> <leader>o :CocFzfList diagnostics<CR>
         endif
-        nnoremap <silent> <leader>i :call CocAction('diagnosticPreview')<CR>
         nmap <silent>]d <Plug>(coc-diagnostic-next)
         nmap <silent>[d <Plug>(coc-diagnostic-prev)
         nmap <silent>]e <Plug>(coc-diagnostic-next-error)
