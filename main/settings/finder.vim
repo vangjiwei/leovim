@@ -33,9 +33,7 @@ if InstalledTelescope()
     nnoremap <M-h>q <cmd>Telescope quickfixhistory<Cr>
     nnoremap <M-h>. <cmd>Telescope resume<Cr>
     if Installed('leaderf')
-        nnoremap <M-C> :Telescope<Cr>
-    else
-        nnoremap <M-C> yy:echo "Yank the line" <Cr>
+        nnoremap <leader>P :Telescope<Cr>
     endif
 elseif InstalledFZF()
     " --------------------------
@@ -43,12 +41,12 @@ elseif InstalledFZF()
     " --------------------------
     if Installed('leaderf')
         if Installed('coc.nvim')
-            nnoremap <M-C> :CocFzfList<Cr>
+            nnoremap <leader>P :CocFzfList<Cr>
         else
-            nnoremap <M-C> :FZF<Tab>
+            nnoremap <leader>P :FZF<Tab>
         endif
     else
-        nnoremap <M-C> :FZF<Tab>
+        nnoremap <leader>P :FZF<Tab>
     endif
     let $FZF_DEFAULT_OPTS = '--layout=reverse-list --border=sharp'
     if has('nvim') || has('patch-8.2.191')

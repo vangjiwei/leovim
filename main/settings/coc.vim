@@ -108,16 +108,15 @@ command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport
 " codeLens and codeaction
 " ----------------------------
 if has('nvim') || has('patch-9.0.0252')
-    nnoremap <silent><M-I> :CocCommand document.toggleInlayHint<Cr>
     hi! link CocCodeLens CocListBgGrey
-    call coc#config('codeLens.enable', v:true)
-    call coc#config('codeLens.separator', "# \\\\")
-    call coc#config("typescript.inlayHints.variableTypes.enabled", v:true)
-    call coc#config("typescript.inlayHints.parameterNames.enabled", "all")
-    call coc#config("typescript.inlayHints.enumMemberValues.enabled", v:true)
-    call coc#config("typescript.inlayHints.parameterTypes.enabled", v:true)
-    call coc#config("typescript.inlayHints.functionLikeReturnTypes.enabled", v:true)
-    call coc#config("typescript.inlayHints.propertyDeclarationTypes.enabled", v:true)
+    nnoremap <silent><M-I> :CocCommand document.toggleInlayHint<Cr>
+    if has('nvim')
+        nnoremap <silent><M-C> :CocCommand document.toggleCodeLens<Cr>
+        call coc#config('codeLens.enable', v:true)
+        call coc#config('codeLens.separator', "# \\\\")
+    else
+        call coc#config('codeLens.enable', v:false)
+    endif
 else
     call coc#config('codeLens.enable', v:false)
 endif
