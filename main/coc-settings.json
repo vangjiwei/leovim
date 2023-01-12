@@ -62,6 +62,8 @@
   "diagnostic.signPriority": 20,
   "diagnostic.enableHighlightLineNumber": false,
   "diagnostic.locationlistUpdate": false,
+  "diagnostic.virtualText": false,
+  "diagnostic.virtualTextCurrentLineOnly": true,
   "signature.target": "float",
   "signature.floatConfig": {
     "border": true,
