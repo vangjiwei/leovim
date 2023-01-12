@@ -109,6 +109,7 @@ command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport
 " ----------------------------
 if has('nvim') || has('patch-9.0.0252')
     hi! link CocCodeLens CocListBgGrey
+    call coc#config('inlayHint.display', v:false)
     nnoremap <silent><M-I> :CocCommand document.toggleInlayHint<Cr>
     if has('nvim')
         nnoremap <silent><M-C> :CocCommand document.toggleCodeLens<Cr>
@@ -120,8 +121,8 @@ if has('nvim') || has('patch-9.0.0252')
 else
     call coc#config('codeLens.enable', v:false)
 endif
-nnoremap <silent><F2>       <Plug>(coc-rename)
-nnoremap <silent><leader>ar <Plug>(coc-rename)
+nnoremap <silent><F2>          <Plug>(coc-rename)
+nnoremap <silent><leader>ar    <Plug>(coc-rename)
 nnoremap <silent><leader>a<Cr> <Plug>(coc-codeaction-line)
 xnoremap <silent><leader>a<Cr> <Plug>(coc-codeaction-selected)
 nnoremap <silent><leader>aa    :CocFzfList actions<Cr>
