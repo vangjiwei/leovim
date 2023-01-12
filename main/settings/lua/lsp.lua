@@ -19,18 +19,18 @@ require('mason-lspconfig').setup({
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lsp_attach = function(client, bufnr)
+  -- definition type_definition declaration implementation
+  vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {buffer=bufnr})
+  vim.keymap.set('n', '<M-/>', vim.lsp.buf.references, {buffer=bufnr})
+  vim.keymap.set('n', 'gh', vim.lsp.buf.type_definition, {buffer=bufnr})
+  vim.keymap.set('n', 'gl', vim.lsp.buf.declaration, {buffer=bufnr})
+  vim.keymap.set('n', 'gm', vim.lsp.buf.implementation, {buffer=bufnr})
   -- format
   vim.keymap.set('n', '<C-q>', vim.lsp.buf.format, {buffer=bufnr})
   vim.keymap.set('x', '<C-q>', vim.lsp.buf.range_formatting, {buffer=bufnr})
   -- call hierrachy
   vim.keymap.set('n', '<M-.>', vim.lsp.buf.incoming_calls, {buffer=bufnr})
   vim.keymap.set('n', '<M-,>', vim.lsp.buf.outgoing_calls, {buffer=bufnr})
-  -- definition type_definition declaration implementation
-  vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {buffer=bufnr})
-  vim.keymap.set('n', 'gh', vim.lsp.buf.type_definition, {buffer=bufnr})
-  vim.keymap.set('n', 'gl', vim.lsp.buf.declaration, {buffer=bufnr})
-  vim.keymap.set('n', 'gm', vim.lsp.buf.implementation, {buffer=bufnr})
-  vim.keymap.set('n', '<M-/>', vim.lsp.buf.references, {buffer=bufnr})
 end
 local get_servers = require('mason-lspconfig').get_installed_servers
 for _, server_name in ipairs(get_servers()) do
@@ -43,17 +43,17 @@ end
 -- lspsaga
 --------------------------------
 local lspsaga = require('lspsaga')
-lspsaga.init_lsp_saga({
-  diagnostic_header      = { '😡', '😥', '😤', '😐' },
-  code_action_icon       = '💡',
-  finder_icons           = { def = '  ', ref = '諭 ', link = '  ' },
-  max_preview_lines      = 32,
-  finder_action_keys     = {
+lspsaga.setup({
+  diagnostic_header  = {'😡', '😥', '😤',  '😐'},
+  code_action_icon   = '💡',
+  finder_icons       = {def = ' ', ref  = '諭', link = ' '},
+  max_preview_lines  = 32,
+  finder_action_keys = {
     open   = "<Cr>",
     vsplit = "<C-g>",
     split  = "<C-x>",
     tabe   = "<C-t>",
-    quit   = { "<M-q>", "<C-c>", "<ESC>" },
+    quit   = {"<M-q>", "<C-c>", "<ESC>"},
   },
   definition_action_keys = {
     edit   = "<Cr>",
@@ -62,13 +62,13 @@ lspsaga.init_lsp_saga({
     tabe   = "<C-t>",
     quit   = "<M-q>",
   },
-  move_in_saga           = { prev = '<C-k>', next = '<C-j>' },
-  code_action_keys       = {
+  move_in_saga     = { prev = '<C-k>', next = '<C-j>' },
+  code_action_keys = {
     quit = { "<M-q>", "<C-c>", "<ESC>" },
     exec = "<Cr>",
   },
-  rename_action_quit     = "<C-c>",
-  show_outline           = {
+  rename_action_quit = "<C-c>",
+  show_outline       = {
     win_position = 'left',
     win_width = 40,
     auto_enter = false,
@@ -81,78 +81,7 @@ lspsaga.init_lsp_saga({
 })
 -- Show symbols in winbar need neovim 0.8+
 if vim.fn.has('nvim-0.8') > 0 then
-  lspsaga.init_lsp_saga({
-    symbol_in_winbar = {
-      in_custom = true,
-      click_support = function(node, clicks, button, modifiers)
-        -- To see all avaiable details: vim.pretty_print(node)
-        local st = node.range.start
-        local en = node.range['end']
-        if button == "l" then
-          if clicks == 2 then
-            -- double left click to do nothing
-          else -- jump to node's starting line+char
-            vim.fn.cursor(st.line + 1, st.character + 1)
-          end
-        elseif button == "r" then
-          if modifiers == "s" then
-            print "lspsaga" -- shift right click to print "lspsaga"
-          end -- jump to node's ending line+char
-          vim.fn.cursor(en.line + 1, en.character + 1)
-        elseif button == "m" then
-          -- middle click to visual select node
-          vim.fn.cursor(st.line + 1, st.character + 1)
-          vim.cmd "normal v"
-          vim.fn.cursor(en.line + 1, en.character + 1)
-        end
-      end
-    }
-  })
-  local function get_file_symbol(include_path)
-    local file_name = require('lspsaga.symbolwinbar').get_file_name()
-    if vim.fn.bufname '%' == '' then return '' end
-    if include_path == false then return file_name end
-    -- Else if include path: ./lsp/saga.lua -> lsp > saga.lua
-    local sep = vim.loop.os_uname().sysname == 'Windows' and '\\' or '/'
-    local path_list = vim.split(string.gsub(vim.fn.expand '%:~:.:h', '%%', ''), sep)
-    local file_path = ''
-    for _, cur in ipairs(path_list) do
-      file_path = (cur == '.' or cur == '~') and '' or
-          file_path .. cur .. ' ' .. '%#LspSagaWinbarSep#>%*' .. ' %*'
-    end
-    return file_path .. file_name
-  end
-
-  local function config_winbar_or_statusline()
-    local exclude = {
-      ['terminal'] = true,
-      ['toggleterm'] = true,
-      ['prompt'] = true,
-      ['NvimTree'] = true,
-      ['help'] = true,
-    } -- Ignore float windows and exclude filetype
-    if vim.api.nvim_win_get_config(0).zindex or exclude[vim.bo.filetype] then
-      vim.wo.winbar = ''
-    else
-      local ok, saga = pcall(require, 'lspsaga.symbolwinbar')
-      local sym
-      if ok then sym = saga.get_symbol_node() end
-      local win_val = ''
-      win_val = get_file_symbol(false)
-      if sym ~= nil then win_val = win_val .. sym end
-      vim.wo.winbar = win_val
-    end
-  end
-
-  local events = { 'WinEnter', 'BufWinEnter', 'CursorMoved', 'CursorHold' }
-  vim.api.nvim_create_autocmd(events, {
-    pattern = '*',
-    callback = function() config_winbar_or_statusline() end,
-  })
-  vim.api.nvim_create_autocmd('User', {
-    pattern = 'LspsagaUpdateSymbol',
-    callback = function() config_winbar_or_statusline() end,
-  })
+  vim.wo.winbar = require('lspsaga.symbolwinbar'):get_winbar()
 end
 -----------------
 -- keymaps
