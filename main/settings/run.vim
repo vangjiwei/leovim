@@ -149,7 +149,7 @@ function! s:RunNow(...)
         endif
     endif
 endfunction
-command! RunBottom call <SID>RunNow('quickfix')
+command! RunBottom call <SID>RunNow()
 command! RunRight  call <SID>RunNow('right')
 nnoremap <M-B> :RunBottom<CR>
 nnoremap <M-R> :RunRight<CR>
