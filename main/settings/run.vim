@@ -15,9 +15,9 @@ endfunction
 " --------------------------
 " toggle quickfix
 " --------------------------
-function! s:open_close_qf(type) abort
-    let type = a:type
-    if type < 2
+function! s:open_close_qf(open_qf_type) abort
+    let open_qf_type = a:open_qf_type
+    if open_qf_type < 2
         for i in range(1, winnr('$'))
             let bnum = winbufnr(i)
             if getbufvar(bnum, '&buftype') == 'quickfix'
@@ -27,7 +27,7 @@ function! s:open_close_qf(type) abort
             endif
         endfor
     endif
-    if type > 0
+    if open_qf_type > 0
         let t:quickfix_return_to_window = winnr()
         execute "copen " . g:asyncrun_open
         execute t:quickfix_return_to_window . "wincmd w"
@@ -39,6 +39,17 @@ command! OpenQuickfix   call s:open_close_qf(2)
 " --------------------------
 " asyncrun
 " --------------------------
+if has('nvim') || has('timers') && has('channel') && has('job')
+    let g:asyncrun_rootmarks = g:root_patterns
+    nnoremap <silent><Tab>q :AsyncStop<CR>
+    nnoremap <silent><Tab>c :AsyncStop!<CR>
+    nnoremap <leader>R :AsyncRun
+    let g:run_command = "AsyncRun"
+    PackAdd 'asyncrun.vim'
+else
+    let g:run_command = "!"
+    nnoremap <leader>R :!
+endif
 if WINDOWS()
     let g:asyncrun_encs = get(g:, 'asyncrun_encs', 'gbk')
 endif
@@ -50,32 +61,32 @@ elseif WINDOWS() && executable('gcc')
     let g:gcc_cmd = get(g:, 'gcc_cmd', 'md build 2>NULL & ptime gcc $(VIM_FILEPATH) -o build/$(VIM_FILENOEXT) & ptime build/$(VIM_FILENOEXT)')
     let g:gpp_cmd = get(g:, 'gpp_cmd', 'md build 2>NULL & ptime g++ $(VIM_FILEPATH) -o build/$(VIM_FILENOEXT) & ptime build/$(VIM_FILENOEXT)')
 endif
-function! s:RunNow(type)
+function! s:RunNow(...)
     w!
-    let type = a:type
+    if a:0 > 0
+        let type = a:1
+    else
+        let type = 'quickfix'
+    endif
     if type < 0 | let type = 0 | endif
     if &filetype != '' && &filetype != 'markdown' && &filetype != 'startify'
-        if g:run_command =~ "!"
+        if g:run_command == "!"
             let params = " "
         elseif g:has_terminal
-            if type == 2
-                let params = '-cwd=$(VIM_FILEDIR) -mode=term -pos=tab -focus=1 -reuse'
-            elseif type == 3
-                let params = '-cwd=$(VIM_FILEDIR) -mode=term -pos=floaterm_reuse'
-            elseif type == 4 && WINDOWS()
-                let params = '-cwd=$(VIM_FILEDIR) -mode=term -pos=external -reuse'
+            if type == 'tab'
+                let params = ' -cwd=$(VIM_FILEDIR) -mode=term -pos=tab -focus=1 -reuse'
+            elseif type == 'floaterm'
+                let params = ' -cwd=$(VIM_FILEDIR) -mode=term -pos=floaterm_reuse'
+            elseif type == 'external' && WINDOWS()
+                let params = ' -cwd=$(VIM_FILEDIR) -mode=term -pos=external'
             else
-                let params = "-cwd=$(VIM_FILEDIR) -mode=async"
+                let params = " -cwd=$(VIM_FILEDIR) -mode=async"
             endif
         else
-            if WINDOWS() && type >= 2
-                let params = '-cwd=$(VIM_FILEDIR) -mode=term -pos=external -reuse'
+            if has('patch-7.4.1829') || has('nvim')
+                let params = ' -cwd=$(VIM_FILEDIR) -mode=async'
             else
-                if has('patch-7.4.1829') || has('nvim')
-                    let params = '-cwd=$(VIM_FILEDIR) -mode=async'
-                else
-                    let params = '-cwd=$(VIM_FILEDIR) -mode=bang'
-                endif
+                let params = ' -cwd=$(VIM_FILEDIR) -mode=bang'
             endif
         endif
         if &filetype ==# 'dosbatch'
@@ -125,30 +136,29 @@ function! s:RunNow(type)
         elseif &filetype == 'cpp' && get(g:, 'gpp_cmd', '') != ''
             exec g:run_command . params . ' '. g:gpp_cmd
         else
-            let s:qf_to_side = 0
             call feedkeys(':' . g:run_command)
         endif
-        if get(s:, 'qf_to_side', 1) > 0
-            if type == 1
+        if params =~ "mode=async"
+            if type == 'right'
                 call feedkeys("\<C-w>H", "n")
-            elseif type == 0
                 call feedkeys("\<C-w>w", "n")
-                sleep 1
+            elseif type == 'quickfix'
+                call feedkeys("\<C-w>w", "n")
                 execute 'copen ' . g:asyncrun_open
             endif
         endif
     endif
 endfunction
-command! RunBottom call <SID>RunNow(0)
-command! RunRight  call <SID>RunNow(1)
+command! RunBottom call <SID>RunNow('quickfix')
+command! RunRight  call <SID>RunNow('right')
 nnoremap <M-B> :RunBottom<CR>
 nnoremap <M-R> :RunRight<CR>
 if g:has_terminal
-    command! RunTerm call <SID>RunNow(2)
+    command! RunTerm call <SID>RunNow('tab')
     nnoremap <M-T> :RunTerm<CR>
 endif
 if WINDOWS()
-    command! RunExternal call <SID>RunNow(4)
+    command! RunExternal call <SID>RunNow('external')
     nnoremap <M-F> :RunExternal<CR>
 elseif g:has_terminal > 0
     " intergrated with asynctasks
@@ -167,19 +177,8 @@ elseif g:has_terminal > 0
     endfunction
     let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
     let g:asyncrun_runner.floaterm = function('s:runner_proc')
-    command! RunFloaterm call <SID>RunNow(3)
+    command! RunFloaterm call <SID>RunNow('floaterm')
     nnoremap <M-F> :RunFloaterm<CR>
-endif
-if has('nvim') || has('timers') && has('channel') && has('job')
-    let g:asyncrun_rootmarks = g:root_patterns
-    nnoremap <silent><Tab>q :AsyncStop<CR>
-    nnoremap <silent><Tab>c :AsyncStop!<CR>
-    nnoremap <leader>R :AsyncRun
-    let g:run_command = "AsyncRun "
-    PackAdd 'asyncrun.vim'
-else
-    let g:run_command = "! "
-    nnoremap <leader>R :!
 endif
 " ----------------
 " asynctasks
