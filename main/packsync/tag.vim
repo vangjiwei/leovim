@@ -32,7 +32,7 @@ endif
 if g:complete_engine == 'cmp'
     call AddSymbol('lsp')
     call AddSymbol('telescope')
-    PackAdd 'glepnir/lspsaga.nvim' , {'branch': 'version_2.3'}
+    PackAdd 'glepnir/lspsaga.nvim'
       \| PackAdd 'gbrlsnchs/telescope-lsp-handlers.nvim'
 elseif g:complete_engine == 'coc'
     call AddSymbol('coc')

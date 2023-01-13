@@ -44,10 +44,6 @@ end
 --------------------------------
 local lspsaga = require('lspsaga')
 lspsaga.setup({
-  diagnostic_header  = {'😡', '😥', '😤',  '😐'},
-  code_action_icon   = '💡',
-  finder_icons       = {def = ' ', ref  = '諭', link = ' '},
-  max_preview_lines  = 32,
   finder_action_keys = {
     open   = "<Cr>",
     vsplit = "<C-g>",
@@ -78,6 +74,9 @@ lspsaga.setup({
     -- auto refresh when change buffer
     auto_refresh = true,
   },
+  ui = {
+    border = 'single'
+  }
 })
 -- Show symbols in winbar need neovim 0.8+
 if vim.fn.has('nvim-0.8') > 0 then
@@ -93,10 +92,10 @@ map('n', '<F2>', [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<C-h>', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
 map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)
+map('n', '<M-:>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
 map('n', "<leader>a<cr>", [[<cmd>Lspsaga code_action<Cr>]], opts)
 map('x', "<leader>a<cr>", [[<cmd>Lspsaga range_code_action<CR>]], opts)
-map('n', '<leader>al', [[:Lspsaga ]], { noremap = true, silent = false })
-map('n', '<M-:>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
+map('n', '<leader>al', [[:Lspsaga ]], {noremap = true, silent = false })
 -- Telescope
 map('n', 't<Cr>', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
 map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
