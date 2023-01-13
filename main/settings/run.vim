@@ -5,8 +5,8 @@ augroup SetRunOpen
     au VimResized,VimEnter * call s:SetRunRows()
 augroup END
 function! s:SetRunRows()
-    let row = float2nr(&lines * 0.23)
-    if row < 10 && get(g:, 'asyncrun_open', 10) < 10
+    let row = float2nr(&lines * 0.2)
+    if row < 10 || get(g:, 'asyncrun_open', 10) < 10
         let g:asyncrun_open = 10
     else
         let g:asyncrun_open = row
