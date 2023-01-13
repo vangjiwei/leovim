@@ -76,7 +76,11 @@ lspsaga.setup({
   },
   ui = {
     border = 'single'
-  }
+  },
+  symbol_in_winbar = {
+    -- show_file = true,
+    folder_level = 1,
+  },
 })
 -- Show symbols in winbar need neovim 0.8+
 if vim.fn.has('nvim-0.8') > 0 then
