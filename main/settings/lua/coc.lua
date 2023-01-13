@@ -3,7 +3,6 @@ function _G.symbol_line()
   local ok, line = pcall(vim.api.nvim_buf_get_var, bufnr, 'coc_symbol_line')
   return ok and line or ''
 end
-
 vim.api.nvim_create_autocmd(
   {'WinEnter', 'BufWinEnter', 'CursorMoved', 'CursorHold'},
   {
@@ -11,10 +10,10 @@ vim.api.nvim_create_autocmd(
     callback = function()
       if vim.b.coc_symbol_line and vim.bo.buftype == '' then
         if vim.opt_local.winbar:get() == '' then
-          vim.opt_local.winbar = '%!v:lua.symbol_line()'
+          vim.wo.winbar = '%!v:lua.symbol_line()'
         end
       else
-        vim.opt_local.winbar = ''
+        vim.wo.winbar = ''
       end
     end,
   }
