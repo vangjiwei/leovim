@@ -63,6 +63,10 @@ endif
 " ------------------------------
 " devicons
 " ------------------------------
-if g:advanced_complete_engine && has('nvim')
-    PackAdd 'nvim-tree/nvim-web-devicons'
+if g:advanced_complete_engine
+    if has('nvim')
+        PackAdd 'nvim-tree/nvim-web-devicons'
+    else
+        PackAdd 'ryanoasis/vim-devicons'
+    endif
 endif

@@ -60,6 +60,9 @@ lspsaga.setup({
   symbol_in_winbar = {
     folder_level = 1,
   },
+  lightbulb = {
+    virtual_text = false,
+  },
   scroll_preview = {
     scroll_down = '<C-j>',
     scroll_up = '<C-k>',
@@ -98,6 +101,8 @@ lspsaga.setup({
   outline = {
     win_position = 'left',
     win_width = 30,
+    auto_refresh = false,
+    -- auto_refresh = true,
     keys = {
       jump = "<Cr>",
       expand_collapse = "o",
@@ -106,7 +111,7 @@ lspsaga.setup({
   },
   rename = {
     quit = "<C-c>",
-    exec = "<CR>",
+    exec = "<Cr>",
     in_select = true,
   },
   callhierarchy = {

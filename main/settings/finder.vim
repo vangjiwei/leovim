@@ -128,7 +128,11 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     let g:Lf_DefaultMode   = 'Fuzzy'
     let g:Lf_ReverseOrder  = 0
     let g:Lf_NoChdir       = 1
-    let g:Lf_ShowDevIcons  = 0
+    if Installed('nvim-web-devicons') || Installed('vim-devicons')
+        let g:Lf_ShowDevIcons  = 1
+    else
+        let g:Lf_ShowDevIcons  = 0
+    endif
     let g:Lf_PythonVersion = float2nr(g:python_version)
     if g:has_popup_float
         let g:Lf_PreviewInPopup = 1
@@ -456,6 +460,12 @@ elseif has('nvim') && Installed('coc.nvim')
     nnoremap <silent><leader><Tab> :CocFile<Cr>
 elseif InstalledFZF()
     nnoremap <silent><leader><Tab> :FZFFiles .<Cr>
+endif
+" --------------------------
+" nvim-web-devicons
+" --------------------------
+if Installed('nvim-web-devicons')
+    lua require('nvim-web-devicons').setup({})
 endif
 " --------------------------
 " floaterm windows

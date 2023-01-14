@@ -129,6 +129,7 @@
       "javascript"
     ]
   },
+  "explorer.icon.enableNerdfont": true,
   "explorer.keyMappings.global": {
     ",": "actionMenu",
     "<tab>": "toggleSelection",

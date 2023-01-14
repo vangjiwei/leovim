@@ -196,6 +196,14 @@ else
     omap <C-s> <Plug>(coc-range-select)
 endif
 " ------------------------
+" icons
+" ------------------------
+if Installed('nvim-web-devicons')
+    call coc#config('explorer.icon.source',  'nvim-web-devicons')
+elseif Installed('vim-devicons')
+    call coc#config('explorer.icon.source',  'vim-devicons')
+endif
+" ------------------------
 " coc config for nvim-0.8
 " ------------------------
 if has('nvim-0.8.1')
