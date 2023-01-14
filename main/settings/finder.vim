@@ -79,8 +79,8 @@ elseif InstalledFZF()
         cc
     endfunction
     let g:fzf_action = {
-                \ 'ctrl-e': function('s:build_quickfix_list'),
                 \ 'enter':  'edit',
+                \ 'ctrl-e': function('s:build_quickfix_list'),
                 \ 'ctrl-t': 'tab split',
                 \ 'ctrl-x': 'split',
                 \ 'ctrl-]': 'vsplit'
@@ -152,7 +152,7 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
                 \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
                 \ "Colorscheme": [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
                 \ }
-    let g:Lf_CommandMap = {'<C-]>': ['<C-g>'], '<F5>': ['<F5>', '<C-l>'], '<C-l>': ['<C-e>'], '<Up>': ['<Up>', '<C-u>'], '<Down>': ['<Down>', '<C-d>']}
+    let g:Lf_CommandMap = {'<C-]>': ['<C-g>', '<C-]>'], '<F5>': ['<F5>', '<C-l>'], '<C-l>': ['<C-e>'], '<Up>': ['<Up>', '<C-u>'], '<Down>': ['<Down>', '<C-d>']}
     " history
     nnoremap <M-h>/ :Leaderf searchHistory<Cr>
     nnoremap <M-h>c :Leaderf cmdHistory<Cr>

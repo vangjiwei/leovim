@@ -13,7 +13,7 @@ endif
 if g:complete_engine == 'cmp'
     PackAdd 'nvim-lua/plenary.nvim'
                 \| PackAdd 'MunifTanjim/nui.nvim'
-                \| PackAdd 'nvim-neo-tree/neo-tree.nvim', {'branch': 'v2.x'}
+                \| PackAdd 'nvim-neo-tree/neo-tree.nvim'
                 \| PackAdd 'nvim-telescope/telescope.nvim'
                 \| PackAdd 'nvim-telescope/telescope-symbols.nvim'
     if UNIX() && executable('make')
@@ -59,4 +59,10 @@ endif
 " ------------------------------
 if v:version >= 802 || has('nvim')
     PackAdd 'skywind3000/vim-quickui'
+endif
+" ------------------------------
+" devicons
+" ------------------------------
+if g:advanced_complete_engine && has('nvim')
+    PackAdd 'nvim-tree/nvim-web-devicons'
 endif

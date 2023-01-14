@@ -39,6 +39,16 @@ for _, server_name in ipairs(get_servers()) do
     capabilities = lsp_capabilities
   })
 end
+-----------------
+-- keymaps
+-----------------
+-- Mason
+map('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
+-- Telescope
+map('n', 't<Cr>', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
+map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
+map('n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
+map('n', 'ZL', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
 --------------------------------
 -- lspsaga
 --------------------------------
@@ -55,11 +65,11 @@ lspsaga.setup({
     scroll_up = '<C-k>',
   },
   finder = {
-    edit   = "<Cr>",
-    vsplit = "i",
+    edit   = {"e", "<Cr>"},
+    vsplit = "g",
     split  = "s",
     tabe   = "t",
-    quit   = {"<M-q>", "<C-c>", "q"},
+    quit   = {"<ESC>", "<C-c>", "q"},
   },
   definition = {
     edit   = "<Cr>",
@@ -80,35 +90,35 @@ lspsaga.setup({
     show_code_action = true,
     show_source = true,
     keys = {
-      exec_action = '<Cr>',
-      go_action = 'g',
-      quit = 'q',
+      exec_action = "<Cr>",
+      go_action = "g",
+      quit = "q",
     },
   },
   outline = {
     win_position = 'left',
-    win_width = 40,
+    win_width = 30,
     keys = {
-      jump = '<Cr>',
-      expand_collapse = '<Space>',
-      quit = 'q',
+      jump = "<Cr>",
+      expand_collapse = "o",
+      quit = "q",
     }
   },
   rename = {
-    quit = '<C-c>',
-    exec = '<CR>',
+    quit = "<C-c>",
+    exec = "<CR>",
     in_select = true,
   },
   callhierarchy = {
     show_detail = false,
     keys = {
-      edit = 'e',
-      vsplit = 'i',
-      split = 's',
-      tabe = 't',
-      quit = 'q',
-      jump = '<Cr>',
-      expand_collapse = '<space>',
+      edit   = "e",
+      vsplit = "g",
+      split  = "s",
+      tabe   = "t",
+      quit   = "q",
+      jump   = "<Cr>",
+      expand_collapse = "o",
     },
   },
 })
@@ -116,12 +126,7 @@ lspsaga.setup({
 if vim.fn.has('nvim-0.8') > 0 then
   vim.wo.winbar = require('lspsaga.symbolwinbar'):get_winbar()
 end
------------------
--- keymaps
------------------
--- Mason
-map('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
--- lspsaga
+-- lspsaga maps
 map('n', '<F2>', [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<C-h>', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
@@ -130,8 +135,3 @@ map('n', '<M-:>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
 map('n', "<leader>a<cr>", [[<cmd>Lspsaga code_action<Cr>]], opts)
 map('x', "<leader>a<cr>", [[<cmd>Lspsaga range_code_action<CR>]], opts)
 map('n', '<leader>al', [[:Lspsaga ]], {noremap = true, silent = false })
--- Telescope
-map('n', 't<Cr>', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
-map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
-map('n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
-map('n', 'ZL', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
