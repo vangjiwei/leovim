@@ -101,8 +101,7 @@ lspsaga.setup({
   outline = {
     win_position = 'left',
     win_width = 30,
-    auto_refresh = false,
-    -- auto_refresh = true,
+    auto_refresh = true,
     keys = {
       jump = "<Cr>",
       expand_collapse = "o",
