@@ -44,24 +44,36 @@ end
 --------------------------------
 local lspsaga = require('lspsaga')
 lspsaga.setup({
-  finder_action_keys = {
-    open   = "<Cr>",
+  ui = {
+    border = 'single'
+  },
+  symbol_in_winbar = {
+    folder_level = 1,
+  },
+  scroll_preview = {
+    scroll_down = '<C-j>',
+    scroll_up = '<C-k>',
+  },
+  finder = {
+    edit   = "<Cr>",
+    vsplit = "i",
+    split  = "s",
+    tabe   = "t",
+    quit   = {"<M-q>", "<C-c>", "q"},
+  },
+  definition = {
+    edit   = "<Cr>",
     vsplit = "<C-g>",
     split  = "<C-x>",
     tabe   = "<C-t>",
-    quit   = {"<M-q>", "<C-c>", "<ESC>"},
+    close  = "<Esc>",
+    quit   = "q",
   },
-  definition_action_keys = {
-    edit   = "e",
-    vsplit = "<C-g>",
-    split  = "<C-x>",
-    tabe   = "<C-t>",
-    quit   = "<M-q>",
-  },
-  move_in_saga     = { prev = '<C-k>', next = '<C-j>' },
-  code_action_keys = {
-    quit = { "<M-q>", "<C-c>", "<ESC>" },
-    exec = "<Cr>",
+  code_action = {
+    kesy = {
+      quit = "q",
+      exec = "<Cr>",
+    }
   },
   diagnostic = {
     twice_into = false,
@@ -69,8 +81,8 @@ lspsaga.setup({
     show_source = true,
     keys = {
       exec_action = '<Cr>',
-      go_action = '<C-g>',
-      quit = '<M-q>',
+      go_action = 'g',
+      quit = 'q',
     },
   },
   outline = {
@@ -78,18 +90,12 @@ lspsaga.setup({
     win_width = 40,
     keys = {
       jump = '<Cr>',
-      expand_collapse = '<space>',
-      quit = '<M-q>',
-    },
-  },
-  ui = {
-    border = 'single'
-  },
-  symbol_in_winbar = {
-    folder_level = 1,
+      expand_collapse = '<Space>',
+      quit = 'q',
+    }
   },
   rename = {
-    quit = '<M-q>',
+    quit = '<C-c>',
     exec = '<CR>',
     in_select = true,
   },
@@ -97,11 +103,11 @@ lspsaga.setup({
     show_detail = false,
     keys = {
       edit = 'e',
-      vsplit = '<C-g>',
-      split = '<C-x>',
-      tabe = '<C-t>',
+      vsplit = 'i',
+      split = 's',
+      tabe = 't',
+      quit = 'q',
       jump = '<Cr>',
-      quit = '<M-q>',
       expand_collapse = '<space>',
     },
   },
