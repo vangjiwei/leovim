@@ -52,7 +52,7 @@ lspsaga.setup({
     quit   = {"<M-q>", "<C-c>", "<ESC>"},
   },
   definition_action_keys = {
-    edit   = "<Cr>",
+    edit   = "e",
     vsplit = "<C-g>",
     split  = "<C-x>",
     tabe   = "<C-t>",
@@ -63,23 +63,47 @@ lspsaga.setup({
     quit = { "<M-q>", "<C-c>", "<ESC>" },
     exec = "<Cr>",
   },
-  rename_action_quit = "<C-c>",
-  show_outline       = {
+  diagnostic = {
+    twice_into = false,
+    show_code_action = true,
+    show_source = true,
+    keys = {
+      exec_action = '<Cr>',
+      go_action = '<C-g>',
+      quit = '<M-q>',
+    },
+  },
+  outline = {
     win_position = 'left',
     win_width = 40,
-    auto_enter = false,
-    auto_preview = false,
-    virt_text = '┃',
-    jump_key = '<Cr>',
-    -- auto refresh when change buffer
-    auto_refresh = true,
+    keys = {
+      jump = '<Cr>',
+      expand_collapse = '<space>',
+      quit = '<M-q>',
+    },
   },
   ui = {
     border = 'single'
   },
   symbol_in_winbar = {
-    -- show_file = true,
     folder_level = 1,
+  },
+  rename = {
+    quit = '<M-q>',
+    exec = '<CR>',
+    in_select = true,
+  },
+  callhierarchy = {
+    show_detail = false,
+    keys = {
+      edit = 'e',
+      vsplit = '<C-g>',
+      split = '<C-x>',
+      tabe = '<C-t>',
+      jump = '<Cr>',
+      quit = '<M-q>',
+      expand_collapse = '<space>',
+    },
   },
 })
 -- Show symbols in winbar need neovim 0.8+

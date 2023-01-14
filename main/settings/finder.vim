@@ -447,6 +447,7 @@ elseif !has('nvim') && WINDOWS() && g:gui_running
 endif
 if Installed('neo-tree.nvim')
     nnoremap <silent><leader><Tab> :NeoTreeFloatToggle<Cr>
+    luafile $LUA_PATH/neotree.lua
 elseif has('nvim') && Installed('coc.nvim')
     function! CocFile() abort
         exec("CocCommand explorer --toggle --position floating --floating-width " . float2nr(&columns * 0.8) . " --floating-height " . float2nr(&lines * 0.8))

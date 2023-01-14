@@ -12,7 +12,7 @@ map('n', ']e', [[<cmd>lua LspsagaJumpError(1)<Cr>]], opts)
 map('n', '[d', [[<cmd>Lspsaga diagnostic_jump_prev<Cr>]], opts)
 map('n', ']d', [[<cmd>Lspsaga diagnostic_jump_next<Cr>]], opts)
 map('n', '<M-h>d', [[<cmd>Lspsaga show_cursor_diagnostics<Cr>]], opts)
-map('n', '<M-h>D', [[<cmd>Lspsaga show_line_diagnostics<Cr>]], opts)
+map('n', '<M-h>l', [[<cmd>Lspsaga show_line_diagnostics<Cr>]], opts)
 -- toggle diagnostic
 vim.g.diagnostics_enable = true
 function _G.toggle_diagnostics()
