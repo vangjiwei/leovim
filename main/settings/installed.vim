@@ -80,8 +80,6 @@ elseif Installed('coc.nvim')
     elseif UNIX() && isdirectory(expand('~/.local/share/nvim/mason/bin'))
         let $PATH = expand('~/.local/share/nvim/mason/bin') . ":" . $PATH
     endif
-elseif Installed('vim-mucomplete')
-    source $SETTINGS_PATH/mcm.vim
 elseif Installed('neocomplcache.vim')
     source $SETTINGS_PATH/ncc.vim
 elseif g:complete_engine != 'ncc' && v:version >= 800

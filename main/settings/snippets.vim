@@ -36,18 +36,14 @@ if InstalledFZF()
         imap <c-x><c-f> <plug>(fzf-complete-path)
     endif
 endif
-" for apc && mcm
+" for apc
 if g:advanced_complete_engine == 0
     function! MapTabCr(istab) abort
         let istab = a:istab
         if pumvisible()
             if istab > 0
                 if Installed('ultisnips') && UltiSnips#CanExpandSnippet()
-                    if g:complete_engine == 'mcm'
-                        return mucomplete#ultisnips#expand_snippet("\<cr>")
-                    else
-                        return UltiSnips#ExpandSnippet()
-                    endif
+                    return UltiSnips#ExpandSnippet()
                 else
                     return "\<C-n>"
                 endif

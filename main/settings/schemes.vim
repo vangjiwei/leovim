@@ -35,8 +35,6 @@ elseif Require('sonokai')
     call SetScheme('sonokai', 'sublime')
 elseif Require('everforest')
     call SetScheme('everforest', 'deus')
-elseif Require('nightfly')
-    call SetScheme('nightfly', 'space-vim-dark')
 elseif Require('carbonfox')
     call SetScheme('carbonfox', 'codedark')
 elseif Require('dawnfox')
@@ -62,14 +60,12 @@ elseif g:complete_engine == 'coc'
     endif
 elseif g:complete_engine == 'cmp'
     call SetScheme('nightfox', 'codedark')
-elseif g:complete_engine == 'mcm'
-    call SetScheme('nightfly', 'space-vim-dark')
-elseif g:complete_engine == 'apc'
-    call SetScheme('edge', 'one')
 elseif g:complete_engine == 'ncc'
     call SetScheme('everforest', 'deus')
+elseif g:complete_engine == 'apc'
+    call SetScheme('edge', 'one')
 else
-    colorscheme hybrid
+    colorscheme space-vim-dark
 endif
 " nvim-treesitter
 if Installed('nvim-treesitter', 'nvim-treehopper')

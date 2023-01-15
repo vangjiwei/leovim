@@ -636,12 +636,8 @@ set completeopt-=preview
 try
     set completeopt=menu,menuone,noselect,noinsert
 catch
-    try
-        set completeopt=menuone,noselect,noinsert
-        let g:complete_engine = 'mcm'
-    catch
-        let g:complete_engine = 'ncc'
-    endtry
+    set completeopt=menu
+    let g:complete_engine = 'ncc'
 endtry
 if CYGWIN() || Require('non')
     let g:complete_engine = 'non'
@@ -661,12 +657,6 @@ elseif Require('coc')
     else
         let s:smart_engine_select = 1
     endif
-elseif Require('mcm')
-    if &completeopt =~ 'menuone' && (&completeopt =~ 'noselect' || &completeopt =~ 'noinsert')
-        let g:complete_engine = 'mcm'
-    else
-        let s:smart_engine_select = 1
-    endif
 else
     let s:smart_engine_select = 1
 endif
@@ -675,8 +665,6 @@ if get(s:, 'smart_engine_select', 0) > 0
         let g:complete_engine = 'coc'
     elseif has('nvim')
         let g:complete_engine = 'cmp'
-    elseif &completeopt =~ 'menuone' && (&completeopt =~ 'noselect' || &completeopt =~ 'noinsert')
-        let g:complete_engine = 'mcm'
     else
         let g:complete_engine = 'ncc'
     endif

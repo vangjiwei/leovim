@@ -75,8 +75,6 @@ elseif g:complete_engine == 'cmp'
                 \| PackAdd 'hrsh7th/cmp-nvim-lsp-document-symbol'
                 \| PackAdd 'petertriho/cmp-git'
                 \| PackAdd 'onsails/lspkind-nvim'
-elseif g:complete_engine == 'mcm'
-	PackAdd 'lifepillar/vim-mucomplete'
 elseif g:complete_engine == 'ncc'
     PackAdd 'Shougo/neocomplcache.vim'
 endif
@@ -91,9 +89,7 @@ elseif g:complete_engine == 'coc'
     else
         let g:complete_snippets = 'coc-snippets'
     endif
-elseif g:complete_engine == 'mcm' && exists('##TextChangedP') && g:python_version > 3.6
-    let g:complete_snippets = 'ultisnips'
-elseif g:complete_engine == 'ncc' && g:python_version > 3.6
+elseif g:complete_engine == 'ncc' && exists('##TextChangedP') && g:python_version > 3.6
     let g:complete_snippets = 'ultinsips'
 else
     let g:complete_snippets = ''

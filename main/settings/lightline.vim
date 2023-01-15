@@ -157,8 +157,6 @@ function! UpdateLightline() abort
         let g:lightline.colorscheme = 'edge'
     elseif get(g:, 'colors_name', '') == 'everforest'
         let g:lightline.colorscheme = 'everforest'
-    elseif get(g:, 'colors_name', '') == 'nightfly'
-        let g:lightline.colorscheme = 'nightfly'
     elseif get(g:, 'colors_name', '') =~ 'fox'
         let g:lightline.colorscheme = 'jellybeans'
     else
