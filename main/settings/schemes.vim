@@ -37,37 +37,37 @@ elseif Require('everforest')
     call SetScheme('everforest', 'deus')
 elseif Require('nightfly')
     call SetScheme('nightfly', 'space-vim-dark')
-elseif Require('carbonfox') && Installed('nightfox.nvim')
-    call SetScheme('carbonfox')
-elseif Require('dawnfox') && Installed('nightfox.nvim')
-    call SetScheme('dawnfox')
-elseif Require('dayfox') && Installed('nightfox.nvim')
-    call SetScheme('dayfox')
-elseif Require('duskfox') && Installed('nightfox.nvim')
-    call SetScheme('duskfox')
-elseif Require('nightfox') && Installed('nightfox.nvim')
-    call SetScheme('nightfox')
-elseif Require('nordfox') && Installed('nightfox.nvim')
-    call SetScheme('nordfox')
-elseif Require('terafox') && Installed('nightfox.nvim')
-    call SetScheme('terafox')
+elseif Require('carbonfox')
+    call SetScheme('carbonfox', 'codedark')
+elseif Require('dawnfox')
+    call SetScheme('dawnfox', 'codedark')
+elseif Require('dayfox')
+    call SetScheme('dayfox', 'codedark')
+elseif Require('duskfox')
+    call SetScheme('duskfox', 'codedark')
+elseif Require('nightfox')
+    call SetScheme('nightfox', 'codedark')
+elseif Require('nordfox')
+    call SetScheme('nordfox', 'codedark')
+elseif Require('terafox')
+    call SetScheme('terafox', 'codedark')
 " --------------------------
 " schemes auto selected
 " --------------------------
 elseif g:complete_engine == 'coc'
     if has('nvim')
-        call SetScheme('gruvbox-material', 'gruvbox')
+        call SetScheme('sonokai', 'sublime')
     else
-        call SetScheme('everforest', 'deus')
+        call SetScheme('gruvbox-material', 'gruvbox')
     endif
 elseif g:complete_engine == 'cmp'
-    call SetScheme('sonokai', 'sublime')
+    call SetScheme('nightfox', 'codedark')
 elseif g:complete_engine == 'mcm'
-    call SetScheme('edge', 'one')
-elseif g:complete_engine == 'apc'
     call SetScheme('nightfly', 'space-vim-dark')
+elseif g:complete_engine == 'apc'
+    call SetScheme('edge', 'one')
 elseif g:complete_engine == 'ncc'
-    colorscheme codedark
+    call SetScheme('everforest', 'deus')
 else
     colorscheme hybrid
 endif
