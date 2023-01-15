@@ -54,14 +54,14 @@ elseif Require('terafox')
 " --------------------------
 elseif g:complete_engine == 'coc'
     if has('nvim')
-        call SetScheme('sonokai', 'sublime')
-    else
         call SetScheme('gruvbox-material', 'gruvbox')
+    else
+        call SetScheme('everforest', 'deus')
     endif
 elseif g:complete_engine == 'cmp'
     call SetScheme('nightfox', 'codedark')
 elseif g:complete_engine == 'ncc'
-    call SetScheme('everforest', 'deus')
+    call SetScheme('sonokai', 'sublime')
 elseif g:complete_engine == 'apc'
     call SetScheme('edge', 'one')
 else
