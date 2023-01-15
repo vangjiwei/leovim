@@ -906,7 +906,7 @@ source $SETTINGS_PATH/installed.vim
 " ------------------------
 " after config
 " ------------------------
-nnoremap <leader>ea :tabe ~/.vimrc.after<Cr>
+nnoremap <leader>eA :tabe ~/.vimrc.after<Cr>
 if filereadable(expand('~/.vimrc.after'))
     source ~/.vimrc.after
 endif

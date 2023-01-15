@@ -125,7 +125,7 @@ nnoremap <silent><F2>          <Plug>(coc-rename)
 nnoremap <silent><leader>ar    <Plug>(coc-rename)
 nnoremap <silent><leader>a<Cr> <Plug>(coc-codeaction-line)
 xnoremap <silent><leader>a<Cr> <Plug>(coc-codeaction-selected)
-nnoremap <silent><leader>aa    :CocFzfList actions<Cr>
+nnoremap <silent><leader>A     :CocFzfList actions<Cr>
 " ------------------------
 " Create mappings for function text object
 " requires document symbols feature of languageserver.
