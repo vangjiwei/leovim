@@ -131,11 +131,11 @@ if vim.fn.has('nvim-0.8') > 0 then
   vim.wo.winbar = require('lspsaga.symbolwinbar'):get_winbar()
 end
 -- lspsaga maps
-map('n', '<F2>', [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
+map('n', '<F2>',  [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<C-h>', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
 map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)
 map('n', '<M-:>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
 map('n', "<leader>a<cr>", [[<cmd>Lspsaga code_action<Cr>]], opts)
 map('x', "<leader>a<cr>", [[<cmd>Lspsaga range_code_action<CR>]], opts)
-map('n', '<leader>al', [[:Lspsaga ]], {noremap = true, silent = false })
+map('n', '<leader>al', [[:Lspsaga]], {noremap = true, silent = false })
