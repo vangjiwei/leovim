@@ -238,7 +238,7 @@ endtry
 " ------------------------
 source $MAIN_PATH/map.vim
 " some enhanced shortcuts
-nmap gI 2g;a
+nmap <M-h>i 2g;a
 nmap !  :!
 xmap !  :<C-u>!<C-R>=GetVisualSelection()<Cr>
 xmap .  :<C-u>normal .<Cr>
