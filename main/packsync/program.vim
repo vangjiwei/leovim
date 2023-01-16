@@ -102,7 +102,7 @@ endif
 " check tool
 " ------------------------------
 if g:complete_engine == 'cmp'
-    let g:check_tool = 'cmp'
+    let g:check_tool = 'lsp'
     PackAdd 'josa42/nvim-lightline-lsp'
 elseif g:complete_engine == 'coc'
     if g:python_version > 3.6 && Require('ale')
