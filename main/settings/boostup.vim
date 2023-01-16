@@ -636,12 +636,10 @@ set completeopt-=preview
 try
     set completeopt=menu,menuone,noselect,noinsert
 catch
-    let g:complete_engine = 'ncc'
+    let g:complete_engine = 'non'
 endtry
 if CYGWIN() || Require('non')
     let g:complete_engine = 'non'
-elseif get(g:, 'complete_engine', '') == 'ncc' || Require('ncc')
-    let g:complete_engine = 'ncc'
 elseif v:version >= 800 && Require('apc')
     let g:complete_engine = 'apc'
 elseif Require('cmp')
@@ -664,8 +662,10 @@ if get(s:, 'smart_engine_select', 0) > 0
         let g:complete_engine = 'coc'
     elseif has('nvim')
         let g:complete_engine = 'cmp'
+    elseif v:version >= 800
+        let g:complete_engine = 'apc'
     else
-        let g:complete_engine = 'ncc'
+        let g:complete_engine = 'non'
     endif
 endif
 if index(['coc', 'cmp'], get(g:, 'complete_engine', '')) >= 0

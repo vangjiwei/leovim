@@ -60,10 +60,8 @@ elseif g:complete_engine == 'coc'
     endif
 elseif g:complete_engine == 'cmp'
     call SetScheme('nightfox', 'codedark')
-elseif g:complete_engine == 'ncc'
-    call SetScheme('sonokai', 'sublime')
 elseif g:complete_engine == 'apc'
-    call SetScheme('edge', 'one')
+    call SetScheme('sonokai', 'sublime')
 else
     colorscheme space-vim-dark
 endif

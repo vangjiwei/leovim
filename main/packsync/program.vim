@@ -75,8 +75,6 @@ elseif g:complete_engine == 'cmp'
                 \| PackAdd 'hrsh7th/cmp-nvim-lsp-document-symbol'
                 \| PackAdd 'petertriho/cmp-git'
                 \| PackAdd 'onsails/lspkind-nvim'
-elseif g:complete_engine == 'ncc'
-    PackAdd 'Shougo/neocomplcache.vim'
 endif
 " ------------------------------
 " complete_snippets

@@ -71,18 +71,16 @@ imap <expr><C-a> pumvisible()? "\<C-a>":"\<C-o>I"
 " --------------------------
 " complete_engine settings
 " --------------------------
-if InstalledCmp()
-    source $SETTINGS_PATH/cmp.vim
-elseif Installed('coc.nvim')
+if Installed('coc.nvim')
     source $SETTINGS_PATH/coc.vim
     if WINDOWS() && isdirectory(expand('~/AppData/Local/nvim-data/mason/bin'))
         let $PATH = expand('~/AppData/Local/nvim-data/mason/bin') . ";" . $PATH
     elseif UNIX() && isdirectory(expand('~/.local/share/nvim/mason/bin'))
         let $PATH = expand('~/.local/share/nvim/mason/bin') . ":" . $PATH
     endif
-elseif Installed('neocomplcache.vim')
-    source $SETTINGS_PATH/ncc.vim
-elseif g:complete_engine != 'ncc' && g:complete_engine != 'non' && v:version >= 800
+elseif InstalledCmp()
+    source $SETTINGS_PATH/cmp.vim
+elseif g:complete_engine != 'non' && v:version >= 800
     let g:complete_engine = 'apc'
     source $SETTINGS_PATH/apc.vim
 else
