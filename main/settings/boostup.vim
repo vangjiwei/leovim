@@ -636,7 +636,6 @@ set completeopt-=preview
 try
     set completeopt=menu,menuone,noselect,noinsert
 catch
-    set completeopt=menu
     let g:complete_engine = 'ncc'
 endtry
 if CYGWIN() || Require('non')

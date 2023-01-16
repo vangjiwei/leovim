@@ -82,7 +82,7 @@ elseif Installed('coc.nvim')
     endif
 elseif Installed('neocomplcache.vim')
     source $SETTINGS_PATH/ncc.vim
-elseif g:complete_engine != 'ncc' && v:version >= 800
+elseif g:complete_engine != 'ncc' && g:complete_engine != 'non' && v:version >= 800
     let g:complete_engine = 'apc'
     source $SETTINGS_PATH/apc.vim
 else
