@@ -28,19 +28,23 @@ the command you started typing. Heavily inspired by the original [emacs-which-ke
 
 Install the plugin with your preferred package manager:
 
-### [vim-plug](https://github.com/junegunn/vim-plug)
+### [lazy.nvim](https://github.com/folke/lazy.nvim)
 
-```vim
-" Vim Script
-Plug 'folke/which-key.nvim'
-
-lua << EOF
-  require("which-key").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  }
-EOF
+```lua
+require("lazy").setup({
+  {
+    "folke/which-key.nvim",
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require("which-key").setup({
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      })
+    end,
+  },
+})
 ```
 
 ### [packer](https://github.com/wbthomason/packer.nvim)
@@ -50,6 +54,8 @@ EOF
 use {
   "folke/which-key.nvim",
   config = function()
+    vim.o.timeout = true
+    vim.o.timeoutlen = 300
     require("which-key").setup {
       -- your configuration comes here
       -- or leave it empty to use the default settings
@@ -61,7 +67,7 @@ use {
 
 ## ⚙️ Configuration
 
-> ❗️ IMPORTANT: the timeout when **WhichKey** opens is controlled by the vim setting [timeoutlen](https://neovim.io/doc/user/options.html#'timeoutlen').
+> ❗️ IMPORTANT: the [timeout](https://neovim.io/doc/user/options.html#'timeout') when **WhichKey** opens is controlled by the vim setting [timeoutlen](https://neovim.io/doc/user/options.html#'timeoutlen').
 > Please refer to the documentation to properly set it up. Setting it to `0`, will effectively
 > always show **WhichKey** immediately, but a setting of `500` (500ms) is probably more appropriate.
 
