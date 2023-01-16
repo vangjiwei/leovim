@@ -24,8 +24,8 @@ if g:complete_engine == 'coc'
             \ 'coc-yank',
             \ 'coc-highlight',
             \ 'coc-vimlsp',
-            \ 'coc-pyright',
             \ 'coc-symbol-line',
+            \ 'coc-pyls',
             \ ]
     if Require('web')
         let g:coc_global_extensions += [
