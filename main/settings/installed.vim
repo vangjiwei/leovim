@@ -138,7 +138,11 @@ elseif has('patch-7.4.330')
     xnoremap [       :WhichKeyVisual "["<Cr>
     xnoremap ]       :WhichKeyVisual "]"<Cr>
     " gszc whichkey
-    nnoremap g<Space> :WhichKey "g"<Cr>
+    if g:complete_engine == 'cmp'
+        nnoremap g<Space> :map g<Cr>
+    else
+        nnoremap g<Space> :WhichKey "g"<Cr>
+    endif
     nnoremap m<Space> :WhichKey "m"<Cr>
     nnoremap s<Space> :WhichKey "s"<Cr>
     nnoremap S<Space> :WhichKey "S"<Cr>
