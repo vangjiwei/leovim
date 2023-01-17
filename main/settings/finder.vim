@@ -7,8 +7,10 @@ if Installed('leaderf')
         let g:fuzzy_finder = 'leaderf-coc-fzf'
     elseif InstalledTelescope()
         let g:fuzzy_finder = 'leaderf-telescope'
-    else
+    elseif InstalledFZF()
         let g:fuzzy_finder = 'leaderf-fzf'
+    else
+        let g:fuzzy_finder = 'leaderf'
     endif
     nnoremap <leader>F :Leaderf
     nnoremap <silent><C-p> :Leaderf self<Cr>
