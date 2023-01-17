@@ -4,10 +4,12 @@
 if has('patch-7.4.330') && g:python_version > 2
     PackAdd 'Yggdroot/LeaderF', {'do': ':LeaderfInstallCExtension', 'opt': 0}
                 \| PackAdd 'leoatchina/leaderf-registers'
-                \| PackAdd 'Yggdroot/LeaderF-marks'
-                \| PackAdd 'Yggdroot/LeaderF-changes'
     if g:floaterm_floating
         PackAdd 'voldikss/LeaderF-floaterm'
+                \| PackAdd 'Yggdroot/LeaderF-changes'
+    endif
+    if v:version >= 800
+        PackAdd 'Yggdroot/LeaderF-marks'
     endif
 endif
 if g:complete_engine == 'cmp'

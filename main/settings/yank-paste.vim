@@ -16,7 +16,7 @@ cnoremap <M-'> <C-r>"
 inoremap <M-'> <C-r>"
 cnoremap <C-y> <C-r>"
 " for complete engine
-if g:advanced_complete_engine == 0
+if g:advanced_complete_engine == 0 && g:complete_engine != 'mcm'
     imap <expr><C-y> pumvisible()? "\<C-y>":"\<C-r>\""
 endif
 if has('clipboard')

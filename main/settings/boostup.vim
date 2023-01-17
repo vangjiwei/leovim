@@ -641,7 +641,7 @@ try
     let s:completeopt_fail_msg='noinsert'
     set completeopt+=noinsert
 catch
-    echo "completeopt set failed when setting " . s:completeopt_fail_msg
+    autocmd VimEnter * echo "completeopt set failed when setting [" . s:completeopt_fail_msg . "]"
 endtry
 if CYGWIN() || Require('non')
     let g:complete_engine = 'non'
@@ -660,7 +660,7 @@ elseif Require('coc')
         let s:smart_engine_select = 1
     endif
 elseif Require('mcm')
-    if has('patch-7.4.143') && &completeopt =~ 'menuone' && (&completeopt =~ 'noselect' || &completeopt =~ 'noinsert')
+    if has('patch-7.4.143') && &completeopt =~ 'menuone'
         let g:complete_engine = 'mcm'
     else
         let s:smart_engine_select = 1
@@ -673,7 +673,7 @@ if get(s:, 'smart_engine_select', 0) > 0
         let g:complete_engine = 'coc'
     elseif has('nvim')
         let g:complete_engine = 'cmp'
-    elseif has('patch-7.4.143') && &completeopt =~ 'menuone' && (&completeopt =~ 'noselect' || &completeopt =~ 'noinsert')
+    elseif has('patch-7.4.143') && &completeopt =~ 'menuone'
         let g:complete_engine = 'mcm'
     elseif v:version >= 800
         let g:complete_engine = 'apc'
