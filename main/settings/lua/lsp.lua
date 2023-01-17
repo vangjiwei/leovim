@@ -1,5 +1,5 @@
-local opts    = { noremap = true, silent = true }
-local map     = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+local map  = vim.api.nvim_set_keymap
 -----------------
 -- mason/lspconfig/lspsetup
 -----------------
@@ -18,7 +18,7 @@ require('mason-lspconfig').setup({
 })
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-local lsp_attach = function(client, bufnr)
+local lsp_attach = function(_, bufnr)
   -- definition type_definition declaration implementation
   vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {buffer=bufnr})
   vim.keymap.set('n', '<M-/>', vim.lsp.buf.references, {buffer=bufnr})
