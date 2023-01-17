@@ -91,8 +91,12 @@ let g:coc_global_extensions = [
         \ 'coc-highlight',
         \ 'coc-vimlsp',
         \ 'coc-symbol-line',
-        \ 'coc-pyls',
         \ ]
+if g:python_version >= 3
+    let g:coc_global_extensions += ['coc-pyls']
+else
+    let g:coc_global_extensions += ['coc-pyright']
+endif
 if Require('web')
     let g:coc_global_extensions += [
         \ 'coc-html',
@@ -139,67 +143,11 @@ endif
 if Require('java') && executable('java')
     let g:coc_global_extensions += ['coc-java', 'coc-java-intellicode']
 endif
-let g:coc_global_extensions = [
-        \ 'coc-json',
-        \ 'coc-sql',
-        \ 'coc-xml',
-        \ 'coc-git',
-        \ 'coc-sh',
-        \ 'coc-powershell',
-        \ 'coc-lists',
-        \ 'coc-marketplace',
-        \ 'coc-snippets',
-        \ 'coc-explorer',
-        \ 'coc-pairs',
-        \ 'coc-yank',
-        \ 'coc-highlight',
-        \ 'coc-vimlsp',
-        \ 'coc-symbol-line',
-        \ 'coc-pyls',
-        \ ]
-if g:python_version >= 3
-    let g:coc_global_extensions += ['coc-pyls']
-else
-    let g:coc_global_extensions += ['coc-pyright']
-endif
-if Require('web')
-    let g:coc_global_extensions += [
-        \ 'coc-html',
-        \ 'coc-css',
-        \ 'coc-yaml',
-        \ 'coc-phpls',
-        \ 'coc-emmet',
-        \ 'coc-tsserver',
-        \ 'coc-angular',
-        \ 'coc-vetur',
-        \ ]
-endif
-if Require('c')
-    let g:coc_global_extensions += ['coc-cmake']
-    if executable('clangd')
-        let g:coc_global_extensions += ['coc-clangd']
-    endif
-endif
-if Require('R')
-    let g:coc_global_extensions += ['coc-r-lsp']
-endif
-if Require('rust')
-    let g:coc_global_extensions += ['coc-rust-analyzer']
-endif
-if Require('go')
-    let g:coc_global_extensions += ['coc-go']
-endif
-if Require('latex')
-    let g:coc_global_extensions += ['coc-vimtex']
-endif
-if Require('java') && executable('java')
-    let g:coc_global_extensions += ['coc-java', 'coc-java-intellicode']
-endif
 " ----------------------------
 " map
 " ----------------------------
-" basic map
 nnoremap <M-l>o :Coc
+nnoremap <silent><M-V>  :CocFzfList yank<Cr>
 nnoremap <silent><M-l>e :CocList extensions<Cr>
 nnoremap <silent><M-l>c :CocFzfList commands<Cr>
 nnoremap <silent><M-l>. :CocFzfListResume<Cr>
