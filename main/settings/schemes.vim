@@ -30,7 +30,7 @@ endfunction
 if Require('gruvbox')
     call SetScheme('gruvbox-material', 'grubox')
 elseif Require('edge')
-    call SetScheme('edge', 'codedark')
+    call SetScheme('edge', 'one')
 elseif Require('sonokai')
     call SetScheme('sonokai', 'sublime')
 elseif Require('everforest')
@@ -60,8 +60,10 @@ elseif g:complete_engine == 'coc'
     endif
 elseif g:complete_engine == 'cmp'
     call SetScheme('nightfox', 'codedark')
-elseif g:complete_engine == 'apc'
+elseif g:complete_engine == 'mcm'
     call SetScheme('sonokai', 'sublime')
+elseif g:complete_engine == 'apc'
+    call SetScheme('edge', 'one')
 else
     colorscheme space-vim-dark
 endif

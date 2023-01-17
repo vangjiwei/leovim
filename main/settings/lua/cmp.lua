@@ -29,9 +29,11 @@ local get_ws = function(max, len)
 end
 cmp.setup({
   sources = cmp.config.sources(sources),
-  snippet = function (args)
-    luasnip.lsp_expand(args.body)
-  end,
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+    end,
+  },
   window = {
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),

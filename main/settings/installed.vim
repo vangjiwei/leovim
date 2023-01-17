@@ -80,6 +80,8 @@ if Installed('coc.nvim')
     endif
 elseif InstalledCmp()
     source $SETTINGS_PATH/cmp.vim
+elseif Installed('vim-mucomplete')
+    source $SETTINGS_PATH/mcm.vim
 elseif g:complete_engine != 'non' && v:version >= 800
     let g:complete_engine = 'apc'
     source $SETTINGS_PATH/apc.vim

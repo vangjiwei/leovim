@@ -632,11 +632,16 @@ endif
 " --------------------------
 " complete engine
 " --------------------------
-set completeopt-=preview
+set completeopt=menu
 try
-    set completeopt=menu,menuone,noselect,noinsert
+    let s:completeopt_fail_msg='menuone'
+    set completeopt+=menuone
+    let s:completeopt_fail_msg='noselect'
+    set completeopt+=noselect
+    let s:completeopt_fail_msg='noinsert'
+    set completeopt+=noinsert
 catch
-    let g:complete_engine = 'non'
+    echo "completeopt set failed when setting " . s:completeopt_fail_msg
 endtry
 if CYGWIN() || Require('non')
     let g:complete_engine = 'non'
@@ -654,6 +659,12 @@ elseif Require('coc')
     else
         let s:smart_engine_select = 1
     endif
+elseif Require('mcm')
+    if has('patch-7.4.143') && &completeopt =~ 'menuone' && (&completeopt =~ 'noselect' || &completeopt =~ 'noinsert')
+        let g:complete_engine = 'mcm'
+    else
+        let s:smart_engine_select = 1
+    endif
 else
     let s:smart_engine_select = 1
 endif
@@ -662,6 +673,8 @@ if get(s:, 'smart_engine_select', 0) > 0
         let g:complete_engine = 'coc'
     elseif has('nvim')
         let g:complete_engine = 'cmp'
+    elseif has('patch-7.4.143') && &completeopt =~ 'menuone' && (&completeopt =~ 'noselect' || &completeopt =~ 'noinsert')
+        let g:complete_engine = 'mcm'
     elseif v:version >= 800
         let g:complete_engine = 'apc'
     else

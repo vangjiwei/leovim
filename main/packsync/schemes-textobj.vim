@@ -22,6 +22,7 @@ if v:version >= 704 && g:advanced_complete_engine == 0 && get(g:, 'install_texto
 endif
 if g:has_truecolor > 0
     " sainnhe's themes
+    PackAdd 'sainnhe/edge'
     PackAdd 'sainnhe/sonokai'
     PackAdd 'sainnhe/everforest'
     PackAdd 'sainnhe/gruvbox-material'
