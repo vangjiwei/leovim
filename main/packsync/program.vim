@@ -8,58 +8,6 @@ if g:complete_engine == 'coc'
         PackAdd 'neoclide/coc.nvim', {'branch': 'release', 'opt': 0}
     endif
     PackAdd 'antoinemadec/coc-fzf'
-    " basic
-    let g:coc_global_extensions = [
-            \ 'coc-json',
-            \ 'coc-sql',
-            \ 'coc-xml',
-            \ 'coc-git',
-            \ 'coc-sh',
-            \ 'coc-powershell',
-            \ 'coc-lists',
-            \ 'coc-marketplace',
-            \ 'coc-snippets',
-            \ 'coc-explorer',
-            \ 'coc-pairs',
-            \ 'coc-yank',
-            \ 'coc-highlight',
-            \ 'coc-vimlsp',
-            \ 'coc-symbol-line',
-            \ 'coc-pyls',
-            \ ]
-    if Require('web')
-        let g:coc_global_extensions += [
-            \ 'coc-html',
-            \ 'coc-css',
-            \ 'coc-yaml',
-            \ 'coc-phpls',
-            \ 'coc-emmet',
-            \ 'coc-tsserver',
-            \ 'coc-angular',
-            \ 'coc-vetur',
-            \ ]
-    endif
-    if Require('c')
-        let g:coc_global_extensions += ['coc-cmake']
-        if executable('clangd')
-            let g:coc_global_extensions += ['coc-clangd']
-        endif
-    endif
-    if Require('R')
-        let g:coc_global_extensions += ['coc-r-lsp']
-    endif
-    if Require('rust')
-        let g:coc_global_extensions += ['coc-rust-analyzer']
-    endif
-    if Require('go')
-        let g:coc_global_extensions += ['coc-go']
-    endif
-    if Require('latex')
-        let g:coc_global_extensions += ['coc-vimtex']
-    endif
-    if Require('java') && executable('java')
-        let g:coc_global_extensions += ['coc-java', 'coc-java-intellicode']
-    endif
 elseif g:complete_engine == 'cmp'
     PackAdd 'neovim/nvim-lspconfig'
                 \| PackAdd 'williamboman/mason.nvim'
