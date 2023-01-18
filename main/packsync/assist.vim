@@ -4,12 +4,12 @@
 if has('patch-7.4.330') && g:python_version > 2
     PackAdd 'Yggdroot/LeaderF', {'do': ':LeaderfInstallCExtension', 'opt': 0}
                 \| PackAdd 'leoatchina/leaderf-registers'
-    if g:floaterm_floating
+    if g:floaterm_floating > 0
         PackAdd 'voldikss/LeaderF-floaterm'
-                \| PackAdd 'Yggdroot/LeaderF-changes'
     endif
     if v:version >= 800
         PackAdd 'Yggdroot/LeaderF-marks'
+                \| PackAdd 'Yggdroot/LeaderF-changes'
     endif
 endif
 if g:complete_engine == 'cmp'
@@ -41,7 +41,7 @@ else
     if !Planned('leaderf')
         PackAdd 'pbogut/fzf-mru.vim'
                 \| PackAdd 'leoatchina/fzf-registers'
-        if g:floaterm_floating
+        if g:floaterm_floating > 0
             PackAdd 'voldikss/fzf-floaterm'
         endif
     endif
