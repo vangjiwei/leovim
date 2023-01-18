@@ -2,7 +2,7 @@
 " fuzzy_finder
 " ------------------------------
 if has('patch-7.4.330') && g:python_version > 2
-    PackAdd 'Yggdroot/LeaderF', {'do': ':LeaderfInstallCExtension', 'opt': 0}
+    PackAdd 'Yggdroot/LeaderF', {'do': ':LeaderfInstallCExtension'}
                 \| PackAdd 'leoatchina/leaderf-registers'
     if g:floaterm_floating > 0
         PackAdd 'voldikss/LeaderF-floaterm'

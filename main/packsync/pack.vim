@@ -1,3 +1,21 @@
+" ------------------------------
+" zfvim
+" ------------------------------
+" zfvimdirdiff
+PackAdd 'ZSaberLv0/ZFVimJob', {'opt': 1}
+PackAdd 'ZSaberLv0/ZFVimDirDiff'
+PackAdd 'ZSaberLv0/ZFVimIgnore'
+" zfvimim
+if (Require('wubi') || Require('pinyin')) && g:has_terminal
+    PackAdd 'ZSaberLv0/ZFVimIM', {'opt': 1}
+    if Require('wubi')
+        PackAdd 'ZSaberLv0/ZFVimIM_wubi_base'
+        let g:input_method = 'zfvim_wubi'
+    else
+        let g:input_method = 'zfvim_pinyin'
+    endif
+    PackAdd 'ZSaberLv0/ZFVimIM_pinyin'
+endif
 " --------------------------
 " Important plugins
 " --------------------------
@@ -75,6 +93,12 @@ elseif g:complete_engine != 'coc'
     endif
 endif
 " ------------------------------
+" fold
+" ------------------------------
+if has('nvim') && UNIX()
+    PackAdd 'kevinhwang91/promise-async' | PackAdd 'kevinhwang91/nvim-ufo'
+endif
+" ------------------------------
 " translate && document
 " ------------------------------
 if Require('query') && v:version >= 800
@@ -86,30 +110,6 @@ if Require('query') && v:version >= 800
     elseif !CYGWIN()
         PackAdd 'KabbAmine/zeavim.vim'
     endif
-endif
-" ------------------------------
-" fold
-" ------------------------------
-if has('nvim') && UNIX()
-    PackAdd 'kevinhwang91/promise-async' | PackAdd 'kevinhwang91/nvim-ufo'
-endif
-" ------------------------------
-" zfvim
-" ------------------------------
-" zfvimdirdiff
-PackAdd 'ZSaberLv0/ZFVimDirDiff'
-PackAdd 'ZSaberLv0/ZFVimIgnore'
-PackAdd 'ZSaberLv0/ZFVimJob'
-" zfvimim
-if (Require('wubi') || Require('pinyin')) && g:has_terminal
-    PackAdd 'ZSaberLv0/ZFVimIM', {'opt': 0}
-    if Require('wubi')
-        PackAdd 'ZSaberLv0/ZFVimIM_wubi_base', {'opt': 0}
-        let g:input_method = 'zfvim_wubi'
-    else
-        let g:input_method = 'zfvim_pinyin'
-    endif
-    PackAdd 'ZSaberLv0/ZFVimIM_pinyin', {'opt': 0}
 endif
 " ------------------------------
 " schemes

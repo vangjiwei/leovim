@@ -3,9 +3,9 @@
 " ------------------------------
 if g:complete_engine == 'coc'
     if g:node_version == 'advanced'
-        PackAdd 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile', 'opt': 0}
+        PackAdd 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
     else
-        PackAdd 'neoclide/coc.nvim', {'branch': 'release', 'opt': 0}
+        PackAdd 'neoclide/coc.nvim', {'branch': 'release'}
     endif
     PackAdd 'antoinemadec/coc-fzf'
 elseif g:complete_engine == 'cmp'

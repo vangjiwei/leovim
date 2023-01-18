@@ -249,7 +249,7 @@ source $SETTINGS_PATH/autocmd.vim
 " startify
 " --------------------------
 if get(g:, 'leovim_startify', 1) > 0
-    PackAdd 'vim-startify'
+    PackAdd 'vim-startify', {'opt': 1}
     autocmd User Startified setlocal buflisted
     let g:startify_custom_header = [
                 \ '        LLLLLLLLLLL             EEEEEEEEEEEEEEEEEEEEEE     OOOOOOOOO     VVVVVVVV           VVVVVVVVIIIIIIIIIIMMMMMMMM               MMMMMMMM ',
