@@ -1,12 +1,12 @@
 " ------------------------------
 " zfvim
 " ------------------------------
-" zfvimdirdiff
+" zfvim
 PackAdd 'ZSaberLv0/ZFVimJob', {'opt': 1}
-PackAdd 'ZSaberLv0/ZFVimDirDiff', {'opt': 1}
 PackAdd 'ZSaberLv0/ZFVimIgnore', {'opt': 1}
+PackAdd 'ZSaberLv0/ZFVimDirDiff', {'opt': 1}
 " zfvimim
-if (Require('wubi') || Require('pinyin')) && g:has_terminal
+if (Require('wubi') || Require('pinyin')) && g:has_terminal > 0
     PackAdd 'ZSaberLv0/ZFVimIM', {'opt': 1}
     if Require('wubi')
         PackAdd 'ZSaberLv0/ZFVimIM_wubi_base', {'opt': 1}
