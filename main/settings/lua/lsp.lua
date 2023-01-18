@@ -44,11 +44,11 @@ end
 -----------------
 -- Mason
 map('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
--- Telescope
-map('n', 't<Cr>', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
-map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
+-- Telescope symbols
 map('n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
-map('n', 'ZL', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
+map('n', 'f<Cr>',     [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
+map('n', 'T<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]], opts)
+map('n', 't<Cr>', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
 --------------------------------
 -- lspsaga
 --------------------------------
