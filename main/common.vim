@@ -332,16 +332,19 @@ else
     nnoremap Y y$
     xnoremap <C-c> y
 endif
-" ----------------------
-" intergrated packs
-" ---------------------
-source $MAIN_PATH/intergrated.vim
 " ------------------------
 " configs for vscode or neovim/vim
 " ------------------------
 if exists("g:vscode")
     source $LEOVIM_PATH/vscode/neovim.vim
 else
+    " ------------------------
+    " source
+    " ------------------------
+    source $SETTINGS_PATH/boostup.vim
+    if g:has_terminal > 0
+        source $SETTINGS_PATH/terminal.vim
+    endif
     " ------------------------
     " vim-preview
     " ------------------------
@@ -357,14 +360,11 @@ else
     nmap <silent> ,T cd:PreviewGoto tabe<Cr>gT<C-w>zgt
     " preview file
     nmap ,<Cr> cd:PreviewFile<Space>
-    " ------------------------
-    " source
-    " ------------------------
-    source $SETTINGS_PATH/boostup.vim
-    if g:has_terminal > 0
-        source $SETTINGS_PATH/terminal.vim
-    endif
 endif
+" ----------------------
+" intergrated packs
+" ---------------------
+source $MAIN_PATH/intergrated.vim
 " ------------------------
 " set leovim loaded
 " ------------------------

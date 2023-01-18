@@ -3,18 +3,18 @@
 " ------------------------------
 " zfvimdirdiff
 PackAdd 'ZSaberLv0/ZFVimJob', {'opt': 1}
-PackAdd 'ZSaberLv0/ZFVimDirDiff'
-PackAdd 'ZSaberLv0/ZFVimIgnore'
+PackAdd 'ZSaberLv0/ZFVimDirDiff', {'opt': 1}
+PackAdd 'ZSaberLv0/ZFVimIgnore', {'opt': 1}
 " zfvimim
 if (Require('wubi') || Require('pinyin')) && g:has_terminal
     PackAdd 'ZSaberLv0/ZFVimIM', {'opt': 1}
     if Require('wubi')
-        PackAdd 'ZSaberLv0/ZFVimIM_wubi_base'
+        PackAdd 'ZSaberLv0/ZFVimIM_wubi_base', {'opt': 1}
         let g:input_method = 'zfvim_wubi'
     else
         let g:input_method = 'zfvim_pinyin'
     endif
-    PackAdd 'ZSaberLv0/ZFVimIM_pinyin'
+    PackAdd 'ZSaberLv0/ZFVimIM_pinyin', {'opt': 1}
 endif
 " --------------------------
 " Important plugins
