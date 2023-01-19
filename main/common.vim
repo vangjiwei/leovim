@@ -64,7 +64,7 @@ endfunction
 " -----------------------------------
 " set pack_tool
 " -----------------------------------
-if exists(':packadd') && exists("##SourcePost") && !Require('plug') && (g:git_version >= 1.85 || executable('curl') || executable('wget'))
+if exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) && (UNIX() || has('nvim'))
     let g:pack_tool = 'jetpack'
     let g:jetpack_njobs = get(g:, 'jetpack_njobs', 8)
     if get(g:, 'jetpack_download_method', '') == ''
@@ -85,9 +85,9 @@ else
     command! PackSync PlugClean | PlugUpdate
 endif
 nnoremap <leader>u :PackSync<Cr>
-" --------------------
-" PackAdd local opt or github repo
-" --------------------
+" ---------------------------------------
+" PackAdd local opt packs or github repos
+" ---------------------------------------
 let g:leovim_installed = {}
 function! PackAdd(repo, ...)
     " delete last / or \
@@ -112,8 +112,8 @@ function! PackAdd(repo, ...)
             if a:0 == 0
                 call plug#(repo)
             else
-                if has_key(a:1, "opt")
-                    call remove(a:1, "opt")
+                if has_key(a:1, "merged")
+                    call remove(a:1, "merged")
                 endif
                 call plug#(repo, a:1)
             endif
