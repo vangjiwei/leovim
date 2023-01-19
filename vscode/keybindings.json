@@ -87,16 +87,16 @@
         "command": "workbench.action.closeActiveEditor"
     },
     {
+        "key": "shift+alt+q",
+        "command": "workbench.action.closeAllEditors"
+    },
+    {
         "key": "alt+w",
         "command": "workbench.action.closeAllGroups"
     },
     {
         "key": "shift+alt+w",
         "command": "workbench.action.closeEditorsInGroup"
-    },
-    {
-        "key": "shift+alt+q",
-        "command": "workbench.action.closeAllEditors"
     },
     // some remap
     {
@@ -143,33 +143,13 @@
     },
     // implementation 
     {
-        "key": "alt+'",
+        "key": "shift+alt+/",
         "command": "editor.action.peekImplementation",
         "when": "editorTextFocus && !isInEmbeddedEditor"
     },
-    // incoming outgoing calls
-    {
-        "key": "alt+,",
-        "command": "references-view.showIncomingCalls"
-    },
-    {
-        "key": "alt+.",
-        "command": "references-view.showOutgoingCalls"
-    },
-    {
-        "key": "shift+alt+/",
-        "command": "editor.showIncomingCalls",
-        "when": "callHierarchyVisible && callHierarchyDirection == 'outgoingCalls'"
-    },
-
-    {
-        "key": "shift+alt+/",
-        "command": "editor.showOutgoingCalls",
-        "when": "callHierarchyVisible && callHierarchyDirection == 'incomingCalls'"
-    },
     // References
     {
-        "key": "shift+/",
+        "key": "alt+/",
         "command": "editor.action.goToReferences",
         "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
     },
@@ -182,6 +162,26 @@
         "key": "shift+alt+.",
         "command": "references-view.next",
         "when": "reference-list.hasResult && references-view.canNavigate"
+    },
+    // incoming outgoing calls
+    {
+        "key": "alt+,",
+        "command": "references-view.showIncomingCalls"
+    },
+    {
+        "key": "alt+.",
+        "command": "references-view.showOutgoingCalls"
+    },
+    {
+        "key": "alt+,",
+        "command": "editor.showIncomingCalls",
+        "when": "callHierarchyVisible && callHierarchyDirection == 'outgoingCalls'"
+    },
+
+    {
+        "key": "alt+.",
+        "command": "editor.showOutgoingCalls",
+        "when": "callHierarchyVisible && callHierarchyDirection == 'incomingCalls'"
     },
     // insert mode up/down
     {
@@ -238,9 +238,9 @@
         "key": "ctrl+; g",
         "command": "workbench.view.scm"
     },
-    // contextMenu, as right mouse click
+    // contextMenu, like right mouse click
     {
-        "key": "alt+\\",
+        "key": "alt+'",
         "command": "editor.action.showContextMenu",
         "when": "editorTextFocus"
     }
