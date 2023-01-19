@@ -2,11 +2,12 @@
 -- cmp config
 -----------------
 local cmp = require('cmp')
-local luasnip = require('luasnip')
 local lspkind = require('lspkind')
+local luasnip = require('luasnip')
 -- sources
 if Installed('friendly-snippets') then
   require("luasnip.loaders.from_vscode").lazy_load()
+  vim.api.nvim_set_keymap('i', '<C-x><C-x>', [[<cmd>Telescope luasnip<CR>]], {noremap=true, silent=false}))
 end
 local sources = {
   { name = 'luasnip' },
