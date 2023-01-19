@@ -1,20 +1,19 @@
 " ------------------------------
 " zfvim
 " ------------------------------
-" zfvim
-PackAdd 'ZSaberLv0/ZFVimJob', {'opt': 1}
-PackAdd 'ZSaberLv0/ZFVimIgnore', {'opt': 1}
-PackAdd 'ZSaberLv0/ZFVimDirDiff', {'opt': 1}
+PackAdd 'ZSaberLv0/ZFVimJob'
+PackAdd 'ZSaberLv0/ZFVimIgnore'
+PackAdd 'ZSaberLv0/ZFVimDirDiff'
 " zfvimim
 if (Require('wubi') || Require('pinyin')) && g:has_terminal > 0
-    PackAdd 'ZSaberLv0/ZFVimIM', {'opt': 1}
+    PackAdd 'ZSaberLv0/ZFVimIM', {'merged': 0}
     if Require('wubi')
-        PackAdd 'ZSaberLv0/ZFVimIM_wubi_base', {'opt': 1}
+        PackAdd 'ZSaberLv0/ZFVimIM_wubi_base', {'merged': 0}
         let g:input_method = 'zfvim_wubi'
     else
         let g:input_method = 'zfvim_pinyin'
     endif
-    PackAdd 'ZSaberLv0/ZFVimIM_pinyin', {'opt': 1}
+    PackAdd 'ZSaberLv0/ZFVimIM_pinyin', {'merged': 0}
 endif
 " --------------------------
 " Important plugins
