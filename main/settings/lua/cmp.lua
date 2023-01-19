@@ -151,17 +151,19 @@ cmp.setup({
 ----------------------------------
 cmp.setup.cmdline('/', {
   sources = cmp.config.sources({
-    { name = 'nvim_lsp_document_symbol' },
     { name = 'buffer' }
+  }, {
+    { name = 'nvim_lsp_document_symbol' }
   })
 })
 ----------------------------------
--- Use cmdline & path source for ':'.
+-- Use cmdline & path source for ':'
 ----------------------------------
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
-    { name = 'path' },
-    { name = 'cmdline'}
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
   })
 })
 ----------------------------------
