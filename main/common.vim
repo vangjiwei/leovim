@@ -64,7 +64,7 @@ endfunction
 " -----------------------------------
 " set pack_tool
 " -----------------------------------
-if !Require('plug') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) && has('nvim')
+ if !Require('plug') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) && UNIX()
     let g:pack_tool = 'jetpack'
     let g:jetpack_njobs = get(g:, 'jetpack_njobs', 8)
     if get(g:, 'jetpack_download_method', '') == ''
@@ -81,11 +81,15 @@ if !Require('plug') && exists(':packadd') && exists("##SourcePost") && (g:git_ve
                 \   '[\/]doc[\/]tags*',
                 \   '[\/]test[\/]*',
                 \   '[\/].git[\/]*',
-                \   '[\/].gitbub[\/]*',
+                \   '[\/].github[\/]*',
                 \   '[\/].gitignore',
                 \   '[\/][.ABCDEFGHIJKLMNOPQRSTUVWXYZ]*',
                 \ ]
-    let g:jetpack_copy_method = get(g:, 'jetpack_copy_method', 'system')
+    if has('nvim')
+        let g:jetpack_copy_method = get(g:, 'jetpack_copy_method', 'symlink')
+    else
+        let g:jetpack_copy_method = get(g:, 'jetpack_copy_method', 'copy')
+    endif
     command! PackSync JetpackSync
 else
     let g:pack_tool = 'plug'
