@@ -29,9 +29,6 @@ let $LUA_PATH = expand($CONFIG_PATH . '/lua')
 " ------------------------
 let $RUNTIME_PATH = expand($LEOVIM_PATH . '/runtime')
 set rtp=$VIMRUNTIME,$RUNTIME_PATH
-if exists(':packadd')
-	set packpath=$LEOVIM_PATH
-endif
 " --------------------------
 " init directories
 " --------------------------

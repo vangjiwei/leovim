@@ -65,6 +65,7 @@ endfunction
 " set pack_tool
 " -----------------------------------
  if !Require('plug') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) && UNIX()
+	set packpath=$LEOVIM_PATH
     let g:pack_tool = 'jetpack'
     let g:jetpack_njobs = get(g:, 'jetpack_njobs', 8)
     if get(g:, 'jetpack_download_method', '') == ''
@@ -91,10 +92,16 @@ endfunction
         let g:jetpack_copy_method = get(g:, 'jetpack_copy_method', 'copy')
     endif
     command! PackSync JetpackSync
+    if !exists('g:vscode')
+        source ~/.leovim.conf/pack/jetpack.vim
+    endif
 else
     let g:pack_tool = 'plug'
     let g:plug_threads = get(g:, 'plug_threads', 8)
     command! PackSync PlugClean | PlugUpdate
+    if !exists('g:vscode')
+        source ~/.leovim.conf/pack/plug.vim
+    endif
 endif
 nnoremap <leader>u :PackSync<Cr>
 " ---------------------------------------
@@ -104,6 +111,7 @@ let g:leovim_installed = {}
 function! PackAdd(repo, ...)
     " delete last / or \
     let repo = substitute(a:repo, '[\/]\+$', '', '')
+    " if not / included, local plugin will be loaded
     if stridx(repo, '/') < 0
         let pack = repo
         if g:pack_tool == 'jetpack'
