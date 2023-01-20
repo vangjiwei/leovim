@@ -84,6 +84,7 @@ if executable('fd') then
   }
 end
 -- keymaps
+map('n', '<M-l>o', [[:Telescope]], { noremap = true, silent = false })
 map('n', ',<Tab>', [[<cmd>Telescope find_files<CR>]], opts)
 -- extensions
 if Installed('telescope-lsp-handlers.nvim') then

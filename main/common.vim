@@ -64,34 +64,54 @@ endfunction
 " -----------------------------------
 " set pack_tool
 " -----------------------------------
-if exists(':packadd') && exists("##SourcePost") && Require('jetpack') && !Require('wubi') && !Require('pinyin') && (g:git_version >= 1.85 || executable('curl') || executable('wget'))
+ if Require('jetpack') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget'))
+	set packpath=$LEOVIM_PATH
     let g:pack_tool = 'jetpack'
     let g:jetpack_njobs = get(g:, 'jetpack_njobs', 8)
     if get(g:, 'jetpack_download_method', '') == ''
-        if g:git_version >= 1.85
+        if executable('git')
             let g:jetpack_download_method = get(g:, 'jetpack_download_method', 'git')
+        elseif executable('curl')
+            let g:jetpack_download_method = get(g:, 'jetpack_download_method', 'curl')
         else
-            if executable('curl')
-                let g:jetpack_download_method = get(g:, 'jetpack_download_method', 'curl')
-            else
-                let g:jetpack_download_method = get(g:, 'jetpack_download_method', 'wget')
-            endif
+            let g:jetpack_download_method = get(g:, 'jetpack_download_method', 'wget')
         endif
     endif
+    let g:jetpack_ignore_patterns =
+                \ [
+                \   '[\/]doc[\/]tags*',
+                \   '[\/]test[\/]*',
+                \   '[\/].git[\/]*',
+                \   '[\/].github[\/]*',
+                \   '[\/].gitignore',
+                \   '[\/][.ABCDEFGHIJKLMNOPQRSTUVWXYZ]*',
+                \ ]
+    if has('nvim')
+        let g:jetpack_copy_method = get(g:, 'jetpack_copy_method', 'symlink')
+    else
+        let g:jetpack_copy_method = get(g:, 'jetpack_copy_method', 'copy')
+    endif
     command! PackSync JetpackSync
+    if !exists('g:vscode')
+        source ~/.leovim.conf/pack/jetpack.vim
+    endif
 else
     let g:pack_tool = 'plug'
     let g:plug_threads = get(g:, 'plug_threads', 8)
     command! PackSync PlugClean | PlugUpdate
+    if !exists('g:vscode')
+        source ~/.leovim.conf/pack/plug.vim
+    endif
 endif
 nnoremap <leader>u :PackSync<Cr>
-" --------------------
-" PackAdd local opt or github repo
-" --------------------
+" ---------------------------------------
+" PackAdd local opt packs or github repos
+" ---------------------------------------
 let g:leovim_installed = {}
 function! PackAdd(repo, ...)
     " delete last / or \
     let repo = substitute(a:repo, '[\/]\+$', '', '')
+    " if not / included, local plugin will be loaded
     if stridx(repo, '/') < 0
         let pack = repo
         if g:pack_tool == 'jetpack'
@@ -112,8 +132,8 @@ function! PackAdd(repo, ...)
             if a:0 == 0
                 call plug#(repo)
             else
-                if has_key(a:1, "opt")
-                    call remove(a:1, "opt")
+                if has_key(a:1, "merged")
+                    call remove(a:1, "merged")
                 endif
                 call plug#(repo, a:1)
             endif
@@ -214,7 +234,7 @@ endif
 " wildmenu
 " -----------------------------------
 if has('patch-7.4.2201') || has('nvim')
-    set signcolumn=yes
+    set signcolumn=auto
 endif
 if has('wildignore')
     set wildignore+=*\\tmp\\*,*/tmp/*,*.swp,*.exe,*.dll,*.so,*.zip,*.tar*,*.7z,*.rar,*.gz,*.pyd,*.pyc,*.ipynb
@@ -331,16 +351,19 @@ else
     nnoremap Y y$
     xnoremap <C-c> y
 endif
-" ----------------------
-" intergrated packs
-" ---------------------
-source $MAIN_PATH/intergrated.vim
 " ------------------------
 " configs for vscode or neovim/vim
 " ------------------------
 if exists("g:vscode")
     source $LEOVIM_PATH/vscode/neovim.vim
 else
+    " ------------------------
+    " source
+    " ------------------------
+    source $CONFIG_PATH/boostup.vim
+    if g:has_terminal > 0
+        source $CONFIG_PATH/terminal.vim
+    endif
     " ------------------------
     " vim-preview
     " ------------------------
@@ -356,14 +379,11 @@ else
     nmap <silent> ,T cd:PreviewGoto tabe<Cr>gT<C-w>zgt
     " preview file
     nmap ,<Cr> cd:PreviewFile<Space>
-    " ------------------------
-    " source
-    " ------------------------
-    source $SETTINGS_PATH/boostup.vim
-    if g:has_terminal > 0
-        source $SETTINGS_PATH/terminal.vim
-    endif
 endif
+" ----------------------
+" intergrated packs
+" ---------------------
+source $MAIN_PATH/intergrated.vim
 " ------------------------
 " set leovim loaded
 " ------------------------

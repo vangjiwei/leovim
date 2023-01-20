@@ -1,5 +1,5 @@
-local opts    = { noremap = true, silent = true }
-local map     = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+local map  = vim.api.nvim_set_keymap
 -----------------
 -- mason/lspconfig/lspsetup
 -----------------
@@ -18,13 +18,12 @@ require('mason-lspconfig').setup({
 })
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-local lsp_attach = function(client, bufnr)
-  -- definition type_definition declaration implementation
+local lsp_attach = function(_, bufnr)
   vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {buffer=bufnr})
   vim.keymap.set('n', '<M-/>', vim.lsp.buf.references, {buffer=bufnr})
+  vim.keymap.set('n', '<M-?>', vim.lsp.buf.implementation, {buffer=bufnr})
   vim.keymap.set('n', 'gh', vim.lsp.buf.type_definition, {buffer=bufnr})
-  vim.keymap.set('n', 'gl', vim.lsp.buf.declaration, {buffer=bufnr})
-  vim.keymap.set('n', 'gm', vim.lsp.buf.implementation, {buffer=bufnr})
+  vim.keymap.set('n', 'gm', vim.lsp.buf.declaration, {buffer=bufnr})
   -- format
   vim.keymap.set('n', '<C-q>', vim.lsp.buf.format, {buffer=bufnr})
   vim.keymap.set('x', '<C-q>', vim.lsp.buf.range_formatting, {buffer=bufnr})
@@ -44,11 +43,11 @@ end
 -----------------
 -- Mason
 map('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
--- Telescope
-map('n', 't<Cr>', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
-map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
+-- Telescope symbols
 map('n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
-map('n', 'ZL', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
+map('n', 'f<Cr>',     [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
+map('n', 'T<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]], opts)
+map('n', 't<Cr>', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
 --------------------------------
 -- lspsaga
 --------------------------------
@@ -131,9 +130,9 @@ if vim.fn.has('nvim-0.8') > 0 then
   vim.wo.winbar = require('lspsaga.symbolwinbar'):get_winbar()
 end
 -- lspsaga maps
+map('n', 'K', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
 map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<F2>',  [[<cmd>Lspsaga rename<Cr>]], opts)
-map('n', '<C-h>', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
 map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)
 map('n', '<M-:>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
 map('n', "<leader>a<cr>", [[<cmd>Lspsaga code_action<Cr>]], opts)

@@ -126,7 +126,7 @@ if Installed('nvim-dap', 'nvim-dap-ui')
     " nvim-dap-ui
     " ---------------------------------------
     nnoremap ,v :lua require("dapui").
-    nnoremap <silent> ,r <cmd>lua require("dapui").toggle()<CR>
+    nnoremap <silent> ,t <cmd>lua require("dapui").toggle()<CR>
     " watch
     nnoremap <silent> ,e <cmd>lua require("dapui").eval()<CR>
     nnoremap <silent> <M-m>f <cmd>lua require("dapui").float_element()<Cr>
@@ -172,21 +172,28 @@ elseif Installed('vimspector')
                     \ }))
     endif
     nnoremap ,D :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
+    if WINDOWS()
+        let g:vimspector_base_dir = expand('~/AppData/Local/nvim-data/vimspector')
+    elseif UNIX()
+        let g:vimspector_base_dir = expand('~/.local/share/nvim/vimspector')
+    endif
     " core shortcuts
     nnoremap ,v :call vimspector#<Tab>
     nnoremap ,V :Vimspector<Tab>
     nnoremap ,e :VimspectorEval<Space>
     nnoremap ,w :VimspectorWatch<Space>
-    nnoremap ,d :call vimspector#DeleteWatch()<Cr>
     nnoremap ,a :call vimspector#AddWatch("")<Left><Left>
-    nnoremap ,q :call vimspector#Stop()<Cr>
-    nnoremap ,r :call vimspector#Reset()<Cr>
     " run
     nmap <silent> ,c <Plug>VimspectorRunToCursor
     nmap <silent> ,n <Plug>VimspectorContinue
     nmap <silent> ,s <Plug>VimspectorStepInto
     nmap <silent> ,o <Plug>VimspectorStepOver
     nmap <silent> ,u <Plug>VimspectorStepOut
+    nmap <silent> ,r :call vimspector#Restart()<Cr>
+    " del / stop
+    nnoremap <silent>,x :call vimspector#DeleteWatch()<Cr>
+    nnoremap <silent>,q :call vimspector#Stop()<Cr>
+    nnoremap <silent>,R :call vimspector#Reset()<Cr>
     " breakpoint
     nmap <silent> ,b <Plug>VimspectorToggleBreakpoint
     nmap <silent> ,B :call vimspector#ToggleAllBreakpointsViewBreakpoint()<Cr>
@@ -204,7 +211,6 @@ elseif Installed('vimspector')
     nnoremap <M-d>g :call vimspector#GetConfigurations()<Cr>
     nnoremap <M-d>t :call vimspector#SetCurrentThread()<Cr>
     nnoremap <M-d>e :call vimspector#ExpandVariable()<Cr>
-    nnoremap <M-d>r :call vimspector#Restart()<Cr>
     " jump to windows in vimspector
     nnoremap <M-m>o :call GoToVimspectorWindow('output')<Cr>
     nnoremap <M-m>e :call GoToVimspectorWindow('stderr')<Cr>

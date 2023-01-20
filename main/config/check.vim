@@ -42,7 +42,7 @@ elseif Installed('coc.nvim')
             if b:coc_diagnostic_disable > 0
                 setlocal signcolumn=no
             else
-                setlocal signcolumn=yes
+                setlocal signcolumn=auto
             endif
         endfunction
         command! CocDiagnosticToggleBuffer call s:CocDiagnosticToggleBuffer()

@@ -1,5 +1,4 @@
 let g:require_group = get(g:, 'preset_group', [])
-let g:require_group += ['themes']
 
 " https://github.com/nvim-telescope/telescope-fzf-native.nvim
 " cmd to compile telescope_fzf
@@ -26,11 +25,11 @@ endif
 " fonts
 if g:gui_running && !CYGWIN()
     if WINDOWS()
-        " let &guifont="Consolas:h10"
-        " let &guifont="Cascadia Code:h12"
+        " set guifont=Cascadia\ Code:h10.5
+        " set guifont=CascadiaCode\ Nerd\ Font:h10.5
     elseif LINUX()
-        " set guifont=Consolas\ 11
-        " set guifont=Cascadia\ Code\ 11
+        " set guifont=Cascadia\ Code\ 10.5
+        " set guifont=CascadiaCode\ Nerd\ Font 10.5
     endif
 endif
 

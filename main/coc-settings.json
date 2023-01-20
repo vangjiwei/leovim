@@ -59,7 +59,7 @@
     "maxWidth": 100,
     "focusable": false
   },
-  "diagnostic.signPriority": 20,
+  "diagnostic.signPriority": 5,
   "diagnostic.enableHighlightLineNumber": false,
   "diagnostic.locationlistUpdate": false,
   "diagnostic.virtualText": false,

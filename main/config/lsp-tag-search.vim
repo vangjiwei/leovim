@@ -58,33 +58,34 @@ function! s:tag_or_searchall(tagname, ...)
     else
         let tagname = a:tagname
     endif
-    let no_found_msg = "No tag found, and cannot do global grep search."
     if a:0 == 0
         let tag_found = 0
     else
         let tag_found = a:1
     endif
-    if InstalledTelescope() && index(['vim', 'help'], &ft) >= 0
-        execute 'TeleSearchAll ' . tagname
-    elseif g:ctags_type != '' && tag_found == 0
-        let ret = Execute("silent! PreviewList ". tagname)
-        if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
-            if get(g:, 'search_all_cmd', '') == ''
-                echom no_found_msg
+    if g:ctags_type != '' && tag_found == 0
+        try
+            let ret = Execute("silent! PreviewList ". tagname)
+            " tag PreviewList error, go on search
+            if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
+                let s:do_searchall = 1
             else
-                execute g:search_all_cmd . ' ' . tagname
+                execute "copen " . g:asyncrun_open
             endif
-        else
-            execute "copen " . g:asyncrun_open
-        endif
-    elseif get(g:, 'search_all_cmd', '') != ''
-        execute g:search_all_cmd . ' ' . tagname
+        catch /.*/
+            let s:do_searchall = 1
+        endtry
     else
-        echom no_found_msg
+        let s:do_searchall = 1
+    endif
+    if get(s:, 'do_searchall', 0) > 0 && tag_found <= 1
+        if get(g:, 'search_all_cmd', '') != ''
+            execute g:search_all_cmd . ' ' . tagname
+        else
+            echom "No tag found, and cannot do global grep search."
+        endif
     endif
 endfunction
-command! TagOrSearchAll call s:tag_or_searchall('')
-nnoremap <silent><M-t> :TagOrSearchAll<Cr>
 " --------------------------
 " symbols in buf
 " --------------------------
@@ -220,7 +221,7 @@ if g:complete_engine == 'cmp' && InstalledTelescope() && InstalledLsp() && Insta
 else
     if Installed("coc.nvim")
         nmap <silent><M-/> :call LspOrTagOrSearchAll("jumpReferences", "float")<Cr>
-        nmap <silent><M-?> <Plug>(coc-refactor)
+        nmap <silent>gl     <Plug>(coc-refactor)
     else
         if get(g:, 'symbol_tool', '') =~ 'leaderfgtags'
             nmap <silent><M-/> :Leaderf gtags -i -g <C-r>=expand('<cword>')<Cr><Cr>
@@ -372,12 +373,12 @@ if g:complete_engine == 'coc'
     nnoremap <silent><C-g>  :call LspOrTagOrSearchAll("jumpDefinition", "vsplit")<Cr>
     nnoremap <silent>g<Cr>  :call LspOrTagOrSearchAll("jumpDefinition", "split")<Cr>
     nnoremap <silent>g<Tab> :call LspOrTagOrSearchAll("jumpDefinition", "tabe")<Cr>
+    " jumpImplementation
+    nnoremap <silent><M-?> :call LspOrTagOrSearchAll("jumpImplementation", "float")<Cr>
     " jumpTypeDefinition
     nnoremap <silent>gh :call LspOrTagOrSearchAll("jumpTypeDefinition", "float")<Cr>
     " jumpDeclaration
-    nnoremap <silent>gl :call LspOrTagOrSearchAll("jumpDeclaration", "float")<Cr>
-    " jumpImplementation
-    nnoremap <silent>gm :call LspOrTagOrSearchAll("jumpImplementation", "float")<Cr>
+    nnoremap <silent>gm :call LspOrTagOrSearchAll("jumpDeclaration", "float")<Cr>
 else
     if g:complete_engine != 'cmp'
         nnoremap <silent><M-;> :call LspOrTagOrSearchAll("")<Cr>

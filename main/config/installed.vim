@@ -8,7 +8,7 @@ endif
 " git
 " --------------------------
 if executable('git')
-    source $SETTINGS_PATH/git.vim
+    source $CONFIG_PATH/git.vim
 endif
 " --------------------------
 " lightline
@@ -16,7 +16,7 @@ endif
 try
     set laststatus=2
     PackAdd 'lightline.vim'
-    source $SETTINGS_PATH/lightline.vim
+    source $CONFIG_PATH/lightline.vim
 catch
     let g:currentmode={
                 \ 'n':      'NORMAL ',
@@ -62,7 +62,7 @@ endif
 " ------------------------
 " home end
 " ------------------------
-source $SETTINGS_PATH/finder.vim
+source $CONFIG_PATH/finder.vim
 cmap <C-a> <Home>
 cmap <C-e> <End>
 imap <expr><C-b> pumvisible()? "\<C-b>":"\<C-o>I"
@@ -71,44 +71,44 @@ imap <expr><C-a> pumvisible()? "\<C-a>":"\<C-o>I"
 " --------------------------
 " complete_engine settings
 " --------------------------
-if InstalledCmp()
-    source $SETTINGS_PATH/cmp.vim
-elseif Installed('coc.nvim')
-    source $SETTINGS_PATH/coc.vim
+if Installed('coc.nvim')
+    source $CONFIG_PATH/coc.vim
     if WINDOWS() && isdirectory(expand('~/AppData/Local/nvim-data/mason/bin'))
         let $PATH = expand('~/AppData/Local/nvim-data/mason/bin') . ";" . $PATH
     elseif UNIX() && isdirectory(expand('~/.local/share/nvim/mason/bin'))
         let $PATH = expand('~/.local/share/nvim/mason/bin') . ":" . $PATH
     endif
-elseif Installed('neocomplcache.vim')
-    source $SETTINGS_PATH/ncc.vim
-elseif g:complete_engine != 'ncc' && v:version >= 800
+elseif InstalledCmp()
+    source $CONFIG_PATH/cmp.vim
+elseif Installed('vim-mucomplete')
+    source $CONFIG_PATH/mcm.vim
+elseif g:complete_engine != 'non' && v:version >= 800
     let g:complete_engine = 'apc'
-    source $SETTINGS_PATH/apc.vim
+    source $CONFIG_PATH/apc.vim
 else
     let g:complete_engine = 'non'
 endif
-source $SETTINGS_PATH/snippets.vim
-source $SETTINGS_PATH/format.vim
-source $SETTINGS_PATH/debug.vim
+source $CONFIG_PATH/snippets.vim
+source $CONFIG_PATH/format.vim
+source $CONFIG_PATH/debug.vim
 " --------------------------
 " settings
 " --------------------------
-source $SETTINGS_PATH/differ.vim
-source $SETTINGS_PATH/search-replace.vim
-source $SETTINGS_PATH/sidebar.vim
-source $SETTINGS_PATH/run.vim
-source $SETTINGS_PATH/marks.vim
-source $SETTINGS_PATH/query.vim
-source $SETTINGS_PATH/fold.vim
-source $SETTINGS_PATH/yank-paste.vim
-source $SETTINGS_PATH/lsp-tag-search.vim
-source $SETTINGS_PATH/schemes.vim
-source $SETTINGS_PATH/check.vim
+source $CONFIG_PATH/differ.vim
+source $CONFIG_PATH/search-replace.vim
+source $CONFIG_PATH/sidebar.vim
+source $CONFIG_PATH/run.vim
+source $CONFIG_PATH/marks.vim
+source $CONFIG_PATH/query.vim
+source $CONFIG_PATH/fold.vim
+source $CONFIG_PATH/yank-paste.vim
+source $CONFIG_PATH/lsp-tag-search.vim
+source $CONFIG_PATH/schemes.vim
+source $CONFIG_PATH/check.vim
 " ------------------------
 " zfvime is for chs inpus
 " ------------------------
-source $SETTINGS_PATH/zfvime.vim
+source $CONFIG_PATH/zfvime.vim
 " --------------------------
 " whichkey
 " --------------------------
@@ -140,7 +140,11 @@ elseif has('patch-7.4.330')
     xnoremap [       :WhichKeyVisual "["<Cr>
     xnoremap ]       :WhichKeyVisual "]"<Cr>
     " gszc whichkey
-    nnoremap g<Space> :WhichKey "g"<Cr>
+    if g:complete_engine == 'cmp'
+        nnoremap g<Space> :map g<Cr>
+    else
+        nnoremap g<Space> :WhichKey "g"<Cr>
+    endif
     nnoremap m<Space> :WhichKey "m"<Cr>
     nnoremap s<Space> :WhichKey "s"<Cr>
     nnoremap S<Space> :WhichKey "S"<Cr>
@@ -240,12 +244,12 @@ nnoremap <M-k>V :version<Cr>
 " --------------------------
 " autocmd
 " --------------------------
-source $SETTINGS_PATH/autocmd.vim
+source $CONFIG_PATH/autocmd.vim
 " --------------------------
 " startify
 " --------------------------
 if get(g:, 'leovim_startify', 1) > 0
-    PackAdd 'vim-startify'
+    PackAdd 'vim-startify', {'opt': 1}
     autocmd User Startified setlocal buflisted
     let g:startify_custom_header = [
                 \ '        LLLLLLLLLLL             EEEEEEEEEEEEEEEEEEEEEE     OOOOOOOOO     VVVVVVVV           VVVVVVVVIIIIIIIIIIMMMMMMMM               MMMMMMMM ',

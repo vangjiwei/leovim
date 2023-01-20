@@ -2,11 +2,12 @@
 -- cmp config
 -----------------
 local cmp = require('cmp')
-local luasnip = require('luasnip')
 local lspkind = require('lspkind')
+local luasnip = require('luasnip')
 -- sources
 if Installed('friendly-snippets') then
   require("luasnip.loaders.from_vscode").lazy_load()
+  vim.api.nvim_set_keymap('i', '<C-x><C-x>', [[<cmd>Telescope luasnip<CR>]], {noremap=true, silent=false})
 end
 local sources = {
   { name = 'luasnip' },
@@ -29,9 +30,11 @@ local get_ws = function(max, len)
 end
 cmp.setup({
   sources = cmp.config.sources(sources),
-  snippet = function (args)
-    luasnip.lsp_expand(args.body)
-  end,
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+    end,
+  },
   window = {
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
@@ -104,11 +107,13 @@ cmp.setup({
           fallback()
         end
       end,
-      c = function()
+      c = function(fallback)
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
         elseif has_words_before() then
           cmp.complete()
+        else
+          fallback()
         end
       end,
       s = function(fallback)
@@ -148,17 +153,19 @@ cmp.setup({
 ----------------------------------
 cmp.setup.cmdline('/', {
   sources = cmp.config.sources({
-    { name = 'nvim_lsp_document_symbol' },
     { name = 'buffer' }
+  }, {
+    { name = 'nvim_lsp_document_symbol' }
   })
 })
 ----------------------------------
--- Use cmdline & path source for ':'.
+-- Use cmdline & path source for ':'
 ----------------------------------
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
-    { name = 'path' },
-    { name = 'cmdline'}
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
   })
 })
 ----------------------------------

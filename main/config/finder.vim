@@ -7,8 +7,10 @@ if Installed('leaderf')
         let g:fuzzy_finder = 'leaderf-coc-fzf'
     elseif InstalledTelescope()
         let g:fuzzy_finder = 'leaderf-telescope'
-    else
+    elseif InstalledFZF()
         let g:fuzzy_finder = 'leaderf-fzf'
+    else
+        let g:fuzzy_finder = 'leaderf'
     endif
     nnoremap <leader>F :Leaderf
     nnoremap <silent><C-p> :Leaderf self<Cr>
@@ -51,12 +53,12 @@ elseif InstalledFZF()
     let $FZF_DEFAULT_OPTS = '--layout=reverse-list --border=sharp'
     if has('nvim') || has('patch-8.2.191')
         let g:fzf_layout = {'up':'~90%',
-            \ 'window': {'width': 0.8, 'height': 0.8, 'yoffset': 0.5, 'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp'}
+            \ 'window': {'width': 0.9, 'height': 0.9, 'yoffset': 0.5, 'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp'}
             \ }
         if WINDOWS()
             let g:fzf_preview_window = []
         else
-            let g:fzf_preview_window = ['right,50%,<70(up,40%)', 'ctrl-/']
+            let g:fzf_preview_window = ['up,25%', 'ctrl-/']
         endif
     else
         let g:fzf_layout = {'down': '~30%'}
@@ -384,7 +386,7 @@ if Installed('vim-quickui')
         command! -nargs=1 -complete=file PreviewFileW call s:PreviewFileW(<f-args>)
         nnoremap ,<Tab> :PreviewFileW<Space>
     endif
-    au FileType python nnoremap K call quickui#tools#python_help("")
+    au FileType python nnoremap <C-h> call quickui#tools#python_help("")
 endif
 " --------------------------
 " changes

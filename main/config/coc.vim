@@ -25,14 +25,129 @@ augroup cocgroup
     " Highlight the symbol and its references when holding the cursor.
     autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup end
+let g:coc_config_home = expand("$MAIN_PATH")
+" ------------------------
+" coc fzf
+" ------------------------
+if Installed('coc-fzf') && InstalledFZF()
+    if WINDOWS()
+        let g:coc_fzf_preview=''
+    else
+        let g:coc_fzf_preview='right:60%'
+    endif
+endif
+" ----------------------------
+" semanticTokens
+" ----------------------------
+if Installed('nvim-treesitter', 'nvim-treehopper')
+    let g:coc_default_semantic_highlight_groups = 0
+else
+    " semanticTokensFiletypes
+    let g:coc_default_semantic_highlight_groups = 1
+    call coc#config('semanticTokens.filetypes',  g:highlight_filetypes)
+    " trseesiter
+    nmap <C-s> <Plug>(coc-range-select)
+    xmap <C-s> <Plug>(coc-range-select)
+    omap <C-s> <Plug>(coc-range-select)
+endif
+" ------------------------
+" icons
+" ------------------------
+if Installed('nvim-web-devicons')
+    call coc#config('explorer.icon.source',  'nvim-web-devicons')
+elseif Installed('vim-devicons')
+    call coc#config('explorer.icon.source',  'vim-devicons')
+endif
+" ------------------------
+" coc config for nvim-0.8
+" ------------------------
+if has('nvim-0.8.1')
+    call coc#config("coc.preferences.currentFunctionSymbolAutoUpdate", v:false)
+    luafile $LUA_PATH/coc.lua
+else
+    call coc#config("coc.preferences.currentFunctionSymbolAutoUpdate", v:true)
+endif
+" ----------------------------
+" extensions
+" ----------------------------
 if UNIX()
     let g:coc_data_home = expand("~/.local/share/nvim/coc")
 else
     let g:coc_data_home = expand("~/AppData/Local/nvim-data/coc")
 endif
-let g:coc_config_home = expand("$MAIN_PATH")
-" basic map
+let g:coc_global_extensions = [
+        \ 'coc-json',
+        \ 'coc-sql',
+        \ 'coc-xml',
+        \ 'coc-git',
+        \ 'coc-sh',
+        \ 'coc-powershell',
+        \ 'coc-lists',
+        \ 'coc-marketplace',
+        \ 'coc-snippets',
+        \ 'coc-explorer',
+        \ 'coc-pairs',
+        \ 'coc-yank',
+        \ 'coc-highlight',
+        \ 'coc-vimlsp',
+        \ 'coc-symbol-line',
+        \ ]
+if g:python_version >= 3
+    let g:coc_global_extensions += ['coc-pyls']
+else
+    let g:coc_global_extensions += ['coc-pyright']
+endif
+if Require('web')
+    let g:coc_global_extensions += [
+        \ 'coc-html',
+        \ 'coc-css',
+        \ 'coc-yaml',
+        \ 'coc-phpls',
+        \ 'coc-emmet',
+        \ 'coc-tsserver',
+        \ 'coc-angular',
+        \ 'coc-vetur',
+        \ ]
+endif
+if Require('c')
+    let g:coc_global_extensions += ['coc-cmake']
+    if executable('clangd')
+        let g:coc_global_extensions += ['coc-clangd']
+    endif
+    " ccls language
+    if executable('ccls')
+        call coc#config('languageserver.ccls', {
+                    \ "command": "ccls",
+                    \ "filetypes": g:c_filetypes,
+                    \ "rootPatterns": g:root_patterns,
+                    \ "initializationOptions": {
+                        \ "cache": {
+                        \ "directory": $HOME . "/.leovim.d/ccls"
+                        \ }
+                    \ }
+                \ })
+    endif
+endif
+if Require('R')
+    let g:coc_global_extensions += ['coc-r-lsp']
+endif
+if Require('rust')
+    let g:coc_global_extensions += ['coc-rust-analyzer']
+endif
+if Require('go')
+    let g:coc_global_extensions += ['coc-go']
+endif
+if Require('latex')
+    let g:coc_global_extensions += ['coc-vimtex']
+endif
+if Require('java') && executable('java')
+    let g:coc_global_extensions += ['coc-java', 'coc-java-intellicode']
+endif
+" ----------------------------
+" map
+" ----------------------------
 nnoremap <M-l>o :Coc
+nnoremap <silent><M-V>  :CocFzfList yank<Cr>
 nnoremap <silent><M-l>e :CocList extensions<Cr>
 nnoremap <silent><M-l>c :CocFzfList commands<Cr>
 nnoremap <silent><M-l>. :CocFzfListResume<Cr>
@@ -54,7 +169,7 @@ function! Show_documentation()
         call feedkeys('K', 'in')
     endif
 endfunction
-nnoremap <silent> <C-h> :call Show_documentation()<CR>
+nnoremap <silent> K :call Show_documentation()<CR>
 " completion map
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#stop() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <TAB>
@@ -156,59 +271,3 @@ omap ag <Plug>(coc-git-chunk-outer)
 xmap ag <Plug>(coc-git-chunk-outer)
 nmap <leader>vg vig
 nmap <leader>vG vag
-" ------------------------
-" ccls language
-" ------------------------
-if executable('ccls')
-    call coc#config('languageserver.ccls', {
-                \ "command": "ccls",
-                \ "filetypes": g:c_filetypes,
-                \ "rootPatterns": g:root_patterns,
-                \ "initializationOptions": {
-                    \ "cache": {
-                    \ "directory": $HOME . "/.leovim.d/ccls"
-                    \ }
-                \ }
-            \ })
-endif
-" ------------------------
-" coc fzf
-" ------------------------
-if Installed('coc-fzf') && InstalledFZF()
-    if WINDOWS()
-        let g:coc_fzf_preview=''
-    else
-        let g:coc_fzf_preview='right:60%'
-    endif
-endif
-" ----------------------------
-" semanticTokens
-" ----------------------------
-if Installed('nvim-treesitter', 'nvim-treehopper')
-    let g:coc_default_semantic_highlight_groups = 0
-else
-    " semanticTokensFiletypes
-    let g:coc_default_semantic_highlight_groups = 1
-    call coc#config('semanticTokens.filetypes',  g:highlight_filetypes)
-    " trseesiter
-    nmap <C-s> <Plug>(coc-range-select)
-    xmap <C-s> <Plug>(coc-range-select)
-    omap <C-s> <Plug>(coc-range-select)
-endif
-" ------------------------
-" icons
-" ------------------------
-if Installed('nvim-web-devicons')
-    call coc#config('explorer.icon.source',  'nvim-web-devicons')
-elseif Installed('vim-devicons')
-    call coc#config('explorer.icon.source',  'vim-devicons')
-endif
-" ------------------------
-" coc config for nvim-0.8
-" ------------------------
-if has('nvim-0.8.1')
-    call coc#config("coc.preferences.currentFunctionSymbolAutoUpdate", v:false)
-    luafile $LUA_PATH/coc.lua
-else
-    call coc#config("coc.preferences.currentFunctionSymbolAutoUpdate", v:true)
-endif

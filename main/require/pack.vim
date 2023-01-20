@@ -1,13 +1,30 @@
+" ------------------------------
+" zfvim
+" ------------------------------
+" zfvimim
+if (Require('wubi') || Require('pinyin')) && g:has_terminal > 0
+    PackAdd 'ZSaberLv0/ZFVimIM', {'merged': 0}
+    if Require('wubi')
+        PackAdd 'ZSaberLv0/ZFVimIM_wubi_base'
+        let g:input_method = 'zfvim_wubi'
+    else
+        let g:input_method = 'zfvim_pinyin'
+    endif
+    PackAdd 'ZSaberLv0/ZFVimIM_pinyin'
+endif
+PackAdd 'ZSaberLv0/ZFVimJob'
+PackAdd 'ZSaberLv0/ZFVimIgnore'
+PackAdd 'ZSaberLv0/ZFVimDirDiff'
 " --------------------------
 " Important plugins
 " --------------------------
 "  NOTE: assist shuould be installed before complete_lint
-source $PACKSYNC_PATH/assist.vim
+source $REQUIRE_PATH/assist.vim
 if get(g:, "complete_engine", '') != ''
-    source $PACKSYNC_PATH/program.vim
-    source $PACKSYNC_PATH/languages.vim
+    source $REQUIRE_PATH/program.vim
+    source $REQUIRE_PATH/languages.vim
 endif
-source $PACKSYNC_PATH/tag.vim
+source $REQUIRE_PATH/tag.vim
 " ------------------------------
 " fullscreen
 " ------------------------------
@@ -75,6 +92,12 @@ elseif g:complete_engine != 'coc'
     endif
 endif
 " ------------------------------
+" fold
+" ------------------------------
+if has('nvim') && UNIX()
+    PackAdd 'kevinhwang91/promise-async' | PackAdd 'kevinhwang91/nvim-ufo'
+endif
+" ------------------------------
 " translate && document
 " ------------------------------
 if Require('query') && v:version >= 800
@@ -88,30 +111,6 @@ if Require('query') && v:version >= 800
     endif
 endif
 " ------------------------------
-" fold
-" ------------------------------
-if has('nvim') && UNIX()
-    PackAdd 'kevinhwang91/promise-async' | PackAdd 'kevinhwang91/nvim-ufo'
-endif
-" ------------------------------
-" zfvim
-" ------------------------------
-" zfvimdirdiff
-PackAdd 'ZSaberLv0/ZFVimDirDiff'
-PackAdd 'ZSaberLv0/ZFVimIgnore'
-PackAdd 'ZSaberLv0/ZFVimJob'
-" zfvimim
-if (Require('wubi') || Require('pinyin')) && g:has_terminal
-    PackAdd 'ZSaberLv0/ZFVimIM', {'opt': 0}
-    if Require('wubi')
-        PackAdd 'ZSaberLv0/ZFVimIM_wubi_base', {'opt': 0}
-        let g:input_method = 'zfvim_wubi'
-    else
-        let g:input_method = 'zfvim_pinyin'
-    endif
-    PackAdd 'ZSaberLv0/ZFVimIM_pinyin', {'opt': 0}
-endif
-" ------------------------------
 " schemes
 " ------------------------------
-source $PACKSYNC_PATH/schemes-textobj.vim
+source $REQUIRE_PATH/schemes-textobj.vim

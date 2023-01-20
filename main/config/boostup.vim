@@ -392,7 +392,7 @@ nnoremap <Tab>L <C-w>L
 " open in vsplit/split/tab
 nnoremap <Tab>v       :vsplit<Space>
 nnoremap <Tab>s       :split<Space>
-nnoremap <Tab><Space> :tabe<space>
+nnoremap <Tab><Space> :tabe<Space>
 " ------------------------
 " basic toggle and show
 " ------------------------
@@ -403,8 +403,8 @@ nnoremap <M-k>f :set nofoldenable! nofoldenable?<Cr>
 nnoremap <M-k>w :set nowrap! nowrap?<Cr>
 nnoremap <M-k>h :set nohlsearch? nohlsearch!<Cr>
 nnoremap <M-k>i :set invrelativenumber<Cr>
-nnoremap <M-k>s :colorscheme<Space>
-nnoremap <M-k>t :setfiletype<Space>
+nnoremap <M-k>s :colorscheme
+nnoremap <M-k>t :setfiletype
 nnoremap <M-'>  :registers<Cr>
 " ------------------------
 " buffers mark messages
@@ -450,9 +450,9 @@ nnoremap <silent><Tab>n :tabnext<CR>
 nnoremap <silent><Tab>p :tabprevious<CR>
 nnoremap <silent><Tab>N :tabm +1<CR>
 nnoremap <silent><Tab>P :tabm -1<CR>
-nnoremap <Tab>m         :tabm<Space>
+nnoremap <Tab>M         :tabm
 " open in tab
-nnoremap <leader>T <C-w>T
+nnoremap <Tab>t <C-w>T
 " set tab label
 function! Vim_NeatBuffer(bufnr, fullname)
     let l:name = bufname(a:bufnr)
@@ -632,17 +632,19 @@ endif
 " --------------------------
 " complete engine
 " --------------------------
-set completeopt-=preview
+set completeopt=menu
 try
-    set completeopt=menu,menuone,noselect,noinsert
+    let s:completeopt_fail_msg='menuone'
+    set completeopt+=menuone
+    let s:completeopt_fail_msg='noselect'
+    set completeopt+=noselect
+    let s:completeopt_fail_msg='noinsert'
+    set completeopt+=noinsert
 catch
-    set completeopt=menu
-    let g:complete_engine = 'ncc'
+    autocmd VimEnter * echo "completeopt set failed when setting [" . s:completeopt_fail_msg . "]"
 endtry
 if CYGWIN() || Require('non')
     let g:complete_engine = 'non'
-elseif get(g:, 'complete_engine', '') == 'ncc' || Require('ncc')
-    let g:complete_engine = 'ncc'
 elseif v:version >= 800 && Require('apc')
     let g:complete_engine = 'apc'
 elseif Require('cmp')
@@ -657,6 +659,12 @@ elseif Require('coc')
     else
         let s:smart_engine_select = 1
     endif
+elseif Require('mcm')
+    if has('patch-7.4.143') && &completeopt =~ 'menuone'
+        let g:complete_engine = 'mcm'
+    else
+        let s:smart_engine_select = 1
+    endif
 else
     let s:smart_engine_select = 1
 endif
@@ -665,8 +673,12 @@ if get(s:, 'smart_engine_select', 0) > 0
         let g:complete_engine = 'coc'
     elseif has('nvim')
         let g:complete_engine = 'cmp'
+    elseif has('patch-7.4.143') && &completeopt =~ 'menuone'
+        let g:complete_engine = 'mcm'
+    elseif v:version >= 800
+        let g:complete_engine = 'apc'
     else
-        let g:complete_engine = 'ncc'
+        let g:complete_engine = 'non'
     endif
 endif
 if index(['coc', 'cmp'], get(g:, 'complete_engine', '')) >= 0
@@ -697,14 +709,12 @@ endif
 " --------------------------
 " pack begin
 if g:pack_tool == 'jetpack'
-    source ~/.leovim.conf/pack/jetpack.vim
     call jetpack#begin($INSTALL_PATH)
 else
-    source ~/.leovim.conf/pack/plug.vim
     call plug#begin($INSTALL_PATH)
 endif
-source $PACKSYNC_PATH/pack.vim
-nnoremap <leader>ep :tabe $PACKSYNC_PATH/pack.vim<Cr>
+source $REQUIRE_PATH/pack.vim
+nnoremap <leader>ep :tabe $REQUIRE_PATH/pack.vim<Cr>
 nnoremap <leader>eP :tabe ~/.leovim.conf/plus.vim<Cr>
 if filereadable(expand("~/.leovim.conf/plus.vim")) | source $HOME/.leovim.conf/plus.vim | endif
 " pack end, check installed
@@ -893,16 +903,16 @@ nnoremap <leader>e<Cr> :source $LEOVIM_PATH/start.vim<Cr>
 " ------------------------
 nnoremap <leader>es :tabe $LEOVIM_PATH/start.vim<Cr>
 nnoremap <leader>el :tabe $HOME/.vimrc.local<Cr>
-nnoremap <leader>eb :tabe $SETTINGS_PATH/boostup.vim<Cr>
 nnoremap <leader>ec :tabe $MAIN_PATH/common.vim<Cr>
-nnoremap <leader>eu :tabe ~/.leovim.conf/main/settings/lua/
+nnoremap <leader>eb :tabe $CONFIG_PATH/boostup.vim<Cr>
 nnoremap <leader>er :tabe ~/.leovim.conf/runtime/
 nnoremap <leader>em :tabe ~/.leovim.conf/main/
+nnoremap <leader>eu :tabe ~/.leovim.conf/main/config/lua/
 " ------------------------
 " set filetype unix and trim \r
 " ------------------------
 nnoremap <leader>ef :set ff=unix<Cr>:%s/\r//g<Cr>
-source $SETTINGS_PATH/installed.vim
+source $CONFIG_PATH/installed.vim
 " ------------------------
 " after config
 " ------------------------

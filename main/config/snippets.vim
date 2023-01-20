@@ -36,30 +36,3 @@ if InstalledFZF()
         imap <c-x><c-f> <plug>(fzf-complete-path)
     endif
 endif
-" for apc
-if g:advanced_complete_engine == 0
-    function! MapTabCr(istab) abort
-        let istab = a:istab
-        if pumvisible()
-            if istab > 0
-                if Installed('ultisnips') && UltiSnips#CanExpandSnippet()
-                    return UltiSnips#ExpandSnippet()
-                else
-                    return "\<C-n>"
-                endif
-            else
-                return "\<C-e>"
-            endif
-        elseif Has_Back_Space()
-            if istab > 0
-                return "\<Tab>"
-            else
-                return "\<Cr>"
-            endif
-        else
-            return "\<C-y>"
-        endif
-    endfunction
-    au BufEnter * exec "imap <silent> <Tab> <C-R>=MapTabCr(1)<cr>"
-    au BufEnter * exec "imap <silent> <Cr>  <C-R>=MapTabCr(0)<cr>"
-endif

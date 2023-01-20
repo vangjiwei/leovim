@@ -60,7 +60,7 @@ else
     PackAdd 'vim-easymotion'
 endif
 PackAdd 'vim-easymotion-chs'
-source $SETTINGS_PATH/easymotion.vim
+source $CONFIG_PATH/easymotion.vim
 " ------------------------
 " clever-f
 " ------------------------

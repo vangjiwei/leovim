@@ -22,6 +22,6 @@ elseif Installed('zeavim.vim')
     omap gz <Plug>ZVOperator
 endif
 if Installed('vim-cppman')
-    au FileType c,cpp,cuda nnoremap K :Cppman <C-r>=expand('<cword>')<Cr>
-    au FileType c,cpp,cuda xnoremap K :<C-u>Cppman <C-r>=GetVisualSelection()<Cr>
+    au FileType c,cpp,cuda nnoremap <C-h> :Cppman <C-r>=expand('<cword>')<Cr>
+    au FileType c,cpp,cuda xnoremap <C-h> :<C-u>Cppman <C-r>=GetVisualSelection()<Cr>
 endif
