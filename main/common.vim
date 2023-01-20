@@ -64,18 +64,19 @@ endfunction
 " -----------------------------------
 " set pack_tool
 " -----------------------------------
-if !Require('plug') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) && (UNIX() || has('nvim'))
+if !Require('plug') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) && has('nvim')
     let g:pack_tool = 'jetpack'
     let g:jetpack_njobs = get(g:, 'jetpack_njobs', 8)
     if get(g:, 'jetpack_download_method', '') == ''
-        if executable('curl')
-            let g:jetpack_download_method = get(g:, 'jetpack_download_method', 'curl')
-        elseif executable('wget')
-            let g:jetpack_download_method = get(g:, 'jetpack_download_method', 'wget')
-        else
+        if executable('git')
             let g:jetpack_download_method = get(g:, 'jetpack_download_method', 'git')
+        elseif executable('curl')
+            let g:jetpack_download_method = get(g:, 'jetpack_download_method', 'curl')
+        else
+            let g:jetpack_download_method = get(g:, 'jetpack_download_method', 'wget')
         endif
     endif
+    let g:jetpack_copy_method = 'symlink'
     command! PackSync JetpackSync
 else
     let g:pack_tool = 'plug'
