@@ -86,6 +86,8 @@ function! s:tag_or_searchall(tagname, ...)
         endif
     endif
 endfunction
+command! TagOrSearchAll call s:tag_or_searchall("")
+nnoremap <silent> gl :TagOrSearchAll<Cr>
 " --------------------------
 " symbols in buf
 " --------------------------
@@ -221,7 +223,7 @@ if g:complete_engine == 'cmp' && InstalledTelescope() && InstalledLsp() && Insta
 else
     if Installed("coc.nvim")
         nmap <silent><M-/> :call LspOrTagOrSearchAll("jumpReferences", "float")<Cr>
-        nmap <silent>gl     <Plug>(coc-refactor)
+        nmap <silent>g/    <Plug>(coc-refactor)
     else
         if get(g:, 'symbol_tool', '') =~ 'leaderfgtags'
             nmap <silent><M-/> :Leaderf gtags -i -g <C-r>=expand('<cword>')<Cr><Cr>
