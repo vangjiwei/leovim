@@ -19,12 +19,12 @@ endif
 " Important plugins
 " --------------------------
 "  NOTE: assist shuould be installed before complete_lint
-source $PACKSYNC_PATH/assist.vim
+source $REQUIRE_PATH/assist.vim
 if get(g:, "complete_engine", '') != ''
-    source $PACKSYNC_PATH/program.vim
-    source $PACKSYNC_PATH/languages.vim
+    source $REQUIRE_PATH/program.vim
+    source $REQUIRE_PATH/languages.vim
 endif
-source $PACKSYNC_PATH/tag.vim
+source $REQUIRE_PATH/tag.vim
 " ------------------------------
 " fullscreen
 " ------------------------------
@@ -113,4 +113,4 @@ endif
 " ------------------------------
 " schemes
 " ------------------------------
-source $PACKSYNC_PATH/schemes-textobj.vim
+source $REQUIRE_PATH/schemes-textobj.vim

@@ -715,8 +715,8 @@ else
     source ~/.leovim.conf/pack/plug.vim
     call plug#begin($INSTALL_PATH)
 endif
-source $PACKSYNC_PATH/pack.vim
-nnoremap <leader>ep :tabe $PACKSYNC_PATH/pack.vim<Cr>
+source $REQUIRE_PATH/pack.vim
+nnoremap <leader>ep :tabe $REQUIRE_PATH/pack.vim<Cr>
 nnoremap <leader>eP :tabe ~/.leovim.conf/plus.vim<Cr>
 if filereadable(expand("~/.leovim.conf/plus.vim")) | source $HOME/.leovim.conf/plus.vim | endif
 " pack end, check installed
@@ -905,7 +905,7 @@ nnoremap <leader>e<Cr> :source $LEOVIM_PATH/start.vim<Cr>
 " ------------------------
 nnoremap <leader>es :tabe $LEOVIM_PATH/start.vim<Cr>
 nnoremap <leader>el :tabe $HOME/.vimrc.local<Cr>
-nnoremap <leader>eb :tabe $SETTINGS_PATH/boostup.vim<Cr>
+nnoremap <leader>eb :tabe $CONFIG_PATH/boostup.vim<Cr>
 nnoremap <leader>ec :tabe $MAIN_PATH/common.vim<Cr>
 nnoremap <leader>eu :tabe ~/.leovim.conf/main/settings/lua/
 nnoremap <leader>er :tabe ~/.leovim.conf/runtime/
@@ -914,7 +914,7 @@ nnoremap <leader>em :tabe ~/.leovim.conf/main/
 " set filetype unix and trim \r
 " ------------------------
 nnoremap <leader>ef :set ff=unix<Cr>:%s/\r//g<Cr>
-source $SETTINGS_PATH/installed.vim
+source $CONFIG_PATH/installed.vim
 " ------------------------
 " after config
 " ------------------------

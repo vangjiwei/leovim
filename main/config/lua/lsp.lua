@@ -19,12 +19,11 @@ require('mason-lspconfig').setup({
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lsp_attach = function(_, bufnr)
-  -- definition type_definition declaration implementation
   vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {buffer=bufnr})
   vim.keymap.set('n', '<M-/>', vim.lsp.buf.references, {buffer=bufnr})
+  vim.keymap.set('n', '<M-?>', vim.lsp.buf.implementation, {buffer=bufnr})
   vim.keymap.set('n', 'gh', vim.lsp.buf.type_definition, {buffer=bufnr})
-  vim.keymap.set('n', 'gl', vim.lsp.buf.declaration, {buffer=bufnr})
-  vim.keymap.set('n', 'gm', vim.lsp.buf.implementation, {buffer=bufnr})
+  vim.keymap.set('n', 'gm', vim.lsp.buf.declaration, {buffer=bufnr})
   -- format
   vim.keymap.set('n', '<C-q>', vim.lsp.buf.format, {buffer=bufnr})
   vim.keymap.set('x', '<C-q>', vim.lsp.buf.range_formatting, {buffer=bufnr})
