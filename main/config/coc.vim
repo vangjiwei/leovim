@@ -169,7 +169,7 @@ function! Show_documentation()
         call feedkeys('K', 'in')
     endif
 endfunction
-nnoremap <silent> <C-h> :call Show_documentation()<CR>
+nnoremap <silent> K :call Show_documentation()<CR>
 " completion map
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#stop() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <TAB>

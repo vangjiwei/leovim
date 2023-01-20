@@ -64,7 +64,7 @@ endfunction
 " -----------------------------------
 " set pack_tool
 " -----------------------------------
- if !Require('plug') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) && UNIX()
+ if Require('jetpack') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget'))
 	set packpath=$LEOVIM_PATH
     let g:pack_tool = 'jetpack'
     let g:jetpack_njobs = get(g:, 'jetpack_njobs', 8)

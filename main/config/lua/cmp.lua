@@ -107,11 +107,13 @@ cmp.setup({
           fallback()
         end
       end,
-      c = function()
+      c = function(fallback)
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
         elseif has_words_before() then
           cmp.complete()
+        else
+          fallback()
         end
       end,
       s = function(fallback)

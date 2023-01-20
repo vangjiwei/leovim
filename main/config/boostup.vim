@@ -390,9 +390,9 @@ nnoremap <Tab>J <C-w>J
 nnoremap <Tab>K <C-w>K
 nnoremap <Tab>L <C-w>L
 " open in vsplit/split/tab
-nnoremap <Tab>v       :vsplit
-nnoremap <Tab>s       :split
-nnoremap <Tab><Space> :tabe
+nnoremap <Tab>v       :vsplit<Space>
+nnoremap <Tab>s       :split<Space>
+nnoremap <Tab><Space> :tabe<Space>
 " ------------------------
 " basic toggle and show
 " ------------------------
@@ -903,11 +903,11 @@ nnoremap <leader>e<Cr> :source $LEOVIM_PATH/start.vim<Cr>
 " ------------------------
 nnoremap <leader>es :tabe $LEOVIM_PATH/start.vim<Cr>
 nnoremap <leader>el :tabe $HOME/.vimrc.local<Cr>
-nnoremap <leader>eb :tabe $CONFIG_PATH/boostup.vim<Cr>
 nnoremap <leader>ec :tabe $MAIN_PATH/common.vim<Cr>
-nnoremap <leader>eu :tabe ~/.leovim.conf/main/settings/lua/
+nnoremap <leader>eb :tabe $CONFIG_PATH/boostup.vim<Cr>
 nnoremap <leader>er :tabe ~/.leovim.conf/runtime/
 nnoremap <leader>em :tabe ~/.leovim.conf/main/
+nnoremap <leader>eu :tabe ~/.leovim.conf/main/config/lua/
 " ------------------------
 " set filetype unix and trim \r
 " ------------------------
