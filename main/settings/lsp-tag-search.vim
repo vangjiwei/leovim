@@ -220,7 +220,7 @@ if g:complete_engine == 'cmp' && InstalledTelescope() && InstalledLsp() && Insta
 else
     if Installed("coc.nvim")
         nmap <silent><M-/> :call LspOrTagOrSearchAll("jumpReferences", "float")<Cr>
-        nmap <silent><M-?> <Plug>(coc-refactor)
+        nmap <silent>gl     <Plug>(coc-refactor)
     else
         if get(g:, 'symbol_tool', '') =~ 'leaderfgtags'
             nmap <silent><M-/> :Leaderf gtags -i -g <C-r>=expand('<cword>')<Cr><Cr>
@@ -372,12 +372,12 @@ if g:complete_engine == 'coc'
     nnoremap <silent><C-g>  :call LspOrTagOrSearchAll("jumpDefinition", "vsplit")<Cr>
     nnoremap <silent>g<Cr>  :call LspOrTagOrSearchAll("jumpDefinition", "split")<Cr>
     nnoremap <silent>g<Tab> :call LspOrTagOrSearchAll("jumpDefinition", "tabe")<Cr>
+    " jumpImplementation
+    nnoremap <silent><M-?> :call LspOrTagOrSearchAll("jumpImplementation", "float")<Cr>
     " jumpTypeDefinition
     nnoremap <silent>gh :call LspOrTagOrSearchAll("jumpTypeDefinition", "float")<Cr>
     " jumpDeclaration
-    nnoremap <silent>gl :call LspOrTagOrSearchAll("jumpDeclaration", "float")<Cr>
-    " jumpImplementation
-    nnoremap <silent>gm :call LspOrTagOrSearchAll("jumpImplementation", "float")<Cr>
+    nnoremap <silent>gm :call LspOrTagOrSearchAll("jumpDeclaration", "float")<Cr>
 else
     if g:complete_engine != 'cmp'
         nnoremap <silent><M-;> :call LspOrTagOrSearchAll("")<Cr>
