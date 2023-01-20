@@ -61,7 +61,7 @@ nnoremap <leader>C <Cmd>call VSCodeNotify("workbench.debug.viewlet.action.remove
 " ------------------------
 " autocmd
 " ------------------------
-source $SETTINGS_PATH/autocmd.vim
+source $CONFIG_PATH/autocmd.vim
 au FileType r inoremap >> <space>%>%<space>
 au FileType r inoremap << <space><-<space>
 au FileType r inoremap ?? <space>\|><space>

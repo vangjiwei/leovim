@@ -340,9 +340,9 @@ else
     " ------------------------
     " source
     " ------------------------
-    source $SETTINGS_PATH/boostup.vim
+    source $CONFIG_PATH/boostup.vim
     if g:has_terminal > 0
-        source $SETTINGS_PATH/terminal.vim
+        source $CONFIG_PATH/terminal.vim
     endif
     " ------------------------
     " vim-preview

@@ -14,17 +14,16 @@ end
 " --------------------------
 " set dirs
 " --------------------------
-" set basic conf path
+" set basic path
 let $LEOVIM_PATH = expand('~/.leovim.conf')
 " set opt
 let $OPT_PATH = expand($LEOVIM_PATH . '/pack/sync/opt')
-" set conf_path
+" set config path
 let $MAIN_PATH = expand($LEOVIM_PATH . '/main')
-" set packsync/settings
-let $PACKSYNC_PATH = expand($MAIN_PATH . '/packsync')
-let $SETTINGS_PATH = expand($MAIN_PATH . '/settings')
+let $CONFIG_PATH = expand($MAIN_PATH . '/config')
+let $REQUIRE_PATH = expand($MAIN_PATH . '/require')
 " set lua
-let $LUA_PATH = expand($SETTINGS_PATH . '/lua')
+let $LUA_PATH = expand($CONFIG_PATH . '/lua')
 " ------------------------
 " runtime
 " ------------------------
