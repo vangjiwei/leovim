@@ -78,7 +78,7 @@ function! s:tag_or_searchall(tagname, ...)
     else
         let s:do_searchall = 1
     endif
-    if get(s:, 'do_searchall', 0) > 0
+    if get(s:, 'do_searchall', 0) > 0 && tag_found <= 1
         if get(g:, 'search_all_cmd', '') != ''
             execute g:search_all_cmd . ' ' . tagname
         else
@@ -86,8 +86,6 @@ function! s:tag_or_searchall(tagname, ...)
         endif
     endif
 endfunction
-command! TagOrSearchAll call s:tag_or_searchall('')
-nnoremap <silent><M-t> :TagOrSearchAll<Cr>
 " --------------------------
 " symbols in buf
 " --------------------------
