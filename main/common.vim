@@ -85,7 +85,7 @@ if !Require('plug') && exists(':packadd') && exists("##SourcePost") && (g:git_ve
                 \   '[\/].gitignore',
                 \   '[\/][.ABCDEFGHIJKLMNOPQRSTUVWXYZ]*',
                 \ ]
-    let g:jetpack_copy_method = 'symlink'
+    let g:jetpack_copy_method = get(g:, 'jetpack_copy_method', 'system')
     command! PackSync JetpackSync
 else
     let g:pack_tool = 'plug'
