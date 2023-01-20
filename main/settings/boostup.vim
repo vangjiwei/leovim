@@ -390,9 +390,9 @@ nnoremap <Tab>J <C-w>J
 nnoremap <Tab>K <C-w>K
 nnoremap <Tab>L <C-w>L
 " open in vsplit/split/tab
-nnoremap <Tab>v       :vsplit<Space>
-nnoremap <Tab>s       :split<Space>
-nnoremap <Tab><Space> :tabe<space>
+nnoremap <Tab>v       :vsplit
+nnoremap <Tab>s       :split
+nnoremap <Tab><Space> :tabe
 " ------------------------
 " basic toggle and show
 " ------------------------
@@ -403,8 +403,8 @@ nnoremap <M-k>f :set nofoldenable! nofoldenable?<Cr>
 nnoremap <M-k>w :set nowrap! nowrap?<Cr>
 nnoremap <M-k>h :set nohlsearch? nohlsearch!<Cr>
 nnoremap <M-k>i :set invrelativenumber<Cr>
-nnoremap <M-k>s :colorscheme<Space>
-nnoremap <M-k>t :setfiletype<Space>
+nnoremap <M-k>s :colorscheme
+nnoremap <M-k>t :setfiletype
 nnoremap <M-'>  :registers<Cr>
 " ------------------------
 " buffers mark messages
@@ -450,9 +450,9 @@ nnoremap <silent><Tab>n :tabnext<CR>
 nnoremap <silent><Tab>p :tabprevious<CR>
 nnoremap <silent><Tab>N :tabm +1<CR>
 nnoremap <silent><Tab>P :tabm -1<CR>
-nnoremap <Tab>m         :tabm<Space>
+nnoremap <Tab>M         :tabm
 " open in tab
-nnoremap <leader>T <C-w>T
+nnoremap <Tab>t <C-w>T
 " set tab label
 function! Vim_NeatBuffer(bufnr, fullname)
     let l:name = bufname(a:bufnr)

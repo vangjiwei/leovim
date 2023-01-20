@@ -47,15 +47,15 @@ endif
 " --------------------------
 if has('nvim')
     if WINDOWS()
-        nnoremap <Tab>t :tabe term://cmd<cr>i
+        nnoremap <Tab>m :tabe term://cmd<cr>i
     else
-        nnoremap <Tab>t :tabe term://bash<cr>i
+        nnoremap <Tab>m :tabe term://bash<cr>i
     endif
 else
     if WINDOWS()
-        nnoremap <Tab>t :tab terminal<Cr>cmd<Cr>
+        nnoremap <Tab>m :tab terminal<Cr>cmd<Cr>
     else
-        nnoremap <Tab>t :tab terminal<Cr>bash<Cr>
+        nnoremap <Tab>m :tab terminal<Cr>bash<Cr>
     endif
 endif
 " --------------------------
