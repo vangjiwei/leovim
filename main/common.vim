@@ -76,6 +76,15 @@ if !Require('plug') && exists(':packadd') && exists("##SourcePost") && (g:git_ve
             let g:jetpack_download_method = get(g:, 'jetpack_download_method', 'wget')
         endif
     endif
+    let g:jetpack_ignore_patterns =
+                \ [
+                \   '[\/]doc[\/]tags*',
+                \   '[\/]test[\/]*',
+                \   '[\/].git[\/]*',
+                \   '[\/].gitbub[\/]*',
+                \   '[\/].gitignore',
+                \   '[\/][.ABCDEFGHIJKLMNOPQRSTUVWXYZ]*',
+                \ ]
     let g:jetpack_copy_method = 'symlink'
     command! PackSync JetpackSync
 else
