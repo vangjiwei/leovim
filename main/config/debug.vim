@@ -172,6 +172,11 @@ elseif Installed('vimspector')
                     \ }))
     endif
     nnoremap ,D :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
+    if WINDOWS()
+        let g:vimspector_base_dir = expand('~/AppData/Local/nvim-data/vimspector')
+    elseif UNIX()
+        let g:vimspector_base_dir = expand('~/.local/share/nvim/vimspector')
+    endif
     " core shortcuts
     nnoremap ,v :call vimspector#<Tab>
     nnoremap ,V :Vimspector<Tab>

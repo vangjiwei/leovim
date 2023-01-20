@@ -28,9 +28,13 @@ if has('clipboard')
         xnoremap <M-c>+ "*y"
     endif
     cnoremap <M-v> <C-r>*
+    cnoremap <S-Insert> <C-r>*
     inoremap <M-v> <C-r>*
+    inoremap <S-Insert> <C-r>*
     nnoremap <M-v> "*P
+    nnoremap <S-Insert> "*P
     xnoremap <M-v> "*P
+    xnoremap <S-Insert> "*P
     " M-x/y
     nnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
     xnoremap <silent><M-x> "*x:let  @*=trim(@*)<Cr>
