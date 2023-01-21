@@ -38,7 +38,7 @@ nnoremap <leader>w <Cmd>call VSCodeNotify("workbench.action.openView")<Cr>
 nnoremap <leader>m <Cmd>call VSCodeNotify("workbench.action.openRecent")<Cr>
 nnoremap <leader>q <Cmd>q!<Cr>
 " outline
-nnoremap <leader>t <Cmd>call VSCodeNotify("outline.focus")<Cr>
+nnoremap <leader>t <Cmd>call VSCodeNotify("workbench.action.showAllSymbols")<Cr>
 " debug
 nnoremap <leader>r <Cmd>call VSCodeNotify("workbench.action.debug.start")<Cr>
 nnoremap <leader>R <Cmd>call VSCodeNotify("workbench.action.debug.restart")<Cr>
