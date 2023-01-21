@@ -24,10 +24,6 @@
         "key": "ctrl+shift+t",
         "command": "outline.focus"
     },
-    {
-        "key": "ctrl+t",
-        "command": "outline-map-view.focus"
-    },
     // timeline
     {
         "key": "ctrl+g",

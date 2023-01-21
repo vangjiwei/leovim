@@ -37,11 +37,13 @@ xnoremap <C-x> <Cmd>call VSCodeNotifyVisual("editor.action.clipboardCutAction", 
 nnoremap <leader>w <Cmd>call VSCodeNotify("workbench.action.openView")<Cr>
 nnoremap <leader>m <Cmd>call VSCodeNotify("workbench.action.openRecent")<Cr>
 nnoremap <leader>q <Cmd>q!<Cr>
+" outline
+nnoremap <leader>t <Cmd>call VSCodeNotify("outline.focus")<Cr>
 " debug
 nnoremap <leader>r <Cmd>call VSCodeNotify("workbench.action.debug.start")<Cr>
 nnoremap <leader>R <Cmd>call VSCodeNotify("workbench.action.debug.restart")<Cr>
 nnoremap <leader>n <Cmd>call VSCodeNotify("workbench.action.debug.continue")<Cr>
-nnoremap <leader>t <Cmd>call VSCodeNotify("workbench.action.debug.stepIntoTarget")<Cr>
+nnoremap <leader>i <Cmd>call VSCodeNotify("workbench.action.debug.stepIntoTarget")<Cr>
 nnoremap <leader>s <Cmd>call VSCodeNotify("workbench.action.debug.stepInto")<Cr>
 nnoremap <leader>o <Cmd>call VSCodeNotify("workbench.action.debug.stepOver")<Cr>
 nnoremap <leader>u <Cmd>call VSCodeNotify("workbench.action.debug.stepOut")<Cr>
