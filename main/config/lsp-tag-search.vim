@@ -99,6 +99,7 @@ elseif g:complete_engine != 'cmp' && g:ctags_type != ''
     if g:symbol_tool =~ 'leaderfctags'
         nnoremap <silent><leader>t :LeaderfBufTag<Cr>
     elseif Installed('vista.vim')
+        let g:vista_default_executive = 'ctags'
         nnoremap <silent><leader>t :Vista finder!<Cr>
     elseif g:symbol_tool =~ 'fzfctags'
         nnoremap <silent><leader>t :FZFBTags<Cr>
