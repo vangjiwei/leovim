@@ -103,16 +103,15 @@ if Installed('telescope-changes.nvim') then
 end
 if Installed('telescope-changes.nvim') then
   telescope.load_extension('changes')
-  map('n', '<M-y>', [[<cmd>Telescope changes<CR>]], opts)
-end
--- insert mode map
-if Installed('telescope-luasnip.nvim') then
-  telescope.load_extension('luasnip')
-  map('i', '<C-x><C-x>', [[<ESC><cmd>Telescope luasnip<CR>]], opts)
+  map('n', '<M-h><M-h>', [[<cmd>Telescope changes<CR>]], opts)
 end
 if Installed('telescope-buffer-lines.nvim') then
   telescope.load_extension('buffer_lines')
   map('i', '<C-x><C-l>', [[<ESC><cmd>Telescope buffer_lines<CR>]], opts)
+end
+if Installed('telescope-luasnip.nvim') then
+  telescope.load_extension('luasnip')
+  map('i', '<C-x><C-x>', [[<cmd>Telescope luasnip<CR>]], opts)
 end
 -- project_files
 _G.project_files = function()

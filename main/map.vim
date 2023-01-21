@@ -28,7 +28,8 @@ nmap <C-j> %
 nmap <C-k> g%
 xmap <C-j> %
 xmap <C-k> g%
-nnoremap S <Nop>
+nmap S <Nop>
+nmap <BS> <C-h>
 " ------------------------
 " core remap
 " ------------------------
@@ -60,7 +61,7 @@ nnoremap z- zB
 nnoremap ZT zt
 nnoremap zt z<CR>
 " --------------------------
-" basic yank paste
+" basic tetxobj
 " --------------------------
 nnoremap vp vawp
 nnoremap vw viw

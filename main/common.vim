@@ -234,7 +234,11 @@ endif
 " wildmenu
 " -----------------------------------
 if has('patch-7.4.2201') || has('nvim')
-    set signcolumn=auto
+    try
+        set signcolumn=yes:2
+    catch
+        set signcolumn=auto
+    endtry
 endif
 if has('wildignore')
     set wildignore+=*\\tmp\\*,*/tmp/*,*.swp,*.exe,*.dll,*.so,*.zip,*.tar*,*.7z,*.rar,*.gz,*.pyd,*.pyc,*.ipynb
