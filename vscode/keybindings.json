@@ -26,17 +26,13 @@
     },
     // timeline
     {
-        "key": "ctrl+g",
+        "key": "ctrl+shift+g",
         "command": "timeline.focus"
     },
     // browser and find
     {
-        "key": "ctrl+b",
+        "key": "ctrl+shift+b",
         "command": "workbench.action.toggleSidebarVisibility"
-    },
-    {
-        "key": "ctrl+f",
-        "command": "actions.find"
     },
     // ctrl n
     {
@@ -127,13 +123,13 @@
     },
     // typeDefinition
     {
-        "key": "alt+[",
+        "key": "shift+alt+[",
         "command": "editor.action.peektypeDefinition",
         "when": "editorTextFocus && !isInEmbeddedEditor"
     },
     // declaration
     {
-        "key": "alt+]",
+        "key": "shift+alt+]",
         "command": "editor.action.peekDeclaration",
         "when": "editorTextFocus && !isInEmbeddedEditor"
     },
@@ -150,16 +146,21 @@
         "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
     },
     {
-        "key": "shift+alt+,",
+        "key": "alt+[",
         "command": "references-view.prev",
         "when": "reference-list.hasResult && references-view.canNavigate"
     },
     {
-        "key": "shift+alt+.",
+        "key": "alt+]",
         "command": "references-view.next",
         "when": "reference-list.hasResult && references-view.canNavigate"
     },
     // incoming outgoing calls
+    {
+      "key": "alt+'",
+      "command": "references-view.showCallHierarchy",
+      "when": "editorHasCallHierarchyProvider"
+    },
     {
         "key": "alt+,",
         "command": "references-view.showIncomingCalls"
@@ -173,7 +174,16 @@
         "command": "editor.showIncomingCalls",
         "when": "callHierarchyVisible && callHierarchyDirection == 'outgoingCalls'"
     },
-
+    {
+        "key": "alt+,",
+        "command": "editor.showIncomingCalls",
+        "when": "callHierarchyVisible && callHierarchyDirection == 'incomingCalls'"
+    },
+    {
+        "key": "alt+.",
+        "command": "editor.showOutgoingCalls",
+        "when": "callHierarchyVisible && callHierarchyDirection == 'outgoingCalls'"
+    },
     {
         "key": "alt+.",
         "command": "editor.showOutgoingCalls",
@@ -236,7 +246,7 @@
     },
     // contextMenu, like right mouse click
     {
-        "key": "alt+'",
+        "key": "alt+\\",
         "command": "editor.action.showContextMenu",
         "when": "editorTextFocus"
     }
