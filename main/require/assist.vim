@@ -22,7 +22,7 @@ if g:complete_engine == 'cmp'
         let g:telescope_fzf_make_cmd = get(g:, 'telescope_fzf_make_cmd', 'make')
     endif
     if get(g:, 'telescope_fzf_make_cmd', '') != ''
-        PackAdd 'nvim-telescope/telescope-fzf-native.nvim', {'do': g:telescope_fzf_make_cmd, 'opt': 0}
+        PackAdd 'nvim-telescope/telescope-fzf-native.nvim', {'do': g:telescope_fzf_make_cmd}
     endif
     if !Planned('leaderf')
         PackAdd 'LinArcX/telescope-changes.nvim'
