@@ -4,6 +4,5 @@ try
 catch
 endtry
 set norelativenumber
-nnoremap <silent><buffer>Q     :cclose<Cr><C-o>
-nnoremap <silent><buffer>qq    <C-w>z
-nnoremap <silent><buffer><C-g> :PreviewQuickfix<cr>
+nnoremap <silent><buffer>Q  :cclose<Cr><C-o>
+nnoremap <silent><buffer>qq <C-w>z
