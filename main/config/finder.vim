@@ -15,6 +15,7 @@ if Installed('leaderf')
     nnoremap <leader>F :Leaderf
     nnoremap <silent><C-p> :Leaderf self<Cr>
     nnoremap <silent><M-h>h :LeaderfHelp<Cr>
+    au FileType vim,help nnoremap <C-h> :LeaderfHelpCword<Cr>
 elseif Installed('coc.nvim')
     let g:fuzzy_finder = 'coc-fzf'
     nnoremap <silent><C-p> :CocFzfList<Cr>
