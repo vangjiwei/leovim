@@ -145,15 +145,16 @@
         "command": "editor.action.goToReferences",
         "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
     },
+    // goto erro
     {
-        "key": "alt+[",
-        "command": "references-view.prev",
-        "when": "reference-list.hasResult && references-view.canNavigate"
+      "key": "alt+[",
+      "command": "editor.action.marker.prevInFiles",
+      "when": "editorFocus"
     },
     {
-        "key": "alt+]",
-        "command": "references-view.next",
-        "when": "reference-list.hasResult && references-view.canNavigate"
+      "key": "alt+]",
+      "command": "editor.action.marker.nextInFiles",
+      "when": "editorFocus"
     },
     // incoming outgoing calls
     {
