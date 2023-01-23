@@ -321,7 +321,6 @@ if Installed('nvim-bqf')
     au FileType qf nmap <buffer> i zf
 else
     au Filetype qf nnoremap <silent><buffer> <C-]> <Cr><C-w>z:vsplit<Cr>
-    au Filetype qf nnoremap <silent><buffer> <C-g> <Cr><C-w>z:vsplit<Cr>
     au Filetype qf nnoremap <silent><buffer> <C-x> <Cr><C-w>z:split<Cr>
     au Filetype qf nnoremap <silent><buffer> <C-t> <Cr><C-w>z:tabe %<Cr>
     if Installed('vim-quickui')
