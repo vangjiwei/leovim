@@ -5,6 +5,7 @@ let g:require_group = get(g:, 'preset_group', [])
 " let g:telescope_fzf_make_cmd = ''
 
 let g:highlight_filetypes = [
+            \ 'markdown',
             \ 'c_sharp', 'cpp', 'c', 'cmake',
             \ 'java', 'rust', 'go',
             \ 'r', 'python', 'julia',
