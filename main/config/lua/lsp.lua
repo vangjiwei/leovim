@@ -47,8 +47,11 @@ map('n', '<M-M>', [[<cmd>Mason<CR>]], opts)
 -- Telescope symbols
 map('n', '<leader>t', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
 map('n', 'f<Cr>',     [[<cmd>Telescope lsp_document_symbols symbols=function,class<CR>]], opts)
+map('n', 'F<Cr>', [[<cmd>Telescope lsp_workspace_symbols symbols=function,class<CR>]], opts)
 map('n', 'T<Cr>', [[<cmd>Telescope lsp_workspace_symbols<CR>]], opts)
-map('n', 't<Cr>', [[<cmd>Telescope lsp_dynamic_workspace_symbols<CR>]], opts)
+if Installed('nvim-treesitter') then
+  map('n', 't<Cr>', [[<cmd>Telescope treesitter<CR>]], opts)
+end
 --------------------------------
 -- lspsaga
 --------------------------------

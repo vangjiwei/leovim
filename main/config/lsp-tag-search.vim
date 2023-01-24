@@ -18,7 +18,7 @@ if !isdirectory(g:gutentags_cache_dir)
     silent! call mkdir(g:gutentags_cache_dir, 'p')
 endif
 " ctags with leaderf quickui
-if get(g:, 'ctags_type', '') != ''
+if get(g:, 'ctags_type', '') != '' && g:complete_engine != 'cmp'
     if WINDOWS()
         let g:fzf_tags_command = "ctags"
     else
@@ -29,24 +29,20 @@ if get(g:, 'ctags_type', '') != ''
         let g:Lf_Ctags = g:fzf_tags_command
         nnoremap <silent>F<Cr> :Leaderf function --all<Cr>
     endif
-    if InstalledTelescope()
-        nnoremap <silent>T<Cr> :Telescope tags<Cr>
-    elseif g:symbol_tool =~ "leaderfctags"
+    if g:symbol_tool =~ "leaderfctags"
         nnoremap <silent>T<Cr> :LeaderfTag<Cr>
     endif
-    if g:complete_engine != 'cmp'
-        if g:symbol_tool =~ "leaderfctags"
-            nnoremap <silent>f<Cr> :Leaderf function<Cr>
-            nnoremap <silent>t<Cr> :LeaderfBufTagAll<Cr>
-        elseif Installed('vim-quickui')
-            nnoremap <silent>f<Cr> :call quickui#tools#list_function()<Cr>
-        endif
-        " preview tag
-        if Installed('vim-quickui')
-            nnoremap <silent><M-:> :call quickui#tools#preview_tag('')<Cr>
-        else
-            nnoremap <silent><M-:> :PreviewTag<Cr>
-        endif
+    if g:symbol_tool =~ "leaderfctags"
+        nnoremap <silent>t<Cr> :LeaderfBufTagAll<Cr>
+        nnoremap <silent>f<Cr> :Leaderf function<Cr>
+    elseif Installed('vim-quickui')
+        nnoremap <silent>f<Cr> :call quickui#tools#list_function()<Cr>
+    endif
+    " preview tag
+    if Installed('vim-quickui')
+        nnoremap <silent><M-:> :call quickui#tools#preview_tag('')<Cr>
+    else
+        nnoremap <silent><M-:> :PreviewTag<Cr>
     endif
 endif
 " --------------------------
