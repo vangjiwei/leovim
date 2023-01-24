@@ -19,6 +19,7 @@ require('mason-lspconfig').setup({
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lsp_attach = function(_, bufnr)
+-- map('n', 'K', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
   vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {buffer=bufnr})
   vim.keymap.set('n', '<M-/>', vim.lsp.buf.references, {buffer=bufnr})
   vim.keymap.set('n', '<M-?>', vim.lsp.buf.implementation, {buffer=bufnr})
@@ -130,7 +131,7 @@ if vim.fn.has('nvim-0.8') > 0 then
   vim.wo.winbar = require('lspsaga.symbolwinbar'):get_winbar()
 end
 -- lspsaga maps
-map('n', 'K', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
+map('n', 'K', [[<Cmd>Lspsaga hover_doc<Cr>]], opts)
 map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<F2>',  [[<cmd>Lspsaga rename<Cr>]], opts)
 map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)

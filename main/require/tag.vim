@@ -33,7 +33,7 @@ if g:complete_engine == 'cmp'
     call AddSymbol('lsp')
     call AddSymbol('telescope')
     PackAdd 'glepnir/lspsaga.nvim'
-      \| PackAdd 'gbrlsnchs/telescope-lsp-handlers.nvim'
+                \| PackAdd 'gbrlsnchs/telescope-lsp-handlers.nvim'
 elseif g:complete_engine == 'coc'
     call AddSymbol('coc')
     call AddSymbol('vista')

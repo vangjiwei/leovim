@@ -31,7 +31,7 @@
     },
     // browser and find
     {
-        "key": "ctrl+shift+b",
+        "key": "ctrl+b",
         "command": "workbench.action.toggleSidebarVisibility"
     },
     // ctrl n
