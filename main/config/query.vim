@@ -1,6 +1,6 @@
 if Installed('vim-translator')
     let g:translator_default_engines=['youdao', 'bing', 'haici']
-    if g:has_popup_float
+    if g:floaterm_floating
         " show translate in popup or floating windows
         nmap <silent> gw <Plug>TranslateW
         xmap <silent> gw <Plug>TranslateWV

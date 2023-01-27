@@ -50,7 +50,7 @@ endif
 " ------------------------------
 if executable('git') && v:version >= 800 && g:git_version >= 1.85
     PackAdd 'tpope/vim-fugitive' | PackAdd 'rbong/vim-flog'
-    if g:has_popup_float
+    if g:floaterm_floating
         PackAdd 'APZelos/blamer.nvim'
     endif
 endif

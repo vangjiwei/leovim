@@ -137,7 +137,7 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
         let g:Lf_ShowDevIcons  = 0
     endif
     let g:Lf_PythonVersion = float2nr(g:python_version)
-    if g:has_popup_float
+    if g:floaterm_floating
         let g:Lf_PreviewInPopup = 1
         let g:Lf_WindowPosition = 'popup'
         let g:Lf_PopupWidth     = 0.85

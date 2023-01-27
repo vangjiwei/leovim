@@ -31,7 +31,7 @@ xmap g<Space> ga*<Space>
 " --------------------------
 " matchup
 " --------------------------
-if get(g:, 'has_popup_float', 0) > 0
+if g:floaterm_floating
     let g:matchup_matchparen_offscreen = {'methed': 'popup'}
 else
     let g:matchup_matchparen_offscreen = {'methed': 'status_manual'}

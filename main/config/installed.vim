@@ -125,7 +125,7 @@ elseif has('patch-7.4.330')
         PackAdd 'vim-which-key-legacy'
     endif
     let g:which_key_group_dicts      = ''
-    let g:which_key_use_floating_win = g:has_popup_float
+    let g:which_key_use_floating_win = g:floaterm_floating
     " basic keys
     nnoremap <Space> :WhichKey       " "<Cr>
     nnoremap <Tab>   :WhichKey       "\<Tab\>"<Cr>
