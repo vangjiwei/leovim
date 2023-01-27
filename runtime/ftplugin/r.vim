@@ -58,7 +58,6 @@ inoremap >> <space>-><space>
 inoremap << <space><-<space>
 inoremap ?? <space>%>%<space>
 inoremap <> <space>%<>%<space>
-inoremap >< <space>\|><space>
 
 " run script
 nnoremap <M-R> :call StartR('R')<Cr>
