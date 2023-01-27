@@ -26,16 +26,6 @@ augroup cocgroup
     autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup end
 let g:coc_config_home = expand("$MAIN_PATH")
-" ------------------------
-" coc fzf
-" ------------------------
-if Installed('coc-fzf') && InstalledFZF()
-    if WINDOWS()
-        let g:coc_fzf_preview=''
-    else
-        let g:coc_fzf_preview='right:60%'
-    endif
-endif
 " ----------------------------
 " semanticTokens
 " ----------------------------
@@ -271,3 +261,10 @@ omap ag <Plug>(coc-git-chunk-outer)
 xmap ag <Plug>(coc-git-chunk-outer)
 nmap <leader>vg vig
 nmap <leader>vG vag
+" ------------------------
+" coc-fzf
+" ------------------------
+if Installed('coc-fzf')
+    let g:coc_fzf_preview = ''
+    let g:coc_fzf_opts = []
+endif

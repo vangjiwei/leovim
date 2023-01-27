@@ -51,10 +51,10 @@ elseif InstalledFZF()
     else
         nnoremap <leader>P :FZF<Tab>
     endif
-    let $FZF_DEFAULT_OPTS = '--layout=reverse-list --border=sharp'
+    let $FZF_DEFAULT_OPTS = '--layout=reverse-list --info=inline'
     if has('nvim') || has('patch-8.2.191')
-        let g:fzf_layout = {'up':'~90%',
-            \ 'window': {'width': 0.9, 'height': 0.9, 'yoffset': 0.5, 'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp'}
+        let g:fzf_layout = {'up':'~80%',
+            \ 'window': {'width': 0.8, 'height': 0.8, 'border': 'sharp'}
             \ }
         if WINDOWS()
             let g:fzf_preview_window = []
