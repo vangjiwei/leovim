@@ -53,13 +53,21 @@ endif
 if WINDOWS()
     let g:asyncrun_encs = get(g:, 'asyncrun_encs', 'gbk')
 endif
-if UNIX()
+if UNIX() && g:run_command == 'AsyncRun'
     call system("mkdir -p ~/.cache/build")
-    let g:gcc_cmd = get(g:, 'gcc_cmd', 'time gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$HOME/.cache/build/$(VIM_FILENOEXT)" && time "$HOME/.cache/build/$(VIM_FILENOEXT)"')
-    let g:gpp_cmd = get(g:, 'gpp_cmd', 'time g++ -Wall -O2 "$(VIM_FILEPATH)" -o "$HOME/.cache/build/$(VIM_FILENOEXT)" && time "$HOME/.cache/build/$(VIM_FILENOEXT)"')
-elseif WINDOWS() && executable('gcc')
-    let g:gcc_cmd = get(g:, 'gcc_cmd', 'md build 2>NULL & ptime gcc $(VIM_FILEPATH) -o build/$(VIM_FILENOEXT) & ptime build/$(VIM_FILENOEXT)')
-    let g:gpp_cmd = get(g:, 'gpp_cmd', 'md build 2>NULL & ptime g++ $(VIM_FILEPATH) -o build/$(VIM_FILENOEXT) & ptime build/$(VIM_FILENOEXT)')
+    let g:gcc_cmd = get(g:, 'gcc_cmd', 'time gcc -Wall -O2 $(VIM_FILEPATH) -o $HOME/.cache/build/$(VIM_FILENOEXT) && time $HOME/.cache/build/$(VIM_FILENOEXT)')
+    let g:gpp_cmd = get(g:, 'gpp_cmd', 'time g++ -Wall -O2 $(VIM_FILEPATH) -o $HOME/.cache/build/$(VIM_FILENOEXT) && time $HOME/.cache/build/$(VIM_FILENOEXT)')
+    if executable('rustc')
+        let g:rustc_cmd = get(g:, 'rustc_cmd', 'time rustc -o $(VIM_FILENOEXT) --out-dir $HOME/.cache/build/$(VIM_FILEPATH) && time $HOME/.cache/build/$(VIM_FILENOEXT)')
+    endif
+elseif WINDOWS() && g:run_command == 'AsyncRun'
+    if executable('gcc')
+        let g:gcc_cmd = get(g:, 'gcc_cmd', 'md build 2>NULL & ptime gcc $(VIM_FILEPATH) -o build\$(VIM_FILENOEXT).exe & ptime build\$(VIM_FILENOEXT).exe')
+        let g:gpp_cmd = get(g:, 'gpp_cmd', 'md build 2>NULL & ptime g++ $(VIM_FILEPATH) -o build\$(VIM_FILENOEXT).exe & ptime build\$(VIM_FILENOEXT).exe')
+    endif
+    if executable('rustc')
+        let g:rustc_cmd = get(g:, 'rustc_cmd', 'md build 2>NULL & ptime rustc -o build\$(VIM_FILENOEXT).exe $(VIM_FILEPATH) & ptime build\$(VIM_FILENOEXT).exe')
+    endif
 endif
 function! s:RunNow(...)
     w!
@@ -105,20 +113,6 @@ function! s:RunNow(...)
                     exec g:run_command . params . ' time python %'
                 endif
             endif
-        elseif &filetype ==# 'rust' && executable('rustc')
-            if WINDOWS()
-                exec g:run_command . params . ' ptime rustc %'
-            else
-                exec g:run_command . params . ' time  rustc %'
-            endif
-        elseif &filetype ==# 'go' && executable('go')
-            if WINDOWS()
-                exec g:run_command . params . ' ptime go run %'
-            else
-                exec g:run_command . params . ' time  go run %'
-            endif
-        elseif &filetype ==# 'sh' && executable('bash')
-            exec g:run_command . params . ' time bash %'
         elseif &filetype ==# 'perl' && executable('perl')
             if WINDOWS()
                 exec g:run_command . params . ' ptime perl %'
@@ -131,10 +125,25 @@ function! s:RunNow(...)
             else
                 exec g:run_command . params . ' time node %'
             endif
+        elseif &filetype ==# 'sh' && executable('bash')
+            exec g:run_command . params . ' time bash %'
+        elseif &filetype ==# 'go' && executable('go')
+            if WINDOWS()
+                exec g:run_command . params . ' ptime go run %'
+            else
+                exec g:run_command . params . ' time  go run %'
+            endif
         elseif &filetype == 'c' && get(g:, 'gcc_cmd', '') != ''
             exec g:run_command . params . ' '. g:gcc_cmd
         elseif &filetype == 'cpp' && get(g:, 'gpp_cmd', '') != ''
             exec g:run_command . params . ' '. g:gpp_cmd
+        elseif &filetype == 'rust' && get(g:, 'rustc_cmd', '') != ''
+            exec g:run_command . params . ' '. g:rustc_cmd
+            " if WINDOWS()
+            "     exec g:run_command . params . ' ptime rustc %'
+            " else
+            "     exec g:run_command . params . ' time  rustc %'
+            " endif
         else
             call feedkeys(':' . g:run_command)
         endif
