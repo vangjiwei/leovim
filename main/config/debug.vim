@@ -88,6 +88,8 @@ if Installed('nvim-dap', 'nvim-dap-ui')
         luafile ~/.leovim.conf/adapter.lua
     endif
     nnoremap ,d :lua require("dap").
+    " runlast
+    nnoremap <silent> ,r <cmd>lua require("dap").run_last()<CR>
     " basic
     nnoremap <silent> ,c <cmd>lua require("dap").run_to_cursor()<CR>
     nnoremap <silent> ,n <cmd>lua require("dap").continue()<CR>
@@ -118,8 +120,6 @@ if Installed('nvim-dap', 'nvim-dap-ui')
     nnoremap <silent> <M-d>o <cmd>lua require("dap").repl.open({}, 'split')<CR>
     nnoremap <silent> <M-d>O <cmd>lua require("dap").repl.open({}, 'vsplit')<CR>
     nnoremap <silent> <M-d>c <cmd>lua require("dap").repl.close()<CR>
-    " runlast
-    nnoremap <silent> <M-d>r <cmd>lua require("dap").run_last()<CR>
     " auto attach
     au FileType dap-repl lua require('dap.ext.autocompl').attach()
     " --------------------------------------
@@ -179,7 +179,7 @@ elseif Installed('vimspector')
     endif
     " core shortcuts
     nnoremap ,v :call vimspector#<Tab>
-    nnoremap ,V :Vimspector<Tab>
+    nnoremap ,d :Vimspector<Tab>
     nnoremap ,e :VimspectorEval<Space>
     nnoremap ,w :VimspectorWatch<Space>
     nnoremap ,a :call vimspector#AddWatch("")<Left><Left>
