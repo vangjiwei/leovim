@@ -105,11 +105,11 @@ function! s:RunNow(...)
                     exec g:run_command . params . ' time python %'
                 endif
             endif
-        elseif &filetype ==# 'rust' && executable('cargo')
+        elseif &filetype ==# 'rust' && executable('rustc')
             if WINDOWS()
-                exec g:run_command . params . ' ptime cargo run %'
+                exec g:run_command . params . ' ptime rustc %'
             else
-                exec g:run_command . params . ' time  cargo run %'
+                exec g:run_command . params . ' time  rustc %'
             endif
         elseif &filetype ==# 'go' && executable('go')
             if WINDOWS()
