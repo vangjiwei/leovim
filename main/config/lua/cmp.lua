@@ -86,7 +86,7 @@ cmp.setup({
       i = function(fallback)
         if cmp.visible() then
           cmp.close()
-        elseif fn.pumvisible() then
+        elseif fn.pumvisible() > 0 then
           fallback()
         else
           vim.fn.feedkeys(vim.fn.getreg('"'))
@@ -114,7 +114,7 @@ cmp.setup({
           else
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
           end
-        elseif fn.pumvisible() then
+        elseif fn.pumvisible() > 0 then
           fn.feedkeys("\\<Down>")
         elseif has_words_before() then
           cmp.complete()
@@ -125,7 +125,7 @@ cmp.setup({
       c = function(fallback)
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-        elseif fn.pumvisible() then
+        elseif fn.pumvisible() > 0 then
           fn.feedkeys("\\<Down>")
         elseif has_words_before() then
           cmp.complete()
@@ -136,7 +136,7 @@ cmp.setup({
       s = function(fallback)
         if luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
-        elseif fn.pumvisible() then
+        elseif fn.pumvisible() > 0 then
           fn.feedkeys("\\<C-n>")
         elseif has_words_before() then
           cmp.complete()
