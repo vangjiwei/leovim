@@ -44,7 +44,7 @@ else
 endif
 if g:complete_snippets == 'ultisnips'
     PackAdd 'SirVer/ultisnips' | PackAdd 'honza/vim-snippets'
-    if g:floaterm_floating
+    if g:has_popup_floating
         PackAdd 'skywind3000/leaderf-snippet'
     endif
 elseif g:complete_snippets == 'luasnip'

@@ -110,18 +110,18 @@ if exists(':tnoremap') && !exists('g:vscode')
     " --------------------------
     " has popup or floating window
     " --------------------------
-    if has("popupwin") || exists('*nvim_open_win') && !exists('g:vscode')
+    if has("popupwin") || exists('*nvim_open_win')
         if has('nvim')
-            let g:floaterm_floating = 1
+            let g:has_popup_floating = 1
         else
-            let g:floaterm_floating = get(g:, 'floaterm_floating', 1)
+            let g:has_popup_floating = get(g:, 'has_popup_floating', 1)
         endif
     else
-        let g:floaterm_floating = 0
+        let g:has_popup_floating = 0
     endif
 else
     let g:has_terminal = 0
-    let g:floaterm_floating = 0
+    let g:has_popup_floating = 0
 endif
 " --------------------------
 " System Type

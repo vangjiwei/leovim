@@ -87,7 +87,7 @@ else
     let g:terminal_plus .= '-floaterm'
 endif
 let g:floaterm_open_command = 'drop'
-if g:floaterm_floating
+if g:has_popup_floating
     let g:floaterm_wintype  = 'float'
     let g:floaterm_position = 'topright'
     let g:floaterm_width    = 0.45
