@@ -1,4 +1,3 @@
-" ------------------------------
 " function to transform dotted string to float
 " ------------------------------
 function! StringToFloat(str)
@@ -193,7 +192,6 @@ function! InstalledCmp()
                 \ 'cmp-nvim-lua',
                 \ 'cmp-path',
                 \ 'cmp-buffer',
-                \ 'cmp-omni',
                 \ 'cmp-cmdline',
                 \ 'cmp-nvim-lsp-signature-help',
                 \ 'cmp-nvim-lsp-document-symbol',
