@@ -87,15 +87,13 @@ else
     let g:terminal_plus .= '-floaterm'
 endif
 let g:floaterm_open_command = 'drop'
-if get(g:, 'floaterm_floating', 1) > 0
-    let g:floaterm_floating = 1
+if g:floaterm_floating
     let g:floaterm_wintype  = 'float'
     let g:floaterm_position = 'topright'
     let g:floaterm_width    = 0.45
     let g:floaterm_height   = 0.65
     nnoremap <silent><Tab>f :FloatermNew --height=0.8 --width=0.8 --position=center<Cr>
 else
-    let g:floaterm_floating = 0
     let g:floaterm_wintype  = 'vsplit'
     let g:floaterm_position = 'right'
     let g:floaterm_width    = 0.4

@@ -418,7 +418,7 @@ if g:gui_running
     nnoremap <silent><M-N> :tabm +1<Cr>
     nnoremap <silent><M-P> :tabm -1<Cr>
 endif
-if executable('ranger') && UNIX() && get(g:, 'floaterm_floating', 0)
+if executable('ranger') && UNIX() && g:floaterm_floating
     command! Ranger FloatermNew --wintype=float --position=center --height=0.9 --width=0.9 --name=ranger --autoclose=2 ranger --cmd="cd ./"
     nnoremap <silent><leader>N :Ranger<Cr>
 elseif !has('nvim') && WINDOWS() && g:gui_running

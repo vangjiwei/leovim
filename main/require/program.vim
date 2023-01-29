@@ -43,7 +43,10 @@ else
     let g:complete_snippets = ''
 endif
 if g:complete_snippets == 'ultisnips'
-    PackAdd 'SirVer/ultisnips' | PackAdd 'honza/vim-snippets' | PackAdd 'skywind3000/leaderf-snippet'
+    PackAdd 'SirVer/ultisnips' | PackAdd 'honza/vim-snippets'
+    if g:floaterm_floating
+        PackAdd 'skywind3000/leaderf-snippet'
+    endif
 elseif g:complete_snippets == 'luasnip'
     PackAdd 'L3MON4D3/luasnip' | PackAdd 'saadparwaiz1/cmp_luasnip' | PackAdd 'benfowler/telescope-luasnip.nvim'
 endif
