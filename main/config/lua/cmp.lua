@@ -115,7 +115,7 @@ cmp.setup({
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
           end
         elseif fn.pumvisible() then
-          fn.feedkeys("\\<C-n>")
+          fn.feedkeys("\<Down>")
         elseif has_words_before() then
           cmp.complete()
         else
@@ -126,7 +126,7 @@ cmp.setup({
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
         elseif fn.pumvisible() then
-          fn.feedkeys("\\<C-n>")
+          fn.feedkeys("\<Down>")
         elseif has_words_before() then
           cmp.complete()
         else
