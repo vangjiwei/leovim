@@ -1,6 +1,7 @@
 -----------------
 -- cmp config
 -----------------
+local fn = vim.fn
 local cmp = require('cmp')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
@@ -57,11 +58,23 @@ cmp.setup({
     },
     ['<C-n>'] = {
       c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-      i = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+      i = function(fallback)
+        if cmp.visible() then
+          cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          fallback()
+        end
+      end
     },
     ['<C-p>'] = {
       c = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-      i = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      i = function(fallback)
+        if cmp.visible() then
+          i = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          fallback()
+        end
+      end
     },
     ['<C-e>'] = {
       c = cmp.mapping.abort(),
@@ -71,9 +84,11 @@ cmp.setup({
       c = cmp.mapping.confirm({
         select = false,
       }),
-      i = function()
+      i = function(fallback)
         if cmp.visible() then
           cmp.close()
+        elseif fn.pumvisible() then
+          fallback()
         else
           vim.fn.feedkeys(vim.fn.getreg('"'))
         end
@@ -100,6 +115,8 @@ cmp.setup({
           else
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
           end
+        elseif fn.pumvisible() then
+          fn.feedkeys("\\<C-n>")
         elseif has_words_before() then
           cmp.complete()
         else
@@ -109,6 +126,8 @@ cmp.setup({
       c = function(fallback)
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+        elseif fn.pumvisible() then
+          fn.feedkeys("\\<C-n>")
         elseif has_words_before() then
           cmp.complete()
         else
@@ -118,6 +137,8 @@ cmp.setup({
       s = function(fallback)
         if luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
+        elseif fn.pumvisible() then
+          fn.feedkeys("\\<C-n>")
         elseif has_words_before() then
           cmp.complete()
         else
