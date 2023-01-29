@@ -2,9 +2,9 @@ local map  = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 function _G.LspsagaJumpError(direction)
   if direction > 0 then
-    require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+    require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
   else
-    require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+    require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
   end
 end
 map('n', '[e', [[<cmd>lua LspsagaJumpError(0)<Cr>]], opts)
