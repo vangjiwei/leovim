@@ -73,11 +73,6 @@ imap <expr><C-a> pumvisible()? "\<C-a>":"\<C-o>I"
 " --------------------------
 if Installed('coc.nvim')
     source $CONFIG_PATH/coc.vim
-    if WINDOWS() && isdirectory(expand('~/AppData/Local/nvim-data/mason/bin'))
-        let $PATH = expand('~/AppData/Local/nvim-data/mason/bin') . ";" . $PATH
-    elseif UNIX() && isdirectory(expand('~/.local/share/nvim/mason/bin'))
-        let $PATH = expand('~/.local/share/nvim/mason/bin') . ":" . $PATH
-    endif
 elseif InstalledCmp()
     source $CONFIG_PATH/cmp.vim
 elseif Installed('vim-mucomplete')

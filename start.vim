@@ -153,6 +153,9 @@ if WINDOWS()
         echoe 'vim 8.0 or neovim 0.7.2 is at least required when uing leovim in windows.'
         finish
     endif
+    let $NVIM_DATA_PATH = expand("~/AppData/Local/nvim-data")
+else
+    let $NVIM_DATA_PATH = expand("~/.local/share/nvim")
 endif
 if MACVIM() && !has('gui_vimr')
     set macmeta

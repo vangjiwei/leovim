@@ -156,6 +156,11 @@ if Installed('nvim-dap', 'nvim-dap-ui')
 elseif Installed('vimspector')
     let g:debug_tool = "vimspector"
     let g:vimspector_enable_mappings = 'HUMAN'
+    if WINDOWS()
+        let g:vimspector_base_dir = $NVIM_DATA_PATH . "\\vimspector"
+    else
+        let g:vimspector_base_dir = $NVIM_DATA_PATH . "/vimspector"
+    endif
     " load template
     function! s:read_template(template)
         execute '0r ' . $LEOVIM_PATH . '/vimspector/' . a:template
@@ -172,11 +177,6 @@ elseif Installed('vimspector')
                     \ }))
     endif
     nnoremap ,D :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
-    if WINDOWS()
-        let g:vimspector_base_dir = expand('~/AppData/Local/nvim-data/vimspector')
-    elseif UNIX()
-        let g:vimspector_base_dir = expand('~/.local/share/nvim/vimspector')
-    endif
     " core shortcuts
     nnoremap ,v :call vimspector#<Tab>
     nnoremap ,d :Vimspector<Tab>

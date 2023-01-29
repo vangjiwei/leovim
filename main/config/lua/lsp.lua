@@ -1,7 +1,7 @@
 local opts = { noremap = true, silent = true }
 local map  = vim.api.nvim_set_keymap
 -----------------
--- mason/lspconfig/lspsetup
+-- mason
 -----------------
 require('mason').setup({
   ui = {
@@ -18,8 +18,7 @@ require('mason-lspconfig').setup({
 })
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-local lsp_attach = function(_, bufnr)
--- map('n', 'K', [[<cmd>Lspsaga hover_doc<Cr>]], opts)
+local lsp_attach = function(client, bufnr)
   vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {buffer=bufnr})
   vim.keymap.set('n', '<M-/>', vim.lsp.buf.references, {buffer=bufnr})
   vim.keymap.set('n', '<M-?>', vim.lsp.buf.implementation, {buffer=bufnr})

@@ -4,6 +4,20 @@
 autocmd BufAdd * if getfsize(expand('<afile>')) > 1024*1024 |
             \ let b:coc_enabled=0 |
             \ endif
+" ----------------------------
+" set $PATH
+" ----------------------------
+if WINDOWS() && isdirectory($NVIM_DATA_PATH . "\\bin")
+    let $PATH = $NVIM_DATA_PATH . "\\bin;" . $PATH
+elseif isdirectory($NVIM_DATA_PATH . "/bin")
+    let $PATH = $NVIM_DATA_PATH . "/bin:" . $PATH
+endif
+let g:coc_config_home = expand("$MAIN_PATH")
+if WINDOWS()
+    let g:coc_data_home = $NVIM_DATA_PATH . "\\coc"
+else
+    let g:coc_data_home = $NVIM_DATA_PATH . "/coc"
+endif
 " ------------------------
 " coc root_patterns
 " ------------------------
@@ -25,7 +39,6 @@ augroup cocgroup
     " Highlight the symbol and its references when holding the cursor.
     autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup end
-let g:coc_config_home = expand("$MAIN_PATH")
 " ----------------------------
 " semanticTokens
 " ----------------------------
@@ -60,11 +73,6 @@ endif
 " ----------------------------
 " extensions
 " ----------------------------
-if UNIX()
-    let g:coc_data_home = expand("~/.local/share/nvim/coc")
-else
-    let g:coc_data_home = expand("~/AppData/Local/nvim-data/coc")
-endif
 let g:coc_global_extensions = [
         \ 'coc-json',
         \ 'coc-sql',

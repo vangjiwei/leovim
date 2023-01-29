@@ -70,10 +70,10 @@ endif
 " nvim-treesitter
 if Installed('nvim-treesitter', 'nvim-treehopper')
     " parser_install_dir
-    if UNIX()
-        let g:parser_install_dir = expand("~/.local/share/nvim/parsers")
+    if WINDOWS()
+        let g:parser_install_dir = $NVIM_DATA_PATH . "\\tree-sitter"
     else
-        let g:parser_install_dir = expand("~/AppData/Local/nvim-data/parsers")
+        let g:parser_install_dir = $NVIM_DATA_PATH . "/tree-sitter"
     endif
     silent! call mkdir(g:parser_install_dir . "/parser", "p")
     exec "set rtp+=" . g:parser_install_dir
