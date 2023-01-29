@@ -44,16 +44,13 @@ iron.setup({
   }
 })
 if vim.fn.executable('radian') then
-  iron.core.add_repl_definitions {
-    r = {
-      radian = {
-        command = {"radian"}
-      }
-    },
-  }
-  iron.core.set_config {
-    preferred = {
-      r = "radian",
-    },
+  iron.setup{
+    config = {
+      repl_definition = {
+        r = {
+          command = {"radian"}
+        },
+      },
+    }
   }
 end
