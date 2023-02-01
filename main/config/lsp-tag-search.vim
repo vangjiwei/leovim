@@ -12,12 +12,49 @@ unlet s:symbol_tool
 " --------------------------
 " NOTE: directories must be defined before lsp_tag_search
 " --------------------------
-let &tags = './.tags;,.tags'
+try
+    set tags=./.tags;,.tags
+catch /.*/
+    let &tags = './.tags;,.tags'
+endtry
 let g:gutentags_cache_dir = g:Lf_CacheDirectory.'/.LfCache/gtags'
 if !isdirectory(g:gutentags_cache_dir)
     silent! call mkdir(g:gutentags_cache_dir, 'p')
 endif
+" --------------------------
+" gutentags
+" --------------------------
+if Installed('vim-gutentags')
+    set cscopetag
+    " exclude files
+    let g:gutentags_ctags_exclude = ["*.min.js", "*.min.css", "build", "vendor", "node_modules", "*.vim/bundle/*", ".ccls_cache", "__pycache__", ".idea", ".vscode"]
+    " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+    let g:gutentags_project_root = g:root_patterns
+    let g:gutentags_add_default_project_roots = 0
+    " 所生成的数据文件的名称
+    let g:gutentags_ctags_tagfile = '.tags'
+    " modules
+    let g:gutentags_modules = ['ctags']
+    " 配置 ctags 的参数
+    let g:gutentags_ctags_extra_args = ['--fields=+niazS']
+    if g:ctags_type =~ "Universal"
+        let g:gutentags_ctags_extra_args += ['--extras=+q', '--c-kinds=+px', '--c++-kinds=+px']
+        if g:ctags_type =~ 'json'
+            let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+        endif
+    else
+        let g:gutentags_ctags_extra_args += ['--c-kinds=+px', '--c++-kinds=+pxI']
+    endif
+    nnoremap ,g<Cr> :GutentagsUpdate<Cr>
+    if WINDOWS()
+        nnoremap ,g<Space> :!del ~<Tab>\.leovim.d\.LfCache\gtags\*.* /a /q<Cr><Cr>
+    else
+        nnoremap ,g<Space> :!rm -rf ~/.leovim.d/.LfCache/gtags/* <Cr>
+    endif
+endif
+" --------------------------
 " ctags with leaderf quickui
+" --------------------------
 if get(g:, 'ctags_type', '') != '' && g:complete_engine != 'cmp'
     if WINDOWS()
         let g:fzf_tags_command = "ctags"
@@ -45,45 +82,6 @@ if get(g:, 'ctags_type', '') != '' && g:complete_engine != 'cmp'
         nnoremap <silent><M-:> :PreviewTag<Cr>
     endif
 endif
-" --------------------------
-" tag_or_searchall
-" --------------------------
-function! s:tag_or_searchall(tagname, ...)
-    if a:tagname == ''
-        let tagname = expand('<cword>')
-    else
-        let tagname = a:tagname
-    endif
-    if a:0 == 0
-        let tag_found = 0
-    else
-        let tag_found = a:1
-    endif
-    if g:ctags_type != '' && tag_found == 0
-        try
-            let ret = Execute("silent! PreviewList ". tagname)
-            " tag PreviewList error, go on search
-            if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
-                let s:do_searchall = 1
-            else
-                execute "copen " . g:asyncrun_open
-            endif
-        catch /.*/
-            let s:do_searchall = 1
-        endtry
-    else
-        let s:do_searchall = 1
-    endif
-    if get(s:, 'do_searchall', 0) > 0 && tag_found <= 1
-        if get(g:, 'search_all_cmd', '') != ''
-            execute g:search_all_cmd . ' ' . tagname
-        else
-            echom "No tag found, and cannot do global grep search."
-        endif
-    endif
-endfunction
-command! TagOrSearchAll call s:tag_or_searchall("")
-nnoremap <silent> gl :TagOrSearchAll<Cr>
 " --------------------------
 " symbols in buf
 " --------------------------
@@ -128,37 +126,6 @@ elseif Installed('vista.vim')
         let g:vista_fzf_preview = ['up:30%:hidden']
     else
         let g:vista_fzf_preview = ['up:30%']
-    endif
-endif
-" --------------------------
-" gutentags
-" --------------------------
-if Installed('vim-gutentags')
-    set cscopetag
-    " exclude files
-    let g:gutentags_ctags_exclude = ["*.min.js", "*.min.css", "build", "vendor", "node_modules", "*.vim/bundle/*", ".ccls_cache", "__pycache__", ".idea", ".vscode"]
-    " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-    let g:gutentags_project_root = g:root_patterns
-    let g:gutentags_add_default_project_roots = 0
-    " 所生成的数据文件的名称
-    let g:gutentags_ctags_tagfile = '.tags'
-    " modules
-    let g:gutentags_modules = ['ctags']
-    " 配置 ctags 的参数
-    let g:gutentags_ctags_extra_args = ['--fields=+niazS']
-    if g:ctags_type =~ "Universal"
-        let g:gutentags_ctags_extra_args += ['--extras=+q', '--c-kinds=+px', '--c++-kinds=+px']
-        if g:ctags_type =~ 'json'
-            let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-        endif
-    else
-        let g:gutentags_ctags_extra_args += ['--c-kinds=+px', '--c++-kinds=+pxI']
-    endif
-    nnoremap ,g<Cr> :GutentagsUpdate<Cr>
-    if WINDOWS()
-        nnoremap ,g<Space> :!del ~<Tab>\.leovim.d\.LfCache\gtags\*.* /a /q<Cr><Cr>
-    else
-        nnoremap ,g<Space> :!rm -rf ~/.leovim.d/.LfCache/gtags/* <Cr>
     endif
 endif
 " --------------------------
@@ -229,6 +196,45 @@ else
         endif
     endif
 endif
+" --------------------------
+" tag_or_searchall
+" --------------------------
+function! s:tag_or_searchall(tagname, ...)
+    if a:tagname == ''
+        let tagname = expand('<cword>')
+    else
+        let tagname = a:tagname
+    endif
+    if a:0 == 0
+        let tag_found = 0
+    else
+        let tag_found = a:1
+    endif
+    if g:ctags_type != '' && tag_found == 0
+        try
+            let ret = Execute("silent! PreviewList ". tagname)
+            " tag PreviewList error, go on search
+            if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
+                let s:do_searchall = 1
+            else
+                execute "copen " . g:asyncrun_open
+            endif
+        catch /.*/
+            let s:do_searchall = 1
+        endtry
+    else
+        let s:do_searchall = 1
+    endif
+    if get(s:, 'do_searchall', 0) > 0 && tag_found <= 1
+        if get(g:, 'search_all_cmd', '') != ''
+            execute g:search_all_cmd . ' ' . tagname
+        else
+            echom "No tag found, and cannot do global grep search."
+        endif
+    endif
+endfunction
+command! TagOrSearchAll call s:tag_or_searchall("")
+nnoremap <silent> gl :TagOrSearchAll<Cr>
 " --------------------------
 " find wich lsp or tags
 " --------------------------

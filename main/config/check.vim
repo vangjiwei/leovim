@@ -35,7 +35,7 @@ elseif Installed('coc.nvim')
                     \ "--ignore=" . g:python_lint_ignore,
                     \ ])
         " show diagnostic
-        nmap <leader>i <Plug>(coc-diagnostic-info)
+        nmap <M-h>d <Plug>(coc-diagnostic-info)
         " toggle diagnostic
         function! s:CocDiagnosticToggleBuffer()
             call CocAction('diagnosticToggleBuffer')
