@@ -16,6 +16,15 @@ if Installed('leaderf')
     nnoremap <silent><C-p> :Leaderf self<Cr>
     nnoremap <silent><M-h>h :LeaderfHelp<Cr>
     au FileType vim,help nnoremap <C-h> :LeaderfHelpCword<Cr>
+    if InstalledTelescope()
+        nnoremap <leader>P :Telescope<Cr>
+    elseif InstalledFZF()
+        if Installed('coc.nvim')
+            nnoremap <leader>P :CocFzfList<Cr>
+        else
+            nnoremap <leader>P :FZF<Tab>
+        endif
+    endif
 elseif Installed('coc.nvim')
     let g:fuzzy_finder = 'coc-fzf'
     nnoremap <silent><C-p> :CocFzfList<Cr>
@@ -29,28 +38,10 @@ elseif InstalledFZF()
 else
     let g:fuzzy_finder = ''
 endif
-if InstalledTelescope()
-    luafile $LUA_PATH/telescope.lua
-    nnoremap <leader>fp :lua project_files()<Cr>
-    nnoremap m<tab> <cmd>Telescope keymaps<Cr>
-    nnoremap <M-h>q <cmd>Telescope quickfixhistory<Cr>
-    nnoremap <M-h>. <cmd>Telescope resume<Cr>
-    if Installed('leaderf')
-        nnoremap <leader>P :Telescope<Cr>
-    endif
-elseif InstalledFZF()
+if InstalledFZF()
     " --------------------------
     "  fzf basic settings
     " --------------------------
-    if Installed('leaderf')
-        if Installed('coc.nvim')
-            nnoremap <leader>P :CocFzfList<Cr>
-        else
-            nnoremap <leader>P :FZF<Tab>
-        endif
-    else
-        nnoremap <leader>P :FZF<Tab>
-    endif
     let $FZF_DEFAULT_OPTS = '--layout=reverse-list --info=inline'
     if has('nvim') || has('patch-8.2.191')
         let g:fzf_layout = {'up':'~80%',
@@ -120,6 +111,12 @@ elseif InstalledFZF()
     endfunction
     command! ProjectFiles call s:files_search()
     nnoremap <silent> <leader>fp :ProjectFiles<Cr>
+elseif InstalledTelescope()
+    luafile $LUA_PATH/telescope.lua
+    nnoremap <leader>fp :lua project_files()<Cr>
+    nnoremap m<tab> <cmd>Telescope keymaps<Cr>
+    nnoremap <M-h>q <cmd>Telescope quickfixhistory<Cr>
+    nnoremap <M-h>. <cmd>Telescope resume<Cr>
 endif
 " --------------------------
 " using leaderf cache dir
