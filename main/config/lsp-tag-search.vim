@@ -88,7 +88,8 @@ endif
 if g:complete_engine == 'coc'
     let g:vista_default_executive = 'coc'
     nnoremap <silent>ZL :CocFzfList symbols<Cr>
-    nnoremap <silent><leader>t :CocFzfList outline<Cr>
+    nnoremap <silent>ZO :CocFzfList outline<Cr>
+    nnoremap <silent><leader>t :Vista finder coc<Cr>
 elseif g:complete_engine != 'cmp' && g:ctags_type != ''
     if g:symbol_tool =~ 'leaderfctags'
         nnoremap <silent><leader>t :LeaderfBufTag<Cr>
