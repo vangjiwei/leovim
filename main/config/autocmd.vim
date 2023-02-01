@@ -70,6 +70,7 @@ nnoremap cd :lcd %:p:h<Cr>
 " --------------------------
 autocmd BufNewFile .gitignore          0r $LEOVIM_PATH/templates/gitignore.spec
 autocmd BufNewFile .lintr              0r $LEOVIM_PATH/templates/lintr.spec
+autocmd BufNewFile .radian_profile     0r $LEOVIM_PATH/templates/radian_profile.spec
 autocmd BufNewFile projectionlist.json 0r $LEOVIM_PATH/templates/projectionlist.json.spec
 " --------------------------
 " swap exists ignore
