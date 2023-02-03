@@ -27,6 +27,7 @@ set smartcase
 set ignorecase
 set showmatch
 set wildcharm=<Tab>
+set nrformats+=unsigned
 set backspace=indent,eol,start
 set linespace=0
 set enc=utf8

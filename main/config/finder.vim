@@ -135,7 +135,7 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     endif
     let g:Lf_PythonVersion = float2nr(g:python_version)
     if g:has_popup_floating
-        let g:Lf_PreviewInPopup = 1
+        let g:Lf_PreviewInPopup = 0
         let g:Lf_WindowPosition = 'popup'
         let g:Lf_PopupWidth     = 0.85
         let g:Lf_PopupHeight    = 0.7
@@ -156,7 +156,7 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
                 \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
                 \ "Colorscheme": [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
                 \ }
-    let g:Lf_CommandMap = {'<C-]>': ['<C-g>', '<C-]>'], '<F5>': ['<F5>', '<C-l>'], '<C-l>': ['<C-e>'], '<Up>': ['<Up>', '<C-u>'], '<Down>': ['<Down>', '<C-d>']}
+    let g:Lf_CommandMap = {'<C-p>': ['<C-g>'], '<F5>': ['<F5>', '<C-l>'], '<C-l>': ['<C-e>'], '<Up>': ['<Up>', '<C-u>'], '<Down>': ['<Down>', '<C-d>']}
     " history
     nnoremap <M-h>/ :Leaderf searchHistory<Cr>
     nnoremap <M-h>c :Leaderf cmdHistory<Cr>
