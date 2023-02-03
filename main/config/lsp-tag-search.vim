@@ -89,15 +89,15 @@ if g:complete_engine == 'coc'
     let g:vista_default_executive = 'coc'
     nnoremap <silent>ZL :CocFzfList symbols<Cr>
     nnoremap <silent>ZO :CocFzfList outline<Cr>
-    nnoremap <silent><leader>t :Vista finder coc<Cr>
+    nnoremap <silent><leader>o :Vista finder coc<Cr>
 elseif g:complete_engine != 'cmp' && g:ctags_type != ''
     if g:symbol_tool =~ 'leaderfctags'
-        nnoremap <silent><leader>t :LeaderfBufTag<Cr>
+        nnoremap <silent><leader>o :LeaderfBufTag<Cr>
     elseif Installed('vista.vim')
         let g:vista_default_executive = 'ctags'
-        nnoremap <silent><leader>t :Vista finder!<Cr>
+        nnoremap <silent><leader>o :Vista finder!<Cr>
     elseif g:symbol_tool =~ 'fzfctags'
-        nnoremap <silent><leader>t :FZFBTags<Cr>
+        nnoremap <silent><leader>o :FZFBTags<Cr>
     endif
 endif
 " --------------------------
