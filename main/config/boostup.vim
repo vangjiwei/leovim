@@ -659,7 +659,7 @@ elseif Require('coc')
         let s:smart_engine_select = 1
     endif
 elseif Require('mcm')
-    if has('patch-7.4.143') && &completeopt =~ 'menuone'
+    if has('patch-7.4.143')
         let g:complete_engine = 'mcm'
     else
         let s:smart_engine_select = 1
@@ -672,7 +672,7 @@ if get(s:, 'smart_engine_select', 0) > 0
         let g:complete_engine = 'coc'
     elseif has('nvim')
         let g:complete_engine = 'cmp'
-    elseif has('patch-7.4.143') && &completeopt =~ 'menuone'
+    elseif has('patch-7.4.143')
         let g:complete_engine = 'mcm'
     elseif v:version >= 800
         let g:complete_engine = 'apc'
