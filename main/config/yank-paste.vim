@@ -20,7 +20,7 @@ if g:advanced_complete_engine == 0 && g:complete_engine != 'mcm'
     imap <expr><C-y> pumvisible()? "\<C-y>":"\<C-r>\""
 endif
 if has('clipboard')
-    nnoremap <M-A> :%y*<Cr>
+    nnoremap <M-a> :%y*<Cr>
     if UNIX()
         nnoremap <M-c>+ viw"+y
         xnoremap <M-c>+ "+y
@@ -44,7 +44,7 @@ if has('clipboard')
     nnoremap <M-X> "*dd
     xnoremap <M-X> "*dd
 else
-    nnoremap <M-A> :%y"<Cr>
+    nnoremap <M-a> :%y"<Cr>
     cnoremap <M-v> <C-r>"
     inoremap <M-v> <C-r>"
     nnoremap <M-v> P
