@@ -21,13 +21,10 @@ set hlsearch
 set showmode
 set vb
 set autochdir
-set number
-set relativenumber
 set smartcase
 set ignorecase
 set showmatch
 set wildcharm=<Tab>
-set nrformats+=unsigned
 set backspace=indent,eol,start
 set linespace=0
 set enc=utf8
@@ -44,3 +41,10 @@ set textwidth=160
 " switchbuf
 set buftype=
 set switchbuf=useopen,usetab,newtab
+" number mode
+set number
+set relativenumber
+try
+    set nrformats+=unsigned
+catch
+endtry
