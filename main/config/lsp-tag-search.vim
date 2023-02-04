@@ -279,24 +279,7 @@ function! s:open_in_postion(position) abort
         return
     endif
 endfunction
-" ------------------------
-" tagls_import
-" ------------------------
-if get(g:, 'tagls_import', 0) > 0
-    if Installed('coc.nvim')
-        call coc#config('languageserver.tagls', {
-                    \ "command": "python",
-                    \ "args": ["-m", "tagls"],
-                    \ "filetypes": g:highlight_filetypes,
-                    \ "rootPatterns": g:root_patterns,
-                    \ "initializationOptions": {
-                        \ "gtags_provider": "leaderf",
-                        \ "cach_dir": g:gutentags_cache_dir
-                    \ }
-                \ })
-    endif
-endif
-function! CocOrTagls(jumpCommand, position, tagls_import)
+function! CocJump(jumpCommand, position)
     let jumpCommand = a:jumpCommand
     try
         if a:position == 'float'
@@ -310,25 +293,7 @@ function! CocOrTagls(jumpCommand, position, tagls_import)
     if ret
         echo "found by coc " . jumpCommand
     else
-        if a:tagls_import
-            let tagls_action = tolower(substitute(jumpCommand, "jump", "", ""))
-            try
-                if a:position == 'float'
-                    let ret = CocLocations('tagls', '$tagls/textDocument/' . tagls_action, {}, v:false)
-                else
-                    let ret = CocLocations('tagls', '$tagls/textDocument/' . tagls_action)
-                endif
-            catch /.*/
-                let ret = ''
-            endtry
-            if ret
-                echo "found by tagls " . tagls_action
-            else
-                echohl WarningMsg | echom tagls_action . " not found by neither coc nor tagls" | echohl None
-            endif
-        else
-            echohl WarningMsg | echom jumpCommand . " not found by coc " | echohl None
-        endif
+        echohl WarningMsg | echom jumpCommand . " not found by coc " | echohl None
     endif
     return ret
 endfunction
@@ -346,7 +311,7 @@ function! LspOrTagOrSearchAll(command, ...) abort
     " coc
     if g:complete_engine == 'coc'
         let g:coc_locations_change = v:false
-        if CocOrTagls(command, position, get(g:, 'tagls_import', 0))
+        if CocJump(command, position)
             let l:tag_found = 2
             call s:settagstack(winnr, tagname, pos)
             if !g:coc_locations_change && position != ''

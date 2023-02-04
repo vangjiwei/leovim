@@ -70,13 +70,6 @@ except Exception:
     pass
 else:
     vim.command('let g:pygments_import = 1')
-try:
-    import vim
-    import tagls
-except Exception:
-    pass
-else:
-    vim.command('let g:tagls_import = 1')
 Python3EOF
     endif
     return l:pyx_version
