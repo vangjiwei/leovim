@@ -427,6 +427,9 @@ if g:gui_running
     nnoremap <M-p> gT
     nnoremap <silent><M-N> :tabm +1<Cr>
     nnoremap <silent><M-P> :tabm -1<Cr>
+else
+    imap <M-O> <C-o>O
+    nmap <M-O> O
 endif
 if executable('ranger') && UNIX() && g:has_popup_floating
     command! Ranger FloatermNew --wintype=float --position=center --height=0.9 --width=0.9 --name=ranger --autoclose=2 ranger --cmd="cd ./"
