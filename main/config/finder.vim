@@ -169,7 +169,7 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
                 \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
                 \ "Colorscheme": [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
                 \ }
-    let g:Lf_CommandMap = {'<C-p>': ['<C-g>'], '<F5>': ['<F5>', '<C-l>'], '<C-l>': ['<C-b>'], '<Up>': ['<Up>', '<C-p>'], '<Down>': ['<Down>', '<C-n>']}
+    let g:Lf_CommandMap = {'<C-p>': ['<C-g>'], '<F5>': ['<F5>', '<C-l>'], '<C-l>': ['<C-e>'], '<Up>': ['<Up>', '<C-p>'], '<Down>': ['<Down>', '<C-n>']}
     " history
     nnoremap <M-h>/ :Leaderf searchHistory<Cr>
     nnoremap <M-h>c :Leaderf cmdHistory<Cr>
