@@ -1,8 +1,7 @@
-local map            = vim.api.nvim_set_keymap
-local opts           = { noremap = true, silent = true }
-local telescope      = require('telescope')
-local actions        = require("telescope.actions")
-local actions_layout = require("telescope.actions.layout")
+local map       = vim.api.nvim_set_keymap
+local opts      = { noremap = true, silent = true }
+local telescope = require('telescope')
+local actions   = require("telescope.actions")
 telescope.setup {
   defaults = {
     layout_strategy   = 'flex',
