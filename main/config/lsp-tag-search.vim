@@ -323,14 +323,16 @@ function! LspOrTagOrSearchAll(command, ...) abort
         let ret = 0
     endif
     " tags
-    if g:ctags_type != '' && position != '' && !ret
+    if g:ctags_type != '' && !ret
         let ret = Execute("silent! tag ". tagname)
         if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
             let l:tag_found = 1
         else
             let l:tag_found = 2
             call s:settagstack(winnr, tagname, pos)
-            call s:open_in_postion(position)
+            if position != ''
+                call s:open_in_postion(position)
+            endif
         endif
     else
         let l:tag_found = 0
