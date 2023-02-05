@@ -24,11 +24,12 @@ map <C-q> <Nop>
 map <C-s> <Nop>
 map <C-i> <Nop>
 map <C-z> <Nop>
+nmap S    <Nop>
 nmap <C-j> %
 nmap <C-k> g%
 xmap <C-j> %
 xmap <C-k> g%
-nmap S <Nop>
+nmap Q gq
 nmap <BS> <C-h>
 " ------------------------
 " core remap

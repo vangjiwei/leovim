@@ -878,11 +878,11 @@ function! s:Bclose(bang, buffer)
     execute wcurrent.'wincmd w'
 endfunction
 command! -bang -complete=buffer -nargs=? Bclose call <SID>Bclose(<q-bang>, <q-args>)
-nnoremap <silent> Q :Bclose<CR>
-xnoremap <silent> Q <ESC>
+nnoremap <silent><leader>Q :Bclose<Cr>
+xnoremap <silent><leader>Q <ESC>Bclose<Cr>
 " kill other BD
 command! BdOther silent! execute "%bd|e#|bd#"
-nnoremap <silent><leader>Q :BdOther<Cr>
+nnoremap <silent><leader>O :BdOther<Cr>
 " close
 nnoremap <silent><leader>q    :q!<Cr>
 nnoremap <silent><leader><BS> :qall!<Cr>
