@@ -312,14 +312,18 @@ function! LspOrTagOrSearchAll(command, ...) abort
     if g:complete_engine == 'coc'
         let g:coc_locations_change = v:false
         if CocJump(command, position)
+            let ret = 1
             let l:tag_found = 2
             call s:settagstack(winnr, tagname, pos)
             if !g:coc_locations_change && position != ''
                 call s:open_in_postion(position)
             endif
         endif
+    else
+        let ret = 0
+    endif
     " tags
-    elseif g:ctags_type != '' && position != ''
+    if g:ctags_type != '' && position != '' && !ret
         let ret = Execute("silent! tag ". tagname)
         if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
             let l:tag_found = 1
