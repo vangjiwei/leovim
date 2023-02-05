@@ -48,11 +48,12 @@ if InstalledFZF()
     let $FZF_DEFAULT_OPTS = '--layout=reverse-list --info=inline'
     if has('nvim') || has('patch-8.2.191')
         let g:fzf_layout = {'up':'~80%',
-            \ 'window': {'width': 0.8, 'height': 0.8, 'border': 'sharp'}
+            \ 'window': {'width': 0.9, 'height': 0.8, 'border': 'sharp'}
             \ }
-        let g:fzf_preview_window = ['right,45%,<70(up,30%)', 'ctrl-/']
+        let g:fzf_preview_window = ['right,45%,<50(up,30%)', 'ctrl-/']
     else
         let g:fzf_layout = {'down': '~30%'}
+        let g:fzf_preview_window = []
     endif
     au FileType fzf tnoremap <buffer> <C-j> <Down>
     au FileType fzf tnoremap <buffer> <C-k> <Up>
