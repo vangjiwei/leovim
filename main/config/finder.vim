@@ -102,7 +102,7 @@ if InstalledFZF()
                 " \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}),
     command! -bang -nargs=* FZFRg
                 \ call fzf#vim#grep(
-                \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>),
+                \   'rg --column --line-number --no-heading --color=always --smart-case -- ' . shellescape(empty(<q-args>) ? '^' : <q-args>),
                 \   1,
                 \   fzf#vim#with_preview(),
                 \   <bang>0)
