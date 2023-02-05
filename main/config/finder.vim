@@ -48,7 +48,7 @@ if InstalledFZF()
     let $FZF_DEFAULT_OPTS = '--layout=reverse-list --info=inline'
     if has('nvim') || has('patch-8.2.191')
         let g:fzf_layout = {'up':'~80%',
-            \ 'window': {'width': 0.8, 'height': 0.8, 'border': 'sharp'}
+            \ 'window': {'width': 0.9, 'height': 0.8, 'border': 'sharp'}
             \ }
         if WINDOWS()
             let g:fzf_preview_bash = get(g:, 'fzf_preview_bash', $LEOVIM_PATH . "\\bin\\bash.exe")
