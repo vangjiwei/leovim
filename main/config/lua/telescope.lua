@@ -1,7 +1,8 @@
-local map       = vim.api.nvim_set_keymap
-local opts      = { noremap = true, silent = true }
-local telescope = require('telescope')
-local actions   = require("telescope.actions")
+local map            = vim.api.nvim_set_keymap
+local opts           = { noremap = true, silent = true }
+local telescope      = require('telescope')
+local actions        = require("telescope.actions")
+local actions_layout = require("telescope.actions.layout")
 telescope.setup {
   defaults = {
     layout_strategy   = 'flex',
@@ -40,7 +41,7 @@ telescope.setup {
         ["<M-q>"]  = actions.close,
         ['<C-s>']  = actions.toggle_selection,
         ['<C-q>']  = actions.send_to_qflist.open_qflist,
-        ["<C-g>"]  = actions.layout.toggle_preview,
+        ["<C-g>"]  = actions_layout.toggle_preview,
       },
     },
     vimgrep_arguments = {
