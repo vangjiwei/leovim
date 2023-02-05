@@ -50,9 +50,15 @@ if InstalledFZF()
         let g:fzf_layout = {'up':'~80%',
             \ 'window': {'width': 0.8, 'height': 0.8, 'border': 'sharp'}
             \ }
-        let g:fzf_preview_window = ['right,45%,<60(up,30%)', 'ctrl-/']
+        if WINDOWS()
+            let g:fzf_preview_bash = get(g:, 'fzf_preview_bash', $LEOVIM_PATH . "\\bin\\bash.exe")
+            let g:fzf_preview_window = ['up,30%', 'ctrl-/']
+        else
+            let g:fzf_preview_window = ['right,45%,<60(up,30%)', 'ctrl-/']
+        endif
     else
         let g:fzf_layout = {'down': '~30%'}
+        let g:fzf_preview_window = ['right,45%', 'ctrl-/']
     endif
     au FileType fzf tnoremap <buffer> <C-j> <Down>
     au FileType fzf tnoremap <buffer> <C-k> <Up>
@@ -68,8 +74,8 @@ if InstalledFZF()
     let g:fzf_commands_expect = 'alt-enter'
     function! s:build_quickfix_list(lines)
         call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-        copen g:asyncrun_open
-        cc
+        " call execute("copen " . g:asyncrun_open)
+        " cc
     endfunction
     let g:fzf_action = {
                 \ 'enter':  'edit',
@@ -89,8 +95,16 @@ if InstalledFZF()
     " --------------------------
     command! -bang -nargs=* FZFGGrep
                 \ call fzf#vim#grep(
-                \  'git grep -I --line-number --color=always -- '.shellescape(empty(<q-args>) ? '^' : <q-args>),0,
-                \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}),
+                \   'git grep -I --line-number --color=always -- ' . shellescape(empty(<q-args>) ? '^' : <q-args>),
+                \   0,
+                \   fzf#vim#with_preview(),
+                \   <bang>0)
+                " \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}),
+    command! -bang -nargs=* FZFRg
+                \ call fzf#vim#grep(
+                \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>),
+                \   1,
+                \   fzf#vim#with_preview(),
                 \   <bang>0)
     " -------------------------
     "  fzf files
