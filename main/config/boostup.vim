@@ -122,7 +122,7 @@ endif
 " --------------------------
 if WINDOWS()
     if isdirectory($HOME . "\\.leovim.windows") && get(g:,'leovim_loaded',0) == 0
-        let $PATH = $HOME  . "\\.leovim.windows\\tools;" . $HOME  . "\\.leovim.windows\\gtags\\bin;" . $HOME  . "\\.leovim.windows\\cppcheck;" . $PATH
+        let $PATH = $LEOVIM_PATH . "\\bin;" . $HOME  . "\\.leovim.windows\\tools;" . $HOME  . "\\.leovim.windows\\gtags\\bin;" . $HOME  . "\\.leovim.windows\\cppcheck;" . $PATH
     endif
     set winaltkeys=no
     if g:gui_running

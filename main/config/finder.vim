@@ -38,20 +38,19 @@ elseif InstalledFZF()
 else
     let g:fuzzy_finder = ''
 endif
+" --------------------------
+" fzf
+" --------------------------
 if InstalledFZF()
     " --------------------------
-    "  fzf basic settings
+    " fzf basic settings
     " --------------------------
     let $FZF_DEFAULT_OPTS = '--layout=reverse-list --info=inline'
     if has('nvim') || has('patch-8.2.191')
         let g:fzf_layout = {'up':'~80%',
             \ 'window': {'width': 0.8, 'height': 0.8, 'border': 'sharp'}
             \ }
-        if WINDOWS()
-            let g:fzf_preview_window = []
-        else
-            let g:fzf_preview_window = ['up,25%', 'ctrl-/']
-        endif
+        let g:fzf_preview_window = ['right,45%,<70(up,30%)', 'ctrl-/']
     else
         let g:fzf_layout = {'down': '~30%'}
     endif

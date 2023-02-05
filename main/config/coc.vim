@@ -273,6 +273,6 @@ nmap <leader>vG vag
 " coc-fzf
 " ------------------------
 if Installed('coc-fzf')
-    let g:coc_fzf_preview = ''
+    let g:coc_fzf_preview = g:fzf_preview_window
     let g:coc_fzf_opts = []
 endif
