@@ -24,15 +24,17 @@ set autochdir
 set smartcase
 set ignorecase
 set showmatch
+set wildchar=<Tab>
 set wildcharm=<Tab>
 set backspace=indent,eol,start
 set linespace=0
 set enc=utf8
-set fencs=ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1
+set fencs=utf-8,utf-16,ucs-bom,gbk,gb18030,big5,latin1
 set winminheight=0
 set scrolljump=5
 set scrolloff=3
 set mouse=a
+" tab
 set expandtab
 set shiftwidth=2
 set softtabstop=2
@@ -47,4 +49,5 @@ set relativenumber
 try
     set nrformats+=unsigned
 catch
+    " pass
 endtry

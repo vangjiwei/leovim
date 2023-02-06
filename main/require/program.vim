@@ -74,6 +74,12 @@ if g:check_tool == 'ale'
     PackAdd 'maximbaz/lightline-ale'
 endif
 " ------------------------------
+" cmdline complete
+" ------------------------------
+if has('nvim') && g:complete_engine != 'cmp' || v:version >= 801
+    PackAdd 'gelguy/wilder.nvim'
+endif
+" ------------------------------
 " debug tool
 " ------------------------------
 if g:advanced_complete_engine
