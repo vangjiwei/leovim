@@ -77,7 +77,11 @@ endif
 " cmdline complete
 " ------------------------------
 if has('nvim') && g:complete_engine != 'cmp' || v:version >= 801
-    PackAdd 'gelguy/wilder.nvim'
+    if has('nvim')
+        PackAdd 'gelguy/wilder.nvim', {'do': ':UpdateRemotePlugins'}
+    else
+        PackAdd 'gelguy/wilder.nvim'
+    endif
 endif
 " ------------------------------
 " debug tool

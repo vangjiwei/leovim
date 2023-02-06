@@ -1,14 +1,14 @@
-" ------------------------------
-" pairs
-" ------------------------------
-if Installed('pear-tree')
-    let g:pear_tree_map_special_keys = 0
-endif
 " --------------------------
 " git
 " --------------------------
 if executable('git')
     source $CONFIG_PATH/git.vim
+endif
+" ------------------------------
+" pairs
+" ------------------------------
+if Installed('pear-tree')
+    let g:pear_tree_map_special_keys = 0
 endif
 " --------------------------
 " lightline
@@ -47,12 +47,42 @@ endtry
 " menu
 " -----------------------------------
 set wildmenu
+if Installed('wilder.nvim')
+    call wilder#setup({
+                \ 'modes': [':', '/', '?'],
+                \ 'enable_cmdline_enter': 0,
+                \ 'accept_completion_auto_select': 1,
+                \ 'next_key': ['<Tab>', '<Down>'],
+                \ 'previous_key': ['<S-Tab>', '<Up>'],
+                \ 'accept_key': '<Down>',
+                \ 'reject_key': '<Up>',
+                \ })
+    call wilder#set_option('renderer', wilder#wildmenu_renderer(
+                \ wilder#wildmenu_lightline_theme({
+                \   'highlights': {},
+                \   'highlighter': wilder#basic_highlighter(),
+                \   'separator': ' · ',
+                \ })))
+    let s:highlighters = [
+                \ wilder#pcre2_highlighter(),
+                \ wilder#basic_highlighter(),
+                \ ]
+    call wilder#set_option('renderer', wilder#renderer_mux({
+                \ ':': wilder#popupmenu_renderer({
+                \   'highlighter': s:highlighters,
+                \ }),
+                \ '/': wilder#wildmenu_renderer({
+                \   'highlighter': s:highlighters,
+                \ }),
+                \ '?': wilder#wildmenu_renderer({
+                \   'highlighter': s:highlighters,
+                \ }),
+                \ }))
+endif
 if has('nvim')
-    cmap <expr> <down> pumvisible() ? '<right>' : '<down>'
-    cmap <expr> <up>   pumvisible() ? '<left>'  : '<up>'
+    set wildoptions+=pum
     cmap <expr> <C-j>  pumvisible() ? '<right>' : '<C-n>'
     cmap <expr> <C-k>  pumvisible() ? '<left>'  : '<C-p>'
-    set wildoptions+=pum
 else
     set wildmode=longest,list
     if has('patch-8.2.4500')
