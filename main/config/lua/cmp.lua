@@ -77,7 +77,14 @@ cmp.setup({
     },
     ['<C-e>'] = {
       c = cmp.mapping.abort(),
-      i = cmp.mapping.abort(),
+      i = function(fallback)
+        if cmp.visible() then
+          cmp.abort()
+        else
+         -- how to input  <C-o>A
+          fallback()
+        end
+      end
     },
     ['<C-y>'] = {
       c = cmp.mapping.confirm({
@@ -89,7 +96,7 @@ cmp.setup({
         elseif fn.pumvisible() > 0 then
           fallback()
         else
-          vim.fn.feedkeys(vim.fn.getreg('"'))
+          fn.feedkeys(fn.getreg('"'))
         end
       end
     },
@@ -114,8 +121,6 @@ cmp.setup({
           else
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
           end
-        elseif fn.pumvisible() > 0 then
-          fn.feedkeys("\\<Down>")
         elseif has_words_before() then
           cmp.complete()
         else
@@ -125,8 +130,6 @@ cmp.setup({
       c = function(fallback)
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-        elseif fn.pumvisible() > 0 then
-          fn.feedkeys("\\<Down>")
         elseif has_words_before() then
           cmp.complete()
         else
@@ -136,8 +139,6 @@ cmp.setup({
       s = function(fallback)
         if luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
-        elseif fn.pumvisible() > 0 then
-          fn.feedkeys("\\<C-n>")
         elseif has_words_before() then
           cmp.complete()
         else
@@ -157,7 +158,7 @@ cmp.setup({
         -- Source 显示提示来源
         local content = item.abbr
         if #content > MAX_LABEL_WIDTH then
-          item.abbr = vim.fn.strcharpart(content, 0, MAX_LABEL_WIDTH) .. ELLIPSIS_CHAR
+          item.abbr = fn.strcharpart(content, 0, MAX_LABEL_WIDTH) .. ELLIPSIS_CHAR
         else
           item.abbr = content .. get_ws(MAX_LABEL_WIDTH, #content)
         end
