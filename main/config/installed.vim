@@ -47,8 +47,6 @@ endtry
 " menu
 " -----------------------------------
 set wildmenu
-cmap <expr> <C-j>  pumvisible() ? '<right>' : '<C-n>'
-cmap <expr> <C-k>  pumvisible() ? '<left>'  : '<C-p>'
 if has('nvim')
     set wildoptions+=pum
 else
@@ -58,6 +56,8 @@ else
     endif
 endif
 if Installed('wilder.nvim')
+    cmap <C-j> <Tab>
+    cmap <C-k> <S-Tab>
     call wilder#setup({
                 \ 'modes': [':', '/', '?'],
                 \ 'enable_cmdline_enter': 0,
@@ -88,7 +88,9 @@ if Installed('wilder.nvim')
                 \   'highlighter': s:highlighters,
                 \ }),
                 \ }))
-
+else
+    cmap <expr><C-j>  pumvisible() ? '<Right>' : '<C-n>'
+    cmap <expr><C-k>  pumvisible() ? '<Left>'  : '<C-p>'
 endif
 " ------------------------
 " home end
