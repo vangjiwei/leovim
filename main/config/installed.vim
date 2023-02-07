@@ -47,6 +47,16 @@ endtry
 " menu
 " -----------------------------------
 set wildmenu
+cmap <expr> <C-j>  pumvisible() ? '<right>' : '<C-n>'
+cmap <expr> <C-k>  pumvisible() ? '<left>'  : '<C-p>'
+if has('nvim')
+    set wildoptions+=pum
+else
+    set wildmode=longest,list
+    if has('patch-8.2.4500')
+        set wildoptions+=pum,fuzzy
+    endif
+endif
 if Installed('wilder.nvim')
     call wilder#setup({
                 \ 'modes': [':', '/', '?'],
@@ -78,16 +88,7 @@ if Installed('wilder.nvim')
                 \   'highlighter': s:highlighters,
                 \ }),
                 \ }))
-endif
-if has('nvim')
-    set wildoptions+=pum
-    cmap <expr> <C-j>  pumvisible() ? '<right>' : '<C-n>'
-    cmap <expr> <C-k>  pumvisible() ? '<left>'  : '<C-p>'
-else
-    set wildmode=longest,list
-    if has('patch-8.2.4500')
-        set wildoptions+=pum,fuzzy
-    endif
+
 endif
 " ------------------------
 " home end
