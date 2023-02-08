@@ -42,3 +42,4 @@ endfunction
 au BufEnter * exec "imap <silent> <Tab> <C-R>=MapTabCr(1)<cr>"
 au BufEnter * exec "imap <silent> <Cr>  <C-R>=MapTabCr(0)<cr>"
 au BufEnter * exec "imap <expr><C-y> pumvisible()? '\<C-y>' : '\<C-r>\"'"
+au BufEnter * exec "imap <expr><C-e> pumvisible()? '\<C-e>' : '\<C-O>A'"

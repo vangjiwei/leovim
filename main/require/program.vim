@@ -78,7 +78,12 @@ endif
 " ------------------------------
 if has('nvim') && g:complete_engine != 'cmp' || v:version >= 801
     if has('nvim')
-        PackAdd 'gelguy/wilder.nvim', {'do': ':UpdateRemotePlugins'}
+        function! UpdateRemotePlugins(...)
+            " Needed to refresh runtime files
+            let &rtp=&rtp
+            UpdateRemotePlugins
+        endfunction
+        PackAdd 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
     else
         PackAdd 'gelguy/wilder.nvim'
     endif

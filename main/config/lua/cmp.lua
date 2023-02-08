@@ -77,12 +77,11 @@ cmp.setup({
     },
     ['<C-e>'] = {
       c = cmp.mapping.abort(),
-      i = function(fallback)
+      i = function()
         if cmp.visible() then
           cmp.abort()
         else
-         -- how to input  <C-o>A
-          fallback()
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-o>A', true, false, true), 'i', true)
         end
       end
     },
@@ -90,13 +89,11 @@ cmp.setup({
       c = cmp.mapping.confirm({
         select = false,
       }),
-      i = function(fallback)
+      i = function()
         if cmp.visible() then
           cmp.close()
-        elseif fn.pumvisible() > 0 then
-          fallback()
         else
-          fn.feedkeys(fn.getreg('"'))
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-r>"', true, false, true), 'i', true)
         end
       end
     },
