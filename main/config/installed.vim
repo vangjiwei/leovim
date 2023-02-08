@@ -100,7 +100,7 @@ cmap <C-a> <Home>
 cmap <C-e> <End>
 imap <expr><C-b> pumvisible()? "\<C-b>":"\<C-o>I"
 imap <expr><C-f> pumvisible()? "\<C-f>":"\<C-o>A"
-imap <expr><C-a> pumvisible()? "\<C-a>":"\<C-o>I"
+imap <expr><C-a> pumvisible()? "\<C-a>":"\<C-o>0"
 " --------------------------
 " complete_engine settings
 " --------------------------
