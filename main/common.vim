@@ -63,7 +63,7 @@ endfunction
 " -----------------------------------
 " set pack_tool
 " -----------------------------------
- if Require('jetpack') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget'))
+ if Require('jetpack') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) || filereadable(expand(get(g:, 'jetpack_forked', '')))
 	set packpath=$LEOVIM_PATH
     let g:pack_tool = 'jetpack'
     let g:jetpack_njobs = get(g:, 'jetpack_njobs', 8)
@@ -91,7 +91,9 @@ endfunction
         let g:jetpack_copy_method = get(g:, 'jetpack_copy_method', 'copy')
     endif
     command! PackSync JetpackSync
-    if !exists('g:vscode')
+    if filereadable(expand(get(g:, 'jetpack_forked', '')))
+        source expand(get(g:, 'jetpack_forked', ''))
+    elseif !exists('g:vscode')
         source ~/.leovim.conf/pack/jetpack.vim
     endif
 else
