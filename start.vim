@@ -24,11 +24,6 @@ let $CONFIG_PATH = expand($MAIN_PATH . '/config')
 let $REQUIRE_PATH = expand($MAIN_PATH . '/require')
 " set lua
 let $LUA_PATH = expand($CONFIG_PATH . '/lua')
-" ------------------------
-" runtime
-" ------------------------
-let $RUNTIME_PATH = expand($LEOVIM_PATH . '/runtime')
-set rtp=$VIMRUNTIME,$RUNTIME_PATH
 " --------------------------
 " init directories
 " --------------------------

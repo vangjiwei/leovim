@@ -60,10 +60,17 @@ function! AddRequire(plug)
         let g:require_group += [a:plug]
     endif
 endfunction
+" ------------------------
+" runtime
+" ------------------------
+let $RUNTIME_PATH = expand($LEOVIM_PATH . '/runtime')
+set rtp=$VIMRUNTIME,$RUNTIME_PATH
 " -----------------------------------
 " set pack_tool
 " -----------------------------------
- if Require('jetpack') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) || isdirectory(expand(get(g:, 'jetpack_forked', '')))
+if exists('g:vscode')
+    let g:pack_tool = ''
+elseif Require('jetpack') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) || isdirectory(expand(get(g:, 'jetpack_forked', '')))
     let g:jetpack_njobs = get(g:, 'jetpack_njobs', 8)
     if get(g:, 'jetpack_download_method', '') == ''
         if executable('git')
@@ -74,7 +81,6 @@ endfunction
             let g:jetpack_download_method = get(g:, 'jetpack_download_method', 'wget')
         endif
     endif
-
     let g:jetpack_ignore_patterns =
                 \ [
                 \   '[\/]doc[\/]tags*',
@@ -84,26 +90,24 @@ endfunction
                 \   '[\/].gitignore',
                 \   '[\/][.ABCDEFGHIJKLMNOPQRSTUVWXYZ]*',
                 \ ]
-    command! PackSync JetpackSync
+    " set packpath
+    set packpath=$LEOVIM_PATH
     if isdirectory(expand(get(g:, 'jetpack_forked', '')))
+        let $PACK_PATH = expand(get(g:, 'jetpack_forked', ''))
+        set rtp+=$PACK_PATH
         let g:pack_tool = 'jetpack_forked'
-        let $PACK_FORKED = expand(get(g:, 'jetpack_forked', ''))
-        set packpath=$LEOVIM_PATH,$PACK_FORKED
+    else
         packadd vim-jetpack
-    elseif !exists('g:vscode')
         let g:pack_tool = 'jetpack'
-        set packpath=$LEOVIM_PATH
-        packadd vim-jetpack
     endif
+    command! PackSync JetpackSync
 else
     let g:pack_tool = 'plug'
     let g:plug_threads = get(g:, 'plug_threads', 8)
+    source ~/.leovim.conf/pack/plug.vim
     command! PackSync PlugClean | PlugUpdate
-    if !exists('g:vscode')
-        source ~/.leovim.conf/pack/plug.vim
-    endif
 endif
-nnoremap <leader>u :PackSync<Cr>
+noremap <silent><leader>u :PackSync<Cr>
 " ---------------------------------------
 " PackAdd local opt packs or github repos
 " ---------------------------------------
