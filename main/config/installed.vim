@@ -134,7 +134,7 @@ source $CONFIG_PATH/lsp-tag-search.vim
 source $CONFIG_PATH/schemes.vim
 source $CONFIG_PATH/check.vim
 " ------------------------
-" zfvime is for chs inpus
+" zfvime is for chs input
 " ------------------------
 source $CONFIG_PATH/zfvime.vim
 " --------------------------
