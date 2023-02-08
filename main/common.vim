@@ -65,7 +65,6 @@ endfunction
 " -----------------------------------
  if Require('jetpack') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) || filereadable(expand(get(g:, 'jetpack_forked', '')))
 	set packpath=$LEOVIM_PATH
-    let g:pack_tool = 'jetpack'
     let g:jetpack_njobs = get(g:, 'jetpack_njobs', 8)
     if get(g:, 'jetpack_download_method', '') == ''
         if executable('git')
@@ -92,8 +91,10 @@ endfunction
     endif
     command! PackSync JetpackSync
     if filereadable(expand(get(g:, 'jetpack_forked', '')))
+        let g:pack_tool = 'jetpack_forked'
         source expand(get(g:, 'jetpack_forked', ''))
     elseif !exists('g:vscode')
+        let g:pack_tool = 'jetpack'
         source ~/.leovim.conf/pack/jetpack.vim
     endif
 else
@@ -115,7 +116,7 @@ function! PackAdd(repo, ...)
     " if not / included, local plugin will be loaded
     if stridx(repo, '/') < 0
         let pack = repo
-        if g:pack_tool == 'jetpack'
+        if g:pack_tool =~ 'jetpack'
             execute "packadd " . pack
         else
             let dir = expand($OPT_PATH . "/" . pack)
@@ -123,7 +124,7 @@ function! PackAdd(repo, ...)
         endif
         let g:leovim_installed[tolower(pack)] = 1
     else
-        if g:pack_tool == 'jetpack'
+        if g:pack_tool =~ 'jetpack'
             if a:0 == 0
                 call jetpack#add(repo)
             else

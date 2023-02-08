@@ -697,7 +697,7 @@ endif
 " install plugins
 " --------------------------
 " pack begin
-if g:pack_tool == 'jetpack'
+if g:pack_tool =~ 'jetpack'
     call jetpack#begin($INSTALL_PATH)
 else
     call plug#begin($INSTALL_PATH)
@@ -707,13 +707,13 @@ nnoremap <leader>ep :tabe $REQUIRE_PATH/pack.vim<Cr>
 nnoremap <leader>eP :tabe ~/.leovim.conf/plus.vim<Cr>
 if filereadable(expand("~/.leovim.conf/plus.vim")) | source $HOME/.leovim.conf/plus.vim | endif
 " pack end, check installed
-if g:pack_tool == 'jetpack'
+if g:pack_tool =~ 'jetpack'
     call jetpack#end()
 else
     call plug#end()
 endif
 " set installed
-if g:pack_tool == 'jetpack'
+if g:pack_tool =~ 'jetpack'
     for pack in jetpack#names()
         if jetpack#tap(pack)
             let g:leovim_installed[tolower(pack)] = 1
