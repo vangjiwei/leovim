@@ -61,14 +61,6 @@ if has('nvim') || has('patch-8.0.902')
     PackAdd 'mhinz/vim-signify'
 endif
 " ------------------------------
-" tmux
-" ------------------------------
-if executable('tmux') && g:gui_running == 0 && (has('nvim') || has('patch-8.0.1394'))
-    PackAdd 'preservim/vimux'
-    PackAdd 'roxma/vim-tmux-clipboard'
-    PackAdd 'tmux-plugins/vim-tmux-focus-events'
-endif
-" ------------------------------
 " status
 " ------------------------------
 if has('signs')
@@ -114,3 +106,11 @@ endif
 " schemes
 " ------------------------------
 source $REQUIRE_PATH/schemes-textobj.vim
+" ------------------------------
+" tmux
+" ------------------------------
+if executable('tmux') && g:gui_running == 0 && (has('nvim') || has('patch-8.0.1394'))
+    PackAdd 'preservim/vimux'
+    PackAdd 'roxma/vim-tmux-clipboard'
+    PackAdd 'tmux-plugins/vim-tmux-focus-events'
+endif
