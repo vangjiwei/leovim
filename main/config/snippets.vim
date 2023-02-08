@@ -28,11 +28,10 @@ if Installed('leaderf-snippet')
 elseif Installed('coc.nvim')
     inoremap <silent><C-x><C-x> <C-\><C-o>:CocFzfList snippets<Cr>
 endif
+" -----------------------
+" FZF
+" -----------------------
 if InstalledFZF()
     imap <c-x><c-l> <plug>(fzf-complete-line)
-    if LINUX()
-        inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
-    else
-        imap <c-x><c-f> <plug>(fzf-complete-path)
-    endif
+    imap <expr><c-x><c-f> fzf#vim#complete#path('rg --files')
 endif

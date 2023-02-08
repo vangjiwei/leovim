@@ -412,7 +412,9 @@ endif
 " --------------------
 " browser files all
 " --------------------
-if Installed('leaderf')
+if InstalledTelescope()
+    nnoremap <silent><leader>ff :lcd %:p:h \| Telescope find_files<Cr>
+elseif Installed('leaderf')
     let g:Lf_ShortcutF = '<leader>ff'
     nnoremap <silent><leader>ff :lcd %:p:h \| LeaderfFile<Cr>
 elseif InstalledFZF()

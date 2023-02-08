@@ -142,18 +142,5 @@ if Installed('vim-terminal-help')
     nnoremap <silent> <M--> :call sidebar#toggle('terminal')<CR>
     tnoremap <silent> <M--> <C-\><C-n>:call sidebar#toggle('terminal')<CR>
 endif
-if Installed('vim-flog')
-    function! s:check_flog(nr) abort
-        return s:check_buf_ft('flog', a:nr)
-    endfunction
-    let g:sidebars.flog = {
-                \ 'position': 'bottom',
-                \ 'check_win': function('s:check_flog'),
-                \ 'open': 'Flogsplit',
-                \ 'close': 'exit'
-                \ }
-    nnoremap <silent> <M-g>x :call sidebar#toggle('flog')<CR>
-    nnoremap <silent> <M-g>t :Flog<CR>
-endif
 " startify
 let g:startify_session_before_save = ['call sidebar#close_all()']

@@ -164,4 +164,3 @@ endif
 " source commom.vim for vim/neovim/vscode
 " ----------------------------------------------------
 source $MAIN_PATH/common.vim
-" set runtime

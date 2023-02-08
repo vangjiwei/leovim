@@ -4,29 +4,28 @@ nnoremap cr :CR<CR>
 " fugitve and others
 if Installed('vim-fugitive')
     nnoremap <M-G>  :Git
-    nnoremap <M-g>g :G
-    nnoremap <M-g>m :Git commit -av<Cr>
-    nnoremap <M-g>u :Git push<CR>
     nnoremap <M-g>U :Git push<Space>
+    nnoremap <silent><M-g>m :Git commit -av<Cr>
+    nnoremap <silent><M-g>u :Git push<CR>
     " compare with history version
     let g:fugitive_summary_format = "%as-[%an]: %s"
-    nnoremap <M-g>h :Git log --pretty=format:"%h\|\|%as-[%an]: %s" -- %<cr>
-    nnoremap <M-g>d 0"ayiw:bw<cr>:rightbelow Gvdiff <c-r>a<cr>
+    nnoremap <silent><M-g>h :Git log --pretty=format:"%h\|\|%as-[%an]: %s" -- %<cr>
+    nnoremap <silent><M-g>g 0"ayiw:bw<cr>:rightbelow Gvdiff <c-r>a<cr>
     " gitblame
-    nnoremap <silent> <M-g>b :Git blame<Cr>
+    nnoremap <silent><M-g>\ :Git blame<Cr>
     " git diff
-    nnoremap <silent> <M-g>v :Gvdiffsplit<Cr>
-    nnoremap <silent> <M-g>s :Gdiffsplit<Cr>
+    nnoremap <silent><M-g>d :Gvdiffsplit<Cr>
+    nnoremap <silent><M-g>s :Gdiffsplit<Cr>
 elseif Installed('asyncrun.vim') && g:has_terminal && UNIX()
     nnoremap <M-G>  :AsyncRun -mode=term -focus=1 git
+    nnoremap <M-g>U :AsyncRun -mode=term -focus=1 git push<Space>
     nnoremap <M-g>m :AsyncRun -mode=term -focus=1 git commit -a -m ""<Left>
     nnoremap <M-g>u :AsyncRun -mode=term -focus=1 git push<Cr>
-    nnoremap <M-g>U :AsyncRun -mode=term -focus=1 git push<Space>
 else
     nnoremap <M-G>  :!git
+    nnoremap <M-g>U :!git push<Space>
     nnoremap <M-g>m :!git commit -a -m ""<Left>
     nnoremap <M-g>u :!git push<Cr>
-    nnoremap <M-g>U :!git push<Space>
 endif
 if Installed('blamer.nvim')
     let g:blamer_date_format = '%Y/%m/%d %H:%M'
@@ -34,15 +33,20 @@ if Installed('blamer.nvim')
     let g:blamer_prefix = ' >> '
     nnoremap \\ :BlamerToggle<Cr>
 endif
+if Installed('gv.vim')
+    nnoremap <silent><M-g>v :GV<Cr>
+    nnoremap <silent><M-g>c :GV!<Cr>
+    nnoremap <silent><M-g>r :GV?<Cr>
+endif
 if InstalledTelescope()
-    nnoremap <M-g>c :Telescope git_bcommits<Cr>
+    nnoremap <M-g>b :Telescope git_bcommits<Cr>
     nnoremap <M-g>f :Telescope git_files<CR>
 elseif InstalledFZF()
     if Installed('coc.nvim') && WINDOWS()
-        nnoremap <M-g>c :CocFzfList bcommits<Cr>
+        nnoremap <M-g>b :CocFzfList bcommits<Cr>
         nnoremap <M-g>f :CocFzfList gfiles<CR>
     else
-        nnoremap <M-g>c :FZFBCommits<Cr>
+        nnoremap <M-g>b :FZFBCommits<Cr>
         nnoremap <M-g>f :FZFGFiles?<CR>
     endif
 endif

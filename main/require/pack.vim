@@ -49,7 +49,7 @@ endif
 " git
 " ------------------------------
 if executable('git') && v:version >= 800 && g:git_version >= 1.85
-    PackAdd 'tpope/vim-fugitive' | PackAdd 'rbong/vim-flog'
+    PackAdd 'tpope/vim-fugitive' | PackAdd 'junegunn/gv.vim'
     if g:has_popup_floating
         PackAdd 'APZelos/blamer.nvim'
     endif

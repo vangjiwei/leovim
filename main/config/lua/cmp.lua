@@ -77,19 +77,23 @@ cmp.setup({
     },
     ['<C-e>'] = {
       c = cmp.mapping.abort(),
-      i = cmp.mapping.abort(),
+      i = function()
+        if cmp.visible() then
+          cmp.abort()
+        else
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-o>A', true, false, true), 'i', true)
+        end
+      end
     },
     ['<C-y>'] = {
       c = cmp.mapping.confirm({
         select = false,
       }),
-      i = function(fallback)
+      i = function()
         if cmp.visible() then
           cmp.close()
-        elseif fn.pumvisible() > 0 then
-          fallback()
         else
-          vim.fn.feedkeys(vim.fn.getreg('"'))
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-r>"', true, false, true), 'i', true)
         end
       end
     },
@@ -114,8 +118,6 @@ cmp.setup({
           else
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
           end
-        elseif fn.pumvisible() > 0 then
-          fn.feedkeys("\\<Down>")
         elseif has_words_before() then
           cmp.complete()
         else
@@ -125,8 +127,6 @@ cmp.setup({
       c = function(fallback)
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-        elseif fn.pumvisible() > 0 then
-          fn.feedkeys("\\<Down>")
         elseif has_words_before() then
           cmp.complete()
         else
@@ -136,8 +136,6 @@ cmp.setup({
       s = function(fallback)
         if luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
-        elseif fn.pumvisible() > 0 then
-          fn.feedkeys("\\<C-n>")
         elseif has_words_before() then
           cmp.complete()
         else

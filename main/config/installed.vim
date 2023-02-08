@@ -1,14 +1,14 @@
-" ------------------------------
-" pairs
-" ------------------------------
-if Installed('pear-tree')
-    let g:pear_tree_map_special_keys = 0
-endif
 " --------------------------
 " git
 " --------------------------
 if executable('git')
     source $CONFIG_PATH/git.vim
+endif
+" ------------------------------
+" pairs
+" ------------------------------
+if Installed('pear-tree')
+    let g:pear_tree_map_special_keys = 0
 endif
 " --------------------------
 " lightline
@@ -48,16 +48,49 @@ endtry
 " -----------------------------------
 set wildmenu
 if has('nvim')
-    cmap <expr> <down> pumvisible() ? '<right>' : '<down>'
-    cmap <expr> <up>   pumvisible() ? '<left>'  : '<up>'
-    cmap <expr> <C-j>  pumvisible() ? '<right>' : '<C-n>'
-    cmap <expr> <C-k>  pumvisible() ? '<left>'  : '<C-p>'
     set wildoptions+=pum
 else
     set wildmode=longest,list
     if has('patch-8.2.4500')
         set wildoptions+=pum,fuzzy
     endif
+endif
+if Installed('wilder.nvim')
+    cmap <C-j> <Tab>
+    cmap <C-k> <S-Tab>
+    call wilder#setup({
+                \ 'modes': [':', '/', '?'],
+                \ 'enable_cmdline_enter': 0,
+                \ 'accept_completion_auto_select': 1,
+                \ 'next_key': ['<Tab>', '<Down>'],
+                \ 'previous_key': ['<S-Tab>', '<Up>'],
+                \ 'accept_key': '<Down>',
+                \ 'reject_key': '<Up>',
+                \ })
+    call wilder#set_option('renderer', wilder#wildmenu_renderer(
+                \ wilder#wildmenu_lightline_theme({
+                \   'highlights': {},
+                \   'highlighter': wilder#basic_highlighter(),
+                \   'separator': ' · ',
+                \ })))
+    let s:highlighters = [
+                \ wilder#pcre2_highlighter(),
+                \ wilder#basic_highlighter(),
+                \ ]
+    call wilder#set_option('renderer', wilder#renderer_mux({
+                \ ':': wilder#popupmenu_renderer({
+                \   'highlighter': s:highlighters,
+                \ }),
+                \ '/': wilder#wildmenu_renderer({
+                \   'highlighter': s:highlighters,
+                \ }),
+                \ '?': wilder#wildmenu_renderer({
+                \   'highlighter': s:highlighters,
+                \ }),
+                \ }))
+else
+    cmap <expr><C-j>  pumvisible() ? '<Right>' : '<C-n>'
+    cmap <expr><C-k>  pumvisible() ? '<Left>'  : '<C-p>'
 endif
 " ------------------------
 " home end
@@ -67,7 +100,7 @@ cmap <C-a> <Home>
 cmap <C-e> <End>
 imap <expr><C-b> pumvisible()? "\<C-b>":"\<C-o>I"
 imap <expr><C-f> pumvisible()? "\<C-f>":"\<C-o>A"
-imap <expr><C-a> pumvisible()? "\<C-a>":"\<C-o>I"
+imap <expr><C-a> pumvisible()? "\<C-a>":"\<C-o>0"
 " --------------------------
 " complete_engine settings
 " --------------------------
