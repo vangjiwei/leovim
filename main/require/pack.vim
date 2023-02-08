@@ -66,7 +66,6 @@ endif
 if has('signs')
     PackAdd 'kshenoy/vim-signature'
     PackAdd 'rhysd/conflict-marker.vim'
-    PackAdd 'bling/vim-bufferline'
 endif
 " --------------------------
 " indentline

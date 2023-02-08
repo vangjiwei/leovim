@@ -133,11 +133,6 @@ source $CONFIG_PATH/yank-paste.vim
 source $CONFIG_PATH/lsp-tag-search.vim
 source $CONFIG_PATH/schemes.vim
 source $CONFIG_PATH/check.vim
-" bufferline
-if Installed('vim-bufferline')
-     let g:bufferline_echo = 1
-     let g:bufferline_rotate = 1
-endif
 " ------------------------
 " zfvime is for chs inpus
 " ------------------------
