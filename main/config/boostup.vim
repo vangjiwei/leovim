@@ -1,4 +1,5 @@
-" -----------------------forked" basic functions
+" --------------------------
+" basic functions
 " --------------------------
 function! TripTrailingWhiteSpace()
     let _s=@/
