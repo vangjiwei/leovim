@@ -22,8 +22,13 @@ let $OPT_PATH = expand($LEOVIM_PATH . '/pack/sync/opt')
 let $MAIN_PATH = expand($LEOVIM_PATH . '/main')
 let $CONFIG_PATH = expand($MAIN_PATH . '/config')
 let $REQUIRE_PATH = expand($MAIN_PATH . '/require')
-" set lua
+" set lua path
 let $LUA_PATH = expand($CONFIG_PATH . '/lua')
+" ------------------------
+" runtime
+" ------------------------
+let $RUNTIME_PATH = expand($LEOVIM_PATH . '/runtime')
+set rtp=$VIMRUNTIME,$RUNTIME_PATH
 " --------------------------
 " init directories
 " --------------------------
