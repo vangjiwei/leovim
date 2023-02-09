@@ -2,13 +2,6 @@
 curl -fLo ../../../pack/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 sed -i -e 's/ *$//g' ../../../pack/plug.vim
 
-# vim-jetpack
-rm -rf vim-jetpack
-git clone --depth 1 https://github.com/tani/vim-jetpack
-sed -i -e 's/40vnew/to 80vnew/g' ./vim-jetpack/plugin/jetpack.vim
-sed -i -e 's/ *$//g' ./vim-jetpack/plugin/jetpack.vim
-mv ./vim-jetpack/plugin ./vim-jetpack/autoload
-
 # vim-preview
 rm -rf vim-preview
 git clone --depth 1 https://github.com/leoatchina/vim-preview.git
