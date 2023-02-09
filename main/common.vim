@@ -64,13 +64,15 @@ endfunction
 " runtime
 " ------------------------
 let $RUNTIME_PATH = expand($LEOVIM_PATH . '/runtime')
+let $PACK_PATH    = expand(get(g:, 'jetpack_forked', ''))
 set rtp=$VIMRUNTIME,$RUNTIME_PATH
 " -----------------------------------
 " set pack_tool
 " -----------------------------------
 if exists('g:vscode')
     let g:pack_tool = ''
-elseif Require('jetpack') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) || isdirectory(expand(get(g:, 'jetpack_forked', '')))
+elseif Require('jetpack') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) || isdirectory($PACK_PATH)
+    set packpath=$LEOVIM_PATH
     let g:jetpack_njobs = get(g:, 'jetpack_njobs', 8)
     if get(g:, 'jetpack_download_method', '') == ''
         if executable('git')
@@ -91,14 +93,12 @@ elseif Require('jetpack') && exists(':packadd') && exists("##SourcePost") && (g:
                 \   '[\/][.ABCDEFGHIJKLMNOPQRSTUVWXYZ]*',
                 \ ]
     " set packpath
-    set packpath=$LEOVIM_PATH
-    if isdirectory(expand(get(g:, 'jetpack_forked', '')))
-        let $PACK_PATH = expand(get(g:, 'jetpack_forked', ''))
-        set rtp+=$PACK_PATH
+    if isdirectory($PACK_PATH)
+        set rtp^=$PACK_PATH
         let g:pack_tool = 'jetpack_forked'
     else
-        packadd vim-jetpack
         let g:pack_tool = 'jetpack'
+        packadd vim-jetpack
     endif
     command! PackSync JetpackSync
 else
