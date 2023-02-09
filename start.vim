@@ -16,19 +16,23 @@ end
 " --------------------------
 " set basic path
 let $LEOVIM_PATH = expand('~/.leovim.conf')
-" set opt
-let $OPT_PATH = expand($LEOVIM_PATH . '/pack/sync/opt')
 " set config path
-let $MAIN_PATH = expand($LEOVIM_PATH . '/main')
-let $CONFIG_PATH = expand($MAIN_PATH . '/config')
+let $MAIN_PATH    = expand($LEOVIM_PATH . '/main')
+let $CONFIG_PATH  = expand($MAIN_PATH . '/config')
 let $REQUIRE_PATH = expand($MAIN_PATH . '/require')
-" set lua path
-let $LUA_PATH = expand($CONFIG_PATH . '/lua')
+let $LUA_PATH     = expand($CONFIG_PATH . '/lua')
 " ------------------------
-" runtime
+" set opt path which contains repos cloned.
+" ------------------------
+let $OPT_PATH = expand($LEOVIM_PATH . '/pack/repos/opt')
+" ------------------------
+" runtime packpath
 " ------------------------
 let $RUNTIME_PATH = expand($LEOVIM_PATH . '/runtime')
 set rtp=$VIMRUNTIME,$RUNTIME_PATH
+if exists(':packadd')
+    set packpath=$LEOVIM_PATH
+endif
 " --------------------------
 " init directories
 " --------------------------
