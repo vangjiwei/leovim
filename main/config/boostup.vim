@@ -673,20 +673,21 @@ if get(s:, 'smart_engine_select', 0) > 0
 endif
 if index(['coc', 'cmp'], get(g:, 'complete_engine', '')) >= 0
     let g:advanced_complete_engine = 1
-    if exists('+completepopup') != 0
-        set completeopt+=popup
-        set completepopup=align:menu,border:off,highlight:WildMenu
-    endif
 else
     let g:advanced_complete_engine = 0
+endif
+" set completepopup
+if exists('+completepopup') != 0
+    set completeopt+=popup
+    set completepopup=align:menu,border:off,highlight:WildMenu
 endif
 " ------------------------------
 " pack_tool
 " ------------------------------
-if g:pack_tool == 'plug'
-    let $INSTALL_PATH = expand('~/.leovim.d/plug/' . g:complete_engine)
-else
+if g:pack_tool == 'jetpack'
     let $INSTALL_PATH = expand('~/.leovim.d/' . g:complete_engine)
+elseif g:pack_tool == 'plug'
+    let $INSTALL_PATH = expand('~/.leovim.d/plug/' . g:complete_engine)
 endif
 if has('nvim')
     let $INSTALL_PATH .= ".nvim"

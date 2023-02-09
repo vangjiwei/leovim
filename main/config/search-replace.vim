@@ -72,15 +72,18 @@ if exists('*matchstrpos')
     command! GrepperSearchAllLast call s:grepper(0, 1)
     command! -nargs=1 GrepperSearch    call s:grepper(1, <f-args>)
     command! -nargs=1 GrepperSearchAll call s:grepper(2, <f-args>)
-    nnoremap s<Cr>      :GrepperSearchAll <C-r>=expand('<cword>')<Cr>
-    xnoremap s<Cr>      :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr>
-    nnoremap s'         :GrepperSearchAll ""<left>
-    nnoremap <silent>s. :GrepperSearchAllLast<Cr>
+    nnoremap <silent>s<Cr>      :GrepperSearchAll <C-r>=expand('<cword>')<Cr>
+    xnoremap <silent>s<Cr>      :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr>
+    nnoremap <silent><silent>s. :GrepperSearchAllLast<Cr>
+    nnoremap s'                 :GrepperSearchAll ""<left>
+    if g:complete_engine != 'coc'
+        nnoremap <silent>g/ :GrepperSearchAll <C-r>=expand('<cword>')<Cr><Cr>
+    endif
     " GrepperSearch
-    nnoremap S<Cr>      :GrepperSearch <C-r>=expand('<cword>')<Cr>
-    xnoremap S<Cr>      :<C-u>GrepperSearch <C-r>=GetVisualSelection()<Cr>
-    nnoremap S'         :GrepperSearch ""<Left>
-    nnoremap <silent>S. :GrepperSearchLast<Cr>
+    nnoremap <silent>S<Cr> :GrepperSearch <C-r>=expand('<cword>')<Cr>
+    xnoremap <silent>S<Cr> :<C-u>GrepperSearch <C-r>=GetVisualSelection()<Cr>
+    nnoremap <silent>S.    :GrepperSearchLast<Cr>
+    nnoremap S'            :GrepperSearch ""<Left>
     " cdo for replace
     cnoremap <M-r> cdo s///gc<Left><Left><Left>
     cnoremap <M-S> cfdo up

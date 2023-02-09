@@ -182,7 +182,6 @@ function! InstalledLsp()
                 \ 'nvim-lspconfig',
                 \ 'mason.nvim',
                 \ 'mason-lspconfig.nvim',
-                \ 'cmp-nvim-lsp',
                 \ 'lspsaga.nvim',
                 \ )
 endfunction
@@ -219,8 +218,6 @@ let g:highlight_filetypes = get(g:, 'highlight_filetypes', [
 let g:todo_patterns = "(TODO|FIXME|WARN|ERROR|BUG|HELP)"
 let g:note_patterns = "(NOTE|XXX|HINT|STEP|ETC)"
 let g:root_patterns = get(g:, 'root_patterns', [".root/", ".env/", ".git/", ".hg/", ".svn/", ".vim/", ".vscode/", '.idea/', ".ccls/", "compile_commands.json"])
-" python_lint_ignore
-let g:python_lint_ignore = "E101,E302,E251,E231,E226,E221,E127,E126,E123,E501,W291,F405,F403"
 " -----------------------------------
 " set
 " -----------------------------------

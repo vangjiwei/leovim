@@ -1,4 +1,5 @@
 " g:diagnostic_virtualtext_underline default false
+let g:python_lint_ignore = "E101,E302,E251,E231,E226,E221,E127,E126,E123,E501,W291,F405,F403"
 try
     let g:diagnostic_virtualtext_underline = v:false
 catch
