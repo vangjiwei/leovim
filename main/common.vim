@@ -66,7 +66,7 @@ endfunction
 let $PACK_PATH = expand(get(g:, 'jetpack_forked', ''))
 if exists('g:vscode')
     let g:pack_tool = ''
-elseif exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) && (Require('jetpack') || isdirectory($PACK_PATH) || filereadable($PACK_PATH))
+elseif exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) && (isdirectory($PACK_PATH) || filereadable($PACK_PATH))
     let g:jetpack_njobs = get(g:, 'jetpack_njobs', 8)
     if get(g:, 'jetpack_download_method', '') == ''
         if executable('git')
@@ -90,12 +90,9 @@ elseif exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 ||
     if isdirectory($PACK_PATH)
         set rtp^=$PACK_PATH
         let g:pack_tool = 'jetpack_forked'
-    elseif filereadable($PACK_PATH)
+    else
         source $PACK_PATH
         let g:pack_tool = 'jetpack_forked_single'
-    else
-        let g:pack_tool = 'jetpack'
-        packadd vim-jetpack
     endif
     command! PackSync JetpackSync
 else
