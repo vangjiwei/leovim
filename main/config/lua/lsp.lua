@@ -26,7 +26,11 @@ local lsp_attach = function(client, bufnr)
   vim.keymap.set('n', 'gm', vim.lsp.buf.declaration, { buffer = bufnr })
   -- format
   vim.keymap.set('n', '<C-q>', vim.lsp.buf.format, { buffer = bufnr })
-  vim.keymap.set('x', '<C-q>', vim.lsp.buf.range_formatting, { buffer = bufnr })
+  if vim.fn.has('nvim-0.8.2') > 0 then
+    vim.keymap.set('x', '<C-q>', vim.lsp.buf.format, { buffer = bufnr })
+  else
+    vim.keymap.set('x', '<C-q>', vim.lsp.buf.range_formatting, { buffer = bufnr })
+  end
   -- call hierrachy
   vim.keymap.set('n', '<M-.>', vim.lsp.buf.incoming_calls, { buffer = bufnr })
   vim.keymap.set('n', '<M-,>', vim.lsp.buf.outgoing_calls, { buffer = bufnr })
@@ -129,9 +133,7 @@ lspsaga.setup({
   },
 })
 -- Show symbols in winbar need neovim 0.8+
-if vim.fn.has('nvim-0.8') > 0 then
-  vim.wo.winbar = require('lspsaga.symbolwinbar'):get_winbar()
-end
+vim.wo.winbar = require('lspsaga.symbolwinbar'):get_winbar()
 -- lspsaga maps
 map('n', 'K', [[<Cmd>Lspsaga hover_doc<Cr>]], opts)
 map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
