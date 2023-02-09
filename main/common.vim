@@ -67,7 +67,7 @@ let $PACK_PATH = expand(get(g:, 'jetpack_forked', ''))
 if exists('g:vscode')
     let g:pack_tool = ''
 elseif exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) && (Require('jetpack') || isdirectory($PACK_PATH))
-    set packpath=$LEOVIM_PATH
+    set packpath^=$LEOVIM_PATH
     let g:jetpack_njobs = get(g:, 'jetpack_njobs', 8)
     if get(g:, 'jetpack_download_method', '') == ''
         if executable('git')
