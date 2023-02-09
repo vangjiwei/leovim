@@ -86,13 +86,13 @@ elseif exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 ||
                 \   '[\/].gitignore',
                 \   '[\/][.ABCDEFGHIJKLMNOPQRSTUVWXYZ]*',
                 \ ]
-    " set packpath
+    " load jetpack forked from tani
     if isdirectory($PACK_PATH)
+        let g:pack_tool = 'jetpack_autoload'
         set rtp^=$PACK_PATH
-        let g:pack_tool = 'jetpack_forked'
     else
+        let g:pack_tool = 'jetpack_sourcefile'
         source $PACK_PATH
-        let g:pack_tool = 'jetpack_forked_single'
     endif
     command! PackSync JetpackSync
 else
@@ -112,6 +112,12 @@ function! PackAdd(repo, ...)
     " if not / included, local plugin will be loaded
     if stridx(repo, '/') < 0
         let pack = repo
+    else
+        let pack = split(repo, '\/')[1]
+    endif
+    if has_key(g:leovim_installed, pack)
+        return
+    elseif stridx(repo, '/') < 0
         if exists(':packadd')
             execute "packadd " . pack
         else
@@ -126,17 +132,13 @@ function! PackAdd(repo, ...)
             else
                 call jetpack#add(repo, a:1)
             endif
-        else
+        elseif g:pack_tool == 'plug'
             if a:0 == 0
                 call plug#(repo)
             else
-                if has_key(a:1, "merged")
-                    call remove(a:1, "merged")
-                endif
                 call plug#(repo, a:1)
             endif
         endif
-        let pack = split(repo, '\/')[1]
         let g:leovim_installed[tolower(pack)] = 0
     endif
 endfunction
