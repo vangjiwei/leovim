@@ -151,12 +151,8 @@ if exists(':tnoremap') && !exists('g:vscode')
     " --------------------------
     " has popup or floating window
     " --------------------------
-    if has("popupwin") && !MACOS() || exists('*nvim_open_win')
-        if has('nvim')
-            let g:has_popup_floating = 1
-        else
-            let g:has_popup_floating = get(g:, 'has_popup_floating', 1)
-        endif
+    if has("popupwin") || exists('*nvim_open_win')
+        let g:has_popup_floating = get(g:, 'has_popup_floating', 1)
     else
         let g:has_popup_floating = 0
     endif

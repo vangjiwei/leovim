@@ -80,7 +80,7 @@ else
     let g:terminal_plus .= '-floaterm'
 endif
 let g:floaterm_open_command = 'drop'
-if g:has_popup_floating
+if has("popupwin") && !MACOS() || exists('*nvim_open_win')
     let g:floaterm_wintype  = 'float'
     let g:floaterm_position = 'topright'
     let g:floaterm_width    = 0.45
