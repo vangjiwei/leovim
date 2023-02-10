@@ -83,7 +83,7 @@ if Installed('nvim-dap', 'nvim-dap-ui')
     if get(g:, 'leovim_loaded', 0) == 0
         luafile $LUA_PATH/dap.lua
     endif
-    nnoremap ,D :tabe ~/.leovim.conf/nvim-dap/adapter.example.lua<Cr>:tabe ~/.leovim.conf/adapter.lua<Cr>
+    nnoremap ,<Tab> :tabe ~/.leovim.conf/nvim-dap/adapter.example.lua<Cr>:tabe ~/.leovim.conf/adapter.lua<Cr>
     if filereadable(expand("~/.leovim.conf/adapter.lua"))
         luafile ~/.leovim.conf/adapter.lua
     endif
@@ -176,7 +176,7 @@ elseif Installed('vimspector')
                     \ 'sink': function('<sid>read_template')
                     \ }))
     endif
-    nnoremap ,D :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
+    nnoremap ,<Tab> :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
     " core shortcuts
     nnoremap ,v :call vimspector#<Tab>
     nnoremap ,d :Vimspector<Tab>

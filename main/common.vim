@@ -378,8 +378,6 @@ else
     nmap <silent> ,G cd:PreviewGoto vsplit<Cr><C-w>z
     nmap <silent> ,S cd:PreviewGoto split<Cr><C-w>z
     nmap <silent> ,T cd:PreviewGoto tabe<Cr>gT<C-w>zgt
-    " preview file
-    nmap ,<Cr> cd:PreviewFile<Space>
 endif
 " ----------------------
 " intergrated packs
