@@ -6,15 +6,15 @@ imap <M-t> # %%STEP
 if Installed('iron.nvim')
     if Installed('sniprun')
         luafile $LUA_PATH/sniprun.lua
-        nmap cs <Plug>SnipRunOperator
-        nmap <leader>rs :Snip
-        nmap <silent><leader>r<Cr> vaB:SnipRun<Cr>gv<Esc><Down>
-        xmap <silent><leader>r<Cr> :SnipRun<Cr>gv<Esc><Down>
-        nmap <silent><leader>r<space> :SnipClose<Cr>
-        nmap <silent><leader>rn :SnipRun<Cr><Down>
-        xmap <silent><leader>rn :SnipRun<Cr>gv<Esc><Down>
-        nmap <silent><leader>ri :SnipInfo<Cr>
-        nmap <silent><leader>rR :SnipReset<Cr>
+        nmap so <Plug>SnipRunOperator
+        nmap <silent><leader>s<Cr> vaB:SnipRun<Cr>gv<Esc><Down>
+        xmap <silent><leader>s<Cr> :SnipRun<Cr>gv<Esc><Down>
+        nmap <silent><leader>sq :SnipClose<Cr>
+        nmap <silent><leader>sn :SnipRun<Cr><Down>
+        xmap <silent><leader>sn :SnipRun<Cr>gv<Esc><Down>
+        nmap <silent><leader>sm :SnipReplMemoryClean<Cr>
+        nmap <silent><leader>si :SnipInfo<Cr>
+        nmap <silent><leader>sr :SnipReset<Cr>
         nmap <silent>\C  Vgg:SnipRun<Cr><C-o>
         nmap <silent>\S  ggVG:SnipRun<Cr><C-o>
     endif
