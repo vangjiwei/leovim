@@ -236,6 +236,10 @@ elseif InstalledFZF() && exists('*systemlist')
     nnoremap <silent>S, :FZFSearchLast<Cr>
 elseif get(g:, 'search_tool', '') =~ 'grepper'
     let g:search_all_cmd = 'GrepperSearchAll'
+else
+    let g:search_tool = 'vimgrep'
+    nnoremap s/ :vimgrep "<C-r>=expand('<cword>')<Cr>" * \| copen<Cr>
+    xnoremap s/ :<C-u>vimgrep "<C-r>=GetVisualSelection()" * \| copen<Cr>
 endif
 " --------------------------
 " fuzzysearch with rg
@@ -298,15 +302,6 @@ elseif InstalledFZF()
     nnoremap <leader>. :FZFSearchLast<Cr>
     nnoremap <leader>? :FZFSearch <C-r>=expand('<cword>')<Cr>
     xnoremap <leader>? :<C-u>FZFSearch <C-r>=GetVisualSelection()<Cr>
-elseif get(g:, 'search_tool', '') == 'grepper'
-    nnoremap <leader>/ :GrepperSearch ""<Left>
-    nnoremap <leader>. :GrepperSearchLast<Cr>
-    nnoremap <leader>? :GrepperSearch <C-r>=expand('<cword>')<Cr>
-    xnoremap <leader>? :<C-u>GrepperSearch <C-r>=GetVisualSelection()<Cr>
-else
-    let g:search_tool = 'vimgrep'
-    nnoremap s/ :vimgrep "<C-r>=expand('<cword>')<Cr>" * \| copen<Cr>
-    xnoremap s/ :<C-u>vimgrep "<C-r>=GetVisualSelection()" * \| copen<Cr>
 endif
 " ----------------------------
 " bqf && quickui
