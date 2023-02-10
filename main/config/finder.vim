@@ -50,12 +50,7 @@ if InstalledFZF()
         let g:fzf_layout = {'up':'~80%',
             \ 'window': {'width': 0.9, 'height': 0.8, 'border': 'sharp'}
             \ }
-        if WINDOWS()
-            let g:fzf_preview_bash = get(g:, 'fzf_preview_bash', $LEOVIM_PATH . "\\bin\\bash.exe")
-            let g:fzf_preview_window = ['up,30%', 'ctrl-/']
-        else
-            let g:fzf_preview_window = ['right,45%,<60(up,30%)', 'ctrl-/']
-        endif
+        let g:fzf_preview_window = ['right,45%,<80(up,30%)', 'ctrl-/']
     else
         let g:fzf_layout = {'down': '~30%'}
         let g:fzf_preview_window = ['right,45%', 'ctrl-/']
