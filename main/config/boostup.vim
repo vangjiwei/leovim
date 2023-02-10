@@ -121,8 +121,11 @@ endif
 " set TERM && screen
 " --------------------------
 if WINDOWS()
-    if isdirectory($HOME . "\\.leovim.windows") && get(g:,'leovim_loaded',0) == 0
-        let $PATH = $LEOVIM_PATH . "\\bin;" . $HOME  . "\\.leovim.windows\\tools;" . $HOME  . "\\.leovim.windows\\gtags\\bin;" . $HOME  . "\\.leovim.windows\\cppcheck;" . $PATH
+    if get(g:,'leovim_loaded',0) == 0
+        if isdirectory($HOME . "\\.leovim.windows")
+            let $PATH = $HOME  . "\\.leovim.windows\\tools;" . $HOME  . "\\.leovim.windows\\gtags\\bin;" . $HOME  . "\\.leovim.windows\\cppcheck;" . $PATH
+        endif
+        let $PATH = $LEOVIM_PATH . "\\bin\\windows;"  . $PATH
     endif
     set winaltkeys=no
     if g:gui_running
@@ -150,7 +153,13 @@ if WINDOWS()
         nnoremap <silent> <M-\|> :call SetAlpha(-5)<Cr>
     endif
 else
-    let $PATH = $LEOVIM_PATH . "/bin:" . $PATH
+    if get(g:,'leovim_loaded',0) == 0
+        if LINUX()
+            let $PATH = $LEOVIM_PATH . "/bin/linux:" . $PATH
+        elseif MACOS()
+            let $PATH = $LEOVIM_PATH . "/bin/macos:" . $PATH
+        endif
+    endif
     " --------------------------
     " terminal comparability
     " --------------------------
@@ -622,19 +631,27 @@ endif
 " --------------------------
 " complete engine
 " --------------------------
-set completeopt=menu
+set completeopt=menuone
 try
-    let s:completeopt_fail_msg='menuone'
-    set completeopt+=menuone
     let s:completeopt_fail_msg='noselect'
     set completeopt+=noselect
     let s:completeopt_fail_msg='noinsert'
     set completeopt+=noinsert
 catch
-    autocmd VimEnter * echo "completeopt set failed when setting [" . s:completeopt_fail_msg . "]"
+    if &completeopt =~ 'noselect'
+        let g:require_group += ['mcm']
+    else
+        let g:require_group += ['non']
+    endif
 endtry
 if CYGWIN() || Require('non')
     let g:complete_engine = 'non'
+elseif Require('mcm')
+    if has('patch-7.4.143')
+        let g:complete_engine = 'mcm'
+    else
+        let s:smart_engine_select = 1
+    endif
 elseif v:version >= 800 && Require('apc')
     let g:complete_engine = 'apc'
 elseif Require('cmp')
@@ -646,12 +663,6 @@ elseif Require('cmp')
 elseif Require('coc')
     if get(g:, 'node_version', '') != '' && (has('nvim') || has('patch-8.2.0750'))
         let g:complete_engine = 'coc'
-    else
-        let s:smart_engine_select = 1
-    endif
-elseif Require('mcm')
-    if has('patch-7.4.143')
-        let g:complete_engine = 'mcm'
     else
         let s:smart_engine_select = 1
     endif
@@ -673,20 +684,21 @@ if get(s:, 'smart_engine_select', 0) > 0
 endif
 if index(['coc', 'cmp'], get(g:, 'complete_engine', '')) >= 0
     let g:advanced_complete_engine = 1
-    if exists('+completepopup') != 0
-        set completeopt+=popup
-        set completepopup=align:menu,border:off,highlight:WildMenu
-    endif
 else
     let g:advanced_complete_engine = 0
+endif
+" set completepopup
+if exists('+completepopup') != 0
+    set completeopt+=popup
+    set completepopup=align:menu,border:off,highlight:WildMenu
 endif
 " ------------------------------
 " pack_tool
 " ------------------------------
-if g:pack_tool == 'plug'
-    let $INSTALL_PATH = expand('~/.leovim.d/plug/' . g:complete_engine)
-else
+if g:pack_tool == 'jetpack'
     let $INSTALL_PATH = expand('~/.leovim.d/' . g:complete_engine)
+elseif g:pack_tool == 'plug'
+    let $INSTALL_PATH = expand('~/.leovim.d/plug/' . g:complete_engine)
 endif
 if has('nvim')
     let $INSTALL_PATH .= ".nvim"
@@ -698,7 +710,7 @@ endif
 " install plugins
 " --------------------------
 " pack begin
-if g:pack_tool == 'jetpack'
+if g:pack_tool =~ 'jetpack'
     call jetpack#begin($INSTALL_PATH)
 else
     call plug#begin($INSTALL_PATH)
@@ -708,13 +720,13 @@ nnoremap <leader>ep :tabe $REQUIRE_PATH/pack.vim<Cr>
 nnoremap <leader>eP :tabe ~/.leovim.conf/plus.vim<Cr>
 if filereadable(expand("~/.leovim.conf/plus.vim")) | source $HOME/.leovim.conf/plus.vim | endif
 " pack end, check installed
-if g:pack_tool == 'jetpack'
+if g:pack_tool =~ 'jetpack'
     call jetpack#end()
 else
     call plug#end()
 endif
 " set installed
-if g:pack_tool == 'jetpack'
+if g:pack_tool =~ 'jetpack'
     for pack in jetpack#names()
         if jetpack#tap(pack)
             let g:leovim_installed[tolower(pack)] = 1

@@ -63,9 +63,10 @@ endfunction
 " -----------------------------------
 " set pack_tool
 " -----------------------------------
- if Require('jetpack') && exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget'))
-	set packpath=$LEOVIM_PATH
-    let g:pack_tool = 'jetpack'
+let $PACK_PATH = expand(get(g:, 'jetpack_forked', ''))
+if exists('g:vscode')
+    let g:pack_tool = ''
+elseif exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 || executable('curl') || executable('wget')) && (isdirectory($PACK_PATH) || filereadable($PACK_PATH))
     let g:jetpack_njobs = get(g:, 'jetpack_njobs', 8)
     if get(g:, 'jetpack_download_method', '') == ''
         if executable('git')
@@ -85,24 +86,22 @@ endfunction
                 \   '[\/].gitignore',
                 \   '[\/][.ABCDEFGHIJKLMNOPQRSTUVWXYZ]*',
                 \ ]
-    if has('nvim')
-        let g:jetpack_copy_method = get(g:, 'jetpack_copy_method', 'symlink')
+    " load jetpack forked from tani
+    if isdirectory($PACK_PATH)
+        let g:pack_tool = 'jetpack_autoload'
+        set rtp^=$PACK_PATH
     else
-        let g:jetpack_copy_method = get(g:, 'jetpack_copy_method', 'copy')
+        let g:pack_tool = 'jetpack_sourcefile'
+        source $PACK_PATH
     endif
     command! PackSync JetpackSync
-    if !exists('g:vscode')
-        source ~/.leovim.conf/pack/jetpack.vim
-    endif
 else
     let g:pack_tool = 'plug'
     let g:plug_threads = get(g:, 'plug_threads', 8)
+    source ~/.leovim.conf/pack/plug.vim
     command! PackSync PlugClean | PlugUpdate
-    if !exists('g:vscode')
-        source ~/.leovim.conf/pack/plug.vim
-    endif
 endif
-nnoremap <leader>u :PackSync<Cr>
+noremap <silent><leader>u :PackSync<Cr>
 " ---------------------------------------
 " PackAdd local opt packs or github repos
 " ---------------------------------------
@@ -113,7 +112,13 @@ function! PackAdd(repo, ...)
     " if not / included, local plugin will be loaded
     if stridx(repo, '/') < 0
         let pack = repo
-        if g:pack_tool == 'jetpack'
+    else
+        let pack = split(repo, '\/')[1]
+    endif
+    if has_key(g:leovim_installed, pack)
+        return
+    elseif stridx(repo, '/') < 0
+        if exists(':packadd')
             execute "packadd " . pack
         else
             let dir = expand($OPT_PATH . "/" . pack)
@@ -121,23 +126,19 @@ function! PackAdd(repo, ...)
         endif
         let g:leovim_installed[tolower(pack)] = 1
     else
-        if g:pack_tool == 'jetpack'
+        if g:pack_tool =~ 'jetpack'
             if a:0 == 0
                 call jetpack#add(repo)
             else
                 call jetpack#add(repo, a:1)
             endif
-        else
+        elseif g:pack_tool == 'plug'
             if a:0 == 0
                 call plug#(repo)
             else
-                if has_key(a:1, "merged")
-                    call remove(a:1, "merged")
-                endif
                 call plug#(repo, a:1)
             endif
         endif
-        let pack = split(repo, '\/')[1]
         let g:leovim_installed[tolower(pack)] = 0
     endif
 endfunction
@@ -181,7 +182,6 @@ function! InstalledLsp()
                 \ 'nvim-lspconfig',
                 \ 'mason.nvim',
                 \ 'mason-lspconfig.nvim',
-                \ 'cmp-nvim-lsp',
                 \ 'lspsaga.nvim',
                 \ )
 endfunction
@@ -218,8 +218,6 @@ let g:highlight_filetypes = get(g:, 'highlight_filetypes', [
 let g:todo_patterns = "(TODO|FIXME|WARN|ERROR|BUG|HELP)"
 let g:note_patterns = "(NOTE|XXX|HINT|STEP|ETC)"
 let g:root_patterns = get(g:, 'root_patterns', [".root/", ".env/", ".git/", ".hg/", ".svn/", ".vim/", ".vscode/", '.idea/', ".ccls/", "compile_commands.json"])
-" python_lint_ignore
-let g:python_lint_ignore = "E101,E302,E251,E231,E226,E221,E127,E126,E123,E501,W291,F405,F403"
 " -----------------------------------
 " set
 " -----------------------------------
