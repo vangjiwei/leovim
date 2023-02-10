@@ -201,9 +201,9 @@ if has('nvim') || v:version >= 801
     PackAdd 'asynctasks.vim'
     let g:asynctasks_template     = $LEOVIM_PATH . "/scripts/tasks_template.ini"
     " open template
-    nnoremap ,<tab> :tabe $LEOVIM_PATH/scripts/tasks_template.ini<Cr>
+    nnoremap <leader>r<Cr> :tabe $LEOVIM_PATH/scripts/tasks_template.ini<Cr>
     " asynctask shortcuts
-    nnoremap <leader>r<Cr> :AsyncTask
+    nnoremap <leader>r<tab> :AsyncTask
     nnoremap <leader>rm :AsyncTaskMacro<Cr>
     nnoremap <leader>re :AsyncTaskEdit<Space>
     " run shortcuts

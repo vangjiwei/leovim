@@ -420,7 +420,7 @@ else
 endif
 if executable('ranger') && UNIX() && g:has_popup_floating
     command! Ranger FloatermNew --wintype=float --position=center --height=0.9 --width=0.9 --name=ranger --autoclose=2 ranger --cmd="cd ./"
-    nnoremap <silent><leader>N :Ranger<Cr>
+    nnoremap <silent>,<Tab> :Ranger<Cr>
 elseif !has('nvim') && WINDOWS() && g:gui_running
     let g:browsefilter = ''
     function! s:Filter_Push(desc, wildcard)
