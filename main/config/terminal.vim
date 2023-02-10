@@ -94,7 +94,7 @@ else
 endif
 " key map
 nnoremap <Tab>f :Floaterm
-nnoremap <Tab>F :FloatermKill<Space>
+nnoremap <Tab>! :FloatermKill<Space>
 nnoremap <Tab>+ :FloatermNew<Space>
 let g:floaterm_keymap_new  = '<Nop>'
 let g:floaterm_keymap_prev = '<M-{>'
