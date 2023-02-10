@@ -92,7 +92,7 @@ else
     let g:floaterm_width    = 0.4
 endif
 " key map
-nnoremap <Tab>f :Floaterm<Tab>
+nnoremap <Tab>f :Floaterm
 nnoremap <M-j>f :FloatermNew<Space>
 let g:floaterm_keymap_new  = '<Nop>'
 let g:floaterm_keymap_prev = '<M-{>'
