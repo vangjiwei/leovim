@@ -52,11 +52,7 @@ if has('nvim')
         nnoremap <Tab><Cr> :tabe term://bash<cr>i
     endif
 else
-    if WINDOWS()
-        nnoremap <Tab><Cr> :tab terminal<Cr>cmd<Cr>
-    else
-        nnoremap <Tab><Cr> :tab terminal<Cr>bash<Cr>
-    endif
+    nnoremap <Tab><Cr> :tab terminal<Cr>
 endif
 " --------------------------
 " terminal-help
