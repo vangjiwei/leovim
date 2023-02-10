@@ -78,7 +78,7 @@ if get(g:, 'terminal_plus', '') == ''
     let g:terminal_plus = 'floaterm'
 else
     let g:terminal_plus .= '-floaterm'
-endi
+endif
 let g:floaterm_open_command = 'drop'
 if g:has_popup_floating
     let g:floaterm_wintype  = 'float'
