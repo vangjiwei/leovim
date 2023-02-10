@@ -44,12 +44,12 @@ endif
 " --------------------------
 if has('nvim')
     if WINDOWS()
-        nnoremap <Tab><Cr> :tabe term://cmd<cr>i
+        nnoremap <Tab>t :tabe term://cmd<cr>i
     else
-        nnoremap <Tab><Cr> :tabe term://bash<cr>i
+        nnoremap <Tab>t :tabe term://bash<cr>i
     endif
 else
-    nnoremap <Tab><Cr> :tab terminal<Cr>
+    nnoremap <Tab>t :tab terminal<Cr>
 endif
 " --------------------------
 " terminal-help
@@ -85,7 +85,8 @@ if has("popupwin") && !MACOS() || exists('*nvim_open_win')
     let g:floaterm_position = 'topright'
     let g:floaterm_width    = 0.45
     let g:floaterm_height   = 0.65
-    nnoremap <silent><Tab>m :FloatermNew --height=0.8 --width=0.8 --position=center<Cr>
+    nnoremap <silent><Tab>c :FloatermNew --height=0.80 --width=0.80 --position=center<Cr>
+    nnoremap <silent><Tab>o :FloatermNew --height=0.65 --width=0.45 --position=topleft<Cr>
 else
     let g:floaterm_wintype  = 'vsplit'
     let g:floaterm_position = 'right'
@@ -94,15 +95,16 @@ endif
 " key map
 nnoremap <Tab>f :Floaterm
 nnoremap <Tab>F :FloatermKill<Space>
-nnoremap <M-j>n :FloatermNew<Space>
+nnoremap <Tab>+ :FloatermNew<Space>
 let g:floaterm_keymap_new  = '<Nop>'
 let g:floaterm_keymap_prev = '<M-{>'
 let g:floaterm_keymap_next = '<M-}>'
-tnoremap <C-u> <C-\><C-n>:FloatermUpdate<Cr>
+tnoremap <C-u> <C-\><C-n>:FloatermUpdate
+tnoremap <C-y> <C-\><C-n>:FloatermUpdate --position=
 tnoremap <silent><M-}> <C-\><C-n>:FloatermNext<Cr>
 tnoremap <silent><M-{> <C-\><C-n>:FloatermPrev<Cr>
 tnoremap <silent><M-=> <C-\><C-n>:FloatermToggle<Cr>
 nnoremap <silent><M-=>  :FloatermToggle<Cr>
-nnoremap <silent><M-j>1 :FloatermFirst<Cr>
-nnoremap <silent><M-j>0 :FloatermLast<Cr>
+nnoremap <silent><Tab>1 :FloatermFirst<Cr>
+nnoremap <silent><Tab>0 :FloatermLast<Cr>
 PackAdd 'vim-floaterm'
