@@ -7,9 +7,6 @@ tnoremap <expr> <C-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'
 tnoremap <M-q> <C-\><C-n>:q!<CR>
 tnoremap <M-w> <C-\><C-n>:ChooseWin<CR>
 tnoremap <C-g> <C-\><C-n>
-" floaterm
-tnoremap <silent><M-}> <C-\><C-n>:FloatermNext<Cr>
-tnoremap <silent><M-{> <C-\><C-n>:FloatermPrev<Cr>
 " tab control
 tnoremap <silent> <M-1>  <C-\><C-n>:tabn1<Cr>
 tnoremap <silent> <M-2>  <C-\><C-n>:tabn2<Cr>
@@ -95,15 +92,17 @@ else
     let g:floaterm_width    = 0.4
 endif
 " key map
+nnoremap <M-j>f :Floaterm<Tab>
+nnoremap <M-j>n :FloatermNew<Space>
 let g:floaterm_keymap_new  = '<Nop>'
 let g:floaterm_keymap_prev = '<M-{>'
 let g:floaterm_keymap_next = '<M-}>'
-nnoremap <M-j>k :FloatermKill<Cr>
-nnoremap <M-j>n :FloatermNew<Space>
-nnoremap <M-j>f :Floaterm<Tab>
-nnoremap <M-j>u :FloatermUpdate<Tab>
-nnoremap <M-j>h :FloatermFirst<Cr>
-nnoremap <M-j>l :FloatermLast<Cr>
-nnoremap <silent> <M-=> :FloatermToggle<CR>
-tnoremap <silent> <M-=> <C-\><C-n>:FloatermToggle<CR>
+tnoremap <silent><M-}> <C-\><C-n>:FloatermNext<Cr>
+tnoremap <silent><M-{> <C-\><C-n>:FloatermPrev<Cr>
+tnoremap <silent><C-u> <C-\><C-n>:FloatermUpdate<Cr>
+tnoremap <silent><M-=> <C-\><C-n>:FloatermToggle<Cr>
+nnoremap <silent><M-=> :FloatermToggle<Cr>
+nnoremap <silent><M-j>k :FloatermKill<Cr>
+nnoremap <silent><M-j>1 :FloatermFirst<Cr>
+nnoremap <silent><M-j>0 :FloatermLast<Cr>
 PackAdd 'vim-floaterm'
