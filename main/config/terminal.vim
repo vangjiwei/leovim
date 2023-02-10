@@ -85,15 +85,15 @@ if g:has_popup_floating
     let g:floaterm_position = 'topright'
     let g:floaterm_width    = 0.45
     let g:floaterm_height   = 0.65
-    nnoremap <silent><Tab>f :FloatermNew --height=0.8 --width=0.8 --position=center<Cr>
+    nnoremap <silent><Tab>m :FloatermNew --height=0.8 --width=0.8 --position=center<Cr>
 else
     let g:floaterm_wintype  = 'vsplit'
     let g:floaterm_position = 'right'
     let g:floaterm_width    = 0.4
 endif
 " key map
-nnoremap <M-j>f :Floaterm<Tab>
-nnoremap <M-j>n :FloatermNew<Space>
+nnoremap <Tab>f :Floaterm<Tab>
+nnoremap <M-j>f :FloatermNew<Space>
 let g:floaterm_keymap_new  = '<Nop>'
 let g:floaterm_keymap_prev = '<M-{>'
 let g:floaterm_keymap_next = '<M-}>'
