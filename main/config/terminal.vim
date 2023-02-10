@@ -93,7 +93,8 @@ else
 endif
 " key map
 nnoremap <Tab>f :Floaterm
-nnoremap <M-j>f :FloatermNew<Space>
+nnoremap <Tab>F :FloatermKill<Space>
+nnoremap <M-j>n :FloatermNew<Space>
 let g:floaterm_keymap_new  = '<Nop>'
 let g:floaterm_keymap_prev = '<M-{>'
 let g:floaterm_keymap_next = '<M-}>'
@@ -101,8 +102,7 @@ tnoremap <C-u> <C-\><C-n>:FloatermUpdate<Cr>
 tnoremap <silent><M-}> <C-\><C-n>:FloatermNext<Cr>
 tnoremap <silent><M-{> <C-\><C-n>:FloatermPrev<Cr>
 tnoremap <silent><M-=> <C-\><C-n>:FloatermToggle<Cr>
-nnoremap <silent><M-=> :FloatermToggle<Cr>
-nnoremap <silent><M-j>k :FloatermKill<Cr>
+nnoremap <silent><M-=>  :FloatermToggle<Cr>
 nnoremap <silent><M-j>1 :FloatermFirst<Cr>
 nnoremap <silent><M-j>0 :FloatermLast<Cr>
 PackAdd 'vim-floaterm'

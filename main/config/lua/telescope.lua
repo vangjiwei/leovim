@@ -91,7 +91,7 @@ if Installed('telescope-lsp-handlers.nvim') then
 end
 if Installed('telescope-floaterm.nvim') then
   telescope.load_extension('floaterm')
-  map('n', '<M-j>w', [[<cmd>Telescope floaterm<CR>]], opts)
+  map('n', '<M-j>f', [[<cmd>Telescope floaterm<CR>]], opts)
 end
 if Installed('nvim-notify') then
   telescope.load_extension('notify')
