@@ -197,13 +197,29 @@ endif
 " asynctasks
 " ----------------
 if has('nvim') || v:version >= 801
-    let g:asynctasks_config_name  = [".root/asynctasks.ini", ".git/asynctasks.ini", ".hg/asynctasks.ini", ".svn/asynctasks.ini"]
+    let g:asynctasks_config_name  = [".git/asynctasks.ini", ".hg/asynctasks.ini", ".svn/asynctasks.ini", ".root/asynctasks.ini"]
     let g:asynctasks_rtp_config   = "asynctasks.ini"
     let g:asynctasks_term_reuse   = 1
     let g:asynctasks_term_focus   = 0
     let g:asynctasks_term_listed  = 0
+    let g:asynctasks_template = {}
+    let g:asynctasks_template.cargo = [
+                \ "[project-init]",
+                \ "command=cargo update",
+                \ "cwd=<root>",
+                \ "",
+                \ "[project-build]",
+                \ "command=cargo build",
+                \ "cwd=<root>",
+                \ "errorformat=%. %#--> %f:%l:%c",
+                \ "",
+                \ "[project-run]",
+                \ "command=cargo run",
+                \ "cwd=<root>",
+                \ "output=terminal",
+                \ ]
+    " packadd
     PackAdd 'asynctasks.vim'
-    let g:asynctasks_template     = $LEOVIM_PATH . "/scripts/tasks_template.ini"
     " open template
     nnoremap <leader>r<Cr> :tabe $LEOVIM_PATH/scripts/tasks_template.ini<Cr>
     " asynctask shortcuts
