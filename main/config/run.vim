@@ -197,8 +197,8 @@ endif
 " asynctasks
 " ----------------
 if has('nvim') || v:version >= 801
-    let g:asynctasks_config_name  = [".git/asynctasks.ini", ".hg/asynctasks.ini", ".svn/asynctasks.ini", ".root/asynctasks.ini"]
-    let g:asynctasks_rtp_config   = "asynctasks.ini"
+    let g:asynctasks_config_name  = [".git/tasks.ini", ".hg/tasks.ini", ".svn/tasks.ini", ".root/tasks.ini"]
+    let g:asynctasks_rtp_config   = "tasks.ini"
     let g:asynctasks_term_reuse   = 1
     let g:asynctasks_term_focus   = 0
     let g:asynctasks_term_listed  = 0
