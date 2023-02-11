@@ -41,11 +41,18 @@ command! OpenQuickfix   call s:open_close_qf(2)
 " --------------------------
 if has('nvim') || has('timers') && has('channel') && has('job')
     let g:asyncrun_rootmarks = g:root_patterns
+    let g:run_command = "AsyncRun"
+    if WINDOWS()
+        let g:asyncrun_encs = get(g:, 'asyncrun_encs', 'gbk')
+    else
+        let g:asyncrun_encs = get(g:, 'asyncrun_encs', 'utf-8')
+    endif
     nnoremap <silent><Tab>q :AsyncStop!<CR>
     nnoremap <silent><Tab>Q :AsyncStop<CR>
     nnoremap <leader>R :AsyncRun
-    let g:run_command = "AsyncRun"
     PackAdd 'asyncrun.vim'
+    " mkdir temp build dir
+    call mkdir("~/.cache/build", "p")
 else
     let g:run_command = "!"
     nnoremap <leader>R :!
@@ -54,7 +61,6 @@ if WINDOWS()
     let g:asyncrun_encs = get(g:, 'asyncrun_encs', 'gbk')
 endif
 if UNIX() && g:run_command == 'AsyncRun'
-    call system("mkdir -p ~/.cache/build")
     let g:gcc_cmd = get(g:, 'gcc_cmd', 'time gcc -Wall -O2 $(VIM_FILEPATH) -o $HOME/.cache/build/$(VIM_FILENOEXT) && time $HOME/.cache/build/$(VIM_FILENOEXT)')
     let g:gpp_cmd = get(g:, 'gpp_cmd', 'time g++ -Wall -O2 $(VIM_FILEPATH) -o $HOME/.cache/build/$(VIM_FILENOEXT) && time $HOME/.cache/build/$(VIM_FILENOEXT)')
     if executable('rustc')
@@ -62,11 +68,11 @@ if UNIX() && g:run_command == 'AsyncRun'
     endif
 elseif WINDOWS() && g:run_command == 'AsyncRun'
     if executable('gcc')
-        let g:gcc_cmd = get(g:, 'gcc_cmd', 'md build 2>NULL & ptime gcc $(VIM_FILEPATH) -o build\$(VIM_FILENOEXT).exe & ptime build\$(VIM_FILENOEXT).exe')
-        let g:gpp_cmd = get(g:, 'gpp_cmd', 'md build 2>NULL & ptime g++ $(VIM_FILEPATH) -o build\$(VIM_FILENOEXT).exe & ptime build\$(VIM_FILENOEXT).exe')
+        let g:gcc_cmd = get(g:, 'gcc_cmd', 'ptime gcc $(VIM_FILEPATH) -o ~\.cache\build\$(VIM_FILENOEXT).exe & ptime ~\.cache\build\$(VIM_FILENOEXT).exe')
+        let g:gpp_cmd = get(g:, 'gpp_cmd', 'ptime g++ $(VIM_FILEPATH) -o ~\.cache\build\$(VIM_FILENOEXT).exe & ptime ~\.cache\build\$(VIM_FILENOEXT).exe')
     endif
     if executable('rustc')
-        let g:rustc_cmd = get(g:, 'rustc_cmd', 'md build 2>NULL & ptime rustc -o build\$(VIM_FILENOEXT).exe $(VIM_FILEPATH) & ptime build\$(VIM_FILENOEXT).exe')
+        let g:rustc_cmd = get(g:, 'rustc_cmd', 'ptime rustc -o ~\.cache\build\$(VIM_FILENOEXT).exe $(VIM_FILEPATH) & ptime ~\.cache\build\$(VIM_FILENOEXT).exe')
     endif
 endif
 function! s:RunNow(...)
