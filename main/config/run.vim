@@ -226,6 +226,7 @@ if has('nvim') || v:version >= 801
     PackAdd 'asynctasks.vim'
     " open template
     nnoremap <leader>r<Cr> :tabe $LEOVIM_PATH/scripts/tasks_comment.ini<Cr>
+    nnoremap <leader>r<Tab> :call mkdir(expand("~/.config/asynctask"), 'p')<Cr>:tabe $HOME/.config/asynctask/tasks.ini<Cr>
     " asynctask shortcuts
     nnoremap <leader>r<tab> :AsyncTask
     nnoremap <leader>rm :AsyncTaskMacro<Cr>
