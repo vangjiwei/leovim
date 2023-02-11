@@ -194,7 +194,7 @@ elseif Installed('vimspector')
         endif
         nnoremap ,<Cr> :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
     elseif InstalledTelescope()
-        nnoremap ,<Cr> :tabe ~/.leovim.conf/adapter.lua<Cr>:lua require'telescope.builtin'.find_files({ cwd = '~/.leovim.conf/vimspector', prompt_title = 'vimspector-template' })<Cr>
+        nnoremap ,<Cr> :tabe ../.vimspector.json<Cr>:lua require'telescope.builtin'.find_files({ cwd = '~/.leovim.conf/vimspector', prompt_title = 'vimspector-template' })<Cr>
     endif
     " core shortcuts
     nnoremap ,v :call vimspector#<Tab>
