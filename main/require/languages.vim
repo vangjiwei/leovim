@@ -79,7 +79,6 @@ if Require('writing')
     " markdown
     PackAdd 'junegunn/vim-journal', {'for': 'markdown'}
     PackAdd 'ferrine/md-img-paste.vim', {'for': 'markdown'}
-    autocmd FileType markdown nmap <silent> <leader>I :call mdip#MarkdownClipboardImage()<CR>
     " markdown preview
     if executable('node') && (has('nvim') || v:version >= 801) && executable('yarn')
         let g:markdown_tool = 'markdown-preview.nvim'

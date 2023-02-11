@@ -50,8 +50,8 @@ nnoremap cK :call RClearAll()<Cr>
 
 nnoremap <leader>C :call SendAboveLinesToR()<CR>
 nnoremap <leader>E VG:call SendLineToR('down')<CR>
-nnoremap <leader>I :call SendLineToRAndInsertOutput()<CR>0
 nnoremap <leader>V :call RAction('viewobj')<CR>
+nnoremap <leader>i :call SendLineToRAndInsertOutput()<CR>0
 
 " insert remap
 inoremap >> <space>-><space>

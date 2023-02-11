@@ -205,14 +205,9 @@ endfunction
 let g:c_filetypes   = get(g:, 'c_filetypes', ["c", "cpp", "objc", "objcpp", "cuda"])
 let g:web_filetypes = get(g:, 'web_filetypes', ['php', 'html', 'css', 'scss', 'javascript', 'typescript', 'vue'])
 let g:highlight_filetypes = get(g:, 'highlight_filetypes', [
-            \ 'markdown',
-            \ 'c', 'cpp', 'c_sharp', 'cmake', 'cuda', 'java', 'rust', 'go',
-            \ 'r', 'python', 'julia',
-            \ 'json', 'toml',
-            \ 'latex', 'dockerfile',
-            \ 'bash', 'fish', 'perl', 'lua',
-            \ 'css', 'scss', 'html', 'vue',
-            \ 'javascript', 'typescript', 'php',
+            \ 'markdown', 'vim', 'lua',
+            \ 'r', 'python','bash',
+            \ 'c', 'cpp', 'cmake', 'java', 'rust', 'go',
             \ ])
 " pattern
 let g:todo_patterns = "(TODO|FIXME|WARN|ERROR|BUG|HELP)"
