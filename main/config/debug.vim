@@ -3,6 +3,10 @@
 " --------------------------
 imap <M-e> # %%
 imap <M-t> # %%STEP
+" load template
+function! s:read_template(template)
+    execute '0r ' . $LEOVIM_PATH . '/vimspector/' . a:template
+endfunction
 if Installed('iron.nvim')
     if Installed('sniprun')
         luafile $LUA_PATH/sniprun.lua
@@ -83,7 +87,22 @@ if Installed('nvim-dap', 'nvim-dap-ui')
     if get(g:, 'leovim_loaded', 0) == 0
         luafile $LUA_PATH/dap.lua
     endif
-    nnoremap ,<Cr> :tabe ~/.leovim.conf/nvim-dap/adapter.example.lua<Cr>:tabe ~/.leovim.conf/adapter.lua<Cr>
+    if InstalledTelescope()
+        nnoremap ,<Cr> :tabe ~/.leovim.conf/adapter.lua<Cr>:lua require'telescope.builtin'.find_files({ cwd = '~/.leovim.conf/nvim-dap', prompt_title = 'nvim-dap-template' })<Cr>
+    elseif InstalledFZF()
+        if WINDOWS()
+            command! -bang -nargs=* LoadNvimDapTemplate call fzf#run(extend(g:fzf_layout, {
+                        \ 'source': 'dir /b /a-d ' . $LEOVIM_PATH . '\\nvim-dap',
+                        \ 'sink': function('<sid>read_template')
+                        \ }))
+        else
+            command! -bang -nargs=* LoadNvimDapTemplate call fzf#run(extend(g:fzf_layout, {
+                        \ 'source': 'ls -1 ' . $LEOVIM_PATH . '/nvim-dap',
+                        \ 'sink': function('<sid>read_template')
+                        \ }))
+        endif
+        nnoremap ,<Cr> :tabe ../.vimspector.json<Cr>:LoadNvimDapTemplate<Cr>
+    endif
     if filereadable(expand("~/.leovim.conf/adapter.lua"))
         luafile ~/.leovim.conf/adapter.lua
     endif
@@ -161,22 +180,22 @@ elseif Installed('vimspector')
     else
         let g:vimspector_base_dir = $NVIM_DATA_PATH . "/vimspector"
     endif
-    " load template
-    function! s:read_template(template)
-        execute '0r ' . $LEOVIM_PATH . '/vimspector/' . a:template
-    endfunction
-    if WINDOWS()
-        command! -bang -nargs=* LoadVimspectorJsonTemplate call fzf#run(extend(g:fzf_layout, {
-                    \ 'source': 'dir /b /a-d ' . $LEOVIM_PATH . '\\vimspector',
-                    \ 'sink': function('<sid>read_template')
-                    \ }))
-    else
-        command! -bang -nargs=* LoadVimspectorJsonTemplate call fzf#run(extend(g:fzf_layout, {
-                    \ 'source': 'ls -1 ' . $LEOVIM_PATH . '/vimspector',
-                    \ 'sink': function('<sid>read_template')
-                    \ }))
+    if InstalledFZF()
+        if WINDOWS()
+            command! -bang -nargs=* LoadVimspectorJsonTemplate call fzf#run(extend(g:fzf_layout, {
+                        \ 'source': 'dir /b /a-d ' . $LEOVIM_PATH . '\\vimspector',
+                        \ 'sink': function('<sid>read_template')
+                        \ }))
+        else
+            command! -bang -nargs=* LoadVimspectorJsonTemplate call fzf#run(extend(g:fzf_layout, {
+                        \ 'source': 'ls -1 ' . $LEOVIM_PATH . '/vimspector',
+                        \ 'sink': function('<sid>read_template')
+                        \ }))
+        endif
+        nnoremap ,<Cr> :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
+    elseif InstalledTelescope()
+        nnoremap ,<Cr> :tabe ~/.leovim.conf/adapter.lua<Cr>:lua require'telescope.builtin'.find_files({ cwd = '~/.leovim.conf/vimspector', prompt_title = 'vimspector-template' })<Cr>
     endif
-    nnoremap ,<Cr> :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
     " core shortcuts
     nnoremap ,v :call vimspector#<Tab>
     nnoremap ,d :Vimspector<Tab>
