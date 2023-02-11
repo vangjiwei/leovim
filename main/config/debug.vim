@@ -3,6 +3,10 @@
 " --------------------------
 imap <M-e> # %%
 imap <M-t> # %%STEP
+" load template
+function! s:read_template(template)
+    execute '0r ' . $LEOVIM_PATH . '/vimspector/' . a:template
+endfunction
 if Installed('iron.nvim')
     if Installed('sniprun')
         luafile $LUA_PATH/sniprun.lua
@@ -161,10 +165,6 @@ elseif Installed('vimspector')
     else
         let g:vimspector_base_dir = $NVIM_DATA_PATH . "/vimspector"
     endif
-    " load template
-    function! s:read_template(template)
-        execute '0r ' . $LEOVIM_PATH . '/vimspector/' . a:template
-    endfunction
     if WINDOWS()
         command! -bang -nargs=* LoadVimspectorJsonTemplate call fzf#run(extend(g:fzf_layout, {
                     \ 'source': 'dir /b /a-d ' . $LEOVIM_PATH . '\\vimspector',
