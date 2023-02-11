@@ -389,8 +389,9 @@ nnoremap <Tab>J <C-w>J
 nnoremap <Tab>K <C-w>K
 nnoremap <Tab>L <C-w>L
 " open in vsplit/split/tab
-nnoremap <Tab>v       :vsplit<Space>
-nnoremap <Tab>s       :split<Space>
+nnoremap <Tab>v :vsplit<Space>
+nnoremap <Tab>s :split<Space>
+nnoremap <Tab><Cr>    :e<Space>
 nnoremap <Tab><Space> :tabe<Space>
 " ------------------------
 " basic toggle and show
@@ -420,28 +421,26 @@ nnoremap <silent><M-w> :tabclose<Cr>
 xnoremap <silent><M-w> <ESC>:tabclose<Cr>
 nnoremap <silent><M-W> :tabonly<Cr>
 xnoremap <silent><M-W> <ESC>:tabonly<Cr>
-nnoremap <silent> <Tab>1 :tabm 0<Cr>
-nnoremap <silent> <Tab>0 :tabm<Cr>
-nnoremap <silent> <M-1>  :tabn1<Cr>
-nnoremap <silent> <M-2>  :tabn2<Cr>
-nnoremap <silent> <M-3>  :tabn3<Cr>
-nnoremap <silent> <M-4>  :tabn4<Cr>
-nnoremap <silent> <M-5>  :tabn5<Cr>
-nnoremap <silent> <M-6>  :tabn6<Cr>
-nnoremap <silent> <M-7>  :tabn7<Cr>
-nnoremap <silent> <M-8>  :tabn8<Cr>
-nnoremap <silent> <M-9>  :tabn9<Cr>
-nnoremap <silent> <M-0>  :tablast<Cr>
-inoremap <silent> <M-1>  <C-o>:tabn1<Cr>
-inoremap <silent> <M-2>  <C-o>:tabn2<Cr>
-inoremap <silent> <M-3>  <C-o>:tabn3<Cr>
-inoremap <silent> <M-4>  <C-o>:tabn4<Cr>
-inoremap <silent> <M-5>  <C-o>:tabn5<Cr>
-inoremap <silent> <M-6>  <C-o>:tabn6<Cr>
-inoremap <silent> <M-7>  <C-o>:tabn7<Cr>
-inoremap <silent> <M-8>  <C-o>:tabn8<Cr>
-inoremap <silent> <M-9>  <C-o>:tabn9<Cr>
-inoremap <silent> <M-0>  <C-o>:tablast<Cr>
+nnoremap <silent><M-1>  :tabn1<Cr>
+nnoremap <silent><M-2>  :tabn2<Cr>
+nnoremap <silent><M-3>  :tabn3<Cr>
+nnoremap <silent><M-4>  :tabn4<Cr>
+nnoremap <silent><M-5>  :tabn5<Cr>
+nnoremap <silent><M-6>  :tabn6<Cr>
+nnoremap <silent><M-7>  :tabn7<Cr>
+nnoremap <silent><M-8>  :tabn8<Cr>
+nnoremap <silent><M-9>  :tabn9<Cr>
+nnoremap <silent><M-0>  :tablast<Cr>
+inoremap <silent><M-1>  <C-o>:tabn1<Cr>
+inoremap <silent><M-2>  <C-o>:tabn2<Cr>
+inoremap <silent><M-3>  <C-o>:tabn3<Cr>
+inoremap <silent><M-4>  <C-o>:tabn4<Cr>
+inoremap <silent><M-5>  <C-o>:tabn5<Cr>
+inoremap <silent><M-6>  <C-o>:tabn6<Cr>
+inoremap <silent><M-7>  <C-o>:tabn7<Cr>
+inoremap <silent><M-8>  <C-o>:tabn8<Cr>
+inoremap <silent><M-9>  <C-o>:tabn9<Cr>
+inoremap <silent><M-0>  <C-o>:tablast<Cr>
 " open window in tab
 nnoremap <leader><Cr>  :e!<Cr>
 " make tabline in terminal mode
@@ -449,9 +448,9 @@ nnoremap <silent><Tab>n :tabnext<CR>
 nnoremap <silent><Tab>p :tabprevious<CR>
 nnoremap <silent><Tab>N :tabm +1<CR>
 nnoremap <silent><Tab>P :tabm -1<CR>
-nnoremap <Tab>M         :tabm
-" open in tab
-nnoremap <Tab>t <C-w>T
+nnoremap <Tab>m         :tabm<Space>
+" open in tae
+nnoremap <C-w><Cr> <C-w>T
 " set tab label
 function! Vim_NeatBuffer(bufnr, fullname)
     let l:name = bufname(a:bufnr)

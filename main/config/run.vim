@@ -41,8 +41,8 @@ command! OpenQuickfix   call s:open_close_qf(2)
 " --------------------------
 if has('nvim') || has('timers') && has('channel') && has('job')
     let g:asyncrun_rootmarks = g:root_patterns
-    nnoremap <silent><Tab>q :AsyncStop<CR>
-    nnoremap <silent><Tab>c :AsyncStop!<CR>
+    nnoremap <silent><Tab>q :AsyncStop!<CR>
+    nnoremap <silent><Tab>Q :AsyncStop<CR>
     nnoremap <leader>R :AsyncRun
     let g:run_command = "AsyncRun"
     PackAdd 'asyncrun.vim'
@@ -201,9 +201,9 @@ if has('nvim') || v:version >= 801
     PackAdd 'asynctasks.vim'
     let g:asynctasks_template     = $LEOVIM_PATH . "/scripts/tasks_template.ini"
     " open template
-    nnoremap <leader>ro :tabe $LEOVIM_PATH/scripts/tasks_template.ini<Cr>
+    nnoremap <leader>r<Cr> :tabe $LEOVIM_PATH/scripts/tasks_template.ini<Cr>
     " asynctask shortcuts
-    nnoremap <leader>ra :AsyncTask
+    nnoremap <leader>r<tab> :AsyncTask
     nnoremap <leader>rm :AsyncTaskMacro<Cr>
     nnoremap <leader>re :AsyncTaskEdit<Space>
     " run shortcuts

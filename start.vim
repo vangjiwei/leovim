@@ -102,32 +102,6 @@ if g:gui_running > 0
     set guioptions-=M
 endif
 " --------------------------
-" has_terminal
-" --------------------------
-if exists(':tnoremap') && !exists('g:vscode')
-    if has('patch-8.1.1')
-        set termwinkey=<C-_>
-        let g:has_terminal=2
-    else
-        let g:has_terminal=1
-    endif
-    " --------------------------
-    " has popup or floating window
-    " --------------------------
-    if has("popupwin") || exists('*nvim_open_win')
-        if has('nvim')
-            let g:has_popup_floating = 1
-        else
-            let g:has_popup_floating = get(g:, 'has_popup_floating', 1)
-        endif
-    else
-        let g:has_popup_floating = 0
-    endif
-else
-    let g:has_terminal = 0
-    let g:has_popup_floating = 0
-endif
-" --------------------------
 " System Type
 " --------------------------
 function! CYGWIN()
@@ -163,6 +137,28 @@ else
 endif
 if MACVIM() && !has('gui_vimr')
     set macmeta
+endif
+" --------------------------
+" has_terminal
+" --------------------------
+if exists(':tnoremap') && !exists('g:vscode')
+    if has('patch-8.1.1')
+        set termwinkey=<C-_>
+        let g:has_terminal=2
+    else
+        let g:has_terminal=1
+    endif
+    " --------------------------
+    " has popup or floating window
+    " --------------------------
+    if has("popupwin") || exists('*nvim_open_win')
+        let g:has_popup_floating = get(g:, 'has_popup_floating', 1)
+    else
+        let g:has_popup_floating = 0
+    endif
+else
+    let g:has_terminal = 0
+    let g:has_popup_floating = 0
 endif
 " ----------------------------------------------------
 " source commom.vim for vim/neovim/vscode

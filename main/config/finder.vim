@@ -382,16 +382,6 @@ if Installed('vim-quickui')
         nmap <silent><expr> <C-j> quickui#preview#visible() > 0 ? "\<F13>" : "\%"
         nmap <silent><expr> <C-k> quickui#preview#visible() > 0 ? "\<F14>" : "\g%"
     endif
-    if g:complete_engine != 'cmp'
-        " preview in popup
-        function! s:PreviewFileW(filename) abort
-            let filename = a:filename
-            let fopts = {'cursor':-1, 'number':1, 'persist':0, 'w':80, 'h':64}
-            call quickui#preview#open(filename, fopts)
-        endfunction
-        command! -nargs=1 -complete=file PreviewFileW call s:PreviewFileW(<f-args>)
-        nnoremap ,<Tab> :PreviewFileW<Space>
-    endif
     au FileType python nnoremap <C-h> call quickui#tools#python_help("")
 endif
 " --------------------------
@@ -430,7 +420,7 @@ else
 endif
 if executable('ranger') && UNIX() && g:has_popup_floating
     command! Ranger FloatermNew --wintype=float --position=center --height=0.9 --width=0.9 --name=ranger --autoclose=2 ranger --cmd="cd ./"
-    nnoremap <silent><leader>N :Ranger<Cr>
+    nnoremap <silent>,<Tab> :Ranger<Cr>
 elseif !has('nvim') && WINDOWS() && g:gui_running
     let g:browsefilter = ''
     function! s:Filter_Push(desc, wildcard)
@@ -484,7 +474,9 @@ endif
 " floaterm windows
 " --------------------------
 if Installed('LeaderF-floaterm')
-    nnoremap <M-j>w :Leaderf floaterm<Cr>
+    nnoremap <silent><Tab>w :Leaderf floaterm<Cr>
 elseif Installed('fzf-floaterm')
-    nnoremap <M-j>w :Floaterms<Cr>
+    nnoremap <silent><Tab>w :Floaterms<Cr>
+elseif Installed('nvim-notify')
+    nnoremap <silent><Tab>w :Telescope floaterm<Cr>
 endif
