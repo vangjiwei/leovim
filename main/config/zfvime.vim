@@ -28,7 +28,6 @@ if Installed('ZFVimIM')
             echo ime_name . " input"
         end
     endfunction
-
     if Require('wubi')
         function! s:myLocalDb()
             let wubi = ZFVimIM_dbInit(
@@ -48,11 +47,9 @@ if Installed('ZFVimIM')
     endif
     " keymap
     let g:ZFVimIM_keymap = 0
-    nnoremap <silent><M-Z>      :call ZFVimIMELoop(1)<Cr>
-    inoremap <silent><M-Z> <C-o>:call ZFVimIMELoop(1)<Cr>
-    nnoremap <silent><M-z>        :call ZFVimIMELoop(0)<Cr>
-    inoremap <expr><silent> ;;    ZFVimIME_keymap_toggle_i()
-    inoremap <expr><silent> <M-z> ZFVimIME_keymap_toggle_i()
+    nnoremap <silent><M-z>  :call ZFVimIMELoop(1)<Cr>
+    inoremap <silent><M-z>  <C-o>:call ZFVimIMELoop(1)<Cr>
+    inoremap <expr><silent> ;; ZFVimIME_keymap_toggle_i()
     " input in commandline
     function! ZF_Setting_cmdEdit()
         let cmdtype = getcmdtype()
@@ -79,5 +76,4 @@ if Installed('ZFVimIM')
     endif
 else
     nnoremap <M-z> <Nop>
-    nnoremap <M-Z> <Nop>
 endif
