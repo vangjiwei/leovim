@@ -202,30 +202,11 @@ if has('nvim') || v:version >= 801
     let g:asynctasks_term_reuse   = 1
     let g:asynctasks_term_focus   = 0
     let g:asynctasks_term_listed  = 0
-    let g:asynctasks_template = {}
-    let g:asynctasks_template.cargo = [
-                \ "[project-init]",
-                \ "command=cargo update",
-                \ "cwd=<root>",
-                \ "",
-                \ "[project-build]",
-                \ "command=cargo build",
-                \ "cwd=<root>",
-                \ "errorformat=%. %#--> %f:%l:%c",
-                \ "",
-                \ "[project-run]",
-                \ "command=cargo run",
-                \ "cwd=<root>",
-                \ "output=terminal",
-                \ ]
-    let g:asynctasks_extra_config = [
-                \ '~/.leovim.conf/scripts/tasks_template.ini',
-                \ '~/.config/asynctask/tasks.ini',
-                \ ]
+    let g:asynctasks_template = '~/.leovim.conf/asynctasks/tasks_template.ini'
     " packadd
     PackAdd 'asynctasks.vim'
     " open template
-    nnoremap <leader>r<Cr> :tabe $LEOVIM_PATH/scripts/tasks_comment.ini<Cr>
+    nnoremap <leader>r<Cr> :tabe $LEOVIM_PATH/asynctasks/tasks_example.ini<Cr>
     nnoremap <leader>r<Tab> :call mkdir(expand("~/.config/asynctask"), 'p')<Cr>:tabe $HOME/.config/asynctask/tasks.ini<Cr>
     " asynctask shortcuts
     nnoremap <leader>r<tab> :AsyncTask
@@ -233,6 +214,7 @@ if has('nvim') || v:version >= 801
     nnoremap <leader>re :AsyncTaskEdit<Space>
     " run shortcuts
     nnoremap <leader>rr :AsyncTask project-run<Cr>
+    nnoremap <leader>ri :AsyncTask project-init<Cr>
     nnoremap <leader>rb :AsyncTask project-build<Cr>
     nnoremap <leader>rd :AsyncTask project-debug<Cr>
     nnoremap <leader>rc :AsyncTask project-compile<Cr>

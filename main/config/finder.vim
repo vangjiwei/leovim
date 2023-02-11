@@ -145,8 +145,9 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     if g:has_popup_floating
         let g:Lf_WindowPosition = 'popup'
         let g:Lf_PreviewInPopup = 1
-        let g:Lf_PopupHeight    = 0.7
-        let g:Lf_PopupPosition  = [10, 0]
+        let g:Lf_PopupHeight    = 0.75
+        let g:Lf_PopupWidth     = 0.75
+        let g:Lf_PopupPosition  = [0, 0]
     else
         let g:Lf_PreviewInPopup = 0
     endif
