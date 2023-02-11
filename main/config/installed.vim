@@ -56,23 +56,28 @@ else
     endif
 endif
 if Installed('wilder.nvim')
-    cmap <C-j> <Tab>
-    cmap <C-k> <S-Tab>
+    cmap <Tab>   <C-j>
+    cmap <S-Tab> <C-k>
     call wilder#setup({
                 \ 'modes': [':', '/', '?'],
-                \ 'enable_cmdline_enter': 0,
+                \ 'enable_cmdline_enter': 1,
                 \ 'accept_completion_auto_select': 1,
-                \ 'next_key': ['<Tab>', '<Down>'],
-                \ 'previous_key': ['<S-Tab>', '<Up>'],
+                \ 'next_key': ['<C-j>', '<Down>'],
+                \ 'previous_key': ['<C-k>', '<Up>'],
                 \ 'accept_key': '<Down>',
                 \ 'reject_key': '<Up>',
                 \ })
-    call wilder#set_option('renderer', wilder#wildmenu_renderer(
-                \ wilder#wildmenu_lightline_theme({
-                \   'highlights': {},
-                \   'highlighter': wilder#basic_highlighter(),
-                \   'separator': ' · ',
-                \ })))
+    call wilder#set_option('pipeline', [
+                \   wilder#branch(
+                \     wilder#cmdline_pipeline({
+                \       'language': 'vim',
+                \       'fuzzy': 1,
+                \       'fuzzy_filter': wilder#vim_fuzzy_filter(),
+                \       'debounce': 10,
+                \     }),
+                \     wilder#search_pipeline(),
+                \   ),
+                \ ])
     let s:highlighters = [
                 \ wilder#pcre2_highlighter(),
                 \ wilder#basic_highlighter(),

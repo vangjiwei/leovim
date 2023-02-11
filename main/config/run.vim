@@ -41,8 +41,8 @@ command! OpenQuickfix   call s:open_close_qf(2)
 " --------------------------
 if has('nvim') || has('timers') && has('channel') && has('job')
     let g:asyncrun_rootmarks = g:root_patterns
-    nnoremap <silent><Tab>q :AsyncStop<CR>
-    nnoremap <silent><Tab>Q :AsyncStop!<CR>
+    nnoremap <silent><Tab>q :AsyncStop!<CR>
+    nnoremap <silent><Tab>Q :AsyncStop<CR>
     nnoremap <leader>R :AsyncRun
     let g:run_command = "AsyncRun"
     PackAdd 'asyncrun.vim'

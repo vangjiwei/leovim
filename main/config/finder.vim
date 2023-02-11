@@ -474,7 +474,9 @@ endif
 " floaterm windows
 " --------------------------
 if Installed('LeaderF-floaterm')
-    nnoremap <M-j>f :Leaderf floaterm<Cr>
+    nnoremap <silent><Tab>w :Leaderf floaterm<Cr>
 elseif Installed('fzf-floaterm')
-    nnoremap <M-j>f :Floaterms<Cr>
+    nnoremap <silent><Tab>w :Floaterms<Cr>
+elseif Installed('nvim-notify')
+    nnoremap <silent><Tab>w :Telescope floaterm<Cr>
 endif

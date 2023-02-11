@@ -449,8 +449,8 @@ nnoremap <silent><Tab>p :tabprevious<CR>
 nnoremap <silent><Tab>N :tabm +1<CR>
 nnoremap <silent><Tab>P :tabm -1<CR>
 nnoremap <Tab>m         :tabm<Space>
-" open in tab
-nnoremap <Tab>w <C-w>T
+" open in tae
+nnoremap <C-w><Cr> <C-w>T
 " set tab label
 function! Vim_NeatBuffer(bufnr, fullname)
     let l:name = bufname(a:bufnr)
