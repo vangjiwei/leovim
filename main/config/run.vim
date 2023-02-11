@@ -206,16 +206,22 @@ if has('nvim') || v:version >= 801
     let g:asynctasks_term_reuse   = 1
     let g:asynctasks_term_focus   = 0
     let g:asynctasks_term_listed  = 0
+    " template
     let g:asynctasks_template = '~/.leovim.conf/asynctasks/tasks_template.ini'
+    let g:asynctasks_extra_config = [
+                \ '~/.leovim.conf/asynctasks/tasks_extra.ini',
+                \ '~/.config/tasks/tasks_local.ini',
+                \ ]
     " packadd
     PackAdd 'asynctasks.vim'
     " open template
     nnoremap <leader>r<Cr> :tabe $LEOVIM_PATH/asynctasks/tasks_example.ini<Cr>
-    nnoremap <leader>r<Tab> :call mkdir(expand("~/.config/asynctask"), 'p')<Cr>:tabe $HOME/.config/asynctask/tasks.ini<Cr>
+    nnoremap <leader>r<Tab> :call mkdir(expand("~/.config/tasks"), 'p')<Cr>:tabe $HOME/.config/tasks/tasks_local.ini<Cr>
     " asynctask shortcuts
-    nnoremap <leader>r<tab> :AsyncTask
+    nnoremap <leader>ra :AsyncTask
     nnoremap <leader>rm :AsyncTaskMacro<Cr>
     nnoremap <leader>re :AsyncTaskEdit<Space>
+    nnoremap <leader>rl :AsyncTaskList<Space>
     " run shortcuts
     nnoremap <leader>rr :AsyncTask project-run<Cr>
     nnoremap <leader>ri :AsyncTask project-init<Cr>
@@ -236,8 +242,8 @@ if has('nvim') || v:version >= 801
         echom "asynctasks_profile is " . g:asynctasks_profile
     endfunction
     command! AsyncTaskProfileLoop call AsyncTaskProfileLoop()
-    nnoremap <leader>rl :<C-u>AsyncTaskProfileLoop<CR>
-    nnoremap <leader>rp :<C-u>AsyncTaskProfile<CR>
+    nnoremap <leader>rp :<C-u>AsyncTaskProfileLoop<CR>
+    nnoremap <leader>rf :<C-u>AsyncTaskProfile<CR>
     if Installed('telescope-asynctasks.nvim')
         nnoremap <silent><M-r> :lua require('telescope').extensions.asynctasks.all()<Cr>
     elseif get(g:, 'fuzzy_finder', '') =~ 'leaderf'
