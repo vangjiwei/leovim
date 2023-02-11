@@ -51,8 +51,6 @@ if has('nvim') || has('timers') && has('channel') && has('job')
     nnoremap <silent><Tab>Q :AsyncStop<CR>
     nnoremap <leader>R :AsyncRun
     PackAdd 'asyncrun.vim'
-    " mkdir temp build dir
-    call mkdir("~/.cache/build", "p")
 else
     let g:run_command = "!"
     nnoremap <leader>R :!
@@ -61,6 +59,8 @@ if WINDOWS()
     let g:asyncrun_encs = get(g:, 'asyncrun_encs', 'gbk')
 endif
 if UNIX() && g:run_command == 'AsyncRun'
+    " mkdir temp build dir
+    silent! call mkdir("~/.cache/build", "p")
     let g:gcc_cmd = get(g:, 'gcc_cmd', 'time gcc -Wall -O2 $(VIM_FILEPATH) -o $HOME/.cache/build/$(VIM_FILENOEXT) && time $HOME/.cache/build/$(VIM_FILENOEXT)')
     let g:gpp_cmd = get(g:, 'gpp_cmd', 'time g++ -Wall -O2 $(VIM_FILEPATH) -o $HOME/.cache/build/$(VIM_FILENOEXT) && time $HOME/.cache/build/$(VIM_FILENOEXT)')
     if executable('rustc')
@@ -68,11 +68,11 @@ if UNIX() && g:run_command == 'AsyncRun'
     endif
 elseif WINDOWS() && g:run_command == 'AsyncRun'
     if executable('gcc')
-        let g:gcc_cmd = get(g:, 'gcc_cmd', 'ptime gcc $(VIM_FILEPATH) -o ~\.cache\build\$(VIM_FILENOEXT).exe & ptime ~\.cache\build\$(VIM_FILENOEXT).exe')
-        let g:gpp_cmd = get(g:, 'gpp_cmd', 'ptime g++ $(VIM_FILEPATH) -o ~\.cache\build\$(VIM_FILENOEXT).exe & ptime ~\.cache\build\$(VIM_FILENOEXT).exe')
+        let g:gcc_cmd = get(g:, 'gcc_cmd', 'ptime gcc $(VIM_FILEPATH) -o ..\target\test\$(VIM_FILENOEXT).exe & ptime ..\target\test\$(VIM_FILENOEXT).exe')
+        let g:gpp_cmd = get(g:, 'gpp_cmd', 'ptime g++ $(VIM_FILEPATH) -o ..\target\test\$(VIM_FILENOEXT).exe & ptime ..\target\test\$(VIM_FILENOEXT).exe')
     endif
     if executable('rustc')
-        let g:rustc_cmd = get(g:, 'rustc_cmd', 'ptime rustc -o ~\.cache\build\$(VIM_FILENOEXT).exe $(VIM_FILEPATH) & ptime ~\.cache\build\$(VIM_FILENOEXT).exe')
+        let g:rustc_cmd = get(g:, 'rustc_cmd', 'ptime rustc -o ..\target\test\$(VIM_FILENOEXT).exe $(VIM_FILEPATH) & ptime ..\target\test\$(VIM_FILENOEXT).exe')
     endif
 endif
 function! s:RunNow(...)
@@ -148,12 +148,10 @@ function! s:RunNow(...)
         elseif &filetype == 'cpp' && get(g:, 'gpp_cmd', '') != ''
             exec g:run_command . params . ' '. g:gpp_cmd
         elseif &filetype == 'rust' && get(g:, 'rustc_cmd', '') != ''
+            if WINDOWS()
+                silent! call mkdir("../target/test", "p")
+            endif
             exec g:run_command . params . ' '. g:rustc_cmd
-            " if WINDOWS()
-            "     exec g:run_command . params . ' ptime rustc %'
-            " else
-            "     exec g:run_command . params . ' time  rustc %'
-            " endif
         else
             call feedkeys(':' . g:run_command)
         endif
