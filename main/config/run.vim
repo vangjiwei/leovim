@@ -84,9 +84,13 @@ function! s:RunNow(...)
             if type == 'tab'
                 let params = ' -cwd=$(VIM_FILEDIR) -mode=term -pos=tab -focus=1 -reuse'
             elseif type == 'floaterm'
-                let params = ' -cwd=$(VIM_FILEDIR) -mode=term -pos=floaterm_reuse'
+                if has('nvim')
+                    let params = ' -cwd=$(VIM_FILEDIR) -mode=term -pos=floaterm -position=topright -width=0.45 -height=0.65 -focus=0'
+                else
+                    let params = ' -cwd=$(VIM_FILEDIR) -mode=term -pos=floaterm -position=topright -width=0.45 -height=0.65'
+                endif
             elseif type == 'external' && WINDOWS()
-                let params = ' -cwd=$(VIM_FILEDIR) -mode=term -pos=external'
+                let params = ' -cwd=$(VIM_FILEDIR) -mode=term -pos=external -focus=0'
             else
                 let params = " -cwd=$(VIM_FILEDIR) -mode=async"
             endif
