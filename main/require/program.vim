@@ -8,6 +8,10 @@ if g:complete_engine == 'coc'
         PackAdd 'neoclide/coc.nvim', {'branch': 'release'}
     endif
     PackAdd 'antoinemadec/coc-fzf'
+    if has('nvim')
+        PackAdd 'williamboman/mason.nvim'
+        PackAdd 'williamboman/mason-lspconfig.nvim'
+    endif
 elseif g:complete_engine == 'cmp'
     PackAdd 'neovim/nvim-lspconfig'
                 \| PackAdd 'williamboman/mason.nvim'

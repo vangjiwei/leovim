@@ -7,11 +7,6 @@ autocmd BufAdd * if getfsize(expand('<afile>')) > 1024*1024 |
 " ----------------------------
 " set $PATH
 " ----------------------------
-if WINDOWS() && isdirectory($NVIM_DATA_PATH . "\\bin")
-    let $PATH = $NVIM_DATA_PATH . "\\bin;" . $PATH
-elseif isdirectory($NVIM_DATA_PATH . "/bin")
-    let $PATH = $NVIM_DATA_PATH . "/bin:" . $PATH
-endif
 let g:coc_config_home = expand("$MAIN_PATH")
 if WINDOWS()
     let g:coc_data_home = $NVIM_DATA_PATH . "\\coc"
@@ -152,7 +147,7 @@ nnoremap <silent><M-l>. :CocFzfListResume<Cr>
 nnoremap <silent><M-l>; :CocNext<CR>
 nnoremap <silent><M-l>, :CocPrev<CR>
 nnoremap <silent><M-h>. :call CocAction('repeatCommand')<Cr>
-nnoremap <silent><M-M>  :CocFzfList marketplace<Cr>
+nnoremap <silent>,M     :CocFzfList marketplace<Cr>
 " hover
 function! Show_documentation()
     if index(['vim', 'help'], &filetype) >= 0
@@ -269,3 +264,24 @@ omap ag <Plug>(coc-git-chunk-outer)
 xmap ag <Plug>(coc-git-chunk-outer)
 nmap <leader>vg vig
 nmap <leader>vG vag
+" ------------------------
+" mason
+" ------------------------
+if Installed('mason.nvim', 'mason-lspconfig.nvim')
+    nnoremap <silent>,m :Mason<Cr>
+    lua << EOF
+    require('mason').setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+        }
+    })
+    require('mason-lspconfig').setup({
+        automatic_installation = true,
+        ensure_installed = vim.g.lsp_installer_servers,
+    })
+EOF
+endif
