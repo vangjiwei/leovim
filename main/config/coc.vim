@@ -147,7 +147,6 @@ nnoremap <silent><M-l>. :CocFzfListResume<Cr>
 nnoremap <silent><M-l>; :CocNext<CR>
 nnoremap <silent><M-l>, :CocPrev<CR>
 nnoremap <silent><M-h>. :call CocAction('repeatCommand')<Cr>
-nnoremap <silent>,M     :CocFzfList marketplace<Cr>
 " hover
 function! Show_documentation()
     if index(['vim', 'help'], &filetype) >= 0
@@ -269,6 +268,7 @@ nmap <leader>vG vag
 " ------------------------
 if Installed('mason.nvim', 'mason-lspconfig.nvim')
     nnoremap <silent>,m :Mason<Cr>
+    nnoremap <silent>,M :CocFzfList marketplace<Cr>
     lua << EOF
     require('mason').setup({
     ui = {
@@ -279,9 +279,13 @@ if Installed('mason.nvim', 'mason-lspconfig.nvim')
         }
         }
     })
-    require('mason-lspconfig').setup({
-        automatic_installation = true,
-        ensure_installed = vim.g.lsp_installer_servers,
-    })
+    require('mason-lspconfig').setup({})
 EOF
+else
+    nnoremap <silent>,m :CocFzfList marketplace<Cr>
+    if WINDOWS()
+        let $PATH = $NVIM_DATA_PATH . "\\mason\\bin;" . $PATH
+    else
+        let $PATH = $NVIM_DATA_PATH . "/mason/bin:" . $PATH
+    endif
 endif
