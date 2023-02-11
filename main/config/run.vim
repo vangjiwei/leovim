@@ -218,10 +218,14 @@ if has('nvim') || v:version >= 801
                 \ "cwd=<root>",
                 \ "output=terminal",
                 \ ]
+    let g:asynctasks_extra_config = [
+                \ '~/.leovim.conf/scripts/tasks_template.ini',
+                \ '~/.config/asynctask/tasks.ini',
+                \ ]
     " packadd
     PackAdd 'asynctasks.vim'
     " open template
-    nnoremap <leader>r<Cr> :tabe $LEOVIM_PATH/scripts/tasks_template.ini<Cr>
+    nnoremap <leader>r<Cr> :tabe $LEOVIM_PATH/scripts/tasks_comment.ini<Cr>
     " asynctask shortcuts
     nnoremap <leader>r<tab> :AsyncTask
     nnoremap <leader>rm :AsyncTaskMacro<Cr>
