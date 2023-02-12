@@ -50,13 +50,17 @@ set wildmenu
 if has('nvim')
     set wildoptions+=pum
 else
-    set wildmode=longest,list
-    if has('patch-8.2.4500')
+    try
+        set wildmode=full
         set wildoptions+=pum,fuzzy
-    endif
+    catch
+        if &wildoptions !~ 'pum'
+            set wildmode=longest,list
+        endif
+    endtry
 endif
 if Installed('wilder.nvim')
-    set wildcharm=<Tab>
+    set wildcharm=<C-z>
     call wilder#enable_cmdline_enter()
     call wilder#setup({'modes': [':', '/', '?']})
     let s:highlighters = [
@@ -74,6 +78,13 @@ if Installed('wilder.nvim')
                 \   'highlighter': s:highlighters,
                 \ }),
                 \ }))
+    if &wildoptions =~ 'pum'
+        cmap <expr><C-n> wilder#in_context() ? "\<Tab>"   : "\<C-n>"
+        cmap <expr><C-p> wilder#in_context() ? "\<S-Tab>" : "\<C-p>"
+    else
+        cmap <expr> <Tab>   wilder#in_context() ? "\<Right>" : "\<Tab>"
+        cmap <expr> <S-Tab> wilder#in_context() ? "\<Left>" : "\<S-Tab>"
+    endif
 endif
 " ------------------------
 " home end
