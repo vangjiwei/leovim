@@ -74,9 +74,6 @@ if Installed('wilder.nvim')
                 \   'highlighter': s:highlighters,
                 \ }),
                 \ }))
-else
-    cmap <expr><C-j>  pumvisible() ? '<Right>' : '<C-n>'
-    cmap <expr><C-k>  pumvisible() ? '<Left>'  : '<C-p>'
 endif
 " ------------------------
 " home end
