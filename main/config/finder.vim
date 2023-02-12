@@ -170,8 +170,8 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     nnoremap <M-h>/ :Leaderf searchHistory<Cr>
     nnoremap <M-h>c :Leaderf cmdHistory<Cr>
     " main selector
-    nnoremap <leader>b :LeaderfBufferAll<Cr>
-    nnoremap <leader>B :LeaderfTabBufferAll<Cr>
+    nnoremap <leader>b :LeaderfBuffer<Cr>
+    nnoremap <leader>B :LeaderfTabBuffer<Cr>
     nnoremap <leader>m :LeaderfMru<Cr>
     nnoremap <leader>M :LeaderfMruCwd<Cr>
     nnoremap <leader>; :Leaderf --next<Cr>
