@@ -1,34 +1,35 @@
 local map = vim.api.nvim_set_keymap
-require 'nvim-treesitter.configs'.setup {
-  parser_install_dir = vim.g.parser_install_dir,
-  ensure_installed = vim.g.highlight_filetypes,
-  sync_install = true,
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = true,
-    disable = function(_, buf)
-      local max_filesize = 1024 * 1024 -- 1m
-      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-      if ok and stats and stats.size > max_filesize then
-        return true
-      end
-    end,
-  },
-  matchup = {
-    enable = true,
-  },
-  fold = {
-    enable = true,
-  },
-  indent = {
-    enable = false,
-  },
-  incrcmental_selection = {
-    enable = false,
-  },
-}
-
 require 'nvim-treesitter.install'.prefer_git = true
+require 'nvim-treesitter.configs'.setup {
+    parser_install_dir = vim.g.parser_install_dir,
+    ensure_installed = vim.g.highlight_filetypes,
+    sync_install = true,
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = true,
+        disable = function(_, buf)
+          local max_filesize = 1024 * 1024 -- 1m
+          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+          if ok and stats and stats.size > max_filesize then
+            return true
+          end
+        end,
+    },
+    matchup = {
+        enable = true,
+    },
+    fold = {
+        enable = true,
+    },
+    indent = {
+        enable = false,
+    },
+    incrcmental_selection = {
+        enable = false,
+    },
+}
+map('n', '<leader>U', ':TSUpdate ',  { noremap = true, silent = false })
+map('n', '<leader>I', ':TSInstall ', { noremap = true, silent = false })
 -------------------------
 -- nvim-treehopper
 -------------------------
