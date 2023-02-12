@@ -52,11 +52,14 @@ if has('nvim')
 else
     try
         set wildmode=full
-        set wildoptions+=pum,fuzzy
-    catch
-        if &wildoptions !~ 'pum'
+        try
+            set wildoptions+=fuzzy
+            set wildoptions+=pum
+        catch
             set wildmode=longest,list
-        endif
+        endtry
+    catch
+        set wildmode=longest,list
     endtry
 endif
 if Installed('wilder.nvim')
