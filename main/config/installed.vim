@@ -81,13 +81,10 @@ if Installed('wilder.nvim')
                 \   'highlighter': s:highlighters,
                 \ }),
                 \ }))
-    if &wildoptions =~ 'pum'
-        cmap <expr><C-n> wilder#in_context() ? "\<Tab>"   : "\<C-n>"
-        cmap <expr><C-p> wilder#in_context() ? "\<S-Tab>" : "\<C-p>"
-    else
-        cmap <expr> <Tab>   wilder#in_context() ? "\<Right>" : "\<Tab>"
-        cmap <expr> <S-Tab> wilder#in_context() ? "\<Left>" : "\<S-Tab>"
-    endif
+    cmap <expr><C-n>   wilder#in_context() ? wilder#next()     : "\<C-n>"
+    cmap <expr><C-p>   wilder#in_context() ? wilder#previous() : "\<C-p>"
+    cmap <expr><Tab>   wilder#in_context() ? wilder#next()     : "\<Tab>"
+    cmap <expr><S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
 endif
 " ------------------------
 " home end
