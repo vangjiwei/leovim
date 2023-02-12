@@ -22,7 +22,7 @@ if Installed('leaderf')
         if Installed('coc.nvim')
             nnoremap <leader>P :CocFzfList<Cr>
         else
-            nnoremap <leader>P :FZF<Tab>
+            nnoremap <leader>P :FZF
         endif
     endif
 elseif Installed('coc.nvim')
@@ -34,7 +34,7 @@ elseif InstalledTelescope()
     nnoremap <silent><M-h>h :Telescope help_tags<Cr>
 elseif InstalledFZF()
     let g:fuzzy_finder = 'fzf'
-    nnoremap <silent><C-p> :FZF<Tab>
+    nnoremap <silent><C-p> :FZF
 else
     let g:fuzzy_finder = ''
 endif
@@ -170,8 +170,8 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
     nnoremap <M-h>/ :Leaderf searchHistory<Cr>
     nnoremap <M-h>c :Leaderf cmdHistory<Cr>
     " main selector
-    nnoremap <leader>b :LeaderfBufferAll<Cr>
-    nnoremap <leader>B :LeaderfTabBufferAll<Cr>
+    nnoremap <leader>b :LeaderfBuffer<Cr>
+    nnoremap <leader>B :LeaderfTabBuffer<Cr>
     nnoremap <leader>m :LeaderfMru<Cr>
     nnoremap <leader>M :LeaderfMruCwd<Cr>
     nnoremap <leader>; :Leaderf --next<Cr>
