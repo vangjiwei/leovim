@@ -22,7 +22,7 @@ if Installed('leaderf')
         if Installed('coc.nvim')
             nnoremap <leader>P :CocFzfList<Cr>
         else
-            nnoremap <leader>P :FZF<Tab>
+            nnoremap <leader>P :FZF
         endif
     endif
 elseif Installed('coc.nvim')
@@ -34,7 +34,7 @@ elseif InstalledTelescope()
     nnoremap <silent><M-h>h :Telescope help_tags<Cr>
 elseif InstalledFZF()
     let g:fuzzy_finder = 'fzf'
-    nnoremap <silent><C-p> :FZF<Tab>
+    nnoremap <silent><C-p> :FZF
 else
     let g:fuzzy_finder = ''
 endif
