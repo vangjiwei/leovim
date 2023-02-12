@@ -56,14 +56,18 @@ else
     endif
 endif
 if Installed('wilder.nvim')
-    cmap <Tab>   <C-j>
-    cmap <S-Tab> <C-k>
+    call wilder#enable_cmdline_enter()
+    set wildcharm=<Tab>
+    cmap <expr> <Tab> wilder#in_context() ? wilder#next() : '\<Tab>'
+    cmap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : '\<S-Tab>
+    cmap <C-j> <Tab>
+    cmap <C-k> <S-Tab>
     call wilder#setup({
                 \ 'modes': [':', '/', '?'],
                 \ 'enable_cmdline_enter': 1,
                 \ 'accept_completion_auto_select': 1,
-                \ 'next_key': ['<C-j>', '<Down>'],
-                \ 'previous_key': ['<C-k>', '<Up>'],
+                \ 'next_key': ['<Tab>', '<Down>'],
+                \ 'previous_key': ['<S-Tab>', '<Up>'],
                 \ 'accept_key': '<Down>',
                 \ 'reject_key': '<Up>',
                 \ })
