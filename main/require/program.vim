@@ -78,21 +78,6 @@ if g:check_tool == 'ale'
     PackAdd 'maximbaz/lightline-ale'
 endif
 " ------------------------------
-" cmdline complete
-" ------------------------------
-if has('nvim') && g:complete_engine != 'cmp' || v:version >= 801
-    if has('nvim')
-        function! UpdateRemotePlugins(...)
-            " Needed to refresh runtime files
-            let &rtp=&rtp
-            UpdateRemotePlugins
-        endfunction
-        PackAdd 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
-    else
-        PackAdd 'gelguy/wilder.nvim'
-    endif
-endif
-" ------------------------------
 " debug tool
 " ------------------------------
 if g:advanced_complete_engine

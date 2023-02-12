@@ -56,32 +56,9 @@ else
     endif
 endif
 if Installed('wilder.nvim')
-    call wilder#enable_cmdline_enter()
     set wildcharm=<Tab>
-    cmap <expr> <Tab> wilder#in_context() ? wilder#next() : '\<Tab>'
-    cmap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : '\<S-Tab>
-    cmap <C-j> <Tab>
-    cmap <C-k> <S-Tab>
-    call wilder#setup({
-                \ 'modes': [':', '/', '?'],
-                \ 'enable_cmdline_enter': 1,
-                \ 'accept_completion_auto_select': 1,
-                \ 'next_key': ['<Tab>', '<Down>'],
-                \ 'previous_key': ['<S-Tab>', '<Up>'],
-                \ 'accept_key': '<Down>',
-                \ 'reject_key': '<Up>',
-                \ })
-    call wilder#set_option('pipeline', [
-                \   wilder#branch(
-                \     wilder#cmdline_pipeline({
-                \       'language': 'vim',
-                \       'fuzzy': 1,
-                \       'fuzzy_filter': wilder#vim_fuzzy_filter(),
-                \       'debounce': 10,
-                \     }),
-                \     wilder#search_pipeline(),
-                \   ),
-                \ ])
+    call wilder#enable_cmdline_enter()
+    call wilder#setup({'modes': [':', '/', '?']})
     let s:highlighters = [
                 \ wilder#pcre2_highlighter(),
                 \ wilder#basic_highlighter(),
