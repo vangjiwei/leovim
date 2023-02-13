@@ -19,7 +19,9 @@ require('mason-lspconfig').setup({
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lsp_attach = function(client, bufnr)
-  vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, { buffer = bufnr })
+  if vim.g.ctags_type == '' then
+    vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, { buffer = bufnr })
+  end
   vim.keymap.set('n', '<M-/>', vim.lsp.buf.references, { buffer = bufnr })
   vim.keymap.set('n', '<M-?>', vim.lsp.buf.implementation, { buffer = bufnr })
   vim.keymap.set('n', 'gh', vim.lsp.buf.type_definition, { buffer = bufnr })

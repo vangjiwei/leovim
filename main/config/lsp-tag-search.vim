@@ -283,13 +283,13 @@ function! s:open_in_postion(position) abort
         return
     endif
 endfunction
-function! CocJump(jumpCommand, position)
+function! s:coc_jump(jumpCommand, position)
     let jumpCommand = a:jumpCommand
     try
         if a:position == 'float'
-            let ret = CocAction(jumpCommand, v:false)
+            let ret = CocActionSync(jumpCommand, v:false)
         else
-            let ret = CocAction(jumpCommand)
+            let ret = CocActionSync(jumpCommand)
         endif
     catch /.*/
         let ret = ''
@@ -313,36 +313,30 @@ function! LspOrTagOrSearchAll(command, ...) abort
         let position = a:1
     endif
     " coc
+    let ret = 0
     if g:complete_engine == 'coc'
         let g:coc_locations_change = v:false
-        if CocJump(command, position)
+        if s:coc_jump(command, position)
             let l:tag_found = 2
             call s:settagstack(winnr, tagname, pos)
             if !g:coc_locations_change && position != ''
                 call s:open_in_postion(position)
             endif
             let ret = 1
-        else
-            let ret = 0
         endif
-    else
-        let ret = 0
     endif
     " tags
     if index(['vim', 'help'], &filetype) >= 0 && g:complete_engine == 'cmp'
         let l:tag_found = 1
-    elseif g:ctags_type != '' && !ret
-        let ret = len(preview#taglist(tagname))
+    elseif g:ctags_type != '' && ret == 0
+        let ret = len(preview#tagfind(tagname))
         if ret == 0
             let l:tag_found = 1
         elseif ret == 1
             let l:tag_found = 2
+            execute "tag " . tagname
             call s:settagstack(winnr, tagname, pos)
-            if g:complete_engine == 'non'
-                echohl WarningMsg | echom "found by tag " | echohl None
-            else
-                echohl WarningMsg | echom "found by tag in " . g:complete_engine | echohl None
-            endif
+            echohl WarningMsg | echom "found by ctags " | echohl None
             if position != ''
                 call s:open_in_postion(position)
             endif
@@ -375,7 +369,11 @@ if g:complete_engine == 'coc'
     " jumpDeclaration
     nnoremap <silent>gm :call LspOrTagOrSearchAll("jumpDeclaration", "float")<Cr>
 else
-    if g:complete_engine != 'cmp'
+    if g:complete_engine == 'cmp'
+        if g:ctags_type != ''
+            nnoremap <silent><C-]> :call LspOrTagOrSearchAll("")<Cr>
+        endif
+    else
         nnoremap <silent><M-;> :call LspOrTagOrSearchAll("")<Cr>
     endif
     nnoremap <silent><C-g>  :call LspOrTagOrSearchAll("", "vsplit")<Cr>
