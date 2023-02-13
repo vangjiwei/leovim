@@ -71,7 +71,7 @@ nnoremap <silent><M-=> :FloatermNew<Cr>
 tnoremap <silent><M-=> <C-\><C-n>:FloatermKill<Cr>
 if has("popupwin") && !MACOS() || exists('*nvim_open_win')
     nnoremap <silent><Tab>c :FloatermNew --wintype=float --height=0.80 --width=0.80 --position=center<Cr>
-    nnoremap <silent><Tab>o :FloatermNew --wintype=float --height=0.65 --width=0.45 --position=topright<Cr>
+    nnoremap <silent><Tab>w :FloatermNew --wintype=float --height=0.65 --width=0.45 --position=topright<Cr>
 endif
 " key map
 nnoremap <Tab>f :Floaterm

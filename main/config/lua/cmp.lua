@@ -55,26 +55,20 @@ cmp.setup({
         end
       end
     },
-    ['<C-n>'] = {
-      c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-      i = function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-        else
-          fallback()
-        end
+    ["<C-n>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+      else
+        fallback()
       end
-    },
-    ['<C-p>'] = {
-      c = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-      i = function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-        else
-          fallback()
-        end
+    end, { "i", "c" }),
+    ["<C-p>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+      else
+        fallback()
       end
-    },
+    end, { "i", "c" }),
     ['<C-e>'] = {
       c = cmp.mapping.abort(),
       i = function()
@@ -116,7 +110,7 @@ cmp.setup({
           if entry then
             cmp.confirm()
           else
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
           end
         elseif has_words_before() then
           cmp.complete()

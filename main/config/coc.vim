@@ -163,13 +163,12 @@ function! Show_documentation()
 endfunction
 nnoremap <silent> K :call Show_documentation()<CR>
 " completion map
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#stop() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-inoremap <silent><expr> <TAB>
-    \ coc#pum#visible() ? coc#_select_confirm() :
-        \ coc#expandableOrJumpable() ?
-            \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-                \ Has_Back_Space() ? "\<TAB>" :
-                    \ coc#refresh()
+inoremap <silent><expr> <CR>  coc#pum#visible() ? coc#pum#stop() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <TAB> coc#pum#visible() ?
+            \ coc#_select_confirm() :
+            \ coc#expandableOrJumpable() ?
+                \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+                \ Has_Back_Space() ? "\<TAB>" : coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 inoremap <silent><expr> <C-e> coc#pum#visible() ? coc#pum#cancel() : "\<C-o>A"
 inoremap <silent><expr> <C-y> coc#pum#visible() ? coc#pum#stop() : "\<C-r>\""
@@ -266,9 +265,9 @@ nmap <leader>vG vag
 " ------------------------
 " mason
 " ------------------------
+nnoremap <silent>,M :CocFzfList marketplace<Cr>
 if Installed('mason.nvim', 'mason-lspconfig.nvim')
     nnoremap <silent>,m :Mason<Cr>
-    nnoremap <silent>,M :CocFzfList marketplace<Cr>
     lua << EOF
     require('mason').setup({
     ui = {
@@ -282,7 +281,6 @@ if Installed('mason.nvim', 'mason-lspconfig.nvim')
     require('mason-lspconfig').setup({})
 EOF
 else
-    nnoremap <silent>,m :CocFzfList marketplace<Cr>
     if WINDOWS()
         let $PATH = $NVIM_DATA_PATH . "\\mason\\bin;" . $PATH
     else

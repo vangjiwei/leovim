@@ -630,20 +630,14 @@ endif
 " --------------------------
 " complete engine
 " --------------------------
-set completeopt=menuone
+set completeopt=menu,menuone
 try
-    let s:completeopt_fail_msg='noselect'
     set completeopt+=noselect
-    let s:completeopt_fail_msg='noinsert'
     set completeopt+=noinsert
 catch
-    if &completeopt =~ 'noselect'
-        let g:require_group += ['mcm']
-    else
-        let g:require_group += ['non']
-    endif
+    let g:require_group += ['mcm']
 endtry
-if CYGWIN() || Require('non')
+if Require('non')
     let g:complete_engine = 'non'
 elseif Require('mcm')
     if has('patch-7.4.143')
