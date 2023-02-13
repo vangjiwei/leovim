@@ -110,7 +110,7 @@ cmp.setup({
           if entry then
             cmp.confirm()
           else
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
           end
         elseif has_words_before() then
           cmp.complete()
