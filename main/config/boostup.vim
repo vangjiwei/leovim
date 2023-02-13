@@ -808,10 +808,7 @@ function! ConfirmQuit() abort
                 end
             endif
         catch
-            let l:confirmed = confirm('Do you really want to `quit`?', "&Yes\n&No", 2)
-            if l:confirmed == 1
-                q!
-            end
+            echohl WarningMsg | silent! echom "Cancelled quit!" | echohl None
         endtry
     endif
 endfun
