@@ -354,22 +354,20 @@ if exists("g:vscode")
     source $LEOVIM_PATH/vscode/neovim.vim
 else
     " ------------------------
-    " source
-    " ------------------------
-    source $CONFIG_PATH/boostup.vim
-    if g:has_terminal > 0
-        source $CONFIG_PATH/terminal.vim
-    endif
-    " ------------------------
     " vim-preview
     " ------------------------
     let g:preview#preview_position = "rightbottom"
     let g:preview#preview_size     = get(g:, 'asyncrun_open', 8)
     nnoremap <leader>ex Q
     nnoremap qq <C-w>z
-    PackAdd 'vim-preview'
-    " preview file
-    nmap <Tab>o cd:PreviewFile
+    nnoremap <Tab>o cd:PreviewFile
+    " ------------------------
+    " source
+    " ------------------------
+    source $CONFIG_PATH/boostup.vim
+    if g:has_terminal > 0
+        source $CONFIG_PATH/terminal.vim
+    endif
 endif
 " ----------------------
 " intergrated packs
