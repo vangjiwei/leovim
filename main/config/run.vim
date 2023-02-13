@@ -59,20 +59,19 @@ if WINDOWS()
     let g:asyncrun_encs = get(g:, 'asyncrun_encs', 'gbk')
 endif
 if UNIX() && g:run_command == 'AsyncRun'
-    " mkdir temp build dir
-    silent! call mkdir("~/.cache/build", "p")
-    let g:gcc_cmd = get(g:, 'gcc_cmd', 'time gcc -Wall -O2 $(VIM_FILEPATH) -o $HOME/.cache/build/$(VIM_FILENOEXT) && time $HOME/.cache/build/$(VIM_FILENOEXT)')
-    let g:gpp_cmd = get(g:, 'gpp_cmd', 'time g++ -Wall -O2 $(VIM_FILEPATH) -o $HOME/.cache/build/$(VIM_FILENOEXT) && time $HOME/.cache/build/$(VIM_FILENOEXT)')
+    silent! call mkdir("$HOME/.cache/build", "p")
+    let g:gcc_cmd = 'time gcc -Wall -O2 $(VIM_FILEPATH) -o $HOME/.cache/build/$(VIM_FILENOEXT) && time $HOME/.cache/build/$(VIM_FILENOEXT)'
+    let g:gpp_cmd = 'time g++ -Wall -O2 $(VIM_FILEPATH) -o $HOME/.cache/build/$(VIM_FILENOEXT) && time $HOME/.cache/build/$(VIM_FILENOEXT)'
     if executable('rustc')
-        let g:rustc_cmd = get(g:, 'rustc_cmd', 'time rustc -o $(VIM_FILENOEXT) --out-dir $HOME/.cache/build/$(VIM_FILEPATH) && time $HOME/.cache/build/$(VIM_FILENOEXT)')
+        let g:rustc_cmd = 'time rustc -o $(VIM_FILENOEXT) --out-dir $HOME/.cache/build/$(VIM_FILEPATH) && time $HOME/.cache/build/$(VIM_FILENOEXT)'
     endif
 elseif WINDOWS() && g:run_command == 'AsyncRun'
     if executable('gcc')
-        let g:gcc_cmd = get(g:, 'gcc_cmd', 'ptime gcc $(VIM_FILEPATH) -o ..\target\test\$(VIM_FILENOEXT).exe & ptime ..\target\test\$(VIM_FILENOEXT).exe')
-        let g:gpp_cmd = get(g:, 'gpp_cmd', 'ptime g++ $(VIM_FILEPATH) -o ..\target\test\$(VIM_FILENOEXT).exe & ptime ..\target\test\$(VIM_FILENOEXT).exe')
+        let g:gcc_cmd = 'ptime gcc $(VIM_FILEPATH) -o ..\target\test\$(VIM_FILENOEXT).exe & ptime ..\target\test\$(VIM_FILENOEXT).exe'
+        let g:gpp_cmd = 'ptime g++ $(VIM_FILEPATH) -o ..\target\test\$(VIM_FILENOEXT).exe & ptime ..\target\test\$(VIM_FILENOEXT).exe'
     endif
     if executable('rustc')
-        let g:rustc_cmd = get(g:, 'rustc_cmd', 'ptime rustc -o ..\target\test\$(VIM_FILENOEXT).exe $(VIM_FILEPATH) & ptime ..\target\test\$(VIM_FILENOEXT).exe')
+        let g:rustc_cmd = 'ptime rustc -o ..\target\test\$(VIM_FILENOEXT).exe $(VIM_FILEPATH) & ptime ..\target\test\$(VIM_FILENOEXT).exe'
     endif
 endif
 function! s:RunNow(...)
