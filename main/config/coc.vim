@@ -265,9 +265,9 @@ nmap <leader>vG vag
 " ------------------------
 " mason
 " ------------------------
+nnoremap <silent>,M :CocFzfList marketplace<Cr>
 if Installed('mason.nvim', 'mason-lspconfig.nvim')
     nnoremap <silent>,m :Mason<Cr>
-    nnoremap <silent>,M :CocFzfList marketplace<Cr>
     lua << EOF
     require('mason').setup({
     ui = {
@@ -281,7 +281,6 @@ if Installed('mason.nvim', 'mason-lspconfig.nvim')
     require('mason-lspconfig').setup({})
 EOF
 else
-    nnoremap <silent>,m :CocFzfList marketplace<Cr>
     if WINDOWS()
         let $PATH = $NVIM_DATA_PATH . "\\mason\\bin;" . $PATH
     else
