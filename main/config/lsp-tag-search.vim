@@ -211,7 +211,9 @@ function! s:tag_or_searchall(tagname, ...)
     else
         let tag_found = a:1
     endif
-    if g:ctags_type != '' && tag_found == 0
+    if index(['vim', 'help'], &filetype) >= 0 && g:complete_engine == 'cmp'
+        let s:do_searchall = 1
+    elseif g:ctags_type != '' && tag_found == 0
         try
             let ret = Execute("silent! PreviewList ". tagname)
             " tag PreviewList error, go on search
