@@ -226,7 +226,7 @@ function! s:tag_or_searchall(tagname, ...)
     else
         let s:do_searchall = 1
     endif
-    if get(s:, 'do_searchall', 0) > 0 && tag_found <= 1
+    if get(s:, 'do_searchall', 0) && tag_found <= 1
         if get(g:, 'search_all_cmd', '') != ''
             execute g:search_all_cmd . ' ' . tagname
         else
@@ -312,24 +312,33 @@ function! LspOrTagOrSearchAll(command, ...) abort
     if g:complete_engine == 'coc'
         let g:coc_locations_change = v:false
         if CocJump(command, position)
-            let ret = 1
             let l:tag_found = 2
             call s:settagstack(winnr, tagname, pos)
             if !g:coc_locations_change && position != ''
                 call s:open_in_postion(position)
             endif
+            let ret = 1
+        else
+            let ret = 0
         endif
     else
         let ret = 0
     endif
     " tags
-    if g:ctags_type != '' && !ret
+    if index(['vim', 'help'], &filetype) >= 0 && g:complete_engine == 'cmp'
+        let l:tag_found = 1
+    elseif g:ctags_type != '' && !ret
         let ret = Execute("silent! tag ". tagname)
         if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
             let l:tag_found = 1
         else
             let l:tag_found = 2
             call s:settagstack(winnr, tagname, pos)
+            if g:complete_engine == 'non'
+                echohl WarningMsg | echom "found by tag " | echohl None
+            else
+                echohl WarningMsg | echom "found by tag in " . g:complete_engine | echohl None
+            endif
             if position != ''
                 call s:open_in_postion(position)
             endif
@@ -337,7 +346,8 @@ function! LspOrTagOrSearchAll(command, ...) abort
     else
         let l:tag_found = 0
     endif
-    " XXX:tag_found == 0 : ctags not checked,  XXX: tag_found == 1 : ctags checked but not found
+    " NOTE:tag_found == 0 : ctags not checked,
+    " tag_found == 1 : ctags checked but not found
     if get(l:, 'tag_found', 2) < 2
         call s:tag_or_searchall(tagname, l:tag_found)
     endif
