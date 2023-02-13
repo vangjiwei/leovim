@@ -60,9 +60,6 @@ end
 --------------------------------
 local lspsaga = require('lspsaga')
 lspsaga.setup({
-  ui = {
-    border = 'single'
-  },
   symbol_in_winbar = {
     folder_level = 1,
   },
@@ -74,23 +71,25 @@ lspsaga.setup({
     scroll_up = '<C-k>',
   },
   finder = {
-    edit   = { "e", "<Cr>" },
-    vsplit = "i",
-    split  = "s",
-    tabe   = "t",
-    quit   = { "<ESC>", "<C-c>", "q" },
+    keys = {
+      edit   = { "e", "<Cr>" },
+      vsplit = "<C-]>",
+      split  = "<C-x>",
+      tabe   = "<C-t>",
+      quit   = { "<ESC>", "<C-c>", "q" },
+    },
   },
   definition = {
     edit   = "<Cr>",
-    vsplit = "i",
-    split  = "s",
-    tabe   = "t",
+    vsplit = "<C-]>",
+    split  = "<C-x>",
+    tabe   = "<C-t>",
     close  = "<Esc>",
-    quit   = "q",
+    quit   = "<M-q>",
   },
   code_action = {
-    kesy = {
-      quit = "q",
+    keys = {
+      quit = "<M-q>",
       exec = "<Cr>",
     }
   },
@@ -101,7 +100,7 @@ lspsaga.setup({
     keys = {
       exec_action = "<Cr>",
       go_action = "g",
-      quit = "q",
+      quit = "<M-q>",
     },
   },
   outline = {
@@ -110,29 +109,31 @@ lspsaga.setup({
     auto_refresh = true,
     keys = {
       jump = "<Cr>",
+      quit = "<M-q>",
       expand_collapse = "o",
-      quit = "q",
     }
   },
   rename = {
-    quit = "<C-c>",
-    exec = "<Cr>",
-    in_select = true,
+    keys = {
+      quit = "<C-c>",
+      exec = "<Cr>",
+      in_select = true,
+    }
   },
   callhierarchy = {
     show_detail = false,
     keys = {
-      edit            = "<Cr>",
-      vsplit          = "i",
-      split           = "s",
-      tabe            = "t",
-      quit            = "q",
-      jump            = "g",
+      edit   = "<Cr>",
+      vsplit = "<C-]>",
+      split  = "<C-x>",
+      tabe   = "<C-t>",
+      quit   = "<M-q>",
+      jump   = "g",
       expand_collapse = "o",
     },
   },
 })
--- Show symbols in winbar need neovim 0.8+
+-- Show symbols in winbar
 vim.wo.winbar = require('lspsaga.symbolwinbar'):get_winbar()
 -- lspsaga maps
 map('n', 'K', [[<Cmd>Lspsaga hover_doc<Cr>]], opts)
