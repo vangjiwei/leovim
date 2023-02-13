@@ -559,12 +559,12 @@ function! preview#preview_goto(cmd)
         exec "norm! \<esc>"
         return
     endif
-    if index(['quickfix', 'help', 'nofile'], &buftype) >= 0
-        if a:mode == '' || a:mode == '0' || a:mode == '!'
-            exec "norm! \<esc>"
-            return
-        endif
-    endif
+    " if index(['quickfix', 'help', 'nofile'], &buftype) >= 0
+    "     if a:mode == '' || a:mode == '0' || a:mode == '!'
+    "         exec "norm! \<esc>"
+    "         return
+    "     endif
+    " endif
     let [l:tabnr, l:winnr] = preview#window_find(pid)
     silent! wincmd P
     let l:bufnr = winbufnr(l:winnr)

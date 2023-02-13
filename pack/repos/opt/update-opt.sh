@@ -2,10 +2,6 @@
 curl -fLo ../../../pack/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 sed -i -e 's/ *$//g' ../../../pack/plug.vim
 
-# vim-preview
-rm -rf vim-preview
-git clone --depth 1 https://github.com/leoatchina/vim-preview.git
-
 # eregex.vim 
 rm -rf eregex.vim 
 git clone --depth 1 https://github.com/othree/eregex.vim.git

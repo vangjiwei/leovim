@@ -38,10 +38,6 @@ if has('nvim') && g:complete_engine != 'cmp' || v:version >= 801
         PackAdd 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
     else
         PackAdd 'gelguy/wilder.nvim'
-        if g:python_version > 3
-            PackAdd 'roxma/nvim-yarp'
-            PackAdd 'roxma/vim-hug-neovim-rpc'
-        endif
     endif
 endif
 " ------------------------------
