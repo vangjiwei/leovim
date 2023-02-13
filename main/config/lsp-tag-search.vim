@@ -217,7 +217,9 @@ function! s:tag_or_searchall(tagname, ...)
         try
             let ret = Execute("silent! PreviewList ". tagname)
             " tag PreviewList error, go on search
-            if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
+            if ret =~ 'tags listed'
+                execute "copen " . g:asyncrun_open
+            elseif ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
                 let s:do_searchall = 1
             else
                 execute "copen " . g:asyncrun_open
@@ -330,10 +332,10 @@ function! LspOrTagOrSearchAll(command, ...) abort
     if index(['vim', 'help'], &filetype) >= 0 && g:complete_engine == 'cmp'
         let l:tag_found = 1
     elseif g:ctags_type != '' && !ret
-        let ret = Execute("silent! tag ". tagname)
-        if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
+        let ret = len(preview#taglist(tagname))
+        if ret == 0
             let l:tag_found = 1
-        else
+        elseif ret == 1
             let l:tag_found = 2
             call s:settagstack(winnr, tagname, pos)
             if g:complete_engine == 'non'
@@ -344,6 +346,10 @@ function! LspOrTagOrSearchAll(command, ...) abort
             if position != ''
                 call s:open_in_postion(position)
             endif
+        else
+            let l:tag_found = 2
+            call preview#quickfix_list(tagname, 0, &filetype)
+            execute "copen " . g:asyncrun_open
         endif
     else
         let l:tag_found = 0
