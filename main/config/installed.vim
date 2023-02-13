@@ -85,6 +85,8 @@ if Installed('wilder.nvim')
     cmap <expr><C-p>   wilder#in_context() ? wilder#previous() : "\<C-p>"
     cmap <expr><Tab>   wilder#in_context() ? wilder#next()     : "\<Tab>"
     cmap <expr><S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
+    " todo , add winder status echo
+    cmap <silent><M-w> <C-u>call wilder#toggle()<Cr>
 endif
 " ------------------------
 " home end
