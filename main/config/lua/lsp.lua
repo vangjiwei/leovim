@@ -75,14 +75,14 @@ lspsaga.setup({
   },
   finder = {
     edit   = { "e", "<Cr>" },
-    vsplit = "v",
+    vsplit = "i",
     split  = "s",
     tabe   = "t",
     quit   = { "<ESC>", "<C-c>", "q" },
   },
   definition = {
     edit   = "<Cr>",
-    vsplit = "v",
+    vsplit = "i",
     split  = "s",
     tabe   = "t",
     close  = "<Esc>",
@@ -123,7 +123,7 @@ lspsaga.setup({
     show_detail = false,
     keys = {
       edit            = "<Cr>",
-      vsplit          = "v",
+      vsplit          = "i",
       split           = "s",
       tabe            = "t",
       quit            = "q",
