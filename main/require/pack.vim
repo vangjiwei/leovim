@@ -1,9 +1,8 @@
 " ------------------------------
 " zfvim
 " ------------------------------
-" zfvimim
 if (Require('wubi') || Require('pinyin')) && g:has_terminal > 0
-    PackAdd 'ZSaberLv0/ZFVimIM', {'merged': 0}
+    PackAdd 'ZSaberLv0/ZFVimIM'
     if Require('wubi')
         PackAdd 'ZSaberLv0/ZFVimIM_wubi_base'
         let g:input_method = 'zfvim_wubi'
@@ -28,7 +27,7 @@ source $REQUIRE_PATH/tag.vim
 " ------------------------------
 " cmdline complete
 " ------------------------------
-if has('nvim') && g:complete_engine != 'cmp' || v:version >= 801
+if has('nvim') && get(g:, "complete_engine", '') != 'cmp' || v:version >= 801 && !has('nvim')
     if has('nvim')
         function! UpdateRemotePlugins(...)
             " Needed to refresh runtime files

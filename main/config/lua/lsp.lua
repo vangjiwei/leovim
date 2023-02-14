@@ -74,11 +74,11 @@ lspsaga.setup({
   },
   finder = {
     keys = {
-      edit   = { "e", "<Cr>" },
+      edit   = "<Cr>",
       vsplit = "<C-]>",
       split  = "<C-x>",
       tabe   = "<C-t>",
-      quit   = { "<ESC>", "<C-c>", "q" },
+      quit   = "<M-q>",
     },
   },
   definition = {
