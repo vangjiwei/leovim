@@ -269,23 +269,25 @@ function! s:coc_jump(jumpCommand, position)
     endif
     return ret
 endfunction
-function! LspOrTagOrSearchAll(command, ...) abort
+function! LspOrTagOrSearchAll(...) abort
     let tagname = expand('<cword>')
     let winnr   = winnr()
     let pos     = getcurpos()
     let pos[0]  = bufnr('')
-    let command = a:command
     if a:0 == 0
         let position = ''
-    else
+    elseif a:0 >= 1
         let position = a:1
+        if a:0 >= 2
+            let l:command = a:2
+        endif
     endif
-    silent! pclose
     " coc
     let ret = 0
-    if g:complete_engine == 'coc'
+    if g:complete_engine == 'coc' && get(l:, 'command', '') =~ 'jump'
         let g:coc_locations_change = v:false
         if s:coc_jump(command, position)
+            silent! pclose
             let l:tag_found = 2
             call s:settagstack(winnr, tagname, pos)
             if !g:coc_locations_change && position != ''
@@ -303,6 +305,7 @@ function! LspOrTagOrSearchAll(command, ...) abort
             let l:tag_found = 1
         elseif ret == 1
             let l:tag_found = 2
+            silent! pclose
             execute "tag " . tagname
             call s:settagstack(winnr, tagname, pos)
             if g:complete_engine == 'coc'
@@ -317,6 +320,7 @@ function! LspOrTagOrSearchAll(command, ...) abort
             silent! redraw
         else
             let l:tag_found = 2
+            silent! pclose
             execute "copen " . g:asyncrun_open
         endif
     else
@@ -331,24 +335,24 @@ endfunction
 if g:complete_engine == 'coc'
     au User CocLocationsChange let g:coc_locations_change = v:true
     " jumpDefinition
-    nnoremap <silent><C-g>  :call LspOrTagOrSearchAll("jumpDefinition")<Cr>
-    nnoremap <silent><M-;>  :call LspOrTagOrSearchAll("jumpDefinition", "float")<Cr>
-    nnoremap <silent><C-]>  :call LspOrTagOrSearchAll("jumpDefinition", "vsplit")<Cr>
-    nnoremap <silent>g<Cr>  :call LspOrTagOrSearchAll("jumpDefinition", "split")<Cr>
-    nnoremap <silent>g<Tab> :call LspOrTagOrSearchAll("jumpDefinition", "tabe")<Cr>
+    nnoremap <silent><C-g>  :call LspOrTagOrSearchAll("", "jumpDefinition")<Cr>
+    nnoremap <silent><M-;>  :call LspOrTagOrSearchAll("float", "jumpDefinition")<Cr>
+    nnoremap <silent><C-]>  :call LspOrTagOrSearchAll("vsplit", "jumpDefinition")<Cr>
+    nnoremap <silent>g<Cr>  :call LspOrTagOrSearchAll("split", "jumpDefinition")<Cr>
+    nnoremap <silent>g<Tab> :call LspOrTagOrSearchAll("tabe", "jumpDefinition")<Cr>
     " jumpImplementation
-    nnoremap <silent><M-?> :call LspOrTagOrSearchAll("jumpImplementation", "float")<Cr>
+    nnoremap <silent><M-?> :call LspOrTagOrSearchAll("float", "jumpImplementation")<Cr>
     " jumpTypeDefinition
-    nnoremap <silent>gh :call LspOrTagOrSearchAll("jumpTypeDefinition", "float")<Cr>
+    nnoremap <silent>gh :call LspOrTagOrSearchAll("float", "jumpTypeDefinition")<Cr>
     " jumpDeclaration
-    nnoremap <silent>gm :call LspOrTagOrSearchAll("jumpDeclaration", "float")<Cr>
+    nnoremap <silent>gm :call LspOrTagOrSearchAll("float", "jumpDeclaration")<Cr>
 else
     if g:complete_engine != 'cmp'
-        nnoremap <silent><C-g> :call LspOrTagOrSearchAll("")<Cr>
+        nnoremap <silent><C-g> :call LspOrTagOrSearchAll()<Cr>
     endif
-    nnoremap <silent><C-]>  :call LspOrTagOrSearchAll("", "vsplit")<Cr>
-    nnoremap <silent>g<Cr>  :call LspOrTagOrSearchAll("", "split")<Cr>
-    nnoremap <silent>g<Tab> :call LspOrTagOrSearchAll("", "tabe")<Cr>
+    nnoremap <silent><C-]>  :call LspOrTagOrSearchAll("vsplit")<Cr>
+    nnoremap <silent>g<Cr>  :call LspOrTagOrSearchAll("split")<Cr>
+    nnoremap <silent>g<Tab> :call LspOrTagOrSearchAll("tabe")<Cr>
 endif
 " --------------------------
 " ctags with leaderf quickui

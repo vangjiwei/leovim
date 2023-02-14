@@ -324,6 +324,7 @@ if Installed('nvim-bqf')
     au FileType qf nmap <buffer> K :BqfToggle<Cr>
     au FileType qf nmap <buffer> i zf
 else
+    au FileType qf nnoremap <silent><buffer>P     :PreviewQuickfix<cr>
     au FileType qf nnoremap <silent><buffer><C-g> :PreviewQuickfix<cr>
     au FileType qf nnoremap <silent><buffer><C-m> :PreviewQuickfix e<Cr>
     au FileType qf nnoremap <silent><buffer><C-]> :PreviewQuickfix vsplit<Cr>
