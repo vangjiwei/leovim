@@ -552,30 +552,30 @@ endfunc
 "----------------------------------------------------------------------
 " goto preview file
 "----------------------------------------------------------------------
-function! preview#preview_goto(cmd)
-    let uid = preview#window_uid('%', '%')
-    let pid = preview#preview_check()
-    if pid == 0 || &previewwindow != 0 || uid == pid
-        exec "norm! \<esc>"
-        return
+function! preview#preview_goto(cmd, ...)
+    let bufnr = (a:0 > 0) ? a:1 : 0
+    if bufnr == 0
+        let uid = preview#window_uid('%', '%')
+        let pid = preview#preview_check()
+        if pid == 0 || &previewwindow != 0 || uid == pid
+            exec "norm! \<esc>"
+            return
+        endif
+        let [l:tabnr, l:winnr] = preview#window_find(pid)
+        silent! wincmd P
+        let bufnr = winbufnr(l:winnr)
+    else
+        silent! wincmd P
     endif
-    if index(['quickfix', 'help', 'nofile'], &buftype) >= 0
-        exec "norm! \<esc>"
-        return
-    endif
-    let [l:tabnr, l:winnr] = preview#window_find(pid)
-    silent! wincmd P
-    let l:bufnr = winbufnr(l:winnr)
-    let l:bufname = bufname(l:bufnr)
+    let l:bufname = bufname(bufnr)
     let l:line = line('.')
-    call preview#window_goto_uid(uid)
+    silent! pclose
     silent exec a:cmd.' '.fnameescape(l:bufname)
-    if winbufnr('%') == l:bufnr
+    if winbufnr('%') == bufnr
         silent exec ''.l:line
         call preview#window_up(0)
     endif
 endfunc
-
 
 "----------------------------------------------------------------------
 " display quickfix item in preview
@@ -589,16 +589,19 @@ function! preview#preview_quickfix(linenr, ...)
     endif
     let entry = qflist[linenr - 1]
     unlet qflist
-    let cmd = a:0 == 0 ? "" : trim(a:1)
+    let cmd = (a:0 == 0) ? "" : trim(a:1)
     if index(["e", "tabe", "vsplit", "split"], cmd) < 0
         let cmd = ""
     endif
     if entry.valid
         if entry.bufnr > 0
-            call preview#preview_edit(entry.bufnr, '', entry.lnum, cmd, 0)
+            call preview#preview_edit(entry.bufnr, '', entry.lnum, "", 0)
             let text = 'Preview: '.bufname(entry.bufnr)
             let text.= ' ('.entry.lnum.')'
             call preview#cmdmsg(text, 1)
+            if cmd != ""
+                call preview#preview_goto(cmd, entry.bufnr)
+            endif
         else
             exec "norm! \<esc>"
         endif
@@ -607,10 +610,6 @@ function! preview#preview_quickfix(linenr, ...)
     endif
     return ""
 endfunc
-
-"----------------------------------------------------------------------
-" TODO: open quickfix item in window
-"----------------------------------------------------------------------
 
 "----------------------------------------------------------------------
 " function signature

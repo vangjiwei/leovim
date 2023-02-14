@@ -93,17 +93,17 @@ endfunc
 command! -nargs=1 -bang PreviewScroll call s:PreviewScroll(<bang>0, <f-args>)
 
 
-"----------------------------------------------------------------------
 " goto the preview window
 "----------------------------------------------------------------------
-command! -nargs=1 PreviewGoto call preview#preview_goto(<q-args>)
+command! -nargs=1 PreviewGoto call preview#preview_goto(<f-args>)
 
 "----------------------------------------------------------------------
 " preview files for quickfix
 "----------------------------------------------------------------------
 function! s:PreviewQuickfix(...)
-    let linenr = (a:0 > 0)? a:1 : 0
-    call preview#preview_quickfix(linenr)
+    let cmd = (a:0 > 0)? a:1 : ""
+    let linenr = (a:0 > 1)? a:2 : 0
+    call preview#preview_quickfix(linenr, cmd)
 endfunc
 
 command! -nargs=? PreviewQuickfix call s:PreviewQuickfix(<f-args>)
