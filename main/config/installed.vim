@@ -81,12 +81,27 @@ if Installed('wilder.nvim')
                 \   'highlighter': s:highlighters,
                 \ }),
                 \ }))
-    cmap <expr><C-n>   wilder#in_context() ? wilder#next()     : "\<C-n>"
-    cmap <expr><C-p>   wilder#in_context() ? wilder#previous() : "\<C-p>"
     cmap <expr><Tab>   wilder#in_context() ? wilder#next()     : "\<Tab>"
     cmap <expr><S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
     " todo , add winder status echo
     cmap <silent><M-w> <C-u>call wilder#toggle()<Cr>
+    let g:wilder_enable = 1
+    function s:wilder_toggle()
+        if g:wilder_enable > 0
+            let g:wilder_enable = 0
+            call wilder#disable()
+            let msg = 'off'
+        else
+            let g:wilder_enable = 1
+            call wilder#enable()
+            let msg = 'on'
+        endif
+        echom "wilder is " . msg
+        sleep 1
+        redraw
+    endfunction
+    command! WilderToggle call s:wilder_toggle()
+    cnoremap <M-w> <C-u>WilderToggle<Cr>
 else
     cmap <M-w> <Esc>
 endif
