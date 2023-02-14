@@ -580,7 +580,7 @@ endfunc
 "----------------------------------------------------------------------
 " display quickfix item in preview
 "----------------------------------------------------------------------
-function! preview#preview_quickfix(linenr)
+function! preview#preview_quickfix(linenr, ...)
     let linenr = (a:linenr > 0)? a:linenr : line('.')
     let qflist = getqflist()
     if linenr < 1 || linenr > len(qflist)
@@ -589,9 +589,13 @@ function! preview#preview_quickfix(linenr)
     endif
     let entry = qflist[linenr - 1]
     unlet qflist
+    let cmd = a:0 == 0 ? "" : trim(a:1)
+    if index(["e", "tabe", "vsplit", "split"], cmd) < 0
+        let cmd = ""
+    endif
     if entry.valid
         if entry.bufnr > 0
-            call preview#preview_edit(entry.bufnr, '', entry.lnum, '', 0)
+            call preview#preview_edit(entry.bufnr, '', entry.lnum, cmd, 0)
             let text = 'Preview: '.bufname(entry.bufnr)
             let text.= ' ('.entry.lnum.')'
             call preview#cmdmsg(text, 1)
