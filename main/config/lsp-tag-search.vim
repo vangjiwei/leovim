@@ -53,36 +53,6 @@ if Installed('vim-gutentags')
     endif
 endif
 " --------------------------
-" ctags with leaderf quickui
-" --------------------------
-if get(g:, 'ctags_type', '') != '' && g:complete_engine != 'cmp'
-    if WINDOWS()
-        let g:fzf_tags_command = "ctags"
-    else
-        let g:fzf_tags_command = "ctags 2>/dev/null"
-    endif
-    " show functions
-    if g:symbol_tool =~ "leaderfctags"
-        let g:Lf_Ctags = g:fzf_tags_command
-        nnoremap <silent>F<Cr> :Leaderf function --all<Cr>
-    endif
-    if g:symbol_tool =~ "leaderfctags"
-        nnoremap <silent>T<Cr> :LeaderfTag<Cr>
-    endif
-    if g:symbol_tool =~ "leaderfctags"
-        nnoremap <silent>t<Cr> :LeaderfBufTagAll<Cr>
-        nnoremap <silent>f<Cr> :Leaderf function<Cr>
-    elseif Installed('vim-quickui')
-        nnoremap <silent>f<Cr> :call quickui#tools#list_function()<Cr>
-    endif
-    " preview tag
-    if Installed('vim-quickui')
-        nnoremap <silent><M-:> :call quickui#tools#preview_tag('')<Cr>
-    else
-        nnoremap <silent><M-:> :PreviewTag<Cr>
-    endif
-endif
-" --------------------------
 " symbols in buf
 " --------------------------
 if g:complete_engine == 'coc'
@@ -310,6 +280,7 @@ function! LspOrTagOrSearchAll(command, ...) abort
     else
         let position = a:1
     endif
+    silent! pclose
     " coc
     let ret = 0
     if g:complete_engine == 'coc'
@@ -327,7 +298,7 @@ function! LspOrTagOrSearchAll(command, ...) abort
     if index(['vim', 'help'], &filetype) >= 0 && g:complete_engine == 'cmp'
         let l:tag_found = 1
     elseif g:ctags_type != '' && ret == 0
-        let ret = len(preview#tagfind(tagname))
+        let ret = preview#quickfix_list(tagname, 0, &filetype)
         if ret == 0
             let l:tag_found = 1
         elseif ret == 1
@@ -342,10 +313,10 @@ function! LspOrTagOrSearchAll(command, ...) abort
             if position != ''
                 call s:open_in_postion(position)
             endif
-            return
+            sleep 500ms
+            silent! redraw
         else
             let l:tag_found = 2
-            call preview#quickfix_list(tagname, 0, &filetype)
             execute "copen " . g:asyncrun_open
         endif
     else
@@ -360,9 +331,9 @@ endfunction
 if g:complete_engine == 'coc'
     au User CocLocationsChange let g:coc_locations_change = v:true
     " jumpDefinition
-    nnoremap <silent><C-]>  :call LspOrTagOrSearchAll("jumpDefinition")<Cr>
+    nnoremap <silent><C-g>  :call LspOrTagOrSearchAll("jumpDefinition")<Cr>
     nnoremap <silent><M-;>  :call LspOrTagOrSearchAll("jumpDefinition", "float")<Cr>
-    nnoremap <silent><C-g>  :call LspOrTagOrSearchAll("jumpDefinition", "vsplit")<Cr>
+    nnoremap <silent><C-]>  :call LspOrTagOrSearchAll("jumpDefinition", "vsplit")<Cr>
     nnoremap <silent>g<Cr>  :call LspOrTagOrSearchAll("jumpDefinition", "split")<Cr>
     nnoremap <silent>g<Tab> :call LspOrTagOrSearchAll("jumpDefinition", "tabe")<Cr>
     " jumpImplementation
@@ -372,14 +343,43 @@ if g:complete_engine == 'coc'
     " jumpDeclaration
     nnoremap <silent>gm :call LspOrTagOrSearchAll("jumpDeclaration", "float")<Cr>
 else
-    if g:complete_engine == 'cmp'
-        if g:ctags_type != ''
-            nnoremap <silent><C-]> :call LspOrTagOrSearchAll("")<Cr>
-        endif
-    else
-        nnoremap <silent><M-;> :call LspOrTagOrSearchAll("")<Cr>
+    if g:complete_engine != 'cmp'
+        nnoremap <silent><C-g> :call LspOrTagOrSearchAll("")<Cr>
     endif
-    nnoremap <silent><C-g>  :call LspOrTagOrSearchAll("", "vsplit")<Cr>
+    nnoremap <silent><C-]>  :call LspOrTagOrSearchAll("", "vsplit")<Cr>
     nnoremap <silent>g<Cr>  :call LspOrTagOrSearchAll("", "split")<Cr>
     nnoremap <silent>g<Tab> :call LspOrTagOrSearchAll("", "tabe")<Cr>
+endif
+" --------------------------
+" ctags with leaderf quickui
+" --------------------------
+if get(g:, 'ctags_type', '') != '' && g:complete_engine != 'cmp'
+    if WINDOWS()
+        let g:fzf_tags_command = "ctags"
+    else
+        let g:fzf_tags_command = "ctags 2>/dev/null"
+    endif
+    " show functions
+    if g:symbol_tool =~ "leaderfctags"
+        let g:Lf_Ctags = g:fzf_tags_command
+        nnoremap <silent>F<Cr> :Leaderf function --all<Cr>
+    endif
+    if g:symbol_tool =~ "leaderfctags"
+        nnoremap <silent>T<Cr> :LeaderfTag<Cr>
+    endif
+    if g:symbol_tool =~ "leaderfctags"
+        nnoremap <silent>t<Cr> :LeaderfBufTagAll<Cr>
+        nnoremap <silent>f<Cr> :Leaderf function<Cr>
+    elseif Installed('vim-quickui')
+        nnoremap <silent>f<Cr> :call quickui#tools#list_function()<Cr>
+    endif
+    " preview tag
+    if Installed('vim-quickui')
+        nnoremap <silent><M-:> :call quickui#tools#preview_tag('')<Cr>
+    else
+        nnoremap <silent><M-:> :PreviewTag<Cr>
+    endif
+    if g:complete_engine != 'coc'
+        nnoremap <silent><M-;> :PreviewTag<Cr>
+    endif
 endif

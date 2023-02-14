@@ -19,9 +19,7 @@ require('mason-lspconfig').setup({
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lsp_attach = function(client, bufnr)
-  if vim.g.ctags_type == '' then
-    vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, { buffer = bufnr })
-  end
+  vim.keymap.set('n', '<C-g>', vim.lsp.buf.definition, { buffer = bufnr })
   vim.keymap.set('n', '<M-/>', vim.lsp.buf.references, { buffer = bufnr })
   vim.keymap.set('n', '<M-?>', vim.lsp.buf.implementation, { buffer = bufnr })
   vim.keymap.set('n', 'gh', vim.lsp.buf.type_definition, { buffer = bufnr })
@@ -101,7 +99,7 @@ lspsaga.setup({
     show_source = true,
     keys = {
       exec_action = "<Cr>",
-      go_action = "g",
+      go_action = "<C-g>",
       quit = "<M-q>",
     },
   },
@@ -130,7 +128,7 @@ lspsaga.setup({
       split  = "<C-x>",
       tabe   = "<C-t>",
       quit   = "<M-q>",
-      jump   = "g",
+      jump   = "<C-g>",
       expand_collapse = "o",
     },
   },
