@@ -61,14 +61,28 @@ cmp.setup({
       else
         fallback()
       end
-    end, { "i", "c" }),
+    end, {"i"}),
     ["<C-p>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
       else
         fallback()
       end
-    end, { "i", "c" }),
+    end, {"i"}),
+    ["<C-j>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+      else
+        fallback()
+      end
+    end, {"c"}),
+    ["<C-k>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+      else
+        fallback()
+      end
+    end, {"c"}),
     ['<C-e>'] = {
       c = cmp.mapping.abort(),
       i = function()
