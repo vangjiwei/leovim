@@ -52,15 +52,15 @@ if has('nvim') || has('timers') && has('channel') && has('job')
     nnoremap <leader>R :AsyncRun
     PackAdd 'asyncrun.vim'
     if UNIX()
-        silent! call mkdir("$HOME/.cache/build", "p")
+        silent! call mkdir(expand("$HOME/.cache/build"), "p")
         if executable('gcc')
-            let g:gcc_cmd = 'time gcc -Wall -O2 $(VIM_FILEPATH) -o $HOME/.cache/build/$(VIM_FILENOEXT) && time $HOME/.cache/build/$(VIM_FILENOEXT)'
+            let g:gcc_cmd = 'time gcc -Wall -O2 $(VIM_FILEPATH) -o ~/.cache/build/$(VIM_FILENOEXT) && echo "== compile finished ==" && time ~/.cache/build/$(VIM_FILENOEXT)'
         endif
         if executable('g++')
-            let g:gpp_cmd = 'time g++ -Wall -O2 $(VIM_FILEPATH) -o $HOME/.cache/build/$(VIM_FILENOEXT) && time $HOME/.cache/build/$(VIM_FILENOEXT)'
+            let g:gpp_cmd = 'time g++ -Wall -O2 $(VIM_FILEPATH) -o ~/.cache/build/$(VIM_FILENOEXT) && echo "== compile finished ==" && time ~/.cache/build/$(VIM_FILENOEXT)'
         endif
         if executable('rustc')
-            let g:rustc_cmd = 'time rustc -o $(VIM_FILENOEXT) --out-dir $HOME/.cache/build/$(VIM_FILEPATH) && time $HOME/.cache/build/$(VIM_FILENOEXT)'
+            let g:rustc_cmd = 'time rustc -o $(VIM_FILENOEXT) --out-dir ~/.cache/build && echo "== compile finished ==" && time ~/.cache/build/$(VIM_FILENOEXT)'
         endif
     elseif WINDOWS()
         if executable('gcc')
