@@ -11,6 +11,7 @@
 " window basic
 "----------------------------------------------------------------------
 
+let s:cmds = ["e", "tabe", "vsplit", "split"]
 " save all window's view
 function! preview#window_saveview()
     function! s:window_view_save()
@@ -581,6 +582,10 @@ endfunc
 " display quickfix item in preview
 "----------------------------------------------------------------------
 function! preview#preview_quickfix(linenr, ...)
+    let cmd = (a:0 == 0) ? "" : trim(a:1)
+    if index(s:cmds, cmd) < 0
+        let cmd = ""
+    endif
     let linenr = (a:linenr > 0)? a:linenr : line('.')
     let qflist = getqflist()
     if linenr < 1 || linenr > len(qflist)
@@ -589,18 +594,22 @@ function! preview#preview_quickfix(linenr, ...)
     endif
     let entry = qflist[linenr - 1]
     unlet qflist
-    let cmd = (a:0 == 0) ? "" : trim(a:1)
-    if index(["e", "tabe", "vsplit", "split"], cmd) < 0
-        let cmd = ""
-    endif
     if entry.valid
         if entry.bufnr > 0
-            call preview#preview_edit(entry.bufnr, '', entry.lnum, "", 0)
-            let text = 'Preview: '.bufname(entry.bufnr)
-            let text.= ' ('.entry.lnum.')'
-            call preview#cmdmsg(text, 1)
-            if cmd != ""
-                call preview#preview_goto(cmd, entry.bufnr)
+            if cmd == ""
+                call preview#preview_edit(entry.bufnr, '', entry.lnum, "", 0)
+                let text = 'Preview: '.bufname(entry.bufnr)
+                let text.= ' ('.entry.lnum.')'
+                call preview#cmdmsg(text, 1)
+            else
+                let l:bufname = bufname(entry.bufnr)
+                silent! wincmd w
+                silent! pclose
+                silent! cclose
+                silent exec cmd.' '.fnameescape(l:bufname)
+                if entry.lnum > 0
+                    noautocmd exec "" . entry.lnum
+                endif
             endif
         else
             exec "norm! \<esc>"
