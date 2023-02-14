@@ -295,9 +295,7 @@ function! s:coc_jump(jumpCommand, position)
         let ret = ''
     endtry
     if ret
-        echo "found by coc " . jumpCommand
-    else
-        echohl WarningMsg | echom jumpCommand . " not found by coc " | echohl None
+        echohl WarningMsg | echom "found by coc " . jumpCommand | echohl None
     endif
     return ret
 endfunction
@@ -336,10 +334,15 @@ function! LspOrTagOrSearchAll(command, ...) abort
             let l:tag_found = 2
             execute "tag " . tagname
             call s:settagstack(winnr, tagname, pos)
-            echohl WarningMsg | echom "found by ctags " | echohl None
+            if g:complete_engine == 'coc'
+                echohl WarningMsg | echom "Not found by coc " . command . " but found by ctags" | echohl None
+            else
+                echohl WarningMsg | echom "found by ctags" | echohl None
+            endif
             if position != ''
                 call s:open_in_postion(position)
             endif
+            return
         else
             let l:tag_found = 2
             call preview#quickfix_list(tagname, 0, &filetype)
