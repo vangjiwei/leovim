@@ -300,7 +300,11 @@ function! LspOrTagOrSearchAll(...) abort
     if index(['vim', 'help'], &filetype) >= 0 && g:complete_engine == 'cmp'
         let l:tag_found = 1
     elseif g:ctags_type != '' && ret == 0
-        let ret = preview#quickfix_list(tagname, 0, &filetype)
+        try
+            let ret = preview#quickfix_list(tagname, 0, &filetype)
+        catch /.*/
+            let ret = 0
+        endtry
         if ret == 0
             let l:tag_found = 1
         elseif ret == 1
@@ -316,7 +320,7 @@ function! LspOrTagOrSearchAll(...) abort
             if position != ''
                 call s:open_in_postion(position)
             endif
-            sleep 500ms
+            sleep 256ms
             silent! redraw
         else
             let l:tag_found = 2
