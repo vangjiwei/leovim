@@ -23,12 +23,32 @@ function! VSCodeNotifyVisual(cmd, leaveSelection, ...)
     endif
 endfunction
 xnoremap <C-S-P> <Cmd>call VSCodeNotifyVisual("workbench.action.showCommands", 1)<CR>
+nnoremap \| <Cmd>call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>')})<CR>
+nnoremap <C-o> <Cmd>call VSCodeNotify("workbench.action.navigateBack")<CR>
+nnoremap <C-i> <Cmd>call VSCodeNotify("workbench.action.navigateForward")<CR>
+" ------------------------
+" movement
+" ------------------------
+function! s:toFirstCharOfScreenLine()
+    call VSCodeNotify('cursorMove', { 'to': 'wrappedLineFirstNonWhitespaceCharacter' })
+endfunction
+function! s:toLastCharOfScreenLine()
+    call VSCodeNotify('cursorMove', { 'to': 'wrappedLineLastNonWhitespaceCharacter' })
+    " Offfset cursor moving to the right caused by calling VSCode command in Vim mode
+    call VSCodeNotify('cursorLeft')
+endfunction
+nnoremap g0 <Cmd>call <SID>toFirstCharOfScreenLine()<CR>
+nnoremap g$ <Cmd>call <SID>toLastCharOfScreenLine()<CR>
+" Note: Using these in macro will break it
+nnoremap gk <Cmd>call VSCodeNotify('cursorMove', { 'to': 'up', 'by': 'wrappedLine', 'value': v:count1 })<CR>
+nnoremap gj <Cmd>call VSCodeNotify('cursorMove', { 'to': 'down', 'by': 'wrappedLine', 'value': v:count1 })<CR>
 " ------------------------
 " Find in files for word under cursor in vscode
 " ------------------------
 nnoremap s<Cr> <Cmd>call VSCodeNotify("workbench.action.findInFiles", {'query': expand('<cword>')})<CR>
 nnoremap s;    <Cmd>call VSCodeNotify("editor.action.startFindReplaceAction")<Cr>
 nnoremap s/    <Cmd>call VSCodeNotify("actions.find")<Cr>
+" quickfix
 nnoremap <C-.> <Cmd>call VSCodeNotify("keyboard-quickfix.openQuickFix")<CR>
 nnoremap <C-a> <Cmd>call VSCodeNotify("editor.action.selectAll")<Cr>
 xnoremap <C-x> <Cmd>call VSCodeNotifyVisual("editor.action.clipboardCutAction", 1)<Cr>
