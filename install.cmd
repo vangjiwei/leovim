@@ -25,7 +25,7 @@ REM create vimrc
 echo if filereadable(expand("~/.vimrc.test")) > "%HOME%\.vimrc"
 echo    source ~/.vimrc.test >> "%HOME%\.vimrc"
 echo else >> "%HOME%\.vimrc"
-echo    source ~/.leovim.conf/start.vim >> "%HOME%\.vimrc"
+echo    source ~/.leovim.conf/init.vim >> "%HOME%\.vimrc"
 echo endif >> "%HOME%\.vimrc"
 REM cp vimrc
 call copy "%HOME%\.vimrc" "%HOME%\.gvimrc"

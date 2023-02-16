@@ -102,7 +102,7 @@ augroup END
 if exists("##SourcePost")
     augroup startvim
         autocmd!
-        autocmd FileType vim,python autocmd SourcePost start.vim set shiftwidth=4 softtabstop=4 tabstop=4
+        autocmd FileType vim,python autocmd SourcePost init.vim set shiftwidth=4 softtabstop=4 tabstop=4
     augroup END
 endif
 " ----------------------

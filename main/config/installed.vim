@@ -404,16 +404,7 @@ function! s:OpenFileLinkInIde(text, pos, ide)
         echo "Not a valid file path"
     endif
 endfunc
-if executable('idea64') && Require('idea')
-    command! OpenFileLinkInIdea call s:OpenFileLinkInIde(getline("."), col("."), "idea64")
-    nnoremap <leader>eI :OpenFileLinkInIdea<cr>
-    if Installed('asyncrun.vim')
-        nnoremap <leader>ei :<c-r>=printf("AsyncRun -silent idea64 --line %d %s", line("."), expand("%:p"))<cr><cr>
-    else
-        nnoremap <leader>ei :<c-r>=printf("!idea64 --line %d %s", line("."), expand("%:p"))<cr><cr>
-    endif
-endif
-if executable('code') && Require('vscode')
+if executable('code')
     command! OpenFileLinkInVSCode call s:OpenFileLinkInIde(getline("."), col("."), "code")
     nnoremap <leader>eV :OpenFileLinkInVSCode<cr>
     if Installed('asyncrun.vim')

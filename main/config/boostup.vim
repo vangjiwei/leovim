@@ -887,13 +887,13 @@ nnoremap <silent><leader>O :BdOther<Cr>
 nnoremap <silent><leader>q    :q!<Cr>
 nnoremap <silent><leader><BS> :qall!<Cr>
 " ------------------------
-" source start.vim
+" source init.vim
 " ------------------------
-nnoremap <leader>e<Cr> :source $LEOVIM_PATH/start.vim<Cr>
+nnoremap <leader>e<Cr> :source $LEOVIM_PATH/init.vim<Cr>
 " ------------------------
 " open config file
 " ------------------------
-nnoremap <leader>es :tabe $LEOVIM_PATH/start.vim<Cr>
+nnoremap <leader>ei :tabe $LEOVIM_PATH/init.vim<Cr>
 nnoremap <leader>el :tabe $HOME/.vimrc.local<Cr>
 nnoremap <leader>ec :tabe $MAIN_PATH/common.vim<Cr>
 nnoremap <leader>eb :tabe $CONFIG_PATH/boostup.vim<Cr>
