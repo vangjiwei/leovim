@@ -605,7 +605,6 @@ function! preview#preview_quickfix(linenr, ...)
                 let l:bufname = bufname(entry.bufnr)
                 silent! wincmd w
                 silent! pclose
-                silent! cclose
                 silent exec cmd.' '.fnameescape(l:bufname)
                 if entry.lnum > 0
                     noautocmd exec "" . entry.lnum
