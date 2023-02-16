@@ -868,7 +868,7 @@ function! s:Bclose(bang, buffer)
             " Take the first buffer, if any (could be more intelligent).
             let bjump = (bhidden + blisted + [-1])[0]
             if bjump > 0
-                execute 'buffer '.bjump
+            execute 'buffer '.bjump
             else
                 execute 'enew'.a:bang
             endif
