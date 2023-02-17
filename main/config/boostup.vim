@@ -783,6 +783,9 @@ snoremap <C-g> <ESC>
 inoremap <M-q> <ESC>
 xnoremap <M-q> <ESC>
 cnoremap <M-q> <ESC>
+inoremap <M-w> <ESC>
+xnoremap <M-w> <ESC>
+cnoremap <M-w> <ESC>
 function! ConfirmQuit() abort
     if index(['help', 'gitcommit', ''], &ft) >= 0
         q!
