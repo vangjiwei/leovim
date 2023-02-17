@@ -291,7 +291,7 @@ endif
 " coc-fzf
 " ------------------------
 if Installed('coc-fzf')
-    let g:coc_fzf_preview = 'up:50%'
-    let g:coc_fzf_opts = ['--layout=reverse-list']
+    let g:coc_fzf_preview = ''
+    let g:coc_fzf_opts = []
     let g:coc_fzf_preview_toggle_key = 'ctrl-/'
 endif
