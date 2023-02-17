@@ -364,12 +364,14 @@ if Installed("nvim-notify")
     if !InstalledTelescope()
         nnoremap <silent><M-h>n :lua require("notify").history()<Cr>
     endif
+    nnoremap <silent><M-h>M :call Notify_messages()<Cr>
 endif
 " --------------------------
 " quickui
 " --------------------------
 if Installed('vim-quickui')
     let g:quickui_border_style = 2
+    nnoremap <silent><M-h>m :call quickui#tools#display_messages()<Cr>
     function! s:PreviewFileO(filename) abort
         let filename = a:filename
         let fopts = {'cursor':-1, 'number':1, 'persist':0, 'w':80, 'h':64}
@@ -377,18 +379,12 @@ if Installed('vim-quickui')
     endfunction
     command! -nargs=1 -complete=file PreviewFileO call s:PreviewFileO(<f-args>)
     nnoremap <Tab>O :PreviewFileO
-    if Installed('nvim-notify')
-        nnoremap <silent><M-h>m :call quickui#tools#display_messages()<Cr>
-        nnoremap <silent><M-h>M :call Notify_messages()<Cr>
-    else
-        nnoremap <silent><M-h>m :call Notify_messages()<Cr>
-    endif
     nnoremap <F13> :call quickui#preview#scroll(1)<Cr>
     nnoremap <F14> :call quickui#preview#scroll(-1)<Cr>
     if Installed('coc.nvim')
         nmap <silent><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : quickui#preview#visible() > 0 ? "\<F13>" : "\%"
         nmap <silent><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : quickui#preview#visible() > 0 ? "\<F14>" : "\g%"
-    " TODO : cmp
+    " TODO : cmp scroll if available
     else
         nmap <silent><expr> <C-j> quickui#preview#visible() > 0 ? "\<F13>" : "\%"
         nmap <silent><expr> <C-k> quickui#preview#visible() > 0 ? "\<F14>" : "\g%"

@@ -74,7 +74,6 @@ if Installed('vista.vim')
     endfunction
     let g:lightline.component_function.symbol = 'CurrentSymbol'
     let g:lightline.active.left = [['gitbranch', 'readonly', 'paste' ], ['rootpath'], ['filename', 'symbol', 'modified']]
-    autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 else
     let g:lightline.active.left = [['gitbranch', 'readonly', 'paste' ], ['rootpath'], ['filename', 'modified']]
 endif

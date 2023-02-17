@@ -663,7 +663,7 @@ else
     let s:smart_engine_select = 1
 endif
 if get(s:, 'smart_engine_select', 0)
-    if get(g:, 'node_version', '') != '' && (has('nvim') || has('patch-8.2.0750') && require('coc'))
+    if get(g:, 'node_version', '') != '' && (has('nvim') || has('patch-8.2.0750') && Require('coc'))
         let g:complete_engine = 'coc'
     elseif has('nvim-0.8')
         let g:complete_engine = 'cmp'
