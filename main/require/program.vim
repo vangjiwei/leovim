@@ -34,14 +34,10 @@ endif
 " ------------------------------
 if g:complete_engine == 'cmp'
     let g:complete_snippets = 'luasnip'
-elseif g:complete_engine == 'coc'
-    if g:python_version > 3.6
-        let g:complete_snippets = 'ultisnips'
-    else
-        let g:complete_snippets = 'coc-snippets'
-    endif
-elseif g:complete_engine == 'mcm' && exists('##TextChangedP') && g:python_version > 3.6
+elseif exists('##TextChangedP') && g:python_version > 3.6 && g:complete_engine != 'non'
     let g:complete_snippets = 'ultisnips'
+elseif g:complete_engine == 'coc'
+    let g:complete_snippets = 'coc-snippets'
 else
     let g:complete_snippets = ''
 endif
