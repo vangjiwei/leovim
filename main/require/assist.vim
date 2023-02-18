@@ -60,7 +60,7 @@ endif
 " quickui
 " ------------------------------
 if v:version >= 802 || has('nvim')
-    PackAdd 'skywind3000/vim-quickui'
+    PackAdd 'vim-quickui'
 endif
 " ------------------------------
 " devicons

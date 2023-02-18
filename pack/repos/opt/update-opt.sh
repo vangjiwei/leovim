@@ -93,6 +93,10 @@ git clone --depth 1 https://github.com/leoatchina/vim-repl.git
 rm -rf iron.nvim
 git clone --depth 1 https://github.com/leoatchina/iron.nvim.git
 
+# vim-quickui
+rm -rf vim-quickui 
+git clone --depth 1 https://github.com/skywind3000/vim-quickui
+
 # delete files and dirs
 find . -type f | grep -i \.gitignore$ | xargs rm -f
 find . -type f | grep -i \.jpg$       | xargs rm -f
