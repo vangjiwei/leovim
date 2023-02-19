@@ -151,61 +151,6 @@ if g:symbol_tool =~ 'leaderfgtags'
     nnoremap <silent><leader>g. :Leaderf gtags --recall<Cr>
 endif
 " --------------------------
-" lsp or references
-" --------------------------
-if g:complete_engine == 'cmp' && InstalledTelescope() && InstalledLsp() && InstalledCmp()
-    luafile $LUA_PATH/lsp.lua
-else
-    if Installed("coc.nvim")
-        nmap <silent><M-/> :call LspOrTagOrSearchAll("jumpReferences", "float")<Cr>
-        nmap <silent>g/    <Plug>(coc-refactor)
-    else
-        if get(g:, 'symbol_tool', '') =~ 'leaderfgtags'
-            nmap <silent><M-/> :Leaderf gtags -i -g <C-r>=expand('<cword>')<Cr><Cr>
-        elseif get(g:, 'symbol_tool', '') =~ 'plus'
-            nmap <silent><M-/> :GscopeFind g <C-r>=expand('<cword>')<Cr><Cr>
-        endif
-    endif
-endif
-" --------------------------
-" tag_or_searchall
-" --------------------------
-function! s:tag_or_searchall(tagname, ...)
-    if a:tagname == ''
-        let tagname = expand('<cword>')
-    else
-        let tagname = a:tagname
-    endif
-    if a:0 == 0
-        let tag_found = 0
-    else
-        let tag_found = a:1
-    endif
-    if g:ctags_type != '' && tag_found == 0
-        try
-            " tag PreviewList error, go on search
-            if preview#quickfix_list(tagname, 0, &filetype)
-                execute "copen " . g:asyncrun_open
-            else
-                let s:do_searchall = 1
-            endif
-        catch /.*/
-            let s:do_searchall = 1
-        endtry
-    else
-        let s:do_searchall = 1
-    endif
-    if get(s:, 'do_searchall', 0) && tag_found <= 1
-        if get(g:, 'search_all_cmd', '') != ''
-            execute g:search_all_cmd . ' ' . tagname
-        else
-            echom "No tag found, and cannot do global grep search."
-        endif
-    endif
-endfunction
-command! TagOrSearchAll call s:tag_or_searchall("")
-nnoremap <silent> gl :TagOrSearchAll<Cr>
-" --------------------------
 " find wich lsp or tags
 " --------------------------
 function! s:settagstack(winnr, tagname, pos)
@@ -269,66 +214,62 @@ function! LspOrTagOrSearchAll(...) abort
     let winnr   = winnr()
     let pos     = getcurpos()
     let pos[0]  = bufnr('')
-    if a:0 == 0
-        let position = ''
-    elseif a:0 >= 1
-        let position = a:1
+    if a:0 >= 1
+        let l:postion = a:1
         if a:0 >= 2
             let l:command = a:2
         endif
     endif
     " coc
-    let ret = 0
     if g:complete_engine == 'coc' && get(l:, 'command', '') =~ 'jump'
         let g:coc_locations_change = v:false
-        if s:coc_jump(command, position)
+        if s:coc_jump(command, l:postion)
             silent! pclose
             let l:tag_found = 2
             call s:settagstack(winnr, tagname, pos)
-            if !g:coc_locations_change && position != ''
-                call s:open_in_postion(position)
+            if !g:coc_locations_change && l:postion != ''
+                call s:open_in_postion(l:postion)
             endif
             let ret = 1
+        else
+            let ret = 0
         endif
+    else
+        let ret = 0
     endif
     " tags
-    if index(['vim', 'help'], &filetype) >= 0 && g:complete_engine == 'cmp'
-        let l:tag_found = 1
-    elseif g:ctags_type != '' && ret == 0
+    if g:ctags_type != '' && ret == 0
         try
             let ret = preview#quickfix_list(tagname, 0, &filetype)
         catch /.*/
             let ret = 0
         endtry
-        if ret == 0
-            let l:tag_found = 1
-        elseif ret == 1
-            let l:tag_found = 2
+        if ret == 1 && a:0 > 0
             silent! pclose
             execute "tag " . tagname
             call s:settagstack(winnr, tagname, pos)
             if g:complete_engine == 'coc'
-                echohl WarningMsg | echom "Not found by coc " . command . " but found by ctags" | echohl None
+                echohl WarningMsg | echom "Not found by coc " . l:command . " but found by ctags" | echohl None
             else
                 echohl WarningMsg | echom "found by ctags" | echohl None
             endif
-            if position != ''
-                call s:open_in_postion(position)
+            if l:postion != ''
+                call s:open_in_postion(l:postion)
             endif
-            sleep 256ms
-            silent! redraw
-        else
-            let l:tag_found = 2
+        elseif ret > 0
             silent! pclose
             execute "copen " . g:asyncrun_open
         endif
-    else
-        let l:tag_found = 0
+        silent! redraw
     endif
-    " NOTE:tag_found == 0 : ctags not checked,
-    " tag_found == 1 : ctags checked but not found
-    if get(l:, 'tag_found', 2) < 2
-        call s:tag_or_searchall(tagname, l:tag_found)
+    if ret == 0
+        if get(s:, 'do_searchall', 0) && tag_found <= 1
+            if get(g:, 'search_all_cmd', '') == ''
+                echom "No tag found, and cannot do global grep search."
+            else
+                execute g:search_all_cmd . ' ' . tagname
+            endif
+        endif
     endif
 endfunction
 if g:complete_engine == 'coc'
@@ -347,11 +288,29 @@ if g:complete_engine == 'coc'
     nnoremap <silent>gm :call LspOrTagOrSearchAll("float", "jumpDeclaration")<Cr>
 else
     if g:complete_engine != 'cmp'
-        nnoremap <silent><C-g> :call LspOrTagOrSearchAll()<Cr>
+        nnoremap <silent><C-g> :call LspOrTagOrSearchAll("")<Cr>
     endif
     nnoremap <silent><C-]>  :call LspOrTagOrSearchAll("vsplit")<Cr>
     nnoremap <silent>g<Cr>  :call LspOrTagOrSearchAll("split")<Cr>
     nnoremap <silent>g<Tab> :call LspOrTagOrSearchAll("tabe")<Cr>
+endif
+nnoremap <silent>gl :call LspOrTagOrSearchAll()<Cr>
+" --------------------------
+" lsp or references
+" --------------------------
+if g:complete_engine == 'cmp' && InstalledTelescope() && InstalledLsp() && InstalledCmp()
+    luafile $LUA_PATH/lsp.lua
+else
+    if Installed("coc.nvim")
+        nmap <silent><M-/> :call LspOrTagOrSearchAll("jumpReferences", "float")<Cr>
+        nmap <silent>g/    <Plug>(coc-refactor)
+    else
+        if get(g:, 'symbol_tool', '') =~ 'leaderfgtags'
+            nmap <silent><M-/> :Leaderf gtags -i -g <C-r>=expand('<cword>')<Cr><Cr>
+        elseif get(g:, 'symbol_tool', '') =~ 'plus'
+            nmap <silent><M-/> :GscopeFind g <C-r>=expand('<cword>')<Cr><Cr>
+        endif
+    endif
 endif
 " --------------------------
 " ctags with leaderf quickui
