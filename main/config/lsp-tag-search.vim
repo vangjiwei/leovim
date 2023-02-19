@@ -187,9 +187,7 @@ function! s:tag_or_searchall(tagname, ...)
         try
             let ret = Execute("silent! PreviewList ". tagname)
             " tag PreviewList error, go on search
-            if ret =~ 'tags listed'
-                execute "copen " . g:asyncrun_open
-            elseif ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
+            if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
                 let s:do_searchall = 1
             else
                 execute "copen " . g:asyncrun_open
