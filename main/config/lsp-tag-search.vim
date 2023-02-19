@@ -181,16 +181,13 @@ function! s:tag_or_searchall(tagname, ...)
     else
         let tag_found = a:1
     endif
-    if index(['vim', 'help'], &filetype) >= 0 && g:complete_engine == 'cmp'
-        let s:do_searchall = 1
-    elseif g:ctags_type != '' && tag_found == 0
+    if g:ctags_type != '' && tag_found == 0
         try
-            let ret = Execute("silent! PreviewList ". tagname)
             " tag PreviewList error, go on search
-            if ret =~ "E433" || ret =~ "E426" || ret =~ "E257"
-                let s:do_searchall = 1
-            else
+            if preview#quickfix_list(tagname, 0, &filetype)
                 execute "copen " . g:asyncrun_open
+            else
+                let s:do_searchall = 1
             endif
         catch /.*/
             let s:do_searchall = 1
