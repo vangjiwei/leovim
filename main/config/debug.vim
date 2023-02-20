@@ -125,7 +125,7 @@ if Installed('nvim-dap', 'nvim-dap-ui')
     nnoremap <silent> ,i <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.expression)<CR>
     " breakpoint
     nnoremap <silent> ,b <cmd>lua require("dap").toggle_breakpoint()<CR>
-    nnoremap <silent> ,B <cmd>lua require("dap").clear_breakpoints()<CR>
+    nnoremap <silent> ,C <cmd>lua require("dap").clear_breakpoints()<CR>
     nnoremap <silent> ,l <cmd>lua require("dap").list_breakpoints()<Cr>
     nnoremap <silent> <M-d>i <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints info: '))<CR>
     nnoremap <silent> <M-d>e <cmd>lua require("dap").set_exception_breakpoints("")<left><left>
@@ -215,7 +215,7 @@ elseif Installed('vimspector')
     nnoremap <silent>,R :call vimspector#Reset()<Cr>
     " breakpoint
     nmap <silent>,b <Plug>VimspectorToggleBreakpoint
-    nmap <silent>,B :call vimspector#ToggleAllBreakpointsViewBreakpoint()<Cr>
+    nmap <silent>,C :call vimspector#ToggleAllBreakpointsViewBreakpoint()<Cr>
     nmap <silent>,l :call vimspector#ListBreakpoints()<Cr>
     nmap <silent><M-d>f <Plug>VimspectorAddFunctionBreakpoint
     nmap <silent><M-d>c <Plug>VimspectorToggleConditionalBreakpoint
