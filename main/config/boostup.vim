@@ -101,10 +101,10 @@ endif
 " ------------------------------
 " ctags_type
 " ------------------------------
-if executable('ctags') && (WINDOWS() && Require('tags') || UNIX())
-    if WINDOWS()
+if WINDOWS() && Require('tags') || UNIX()
+    if WINDOWS() && filereadable(expand("~/.leovim.windows/tools/ctags.exe"))
         let g:ctags_type = 'Universal-json'
-    elseif has('patch-7.4.330')
+    elseif has('patch-7.4.330') && executable('ctags')
         let g:ctags_type = system('ctags --version')
         if g:ctags_type =~ 'Universal'
             if system('ctags --list-features | grep json') =~ 'json'
