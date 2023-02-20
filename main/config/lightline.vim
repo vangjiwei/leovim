@@ -68,7 +68,7 @@ let g:lightline = {
 "------------------------
 " left part
 "------------------------
-if Installed('vista.vim')
+if Installed('vista.vim') && !Installed('coc.nvim') && has('nvim-0.8.1')
     function! CurrentSymbol()
         return get(b:, 'coc_current_function', get(b:, 'vista_nearest_method_or_function', ''))
     endfunction

@@ -56,15 +56,6 @@ if Installed('nvim-web-devicons')
 elseif Installed('vim-devicons')
     call coc#config('explorer.icon.source',  'vim-devicons')
 endif
-" ------------------------
-" coc config for nvim-0.8
-" ------------------------
-if has('nvim-0.8.1')
-    call coc#config("coc.preferences.currentFunctionSymbolAutoUpdate", v:false)
-    luafile $LUA_PATH/coc.lua
-else
-    call coc#config("coc.preferences.currentFunctionSymbolAutoUpdate", v:true)
-endif
 " ----------------------------
 " extensions
 " ----------------------------
@@ -294,4 +285,13 @@ if Installed('coc-fzf')
     let g:coc_fzf_preview = ''
     let g:coc_fzf_opts = []
     let g:coc_fzf_preview_toggle_key = 'ctrl-/'
+endif
+" ------------------------
+" coc config for nvim-0.8.1+
+" ------------------------
+if has('nvim-0.8.1')
+    call coc#config("coc.preferences.currentFunctionSymbolAutoUpdate", v:false)
+    luafile $LUA_PATH/coc.lua
+else
+    call coc#config("coc.preferences.currentFunctionSymbolAutoUpdate", v:true)
 endif
