@@ -165,14 +165,16 @@ inoremap <silent><expr> <C-e> coc#pum#visible() ? coc#pum#cancel() : "\<C-o>A"
 inoremap <silent><expr> <C-y> coc#pum#visible() ? coc#pum#stop() : "\<C-r>\""
 inoremap <silent><expr> <C-space> coc#refresh()
 inoremap <silent><expr> <C-@> coc#refresh()
-" scroll check
+" scroll check. NOTE:  vim-quickui already configed
 imap <silent><expr> <C-j> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<C-j>"
 imap <silent><expr> <C-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<C-k>"
 xmap <silent><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\%"
 xmap <silent><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\g%"
-" refactor
+" call hierarchy
 nnoremap <silent>gl :call CocAction('showIncomingCalls')<Cr>
 nnoremap <silent>gh :call CocAction('showOutgoingCalls')<Cr>
+nnoremap <silent>gm :call CocAction('showSubTypes')<Cr>
+nnoremap <silent>gM :call CocAction('showSuperTypes')<Cr>
 " --------------------------
 " coc snippets
 " --------------------------
