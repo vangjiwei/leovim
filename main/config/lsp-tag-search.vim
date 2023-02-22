@@ -263,12 +263,10 @@ function! LspOrTagOrSearchAll(...) abort
         silent! redraw
     endif
     if ret == 0
-        if get(s:, 'do_searchall', 0) && tag_found <= 1
-            if get(g:, 'search_all_cmd', '') == ''
-                echom "No tag found, and cannot do global grep search."
-            else
-                execute g:search_all_cmd . ' ' . tagname
-            endif
+        if get(g:, 'search_all_cmd', '') == ''
+            echom "No tag found, and cannot do global grep search."
+        else
+            execute g:search_all_cmd . ' ' . tagname
         endif
     endif
 endfunction
