@@ -1,10 +1,10 @@
 " ------------------------
 " hl * # S
 " ------------------------
-nmap *  *``
-nmap #  #``
-nmap g* g*``
-nmap g# g#``
+nnoremap *  *``
+nnoremap #  #``
+nnoremap g* g*``
+nnoremap g# g#``
 " ------------------------
 " vscode speicially mapping
 " ------------------------
@@ -55,7 +55,10 @@ xnoremap <C-x> <Cmd>call VSCodeNotifyVisual("editor.action.clipboardCutAction", 
 " enhanced
 nnoremap <leader>w <Cmd>call VSCodeNotify("workbench.action.openView")<Cr>
 nnoremap <leader>m <Cmd>call VSCodeNotify("workbench.action.openRecent")<Cr>
+
+" ------------------------
 " debug
+" ------------------------
 nnoremap <leader>d <Cmd>call VSCodeNotify("workbench.view.debug")<Cr>
 nnoremap <leader>t <Cmd>call VSCodeNotify("workbench.action.debug.start")<Cr>
 nnoremap <leader>R <Cmd>call VSCodeNotify("workbench.action.debug.restart")<Cr>
@@ -76,6 +79,7 @@ nnoremap <leader>f <Cmd>call VSCodeNotify("workbench.debug.viewlet.action.addFun
 nnoremap <leader>E <Cmd>call VSCodeNotify("workbench.debug.viewlet.action.enableAllBreakpoints")<Cr>
 nnoremap <leader>D <Cmd>call VSCodeNotify("workbench.debug.viewlet.action.disableAllBreakpoints")<Cr>
 nnoremap <leader>B <Cmd>call VSCodeNotify("workbench.debug.viewlet.action.removeAllBreakpoints")<Cr>
+
 " ------------------------
 " autocmd
 " ------------------------
@@ -83,6 +87,7 @@ source $CONFIG_PATH/autocmd.vim
 au FileType r inoremap >> <space>%>%<space>
 au FileType r inoremap << <space><-<space>
 au FileType r inoremap ?? <space>\|><space>
+
 " ------------------------
 " window
 " ------------------------
@@ -232,7 +237,7 @@ xnoremap <C-w>W <Cmd>call VSCodeNotify('workbench.action.focusPreviousGroup')<CR
 nnoremap <C-w>p <Cmd>call VSCodeNotify('workbench.action.focusPreviousGroup')<CR>
 xnoremap <C-w>p <Cmd>call VSCodeNotify('workbench.action.focusPreviousGroup')<CR>
 
-nnoremap <C-w>t <Cmd>call VSCodeNotify('workbench.action.focusFirstEditorGroup')<CR>
-xnoremap <C-w>t <Cmd>call VSCodeNotify('workbench.action.focusFirstEditorGroup')<CR>
+nnoremap <C-w>f <Cmd>call VSCodeNotify('workbench.action.focusFirstEditorGroup')<CR>
+xnoremap <C-w>f <Cmd>call VSCodeNotify('workbench.action.focusFirstEditorGroup')<CR>
 nnoremap <C-w>b <Cmd>call VSCodeNotify('workbench.action.focusLastEditorGroup')<CR>
 xnoremap <C-w>b <Cmd>call VSCodeNotify('workbench.action.focusLastEditorGroup')<CR>
