@@ -76,9 +76,6 @@ if exists('*matchstrpos')
     xnoremap <silent>s<Cr>      :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr>
     nnoremap <silent><silent>s. :GrepperSearchAllLast<Cr>
     nnoremap s'                 :GrepperSearchAll ""<left>
-    if g:complete_engine != 'coc'
-        nnoremap <silent>g/ :GrepperSearchAll <C-r>=expand('<cword>')<Cr><Cr>
-    endif
     " GrepperSearch
     nnoremap <silent>S<Cr> :GrepperSearch <C-r>=expand('<cword>')<Cr>
     xnoremap <silent>S<Cr> :<C-u>GrepperSearch <C-r>=GetVisualSelection()<Cr>

@@ -272,7 +272,13 @@ function! LspOrTagOrSearchAll(...) abort
         endif
     endif
 endfunction
-if g:complete_engine == 'coc'
+nnoremap <silent>g/ :call LspOrTagOrSearchAll()<Cr>
+" --------------------------
+" lsp or tag
+" --------------------------
+if Installed("coc.nvim")
+    nmap <silent><M-/> :call LspOrTagOrSearchAll("jumpReferences", "float")<Cr>
+    nmap <silent><M-?> <Plug>(coc-refactor)
     au User CocLocationsChange let g:coc_locations_change = v:true
     " jumpDefinition
     nnoremap <silent><C-g>  :call LspOrTagOrSearchAll("", "jumpDefinition")<Cr>
@@ -281,35 +287,27 @@ if g:complete_engine == 'coc'
     nnoremap <silent>g<Cr>  :call LspOrTagOrSearchAll("split", "jumpDefinition")<Cr>
     nnoremap <silent>g<Tab> :call LspOrTagOrSearchAll("tabe", "jumpDefinition")<Cr>
     " jumpImplementation
-    nnoremap <silent><M-?> :call LspOrTagOrSearchAll("float", "jumpImplementation")<Cr>
+    nnoremap <silent>gm :call LspOrTagOrSearchAll("float", "jumpImplementation")<Cr>
     " jumpTypeDefinition
-    nnoremap <silent>gh :call LspOrTagOrSearchAll("float", "jumpTypeDefinition")<Cr>
+    nnoremap <silent><M-,> :call LspOrTagOrSearchAll("float", "jumpTypeDefinition")<Cr>
     " jumpDeclaration
-    nnoremap <silent>gm :call LspOrTagOrSearchAll("float", "jumpDeclaration")<Cr>
+    nnoremap <silent><M-.> :call LspOrTagOrSearchAll("float", "jumpDeclaration")<Cr>
 else
-    if g:complete_engine != 'cmp'
-        nnoremap <silent><C-g> :call LspOrTagOrSearchAll("")<Cr>
-    endif
     nnoremap <silent><C-]>  :call LspOrTagOrSearchAll("vsplit")<Cr>
     nnoremap <silent>g<Cr>  :call LspOrTagOrSearchAll("split")<Cr>
     nnoremap <silent>g<Tab> :call LspOrTagOrSearchAll("tabe")<Cr>
-endif
-nnoremap <silent>gl :call LspOrTagOrSearchAll()<Cr>
-" --------------------------
-" lsp or references
-" --------------------------
-if g:complete_engine == 'cmp' && InstalledTelescope() && InstalledLsp() && InstalledCmp()
-    luafile $LUA_PATH/lsp.lua
-else
-    if Installed("coc.nvim")
-        nmap <silent><M-/> :call LspOrTagOrSearchAll("jumpReferences", "float")<Cr>
-        nmap <silent>g/    <Plug>(coc-refactor)
+    if g:complete_engine == 'cmp' && InstalledTelescope() && InstalledLsp() && InstalledCmp()
+        luafile $LUA_PATH/lsp.lua
     else
+        nnoremap <silent><C-g> :call LspOrTagOrSearchAll("")<Cr>
         if get(g:, 'symbol_tool', '') =~ 'leaderfgtags'
             nmap <silent><M-/> :Leaderf gtags -i -g <C-r>=expand('<cword>')<Cr><Cr>
         elseif get(g:, 'symbol_tool', '') =~ 'plus'
             nmap <silent><M-/> :GscopeFind g <C-r>=expand('<cword>')<Cr><Cr>
         endif
+    endif
+    if g:search_tool =~ 'grepper'
+        nnoremap <silent><M-?> :GrepperSearchAll <C-r>=expand('<cword>')<Cr><Cr>
     endif
 endif
 " --------------------------

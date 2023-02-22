@@ -171,8 +171,8 @@ imap <silent><expr> <C-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<
 xmap <silent><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\%"
 xmap <silent><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\g%"
 " refactor
-nnoremap <silent><M-.> :call CocAction('showIncomingCalls')<Cr>
-nnoremap <silent><M-,> :call CocAction('showOutgoingCalls')<Cr>
+nnoremap <silent>gl :call CocAction('showIncomingCalls')<Cr>
+nnoremap <silent>gh :call CocAction('showOutgoingCalls')<Cr>
 " --------------------------
 " coc snippets
 " --------------------------
