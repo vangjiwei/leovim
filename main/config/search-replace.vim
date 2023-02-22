@@ -17,8 +17,8 @@ PackAdd 'eregex.vim'
 if exists('*matchstrpos')
     let g:search_tool = 'grepper'
     nnoremap s<Tab> :Grepper
-    nmap gr <plug>(GrepperOperator)
-    xmap gr <plug>(GrepperOperator)
+    nmap gm <plug>(GrepperOperator)
+    xmap gm <plug>(GrepperOperator)
     let g:grepper = {
                 \ 'open': 1,
                 \ 'quickfix': 1,

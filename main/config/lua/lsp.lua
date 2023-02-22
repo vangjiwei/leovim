@@ -20,10 +20,10 @@ local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lsp_attach = function(client, bufnr)
   vim.keymap.set('n', '<C-g>', vim.lsp.buf.definition, { buffer = bufnr })
-  vim.keymap.set('n', '<M-/>', vim.lsp.buf.references, { buffer = bufnr })
   vim.keymap.set('n', '<M-,>', vim.lsp.buf.type_definition, { buffer = bufnr })
   vim.keymap.set('n', '<M-.>', vim.lsp.buf.declaration, { buffer = bufnr })
-  vim.keymap.set('n', 'gm', vim.lsp.buf.implementation, { buffer = bufnr })
+  vim.keymap.set('n', '<M-/>', vim.lsp.buf.references, { buffer = bufnr })
+  vim.keymap.set('n', '<M-?>', vim.lsp.buf.implementation, { buffer = bufnr })
   -- format
   vim.keymap.set('n', '<C-q>', vim.lsp.buf.format, { buffer = bufnr })
   if vim.fn.has('nvim-0.8.2') > 0 then
