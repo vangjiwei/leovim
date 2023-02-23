@@ -81,10 +81,17 @@ setup_plug() {
 
 ############################ MAIN()
 variable_set "$HOME"
+
 mkdir -p "$HOME/.leovim.d/tags"
 mkdir -p "$HOME/.config/nvim"
 mkdir -p "$HOME/.local/bin"
-# z.sh is useful
+
+# my config
+cp -n $APP_PATH/scripts/bashrc   $HOME/.bashrc
+cp -n $APP_PATH/scripts/inputrc  $HOME/.inputrc
+cp -n $APP_PATH/scripts/configrc $HOME/.configrc
+
+# cp nvim start command
 cp -n $APP_PATH/scripts/z.sh   $HOME/.local/bin
 cp -n $APP_PATH/scripts/nv.sh  $HOME/.local/bin
 cp -n $APP_PATH/scripts/nvi.sh $HOME/.local/bin
@@ -109,10 +116,8 @@ echo "export LEOVIM_CONF=$HOME/.leovim.conf" >> $HOME/.local/bin/LEOVIM
 echo 'cd $LEOVIM_CONF && git pull' >> $HOME/.local/bin/LEOVIM
 echo '$SHELL' >> $HOME/.local/bin/LEOVIM && chmod 755 $HOME/.local/bin/LEOVIM
 
-# my config
-[ ! -f $HOME/.bashrc   ] && cp $APP_PATH/scripts/bashrc   $HOME/.bashrc
-[ ! -f $HOME/.inputrc  ] && cp $APP_PATH/scripts/inputrc  $HOME/.inputrc
-[ ! -f $HOME/.configrc ] && cp $APP_PATH/scripts/configrc $HOME/.configrc
+
+# set variable
 update_vim_plug='0'
 ret='0'
 
