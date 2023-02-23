@@ -17,8 +17,8 @@ PackAdd 'eregex.vim'
 if exists('*matchstrpos')
     let g:search_tool = 'grepper'
     nnoremap s<Tab> :Grepper
-    nmap gr <plug>(GrepperOperator)
-    xmap gr <plug>(GrepperOperator)
+    nmap gR <plug>(GrepperOperator)
+    xmap gR <plug>(GrepperOperator)
     let g:grepper = {
                 \ 'open': 1,
                 \ 'quickfix': 1,
@@ -76,9 +76,6 @@ if exists('*matchstrpos')
     xnoremap <silent>s<Cr>      :<C-u>GrepperSearchAll <C-r>=GetVisualSelection()<Cr>
     nnoremap <silent><silent>s. :GrepperSearchAllLast<Cr>
     nnoremap s'                 :GrepperSearchAll ""<left>
-    if g:complete_engine != 'coc'
-        nnoremap <silent>g/ :GrepperSearchAll <C-r>=expand('<cword>')<Cr><Cr>
-    endif
     " GrepperSearch
     nnoremap <silent>S<Cr> :GrepperSearch <C-r>=expand('<cword>')<Cr>
     xnoremap <silent>S<Cr> :<C-u>GrepperSearch <C-r>=GetVisualSelection()<Cr>

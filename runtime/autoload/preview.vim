@@ -878,10 +878,12 @@ endfunc
 "----------------------------------------------------------------------
 " list tags in quickfix window
 "----------------------------------------------------------------------
-function! preview#quickfix_list(name, fn_only, filetype)
+function! preview#quickfix_list(name, fn_only, filetype, ...)
     let res = preview#function_signature(a:name, a:fn_only, a:filetype)
     if len(res) == 0
-        call preview#errmsg('E426: tag not found: '. a:name)
+        if a:0 > 0 && a:1 != 0
+            call preview#errmsg('E426: tag not found: '. a:name)
+        endif
         return 0
     endif
     cexpr ""
