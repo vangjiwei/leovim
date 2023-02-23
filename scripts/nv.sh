@@ -6,6 +6,6 @@ elif [ -x "nvim" ]; then
   NVIMCMD="nvim"
 else
   echo "nvim not executable"
-  return
+  exit 1
 fi
 $NVIMCMD --cmd "let g:preset_group=['cmp']" "$@"
