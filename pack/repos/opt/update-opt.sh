@@ -4,7 +4,7 @@ sed -i -e 's/ *$//g' ../../../pack/plug.vim
 
 # eregex.vim 
 rm -rf eregex.vim 
-git clone --depth 1 https://github.com/othree/eregex.vim.git
+git clone --depth 1 https://github.com/ZSaberLv0/eregex.vim  
 
 # easy-align
 rm -rf vim-easy-align
@@ -103,7 +103,6 @@ find . -type f | grep -i \.jpg$       | xargs rm -f
 find . -type f | grep -i \.png$       | xargs rm -f
 find . -type f | grep -i \.gif$       | xargs rm -f
 find . -type f | grep -i \.bmp$       | xargs rm -f
-
 find . -type d | grep -i \.github$ | xargs rm -rf
 find . -type d | grep -i \.git$    | xargs rm -rf
 find . -type d | grep -i test$     | xargs rm -rf
