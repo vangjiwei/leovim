@@ -53,9 +53,6 @@ endif
 " --------------------------
 " floaterm
 " --------------------------
-if get(g:, 'terminal_plus', '') == ''
-    let g:terminal_plus = 'floaterm'
-endif
 let g:floaterm_open_command = 'drop'
 let g:floaterm_wintype  = 'split'
 let g:floaterm_position = 'botright'

@@ -241,9 +241,6 @@ function! Version()
     if get(g:, 'debug_tool', '') != ''
         let params_dict['debug_tool'] = g:debug_tool
     endif
-    if get(g:, 'terminal_plus', '') != ''
-        let params_dict['terminal_plus'] = g:terminal_plus
-    endif
     if get(g:, 'symbol_tool', '') != ''
         let params_dict['symbol_tool'] = g:symbol_tool
     endif

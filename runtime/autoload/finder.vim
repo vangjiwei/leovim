@@ -101,6 +101,13 @@ if InstalledFZF()
                 \   1,
                 \   fzf#vim#with_preview(),
                 \   <bang>0)
+    " --------------------------
+    " fzf grep
+    " --------------------------
+    if get(g:, "terminal_plus", "") =~ 'floaterm'
+        command! FloatermRg FloatermNew --width=0.8 --height=0.8 rg
+        nnoremap <silent><Tab>/ :FloatermRg<Cr>
+    endif
     " -------------------------
     "  fzf files
     " --------------------------
