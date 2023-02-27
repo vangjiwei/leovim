@@ -38,7 +38,8 @@ command! ToggleEnvLib call ToggleEnvLib()
 command! ToggleObjBrw call RObjBrowser()
 nnoremap <silent> q<Cr>  :ToggleObjBrw<CR>
 nnoremap <silent> q<Tab> :ToggleEnvLib<Cr>
-
+nnoremap <leader>V :call RAction('viewobj')<CR>
+" run
 nnoremap cf :call SendFunctionToR('echo', "down")<CR>
 nnoremap c, :call SendLineToR("down")<CR>
 xnoremap c, :call SendLineToR("down")<CR>
@@ -47,12 +48,9 @@ xnoremap ch :call SendLineToR("stay")<CR>
 nnoremap c; viB:call SendLineToR("down")<CR>
 nnoremap cL :call RClearConsole()<Cr>
 nnoremap cK :call RClearAll()<Cr>
-
-nnoremap <leader>C :call SendAboveLinesToR()<CR>
-nnoremap <leader>E VG:call SendLineToR('down')<CR>
-nnoremap <leader>V :call RAction('viewobj')<CR>
+nnoremap \C :call SendAboveLinesToR()<CR>
+nnoremap \E VG:call SendLineToR('down')<CR>
 nnoremap <leader>i :call SendLineToRAndInsertOutput()<CR>0
-
 " insert remap
 inoremap >> <space>-><space>
 inoremap << <space><-<space>
