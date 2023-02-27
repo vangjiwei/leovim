@@ -63,10 +63,9 @@ endfunction
 " -----------------------------------
 " set pack_tool
 " -----------------------------------
-let $PACK_PATH = expand(get(g:, 'jetpack_forked', ''))
 if exists('g:vscode')
     let g:pack_tool = ''
-elseif exists(':packadd') && (g:git_version >= 1.85 || executable('curl') || executable('wget')) && filereadable($PACK_PATH)
+elseif exists(':packadd') && (g:git_version >= 1.85 || executable('curl') || executable('wget')) && filereadable(expand(get(g:, 'jetpack_forked', '')))
     let g:jetpack_njobs = get(g:, 'jetpack_njobs', 8)
     if get(g:, 'jetpack_download_method', '') == ''
         if executable('git')
@@ -88,6 +87,7 @@ elseif exists(':packadd') && (g:git_version >= 1.85 || executable('curl') || exe
                 \ ]
     " load jetpack forked from tani
     let g:pack_tool = 'jetpack_forked'
+    execute "source " . g:jetpack_forked
     command! PackSync JetpackSync
 else
     let g:pack_tool = 'plug'
