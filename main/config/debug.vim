@@ -19,8 +19,9 @@ if Installed('iron.nvim')
         nmap <silent><leader>sm :SnipReplMemoryClean<Cr>
         nmap <silent><leader>si :SnipInfo<Cr>
         nmap <silent><leader>sr :SnipReset<Cr>
-        nmap <silent><leader>sc Vgg:SnipRun<Cr><C-o>
-        nmap <silent><leader>ss ggVG:SnipRun<Cr><C-o>
+        nmap <silent>\C Vgg:SnipRun<Cr><C-o>
+        nmap <silent>\E VG:SnipRun<Cr><C-o>
+        nmap <silent>\S ggVG:SnipRun<Cr><C-o>
     endif
     luafile $LUA_PATH/iron.lua
     nmap co :IronRepl<Cr>
@@ -34,8 +35,8 @@ if Installed('iron.nvim')
     nmap c<Cr> viBcl<Esc><Down><Down>
     xmap c<Cr> cl<ESC><Down>
     xmap cn    cl<ESC><Down>
-    nmap <leader>C Vggcl<ESC>
-    nmap <leader>E VGcl<ESC><C-o>
+    nmap <leader>C Vggocl
+    nmap <leader>E VGocl
 elseif Installed("vim-repl")
     let g:repl_program = {}
     let g:repl_program.python = []
