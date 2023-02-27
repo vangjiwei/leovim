@@ -97,13 +97,13 @@ if Require('writing')
     endif
     if executable('mdr') && (has('nvim') || has('patch-8.1.1401'))
         PackAdd 'skanehira/preview-markdown.vim', {'for': ['markdown']}
-        au FileType markdown nmap <M-T> :PreviewMarkdown<cr>
         let g:preview_markdown_vertical = 1
+        au FileType markdown nmap <M-F> :PreviewMarkdown<cr>
     endif
     " ------------------------------
     " table-mode
     " ------------------------------
-    let g:table_mode_map_prefix = '<Space>T'
+    let g:table_mode_map_prefix = '<Space>='
     function! s:isAtStartOfLine(mapping)
         let text_before_cursor = getline('.')[0 : col('.')-1]
         let mapping_pattern = '\V' . escape(a:mapping, '\')
@@ -120,17 +120,13 @@ if Require('writing')
     let g:table_mode_corner_corner   = '+'
     let g:table_mode_header_fillchar = '='
     PackAdd 'dhruvasagar/vim-table-mode'
-endif
-" ------------------------------
-" latex
-" ------------------------------
-if Require('latex')
+    " ------------------------------
+    " latex
+    " ------------------------------
     if executable(get(g:, "vimtex_view_method", ''))
         PackAdd 'lervag/vimtex', {'for': 'latex'}
-        let g:tex_flavor           = get(g:, 'tex_flaver', 'latex')
-        let g:tex_conceal          = get(g:, 'tex_conceal', 'abdmg')
+        let g:tex_flavor = get(g:, 'tex_flaver', 'latex')
+        let g:tex_conceal = get(g:, 'tex_conceal', 'abdmg')
         let g:vimtex_quickfix_mode = get(g:, 'vimtex_quickfix_mode', 0)
-    else
-        echoe g:vimtex_view_method . " is not executable"
     endif
 endif
