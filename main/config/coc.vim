@@ -60,12 +60,6 @@ endif
 " extensions
 " ----------------------------
 let g:coc_global_extensions = [
-        \ 'coc-json',
-        \ 'coc-sql',
-        \ 'coc-xml',
-        \ 'coc-git',
-        \ 'coc-sh',
-        \ 'coc-powershell',
         \ 'coc-lists',
         \ 'coc-marketplace',
         \ 'coc-snippets',
@@ -73,14 +67,16 @@ let g:coc_global_extensions = [
         \ 'coc-pairs',
         \ 'coc-yank',
         \ 'coc-highlight',
+        \ 'coc-git',
+        \ 'coc-json',
+        \ 'coc-sql',
+        \ 'coc-xml',
+        \ 'coc-sh',
+        \ 'coc-powershell',
         \ 'coc-vimlsp',
+        \ 'coc-pyright',
         \ 'coc-symbol-line',
         \ ]
-if g:python_version >= 3
-    let g:coc_global_extensions += ['coc-pyls']
-else
-    let g:coc_global_extensions += ['coc-pyright']
-endif
 if Require('web')
     let g:coc_global_extensions += [
         \ 'coc-html',
