@@ -1,4 +1,4 @@
-" --------------------------
+update" --------------------------
 " repl
 " --------------------------
 imap <M-e> # %%
@@ -67,8 +67,8 @@ elseif Installed("vim-repl")
         xmap c<Cr> cn
         nmap cl cnk
         xmap cl cngvo
-        nmap <leader>C Vggcn<C-o>
-        nmap <leader>E VGcn<C-o>
+        nmap <leader>C Vggocn
+        nmap <leader>E VGocn
         nmap <leader>S ggVGcn<C-o><C-o>
     endfunction
     au Filetype python call s:set_ipdb_map()
