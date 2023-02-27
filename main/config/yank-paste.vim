@@ -11,7 +11,7 @@ function! YankFromBeginning() abort
     endif
     call setpos('.', original_cursor_position)
 endfunction
-nnoremap gy :call YankFromBeginning()<Cr>
+nnoremap <Leader>Y :call YankFromBeginning()<Cr>
 cnoremap <M-'> <C-r>"
 inoremap <M-'> <C-r>"
 cnoremap <C-y> <C-r>"
@@ -97,6 +97,4 @@ for i in range(26)
     exec 'nnoremap <M-c>' . u_char . ' viw"'. u_char . 'y'
     exec 'xnoremap <M-c>' . l_char . ' "'. l_char . 'y'
     exec 'xnoremap <M-c>' . u_char . ' "'. u_char . 'y'
-    exec 'nnoremap <leader>Y' . l_char . ' "'. l_char . 'yy'
-    exec 'nnoremap <leader>Y' . u_char . ' "'. u_char . 'yy'
 endfor

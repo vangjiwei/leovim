@@ -334,8 +334,7 @@ if has('clipboard')
         au ModeChanged s:* set clipboard=unnamedplus
     endif
     " yank
-    nnoremap Y  "*y$:echo "Yank to the line ending to clipboard"<Cr>
-    nnoremap yy "*yy:echo "Yank the line to clipboard"<Cr>
+    nnoremap Y "*y$:echo "Yank to the line ending to clipboard"<Cr>
     if !exists('g:vscode')
         if has('nvim')
             xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
