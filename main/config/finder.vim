@@ -3,6 +3,7 @@
 " --------------------------
 let g:Lf_CacheDirectory = expand("~")
 if Installed('leaderf')
+    let g:Lf_ShortcutF = '<leader>ff'
     if Installed('coc.nvim')
         let g:fuzzy_finder = 'leaderf-coc-fzf'
     elseif InstalledTelescope()
@@ -407,7 +408,6 @@ endif
 if InstalledTelescope()
     nnoremap <silent><leader>ff :lcd %:p:h \| Telescope find_files<Cr>
 elseif Installed('leaderf')
-    let g:Lf_ShortcutF = '<leader>ff'
     nnoremap <silent><leader>ff :lcd %:p:h \| LeaderfFile<Cr>
 elseif InstalledFZF()
     nnoremap <silent><leader>ff :lcd %:p:h \| FZF<Cr>
