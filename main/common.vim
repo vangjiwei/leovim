@@ -327,25 +327,6 @@ nnoremap <leader>yp :let @*=expand("%:p")<cr>:echo '-= File path copied=-'<Cr>
 nnoremap <leader>yf :let @*=expand("%:t")<cr>:echo '-= File name copied=-'<Cr>
 " Copy bookmark position reference
 nnoremap <leader>yb :let @*=expand("%:p").':'.line(".").':'.col(".")<cr>:echo '-= Cursor bookmark copied=-'<cr>'
-if has('clipboard')
-    " autocmd
-    if exists("##ModeChanged")
-        au ModeChanged *:s set clipboard=
-        au ModeChanged s:* set clipboard=unnamedplus
-    endif
-    " yank
-    nnoremap Y "*y$:echo "Yank to the line ending to clipboard"<Cr>
-    if !exists('g:vscode')
-        if has('nvim')
-            xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
-        else
-            xnoremap <C-c> "*y:echo "Yank selected to clipboard"<Cr>
-        endif
-    endif
-else
-    nnoremap Y y$
-    xnoremap <C-c> y
-endif
 " ------------------------
 " configs for vscode or neovim/vim
 " ------------------------

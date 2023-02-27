@@ -22,6 +22,11 @@ if index(['', 'apc'], g:complete_engine) >= 0
 endif
 if has('clipboard')
     nnoremap <M-a> :%y*<Cr>
+    " autocmd
+    if exists("##ModeChanged")
+        au ModeChanged *:s set clipboard=
+        au ModeChanged s:* set clipboard=unnamedplus
+    endif
     if UNIX()
         nnoremap <M-c>+ viw"+y
         xnoremap <M-c>+ "+y
@@ -29,6 +34,15 @@ if has('clipboard')
         nnoremap <M-c>+ viw"*y
         xnoremap <M-c>+ "*y"
     endif
+    " yank
+    nnoremap Y "*y$:echo "Yank to the line ending to clipboard"<Cr>
+    " ctrl c
+    if has('nvim')
+        xnoremap <C-c> "*y:echo "Yank selected to clipboard" \| let @*=trim(@*)<Cr>
+    else
+        xnoremap <C-c> "*y:echo "Yank selected to clipboard"<Cr>
+    endif
+    " paste
     cnoremap <M-v> <C-r>*
     cnoremap <S-Insert> <C-r>*
     inoremap <M-v> <C-r>*
@@ -45,6 +59,8 @@ if has('clipboard')
     nnoremap <M-X> "*dd
     xnoremap <M-X> "*dd
 else
+    nnoremap Y y$
+    xnoremap <C-c> y
     nnoremap <M-a> :%y"<Cr>
     cnoremap <M-v> <C-r>"
     inoremap <M-v> <C-r>"
