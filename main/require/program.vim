@@ -2,11 +2,7 @@
 " complete_engine
 " ------------------------------
 if g:complete_engine == 'coc'
-    if g:node_version == 'advanced'
-        PackAdd 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
-    else
-        PackAdd 'neoclide/coc.nvim', {'branch': 'release'}
-    endif
+    PackAdd 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
     PackAdd 'antoinemadec/coc-fzf'
     if has('nvim')
         PackAdd 'williamboman/mason.nvim'

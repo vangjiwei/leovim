@@ -75,7 +75,7 @@ Python3EOF
     return l:pyx_version
 endfunction
 " ------------------------------
-" node_version
+" node_install_tool
 " ------------------------------
 if executable('node') && executable('npm')
     let s:node_version_raw = matchstr(system('node --version'), '\vv\zs\d{1,4}.\d{1,4}\ze')
@@ -85,18 +85,18 @@ if executable('node') && executable('npm')
             let s:yarn_version_raw = system('yarn --version')
             let s:yarn_version = StringToFloat(s:yarn_version_raw)
             if s:yarn_version >= 1.2218
-                let g:node_version = 'advanced'
+                let g:node_install_tool = 'yarn'
             else
-                let g:node_version = 'basic'
+                let g:node_install_tool = 'npm'
             endif
         else
-            let g:node_version = 'basic'
+            let g:node_install_tool = 'npm'
         endif
     else
-        let g:node_version = ''
+        let g:node_install_tool = ''
     endif
 else
-    let g:node_version = ''
+    let g:node_install_tool = ''
 endif
 " ------------------------------
 " ctags_type
@@ -654,7 +654,7 @@ elseif Require('cmp')
         let s:smart_engine_select = 1
     endif
 elseif Require('coc')
-    if get(g:, 'node_version', '') != '' && (has('nvim') || has('patch-8.2.0750'))
+    if get(g:, 'node_install_tool', '') == 'yarn' && (has('nvim') || has('patch-8.2.0750'))
         let g:complete_engine = 'coc'
     else
         let s:smart_engine_select = 1
@@ -663,7 +663,7 @@ else
     let s:smart_engine_select = 1
 endif
 if get(s:, 'smart_engine_select', 0)
-    if get(g:, 'node_version', '') != '' && (has('nvim') || has('patch-8.2.0750') && Require('coc'))
+    if get(g:, 'node_install_tool', '') == 'yarn' && (has('nvim') || has('patch-8.2.0750') && Require('coc'))
         let g:complete_engine = 'coc'
     elseif has('nvim-0.8')
         let g:complete_engine = 'cmp'
