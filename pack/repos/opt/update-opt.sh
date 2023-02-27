@@ -1,6 +1,6 @@
 # plug.vim 
-curl -fLo ../../../pack/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-sed -i -e 's/ *$//g' ../../../pack/plug.vim
+curl -fLo ../plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+sed -i -e 's/ *$//g' ../plug.vim
 
 # eregex.vim 
 rm -rf eregex.vim 

@@ -98,7 +98,7 @@ elseif exists(':packadd') && exists("##SourcePost") && (g:git_version >= 1.85 ||
 else
     let g:pack_tool = 'plug'
     let g:plug_threads = get(g:, 'plug_threads', 8)
-    source ~/.leovim.conf/pack/plug.vim
+    source ~/.leovim.conf/pack/repos/plug.vim
     command! PackSync PlugClean | PlugUpdate
 endif
 noremap <silent><leader>u :PackSync<Cr>
