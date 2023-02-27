@@ -5,6 +5,7 @@ end
 
 local vim = vim
 local api = vim.api
+local ts = vim.treesitter
 local configs = require'nvim-treesitter.configs'
 local parsers = require'nvim-treesitter.parsers'
 local queries = require'treesitter-matchup.third-party.query'
@@ -31,7 +32,20 @@ function M.is_hl_enabled(bufnr)
 end
 
 function M.get_matches(bufnr)
-  return queries.get_matches(bufnr, 'matchup')
+  local parser = parsers.get_parser(bufnr)
+  local matches = {}
+
+  if parser then
+    parser:for_each_tree(function(tree, lang_tree)
+      local lang = lang_tree:lang()
+
+      local group_results = queries.collect_group_results(
+        bufnr, 'matchup', tree:root(), lang) or {}
+      vim.list_extend(matches, group_results)
+    end)
+  end
+
+  return matches
 end
 
 local function _time()
@@ -140,7 +154,7 @@ function M.containing_scope(node, bufnr, key)
 end
 
 local function _node_text(node, bufnr)
-  local text = vim.treesitter.query.get_node_text(node, bufnr)
+  local text = ts.query.get_node_text(node, bufnr)
   return text:match("(%S+).*")
 end
 
@@ -204,7 +218,7 @@ function M.get_delim(bufnr, opts)
     for _, side in ipairs(side_table[opts.side]) do
       if not(side == 'mid' and vim.g.matchup_delim_nomids > 0) then
         for _, node in ipairs(active_nodes[side]) do
-          if vim.treesitter.is_in_node_range(node, cursor[1]-1, cursor[2]) then
+          if ts.is_in_node_range(node, cursor[1]-1, cursor[2]) then
             local len = ts_utils.node_length(node)
             if len < smallest_len then
               smallest_len = len
@@ -348,9 +362,6 @@ function M.get_option(bufnr, opt_name)
 end
 
 function M.attach(bufnr, lang)
-  -- local parser = parsers.get_parser(bufnr, lang)
-  -- local config = configs.get_module('matchup')
-
   if M.get_option(bufnr, 'additional_vim_regex_highlighting')
       and api.nvim_buf_get_option(bufnr, 'syntax') == '' then
     api.nvim_buf_set_option(bufnr, 'syntax', 'ON')

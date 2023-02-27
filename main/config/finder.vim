@@ -80,13 +80,13 @@ if InstalledFZF()
                 \ 'ctrl-]': 'vsplit'
                 \ }
     " --------------------------
-    "  fzf maps
+    " fzf maps
     " --------------------------
     nmap m<tab> <plug>(fzf-maps-n)
     xmap m<tab> <plug>(fzf-maps-x)
     omap m<tab> <plug>(fzf-maps-o)
     " --------------------------
-    "  fzf grep
+    " fzf grep
     " --------------------------
     command! -bang -nargs=* FZFGGrep
                 \ call fzf#vim#grep(
@@ -478,7 +478,7 @@ if Installed('nvim-web-devicons')
     lua require('nvim-web-devicons').setup({})
 endif
 " --------------------------
-" floaterm windows
+" floaterm-windows
 " --------------------------
 if Installed('LeaderF-floaterm')
     nnoremap <silent><Tab>w :Leaderf floaterm<Cr>
