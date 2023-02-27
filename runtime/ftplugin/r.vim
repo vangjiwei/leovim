@@ -50,6 +50,7 @@ nnoremap cL :call RClearConsole()<Cr>
 nnoremap cK :call RClearAll()<Cr>
 nnoremap \C :call SendAboveLinesToR()<CR>
 nnoremap \E VG:call SendLineToR('down')<CR>
+nnoremap \S ggVG:call SendLineToR('down')<CR>
 nnoremap <leader>i :call SendLineToRAndInsertOutput()<CR>0
 " insert remap
 inoremap >> <space>-><space>
