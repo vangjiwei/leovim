@@ -220,11 +220,7 @@ endif
 " wildmenu
 " -----------------------------------
 if has('patch-7.4.2201') || has('nvim')
-    if has('nvim')
-        setlocal signcolumn=yes:2
-    else
-        setlocal signcolumn=yes
-    endif
+    setlocal signcolumn=yes
 endif
 if has('wildignore')
     set wildignore+=*\\tmp\\*,*/tmp/*,*.swp,*.exe,*.dll,*.so,*.zip,*.tar*,*.7z,*.rar,*.gz,*.pyd,*.pyc,*.ipynb
