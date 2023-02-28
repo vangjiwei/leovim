@@ -8,14 +8,14 @@ if g:python_version > 3
 elseif get(g:, 'node_install_tool', "") != ''
     let g:lsp_installer_servers += ['pyright']
 endif
+if Require('web') && get(g:, 'node_install_tool', "") != ''
+    let g:lsp_installer_servers += ['cssls', 'tsserver', 'eslint', 'html', 'vuels', 'angularls']
+endif
 if Require('c')
     let g:lsp_installer_servers += ['cmake']
     if executable('clangd')
         let g:lsp_installer_servers += ['clangd']
     endif
-endif
-if Require('web') && get(g:, 'node_install_tool', "") != ''
-    let g:lsp_installer_servers += ['cssls', 'tsserver', 'eslint', 'html', 'vuels', 'angularls']
 endif
 if Require('rust')
     let g:lsp_installer_servers += ['rust_analyzer']

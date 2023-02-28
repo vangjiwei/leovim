@@ -93,7 +93,7 @@ if executable('node') && executable('npm')
             let g:node_install_tool = 'npm'
         endif
     else
-        let g:node_install_tool = ''
+        let g:node_install_tool = 'npm'
     endif
 else
     let g:node_install_tool = ''
