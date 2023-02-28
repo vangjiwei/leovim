@@ -84,7 +84,7 @@ if executable('node') && executable('npm')
         if executable('yarn')
             let s:yarn_version_raw = system('yarn --version')
             let s:yarn_version = StringToFloat(s:yarn_version_raw)
-            if s:yarn_version >= 1.2218
+            if s:yarn_version >= 1.2215
                 let g:node_install_tool = 'yarn'
             else
                 let g:node_install_tool = 'npm'
