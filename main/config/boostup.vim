@@ -80,11 +80,11 @@ endfunction
 if executable('node') && executable('npm')
     let s:node_version_raw = matchstr(system('node --version'), '\vv\zs\d{1,4}.\d{1,4}\ze')
     let s:node_version = StringToFloat(s:node_version_raw)
-    if s:node_version >= 14.14
+    if s:node_version == 14.15 || s:node_version == 16.10 || s:node_version >= 18.0
         if executable('yarn')
             let s:yarn_version_raw = system('yarn --version')
             let s:yarn_version = StringToFloat(s:yarn_version_raw)
-            if s:yarn_version >= 1.2215
+            if s:yarn_version >= 1.2218
                 let g:node_install_tool = 'yarn'
             else
                 let g:node_install_tool = 'npm'
