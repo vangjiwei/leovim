@@ -26,6 +26,10 @@ if Installed('leaderf')
             nnoremap <leader>P :FZF
         endif
     endif
+    " leaderf sepcial
+    nnoremap <leader>; :Leaderf --next<Cr>
+    nnoremap <leader>, :Leaderf --previous<Cr>
+    nnoremap <leader>. :Leaderf --recall<Cr>
 elseif Installed('coc.nvim')
     let g:fuzzy_finder = 'coc-fzf'
     nnoremap <silent><C-p> :CocFzfList<Cr>
@@ -40,9 +44,15 @@ else
     let g:fuzzy_finder = ''
 endif
 " --------------------------
-" fzf
+" telescope and fzf
 " --------------------------
-if InstalledFZF()
+if InstalledTelescope()
+    luafile $LUA_PATH/telescope.lua
+    nnoremap m<tab> <cmd>Telescope keymaps<Cr>
+    nnoremap <M-h>q <cmd>Telescope quickfixhistory<Cr>
+    nnoremap <M-h>. <cmd>Telescope resume<Cr>
+    nnoremap <leader>fp :lua project_files()<Cr>
+elseif InstalledFZF()
     " --------------------------
     " fzf basic settings
     " --------------------------
@@ -105,7 +115,6 @@ if InstalledFZF()
     " -------------------------
     "  fzf files
     " --------------------------
-    if UNIX() | nnoremap <leader>fl :FZFLocate<Space> | endif
     function! s:files_search()
         if get(g:, 'coc_git_status', '') != '' || get(b:, 'git_root_path', '') != ''
             FZFGitFiles
@@ -120,12 +129,8 @@ if InstalledFZF()
     endfunction
     command! ProjectFiles call s:files_search()
     nnoremap <silent> <leader>fp :ProjectFiles<Cr>
-elseif InstalledTelescope()
-    luafile $LUA_PATH/telescope.lua
-    nnoremap <leader>fp :lua project_files()<Cr>
-    nnoremap m<tab> <cmd>Telescope keymaps<Cr>
-    nnoremap <M-h>q <cmd>Telescope quickfixhistory<Cr>
-    nnoremap <M-h>. <cmd>Telescope resume<Cr>
+    " fzflocate
+    if UNIX() | nnoremap <leader>fl :FZFLocate<Space> | endif
 endif
 " --------------------------
 " using leaderf cache dir
@@ -167,28 +172,6 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
                 \ "Colorscheme": [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
                 \ }
     let g:Lf_CommandMap = {'<C-p>': ['<C-g>'], '<F5>': ['<F5>', '<C-l>'], '<C-l>': ['<C-e>'], '<Up>': ['<Up>', '<C-p>'], '<Down>': ['<Down>', '<C-n>']}
-    " history
-    nnoremap <M-h>/ :Leaderf searchHistory<Cr>
-    nnoremap <M-h>c :Leaderf cmdHistory<Cr>
-    " main selector
-    nnoremap <leader>b :LeaderfBuffer<Cr>
-    nnoremap <leader>B :LeaderfTabBuffer<Cr>
-    nnoremap <leader>m :LeaderfMru<Cr>
-    nnoremap <leader>M :LeaderfMruCwd<Cr>
-    nnoremap <leader>; :Leaderf --next<Cr>
-    nnoremap <leader>, :Leaderf --previous<Cr>
-    nnoremap <leader>. :Leaderf --recall<Cr>
-    " mru cwd
-    " replace origin command
-    nnoremap <M-k>s :Leaderf colorscheme<Cr>
-    nnoremap <M-k>t :Leaderf filetype<Cr>
-    nnoremap <M-k><M-k> :Leaderf command<Cr>
-    " jumps
-    nnoremap <M-j><M-j> :Leaderf jumps<cr>
-    " line
-    nnoremap <M-l><M-l> :Leaderf line --all --no-sort --regexMode<Cr>
-    nnoremap <M-l>a :Leaderf line --all --no-sort<Cr>
-    nnoremap <M-l>l :Leaderf line --no-sort<Cr>
     " leader-filer
     let g:Lf_FilerShowPromptPath = 1
     " normal mode
@@ -257,24 +240,49 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
                 \}
     " Customize normal mode mapping using g:Lf_NormalMap
     let g:Lf_NormalMap.Filer = [['B', ':LeaderfBookmark<CR>']]
-    " open leader quickfix/loclist
-    nnoremap Z<S-Cr> :CloseQuickfix<Cr>:Leaderf quickfix<Cr>
-    nnoremap Z<Cr>   :CloseQuickfix<Cr>:Leaderf loclist<Cr>
-elseif InstalledTelescope()
+endif
+" -------------------------------------------
+" command maps
+" -------------------------------------------
+if InstalledTelescope()
     nnoremap <M-h>/ <cmd>Telescope search_history<Cr>
     nnoremap <M-h>c <cmd>Telescope command_history<Cr>
     nnoremap <leader>b <cmd>Telescope buffers<Cr>
     nnoremap <leader>m <cmd>Telescope oldfiles<Cr>
-    nnoremap <M-j><M-j> <cmd>Telescope jumplist<cr>
-    nnoremap <M-k><M-k> <cmd>Telescope commands<cr>
-    nnoremap <M-l><M-l> <cmd>Telescope current_buffer_fuzzy_find<cr>
     " replace origin command
     nnoremap <M-k>s <cmd>Telescope colorscheme<Cr>
     nnoremap <M-k>t <cmd>Telescope filetypes<Cr>
     nnoremap Z<S-Cr> :CloseQuickfix<Cr>:Telescope quickfix<CR>
     nnoremap Z<Cr>   :CloseQuickfix<Cr>:Telescope loclist<CR>
+    " lines and commands
+    nnoremap <M-l><M-l> <cmd>Telescope current_buffer_fuzzy_find<cr>
+    nnoremap <M-k><M-k> <cmd>Telescope commands<cr>
+    " jumps
+    nnoremap <M-j><M-j> <cmd>Telescope jumplist<cr>
+elseif Installed('leaderf')
+    " history
+    nnoremap <M-h>/ :Leaderf searchHistory<Cr>
+    nnoremap <M-h>c :Leaderf cmdHistory<Cr>
+    " buffers
+    nnoremap <leader>b :LeaderfBuffer<Cr>
+    nnoremap <leader>B :LeaderfTabBuffer<Cr>
+    " mru cwd
+    nnoremap <leader>m :LeaderfMru<Cr>
+    nnoremap <leader>M :LeaderfMruCwd<Cr>
+    " replace origin command
+    nnoremap <M-k>s :Leaderf colorscheme<Cr>
+    nnoremap <M-k>t :Leaderf filetype<Cr>
+    nnoremap <M-k><M-k> :Leaderf command<Cr>
+    " line
+    nnoremap <M-l><M-l> :Leaderf line --all --no-sort --regexMode<Cr>
+    nnoremap <M-l>a :Leaderf line --all --no-sort<Cr>
+    nnoremap <M-l>l :Leaderf line --no-sort<Cr>
+    " open leader quickfix/loclist
+    nnoremap Z<S-Cr> :CloseQuickfix<Cr>:Leaderf quickfix<Cr>
+    nnoremap Z<Cr>   :CloseQuickfix<Cr>:Leaderf loclist<Cr>
+    " jumps
+    nnoremap <M-j><M-j> :Leaderf jumps<cr>
 elseif InstalledFZF()
-    let g:fuzzy_finder = get(g:, 'fuzzy_finder', 'fzf')
     nnoremap <M-h>/ :FZFHistory/<CR>
     nnoremap <M-h>c :FZFHistory:<CR>
     nnoremap <leader>b :FZFBuffers<CR>
@@ -282,7 +290,12 @@ elseif InstalledFZF()
     " replace origin command
     nnoremap <M-k>s :FZFColors<CR>
     nnoremap <M-k>t :FZFFiletypes<CR>
+    " lines and commands
+    nnoremap <M-l><M-l> :FZFBLines<CR>
+    nnoremap <M-k><M-k> :FZFCommands<CR>
+    " ------------------------------
     " FZF jumps
+    " ------------------------------
     function! s:jumpListFormat(val) abort
         let l:file_name = bufname('%')
         let l:file_name = empty(l:file_name) ? 'Unknown file name' : l:file_name
@@ -346,8 +359,32 @@ elseif InstalledFZF()
     endfunction
     command! -bang -nargs=* FZFJumps call s:FZFJumps()
     nnoremap <M-j><M-j> :FZFJumps<cr>
-    nnoremap <M-l><M-l> :FZFBLines<CR>
-    nnoremap <M-k><M-k> :FZFCommands<CR>
+elseif Installed('vim-quickui')
+    nnoremap <silent><leader>b :call quickui#tools#list_buffer('e')<Cr>
+endif
+" --------------------------
+" quickui
+" --------------------------
+if Installed('vim-quickui')
+    let g:quickui_border_style = 2
+    nnoremap <silent><M-h>m :call quickui#tools#display_messages()<Cr>
+    function! s:PreviewFileO(filename) abort
+        let filename = a:filename
+        let fopts = {'cursor':-1, 'number':1, 'persist':0, 'w':80, 'h':64}
+        call quickui#preview#open(filename, fopts)
+    endfunction
+    command! -nargs=1 -complete=file PreviewFileO call s:PreviewFileO(<f-args>)
+    nnoremap <Tab>O :PreviewFileO
+    nnoremap <F13> :call quickui#preview#scroll(1)<Cr>
+    nnoremap <F14> :call quickui#preview#scroll(-1)<Cr>
+    if Installed('coc.nvim')
+        nmap <silent><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : quickui#preview#visible() > 0 ? "\<F13>" : "\%"
+        nmap <silent><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : quickui#preview#visible() > 0 ? "\<F14>" : "\g%"
+    else
+        nmap <silent><expr> <C-j> quickui#preview#visible() > 0 ? "\<F13>" : "\%"
+        nmap <silent><expr> <C-k> quickui#preview#visible() > 0 ? "\<F14>" : "\g%"
+    endif
+    au FileType python nnoremap <C-h> call quickui#tools#python_help("")
 endif
 " --------------------------
 " notify
@@ -368,39 +405,24 @@ if Installed("nvim-notify")
     nnoremap <silent><M-h>M :call Notify_messages()<Cr>
 endif
 " --------------------------
-" quickui
-" --------------------------
-if Installed('vim-quickui')
-    let g:quickui_border_style = 2
-    nnoremap <silent><M-h>m :call quickui#tools#display_messages()<Cr>
-    function! s:PreviewFileO(filename) abort
-        let filename = a:filename
-        let fopts = {'cursor':-1, 'number':1, 'persist':0, 'w':80, 'h':64}
-        call quickui#preview#open(filename, fopts)
-    endfunction
-    command! -nargs=1 -complete=file PreviewFileO call s:PreviewFileO(<f-args>)
-    nnoremap <Tab>O :PreviewFileO
-    nnoremap <F13> :call quickui#preview#scroll(1)<Cr>
-    nnoremap <F14> :call quickui#preview#scroll(-1)<Cr>
-    if Installed('coc.nvim')
-        nmap <silent><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : quickui#preview#visible() > 0 ? "\<F13>" : "\%"
-        nmap <silent><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : quickui#preview#visible() > 0 ? "\<F14>" : "\g%"
-    " TODO : cmp scroll if available
-    else
-        nmap <silent><expr> <C-j> quickui#preview#visible() > 0 ? "\<F13>" : "\%"
-        nmap <silent><expr> <C-k> quickui#preview#visible() > 0 ? "\<F14>" : "\g%"
-    endif
-    au FileType python nnoremap <C-h> call quickui#tools#python_help("")
-endif
-" --------------------------
 " changes
 " --------------------------
-if Installed('leaderf-changes')
-    nnoremap <silent><M-h><M-h> :Leaderf changes<Cr>
-elseif Installed('telescope-changes.nvim')
+if Installed('telescope-changes.nvim')
     nnoremap <silent><M-h><M-h> :Telescope changes<Cr>
+elseif Installed('leaderf-changes')
+    nnoremap <silent><M-h><M-h> :Leaderf changes<Cr>
 elseif Installed('coc.nvim')
     nnoremap <silent><M-h><M-h> :CocFzfList changes<Cr>
+endif
+" --------------------------
+" windows
+" --------------------------
+if Installed('telescope-floaterm.nvim')
+    nnoremap <silent><Tab>w :Telescope floaterm<Cr>
+elseif Installed('LeaderF-floaterm')
+    nnoremap <silent><Tab>w :Leaderf floaterm<Cr>
+elseif Installed('fzf-floaterm')
+    nnoremap <silent><Tab>w :Floaterms<Cr>
 endif
 " --------------------
 " browser files all
@@ -412,7 +434,13 @@ elseif Installed('leaderf')
 elseif InstalledFZF()
     nnoremap <silent><leader>ff :lcd %:p:h \| FZF<Cr>
 endif
-" map config and open file using system browser when has gui
+" --------------------
+" buffers
+" --------------------
+
+" --------------------
+" open file using system browser when has gui
+" --------------------
 if g:gui_running
     nnoremap <M-o> :tabnew
     nnoremap <M-O> :tabclose<Cr>
@@ -476,14 +504,4 @@ endif
 " --------------------------
 if Installed('nvim-web-devicons')
     lua require('nvim-web-devicons').setup({})
-endif
-" --------------------------
-" floaterm-windows
-" --------------------------
-if Installed('LeaderF-floaterm')
-    nnoremap <silent><Tab>w :Leaderf floaterm<Cr>
-elseif Installed('fzf-floaterm')
-    nnoremap <silent><Tab>w :Floaterms<Cr>
-elseif Installed('nvim-notify')
-    nnoremap <silent><Tab>w :Telescope floaterm<Cr>
 endif
