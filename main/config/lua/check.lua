@@ -27,7 +27,7 @@ function _G.toggle_diagnostics()
   end
 end
 map('n', '<Leader>t', [[<cmd>lua toggle_diagnostics()<Cr>]], opts)
-map('n', '<Leader>d', [[<cmd>Telescope diagnostics<Cr>]], opts)
+map('n', '<Leader>l', [[<cmd>Telescope diagnostics<Cr>]], opts)
 -- toggle diagnostic virtual text && underline
 function _G.toggle_diagnostics_hightlights()
   if vim.g.diagnostic_virtualtext_underline then
@@ -50,4 +50,4 @@ vim.diagnostic.config({
   virtual_text = false,
   underline = false,
 })
-map('n', "<leader>D", [[<cmd>lua toggle_diagnostics_hightlights()<Cr>]], {silent = true, noremap = true})
+map('n', "<leader>L", [[<cmd>lua toggle_diagnostics_hightlights()<Cr>]], {silent = true, noremap = true})

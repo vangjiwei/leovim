@@ -13,14 +13,14 @@ elseif Installed('coc.nvim')
     else
         if WINDOWS()
             if has('nvim') || !has('nvim') && !Installed('leaderf')
-                nnoremap <silent> <leader>d :CocDiagnostics<CR>
+                nnoremap <silent> <leader>l :CocDiagnostics<CR>
             elseif Installed('leaderf')
-                nnoremap <silent> <leader>d :CocDiagnostics<CR>:lclose<Cr>:LeaderfLocList<Cr>
+                nnoremap <silent> <leader>l :CocDiagnostics<CR>:lclose<Cr>:LeaderfLocList<Cr>
             else
-                nnoremap <silent> <leader>d :CocFzfList diagnostics<CR>
+                nnoremap <silent> <leader>l :CocFzfList diagnostics<CR>
             endif
         else
-            nnoremap <silent> <leader>d :CocFzfList diagnostics<CR>
+            nnoremap <silent> <leader>l :CocFzfList diagnostics<CR>
         endif
         nmap <silent>]d <Plug>(coc-diagnostic-next)
         nmap <silent>[d <Plug>(coc-diagnostic-prev)
@@ -71,7 +71,7 @@ elseif Installed('coc.nvim')
             endif
         endfunction
         command! ToggleDiagnosticsVirtualtext call s:toggle_diagnostics_hightlights()
-        nnoremap <silent><leader>D :ToggleDiagnosticsVirtualtext<Cr>
+        nnoremap <silent><leader>L :ToggleDiagnosticsVirtualtext<Cr>
     endif
 endif
 if Installed('ale')
@@ -120,7 +120,7 @@ if Installed('ale')
         endif
     endfunction
     command! -bang -nargs=* ShowLint call s:showLint()
-    nnoremap <silent> <leader>d :ShowLint<Cr>
+    nnoremap <silent><leader>l :ShowLint<Cr>
     nmap ]e <Plug>(ale_next_error)
     nmap [e <Plug>(ale_previous_error)
     nmap ]d <Plug>(ale_next)
