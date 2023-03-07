@@ -82,9 +82,6 @@ if g:advanced_complete_engine
 endif
 if g:has_terminal > 0
     if has('nvim')
-        if LINUX()
-            PackAdd 'michaelb/sniprun', {'do': 'bash install.sh'}
-        endif
         PackAdd 'iron.nvim'
     else
         let g:sendtorepl_invoke_key = "cn"

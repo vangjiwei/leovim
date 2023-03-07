@@ -3,26 +3,7 @@ update" --------------------------
 " --------------------------
 imap <M-e> # %%
 imap <M-t> # %%STEP
-" load template
-function! s:read_template(template)
-    execute '0r ' . $LEOVIM_PATH . '/vimspector/' . a:template
-endfunction
 if Installed('iron.nvim')
-    if Installed('sniprun')
-        luafile $LUA_PATH/sniprun.lua
-        nmap so <Plug>SnipRunOperator
-        nmap <silent><leader>s<Cr> vaB:SnipRun<Cr>gv<Esc><Down>
-        xmap <silent><leader>s<Cr> :SnipRun<Cr>gv<Esc><Down>
-        nmap <silent><leader>sq :SnipClose<Cr>
-        nmap <silent><leader>sn :SnipRun<Cr><Down>
-        xmap <silent><leader>sn :SnipRun<Cr>gv<Esc><Down>
-        nmap <silent><leader>sm :SnipReplMemoryClean<Cr>
-        nmap <silent><leader>si :SnipInfo<Cr>
-        nmap <silent><leader>sr :SnipReset<Cr>
-        nmap <silent>\C Vgg:SnipRun<Cr><C-o>
-        nmap <silent>\E VG:SnipRun<Cr><C-o>
-        nmap <silent>\S ggVG:SnipRun<Cr><C-o>
-    endif
     luafile $LUA_PATH/iron.lua
     nmap co :IronRepl<Cr>
     nmap cO :IronRestart<Cr>
@@ -174,6 +155,10 @@ if Installed('nvim-dap', 'nvim-dap-ui')
         endif
     endfunction
 elseif Installed('vimspector')
+    " load template
+    function! s:read_template(template)
+        execute '0r ' . $LEOVIM_PATH . '/vimspector/' . a:template
+    endfunction
     let g:debug_tool = "vimspector"
     let g:vimspector_enable_mappings = 'HUMAN'
     if WINDOWS()
