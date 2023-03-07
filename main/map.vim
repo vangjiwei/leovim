@@ -65,7 +65,6 @@ nnoremap zt z<CR>
 " basic tetxobj
 " --------------------------
 nnoremap <leader>vp viwp
-nnoremap <leader>vP vawp
 nnoremap <leader>v' vi'
 nnoremap <leader>v" vi"
 nnoremap <leader>v( va)
@@ -74,6 +73,8 @@ nnoremap <leader>v[ va]
 nnoremap <leader>v] vi]
 nnoremap <leader>v{ va}
 nnoremap <leader>v} vi}
+nnoremap <leader>v< va>
+nnoremap <leader>v> vi>
 nnoremap <leader>c' ci'
 nnoremap <leader>c" ci"
 nnoremap <leader>c( ca)
@@ -82,6 +83,8 @@ nnoremap <leader>c[ ca]
 nnoremap <leader>c] ci]
 nnoremap <leader>c{ ca}
 nnoremap <leader>c} ci}
+nnoremap <leader>c< ca>
+nnoremap <leader>c> ci>
 nnoremap <leader>d' di'
 nnoremap <leader>d" di"
 nnoremap <leader>d( da)
@@ -90,6 +93,8 @@ nnoremap <leader>d[ da]
 nnoremap <leader>d] di]
 nnoremap <leader>d{ da}
 nnoremap <leader>d} di}
+nnoremap <leader>d< da>
+nnoremap <leader>d> di>
 nnoremap <leader>y' yi'
 nnoremap <leader>y" yi"
 nnoremap <leader>y( ya)
@@ -98,3 +103,5 @@ nnoremap <leader>y[ ya]
 nnoremap <leader>y] yi]
 nnoremap <leader>y{ ya}
 nnoremap <leader>y} yi}
+nnoremap <leader>y< ya>
+nnoremap <leader>y> yi>
