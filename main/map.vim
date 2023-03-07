@@ -66,8 +66,6 @@ nnoremap zt z<CR>
 " --------------------------
 nnoremap <leader>vp viwp
 nnoremap <leader>vP vawp
-nnoremap <leader>vw viw
-nnoremap <leader>vW vaw
 nnoremap <leader>v' vi'
 nnoremap <leader>v" vi"
 nnoremap <leader>v( va)
@@ -76,8 +74,6 @@ nnoremap <leader>v[ va]
 nnoremap <leader>v] vi]
 nnoremap <leader>v{ va}
 nnoremap <leader>v} vi}
-nnoremap <leader>cw ciw
-nnoremap <leader>cW caW
 nnoremap <leader>c' ci'
 nnoremap <leader>c" ci"
 nnoremap <leader>c( ca)
@@ -86,8 +82,6 @@ nnoremap <leader>c[ ca]
 nnoremap <leader>c] ci]
 nnoremap <leader>c{ ca}
 nnoremap <leader>c} ci}
-nnoremap <leader>dw diw
-nnoremap <leader>dW daw
 nnoremap <leader>d' di'
 nnoremap <leader>d" di"
 nnoremap <leader>d( da)
@@ -96,8 +90,6 @@ nnoremap <leader>d[ da]
 nnoremap <leader>d] di]
 nnoremap <leader>d{ da}
 nnoremap <leader>d} di}
-nnoremap <leader>yw yiw
-nnoremap <leader>yW yaw
 nnoremap <leader>y' yi'
 nnoremap <leader>y" yi"
 nnoremap <leader>y( ya)
