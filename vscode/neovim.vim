@@ -55,7 +55,10 @@ xnoremap <C-x> <Cmd>call VSCodeNotifyVisual("editor.action.clipboardCutAction", 
 " enhanced
 nnoremap <leader>w <Cmd>call VSCodeNotify("workbench.action.openView")<Cr>
 nnoremap <leader>m <Cmd>call VSCodeNotify("workbench.action.openRecent")<Cr>
-
+" ------------------------
+" select between # %%
+" ------------------------
+nnoremap <S-enter> viB<C-enter>
 " ------------------------
 " debug
 " ------------------------
