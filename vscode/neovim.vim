@@ -58,7 +58,7 @@ nnoremap <leader>m <Cmd>call VSCodeNotify("workbench.action.openRecent")<Cr>
 " ------------------------
 " select between # %%
 " ------------------------
-nnoremap <S-enter> viB<C-enter>
+nnoremap <S-Cr> viB<C-Cr>
 " ------------------------
 " debug
 " ------------------------
