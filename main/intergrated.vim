@@ -133,49 +133,47 @@ nmap <leader>vQ vaq
 " ------------------------
 " find block
 " ------------------------
-if g:has_terminal
-    let s:block_str = '^# In\[\|^# %%'
-    function! BlockA()
-        let beginline = search(s:block_str, 'ebW')
-        if beginline == 0
-            normal! gg
-        endif
-        let head_pos = getpos('.')
-        let endline  = search(s:block_str, 'eW')
-        if endline == 0
-            normal! G
-        endif
-        let tail_pos = getpos('.')
-        return ['V', head_pos, tail_pos]
-    endfunction
-    function! BlockI()
-        let beginline = search(s:block_str, 'ebW')
-        if beginline == 0
-            normal! gg
-            let beginline = 1
-        else
-            normal! j
-        endif
-        let head_pos = getpos('.')
-        let endline = search(s:block_str, 'eW')
-        if endline == 0
-            normal! G
-        elseif endline > beginline
-            normal! k
-        endif
-        let tail_pos = getpos('.')
-        return ['V', head_pos, tail_pos]
-    endfunction
-    " vib vab to select a block
-    call textobj#user#plugin('block', {
-                \   'block': {
-                \     'select-a-function': 'BlockA',
-                \     'select-a': 'aB',
-                \     'select-i-function': 'BlockI',
-                \     'select-i': 'iB',
-                \     'region-type': 'V'
-                \   },
-                \ })
-    nmap <leader>vb viB
-    nmap <leader>vB vaB
-endif
+let s:block_str = '^# In\[\|^# %%'
+function! BlockA()
+    let beginline = search(s:block_str, 'ebW')
+    if beginline == 0
+        normal! gg
+    endif
+    let head_pos = getpos('.')
+    let endline  = search(s:block_str, 'eW')
+    if endline == 0
+        normal! G
+    endif
+    let tail_pos = getpos('.')
+    return ['V', head_pos, tail_pos]
+endfunction
+function! BlockI()
+    let beginline = search(s:block_str, 'ebW')
+    if beginline == 0
+        normal! gg
+        let beginline = 1
+    else
+        normal! j
+    endif
+    let head_pos = getpos('.')
+    let endline = search(s:block_str, 'eW')
+    if endline == 0
+        normal! G
+    elseif endline > beginline
+        normal! k
+    endif
+    let tail_pos = getpos('.')
+    return ['V', head_pos, tail_pos]
+endfunction
+" vib vab to select a block
+call textobj#user#plugin('block', {
+            \   'block': {
+            \     'select-a-function': 'BlockA',
+            \     'select-a': 'aB',
+            \     'select-i-function': 'BlockI',
+            \     'select-i': 'iB',
+            \     'region-type': 'V'
+            \   },
+            \ })
+nmap <leader>vb viB
+nmap <leader>vB vaB
