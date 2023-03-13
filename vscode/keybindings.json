@@ -198,6 +198,14 @@
   },
   // panel
   {
+      "key": "shift+alt+=",
+      "command": "workbench.action.nextPanelView"
+  },
+  {
+      "key": "shift+alt+-",
+      "command": "workbench.action.previousPanelView"
+  },
+  {
     "key": "ctrl+; e",
     "command": "workbench.files.action.focusOpenEditorsView",
     "when": "workbench.explorer.openEditorsView.active"
