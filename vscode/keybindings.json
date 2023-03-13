@@ -10,12 +10,33 @@
     "command": "workbench.action.terminal.openNativeConsole"
   },
   {
-    "key": "alt+=",
-    "command": "workbench.action.terminal.newWithProfile"
-  },
-  {
     "key": "alt+-",
     "command": "workbench.action.togglePanel"
+  },
+  {
+    "key": "alt+=",
+    "command": "workbench.action.terminal.newWithProfile",
+    "when": "!terminalFocus"
+  },
+  // goto error
+  {
+    "key": "alt+[",
+      "command": "editor.action.marker.prevInFiles",
+      "when": "editorTextFocus && !isInEmbeddedEditor"
+  },
+  {
+    "key": "alt+]",
+    "command": "editor.action.marker.nextInFiles",
+    "when": "editorTextFocus && !isInEmbeddedEditor"
+  },
+  // select terminal 
+  {
+    "key": "shift+alt+[",
+    "command": "workbench.action.terminal.focusPrevious"
+  },
+  {
+    "key": "shift+alt+]",
+    "command": "workbench.action.terminal.focusNext"
   },
   // outline focus, NOTE c-s-o still work
   {
@@ -148,50 +169,11 @@
     "command": "editor.action.goToReferences",
     "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
   },
-  // goto error
-  {
-    "key": "alt+[",
-    "command": "editor.action.marker.prevInFiles",
-    "when": "editorTextFocus && !isInEmbeddedEditor"
-  },
-  {
-    "key": "alt+]",
-    "command": "editor.action.marker.nextInFiles",
-    "when": "editorTextFocus && !isInEmbeddedEditor"
-  },
   // incoming outgoing calls
   {
     "key": "alt+'",
     "command": "references-view.showCallHierarchy",
     "when": "editorHasCallHierarchyProvider"
-  },
-  {
-    "key": "shift+alt+\\[",
-     "command": "references-view.showOutgoingCalls"
-  },
-  {
-    "key": "shift+alt+\\[",
-      "command": "editor.showOutgoingCalls",
-      "when": "callHierarchyVisible && callHierarchyDirection == 'outgoingCalls'"
-  },
-  {
-    "key": "shift+alt+\\[",
-      "command": "editor.showOutgoingCalls",
-      "when": "callHierarchyVisible && callHierarchyDirection == 'incomingCalls'"
-  },
-  {
-    "key": "shift+alt+\\]",
-    "command": "references-view.showIncomingCalls"
-  },
-  {
-    "key": "shift+alt+\\]",
-    "command": "editor.showIncomingCalls",
-    "when": "callHierarchyVisible && callHierarchyDirection == 'outgoingCalls'"
-  },
-  {
-    "key": "shift+alt+\\]",
-    "command": "editor.showIncomingCalls",
-    "when": "callHierarchyVisible && callHierarchyDirection == 'incomingCalls'"
   },
   // insert mode up/down
   {
@@ -243,7 +225,7 @@
   {
     "key": "ctrl+; d",
     "command": "workbench.action.debug.selectDebugConsole"
-  }
+  },
   // contextMenu, like right mouse click
   {
     "key": "alt+\\",
@@ -256,3 +238,4 @@
     "command": "workbench.action.terminal.runSelectedText"
   }
 ]
+
