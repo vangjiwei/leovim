@@ -166,32 +166,32 @@
     "when": "editorHasCallHierarchyProvider"
   },
   {
-    "key": "shift+alt+]",
-    "command": "references-view.showIncomingCalls"
+    "key": "shift+alt+\\[",
+     "command": "references-view.showOutgoingCalls"
   },
   {
-    "key": "shift+alt+]",
-    "command": "editor.showIncomingCalls",
-    "when": "callHierarchyVisible && callHierarchyDirection == 'outgoingCalls'"
-  },
-  {
-    "key": "shift+alt+]",
-    "command": "editor.showIncomingCalls",
-    "when": "callHierarchyVisible && callHierarchyDirection == 'incomingCalls'"
-  },
-  {
-    "key": "shift+alt+[",
-      "command": "references-view.showOutgoingCalls"
-  },
-  {
-    "key": "shift+alt+[",
+    "key": "shift+alt+\\[",
       "command": "editor.showOutgoingCalls",
       "when": "callHierarchyVisible && callHierarchyDirection == 'outgoingCalls'"
   },
   {
-    "key": "shift+alt+[",
+    "key": "shift+alt+\\[",
       "command": "editor.showOutgoingCalls",
       "when": "callHierarchyVisible && callHierarchyDirection == 'incomingCalls'"
+  },
+  {
+    "key": "shift+alt+\\]",
+    "command": "references-view.showIncomingCalls"
+  },
+  {
+    "key": "shift+alt+\\]",
+    "command": "editor.showIncomingCalls",
+    "when": "callHierarchyVisible && callHierarchyDirection == 'outgoingCalls'"
+  },
+  {
+    "key": "shift+alt+\\]",
+    "command": "editor.showIncomingCalls",
+    "when": "callHierarchyVisible && callHierarchyDirection == 'incomingCalls'"
   },
   // insert mode up/down
   {
@@ -216,6 +216,15 @@
   },
   // panel
   {
+    "key": "ctrl+; e",
+    "command": "workbench.files.action.focusOpenEditorsView",
+    "when": "workbench.explorer.openEditorsView.active"
+  },
+  {
+    "key": "ctrl+; t",
+    "command": "terminal.focus"
+  },
+  {
     "key": "ctrl+; p",
     "command": "workbench.actions.view.problems"
   },
@@ -231,6 +240,10 @@
     "key": "ctrl+; g",
     "command": "workbench.view.scm"
   },
+  {
+    "key": "ctrl+; d",
+    "command": "workbench.action.debug.selectDebugConsole"
+  }
   // contextMenu, like right mouse click
   {
     "key": "alt+\\",
