@@ -4,19 +4,20 @@
     "key": "ctrl+shift+j",
     "command": "jupyter.openVariableView"
   },
-  // open out terminal
+  // terminal 
+  {
+    "key": "ctrl+shift+\\`",
+    "command": "workbench.action.terminal.openNativeConsole"
+  },
   {
     "key": "alt+=",
-    "command": "workbench.action.terminal.openNativeConsole",
-    "when": "!terminalFocus"
+    "command": "workbench.action.terminal.newWithProfile"
   },
-  // togglePanel 
   {
     "key": "alt+-",
     "command": "workbench.action.togglePanel"
   },
-  // outline focus
-  // note c-s-o still work
+  // outline focus, NOTE c-s-o still work
   {
     "key": "ctrl+shift+t",
     "command": "outline.focus"
@@ -150,8 +151,8 @@
   // goto error
   {
     "key": "alt+[",
-      "command": "editor.action.marker.prevInFiles",
-      "when": "editorTextFocus && !isInEmbeddedEditor"
+    "command": "editor.action.marker.prevInFiles",
+    "when": "editorTextFocus && !isInEmbeddedEditor"
   },
   {
     "key": "alt+]",
