@@ -32,7 +32,7 @@
   // select terminal 
   {
     "key": "shift+alt+[",
-    "command": "workbench.action.terminal.focusPrevious"
+      "command": "workbench.action.terminal.focusPrevious"
   },
   {
     "key": "shift+alt+]",
@@ -198,12 +198,12 @@
   },
   // panel
   {
-      "key": "shift+alt+=",
-      "command": "workbench.action.nextPanelView"
+    "key": "shift+alt+=",
+    "command": "workbench.action.nextPanelView"
   },
   {
-      "key": "shift+alt+-",
-      "command": "workbench.action.previousPanelView"
+    "key": "shift+alt+-",
+    "command": "workbench.action.previousPanelView"
   },
   {
     "key": "ctrl+; e",
@@ -244,6 +244,31 @@
   {
     "key": "shift+alt+\\",
     "command": "workbench.action.terminal.runSelectedText"
+  },
+  // R ->
+  {
+    "key": "ctrl+shift+,",
+    "command": "editor.action.insertSnippet",
+    "when": "editorTextFocus && editorLangId == 'r'",
+    "args": {
+      "snippet": " <- "
+    }
+  },
+  {
+    "key": "ctrl+shift+.",
+    "command": "editor.action.insertSnippet",
+    "when": "editorTextFocus && editorLangId == 'r'",
+    "args": {
+      "snippet": " -> "
+    }
+  },
+  {
+    "key": "ctrl+shift+m",
+    "command": "editor.action.insertSnippet",
+    "when": "editorTextFocus && editorLangId == 'r'",
+    "args": {
+      "snippet": " %>% "
+    }
   }
 ]
 
