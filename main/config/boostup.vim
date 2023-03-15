@@ -90,7 +90,7 @@ if executable('node') && executable('npm')
                 let g:node_install_tool = 'npm_latest'
             endif
         else
-            let g:node_install_tool = 'npm_legacy'
+            let g:node_install_tool = 'npm_latest'
         endif
     else
         let g:node_install_tool = 'npm_legacy'
