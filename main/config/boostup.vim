@@ -87,13 +87,13 @@ if executable('node') && executable('npm')
             if s:yarn_version >= 1.2218
                 let g:node_install_tool = 'yarn'
             else
-                let g:node_install_tool = 'npm'
+                let g:node_install_tool = 'npm_latest'
             endif
         else
-            let g:node_install_tool = 'npm'
+            let g:node_install_tool = 'npm_legacy'
         endif
     else
-        let g:node_install_tool = 'npm'
+        let g:node_install_tool = 'npm_legacy'
     endif
 else
     let g:node_install_tool = ''
@@ -654,7 +654,7 @@ elseif Require('cmp')
         let s:smart_engine_select = 1
     endif
 elseif Require('coc')
-    if get(g:, 'node_install_tool', '') == 'yarn' && (has('nvim') || has('patch-8.2.0750'))
+    if index(['yarn', 'npm_latest'], get(g:, 'node_install_tool', '')) >= 0 && (has('nvim') || has('patch-8.2.0750'))
         let g:complete_engine = 'coc'
     else
         let s:smart_engine_select = 1
@@ -663,7 +663,7 @@ else
     let s:smart_engine_select = 1
 endif
 if get(s:, 'smart_engine_select', 0)
-    if get(g:, 'node_install_tool', '') == 'yarn' && (has('nvim') || has('patch-8.2.0750') && Require('coc'))
+    if index(['yarn', 'npm_latest'], get(g:, 'node_install_tool', '')) >= 0 && (has('nvim') || has('patch-8.2.0750') && Require('coc'))
         let g:complete_engine = 'coc'
     elseif has('nvim-0.8')
         let g:complete_engine = 'cmp'
