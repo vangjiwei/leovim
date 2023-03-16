@@ -72,3 +72,34 @@ if g:advanced_complete_engine
         PackAdd 'ryanoasis/vim-devicons'
     endif
 endif
+" ------------------------------
+" cmdline complete
+" ------------------------------
+if has('nvim') && get(g:, "complete_engine", '') != 'cmp' || v:version >= 801 && !has('nvim')
+    if has('nvim')
+        function! UpdateRemotePlugins(...)
+            " Needed to refresh runtime files
+            let &rtp=&rtp
+            UpdateRemotePlugins
+        endfunction
+        PackAdd 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
+    else
+        PackAdd 'gelguy/wilder.nvim'
+    endif
+endif
+" ------------------------------
+" zfvim
+" ------------------------------
+if (Require('wubi') || Require('pinyin')) && g:has_terminal > 0
+    PackAdd 'ZSaberLv0/ZFVimIM'
+    if Require('wubi')
+        PackAdd 'ZSaberLv0/ZFVimIM_wubi_base'
+        let g:input_method = 'zfvim_wubi'
+    else
+        let g:input_method = 'zfvim_pinyin'
+    endif
+    PackAdd 'ZSaberLv0/ZFVimIM_pinyin'
+endif
+PackAdd 'ZSaberLv0/ZFVimJob'
+PackAdd 'ZSaberLv0/ZFVimIgnore'
+PackAdd 'ZSaberLv0/ZFVimDirDiff'

@@ -1,44 +1,13 @@
-" ------------------------------
-" zfvim
-" ------------------------------
-if (Require('wubi') || Require('pinyin')) && g:has_terminal > 0
-    PackAdd 'ZSaberLv0/ZFVimIM'
-    if Require('wubi')
-        PackAdd 'ZSaberLv0/ZFVimIM_wubi_base'
-        let g:input_method = 'zfvim_wubi'
-    else
-        let g:input_method = 'zfvim_pinyin'
-    endif
-    PackAdd 'ZSaberLv0/ZFVimIM_pinyin'
-endif
-PackAdd 'ZSaberLv0/ZFVimJob'
-PackAdd 'ZSaberLv0/ZFVimIgnore'
-PackAdd 'ZSaberLv0/ZFVimDirDiff'
 " --------------------------
 " Important plugins
 " --------------------------
-"  NOTE: assist shuould be installed before complete_lint
+"  NOTE: assist shuould be installed before complete_engine
 source $REQUIRE_PATH/assist.vim
 if get(g:, "complete_engine", '') != ''
     source $REQUIRE_PATH/program.vim
     source $REQUIRE_PATH/languages.vim
 endif
 source $REQUIRE_PATH/tag.vim
-" ------------------------------
-" cmdline complete
-" ------------------------------
-if has('nvim') && get(g:, "complete_engine", '') != 'cmp' || v:version >= 801 && !has('nvim')
-    if has('nvim')
-        function! UpdateRemotePlugins(...)
-            " Needed to refresh runtime files
-            let &rtp=&rtp
-            UpdateRemotePlugins
-        endfunction
-        PackAdd 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
-    else
-        PackAdd 'gelguy/wilder.nvim'
-    endif
-endif
 " ------------------------------
 " fullscreen
 " ------------------------------
