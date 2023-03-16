@@ -10,7 +10,7 @@ local defaults = {
     -- the presets plugin, adds help for a bunch of default keybindings in Neovim
     -- No actual key bindings are created
     spelling = {
-      enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+      enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
       suggestions = 20, -- how many suggestions should be shown in the list?
     },
     presets = {
@@ -64,7 +64,19 @@ local defaults = {
   show_keys = true, -- show the currently pressed key and its label as a message in the command line
   triggers = "auto", -- automatically setup triggers
   -- triggers = {"<leader>"} -- or specifiy a list manually
-  triggers_nowait = {}, -- list of triggers, where WhichKey should not wait for timeoutlen and show immediately
+  -- list of triggers, where WhichKey should not wait for timeoutlen and show immediately
+  triggers_nowait = {
+    -- marks
+    "`",
+    "'",
+    "g`",
+    "g'",
+    -- registers
+    '"',
+    "<c-r>",
+    -- spelling
+    "z=",
+  },
   triggers_blacklist = {
     -- list of mode / prefixes that should never be hooked by WhichKey
     -- this is mostly relevant for keymaps that start with a native binding
