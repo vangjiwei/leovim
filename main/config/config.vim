@@ -448,7 +448,7 @@ nnoremap <silent><Tab>n :tabnext<CR>
 nnoremap <silent><Tab>p :tabprevious<CR>
 nnoremap <silent><Tab>N :tabm +1<CR>
 nnoremap <silent><Tab>P :tabm -1<CR>
-nnoremap <Tab>m         :tabm<Space>
+nnoremap <M-M>          :tabm<Space>
 " open in tae
 nnoremap <C-w><Cr> <C-w>T
 " set tab label

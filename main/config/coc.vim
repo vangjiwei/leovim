@@ -254,9 +254,9 @@ nmap <leader>vG vag
 " ------------------------
 " mason
 " ------------------------
-nnoremap <silent>,M :CocFzfList marketplace<Cr>
+nnoremap <silent><Tab>M :CocFzfList marketplace<Cr>
 if Installed('mason.nvim', 'mason-lspconfig.nvim')
-    nnoremap <silent>,m :Mason<Cr>
+    nnoremap <silent><Tab>m :Mason<Cr>
     lua << EOF
     require('mason').setup({
     ui = {

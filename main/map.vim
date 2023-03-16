@@ -29,7 +29,6 @@ nmap <C-j> %
 nmap <C-k> g%
 xmap <C-j> %
 xmap <C-k> g%
-nmap Q gq
 nmap <BS> <C-h>
 " ------------------------
 " core remap

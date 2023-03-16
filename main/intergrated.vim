@@ -41,8 +41,8 @@ xnoremap <sid>(std-I) I
 xnoremap <sid>(std-A) A
 xmap <expr> I mode()=='<c-v>'?'<sid>(std-I)':(v:count?'':'1').'i'
 xmap <expr> A mode()=='<c-v>'?'<sid>(std-A)':(v:count?'':'1').'a'
-nnoremap <silent><M-M> :MatchupWhereAmI??<Cr>
-xnoremap <silent><M-M> <ESC>:MatchupWhereAmI??<Cr>
+nnoremap <silent>Q :MatchupWhereAmI??<Cr>
+xnoremap <silent>Q <ESC>:MatchupWhereAmI??<Cr>
 function! s:matchup_convenience_maps()
     for l:v in ['', 'v', 'V', '<c-v>']
         execute 'omap <expr>' l:v.'I%' "(v:count?'':'1').'".l:v."i%'"
