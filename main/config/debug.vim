@@ -73,18 +73,22 @@ if Installed('nvim-dap', 'nvim-dap-ui')
     if InstalledTelescope()
         nnoremap m<Space> :tabe ~/.leovim.conf/adapter.lua<Cr>:lua require'telescope.builtin'.find_files({ cwd = '~/.leovim.conf/nvim-dap', prompt_title = 'nvim-dap-template' })<Cr>
     elseif InstalledFZF()
+        " load template
+        function! s:read_lua_template(template)
+            execute '0r ' . $LEOVIM_PATH . '/nvim-data/' . a:template
+        endfunction
         if WINDOWS()
             command! -bang -nargs=* LoadNvimDapTemplate call fzf#run(extend(g:fzf_layout, {
                         \ 'source': 'dir /b /a-d ' . $LEOVIM_PATH . '\\nvim-dap',
-                        \ 'sink': function('<sid>read_template')
+                        \ 'sink': function('<sid>read_lua_template')
                         \ }))
         else
             command! -bang -nargs=* LoadNvimDapTemplate call fzf#run(extend(g:fzf_layout, {
                         \ 'source': 'ls -1 ' . $LEOVIM_PATH . '/nvim-dap',
-                        \ 'sink': function('<sid>read_template')
+                        \ 'sink': function('<sid>read_lua_template')
                         \ }))
         endif
-        nnoremap m<Space> :tabe ../.vimspector.json<Cr>:LoadNvimDapTemplate<Cr>
+        nnoremap m<Space> :tabe  ~/.leovim.conf/adapter.lua<Cr>:LoadNvimDapTemplate<Cr>
     endif
     if filereadable(expand("~/.leovim.conf/adapter.lua"))
         luafile ~/.leovim.conf/adapter.lua
