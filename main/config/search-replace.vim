@@ -8,8 +8,8 @@ xnoremap \| :vimgrep <C-r>=GetVisualSelection()<Cr> % \| copen<Cr>
 " --------------------------
 let g:eregex_force_case     = 0
 let g:eregex_default_enable = 1
-let g:eregex_forward_delim  = ',/'
-let g:eregex_backward_delim = ',?'
+let g:eregex_forward_delim  = '<Tab>/'
+let g:eregex_backward_delim = '<Tab>?'
 PackAdd 'eregex.vim'
 " --------------------------
 " vim-grepper

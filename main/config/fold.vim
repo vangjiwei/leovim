@@ -1,16 +1,16 @@
 " basic fold
-nmap <leader>zz za
-nmap ,zz        zA
-nmap <leader>za zfi{
-nmap ,za        zfa{
+nmap <leader>za za
+nmap <Tab>za    zA
+nmap <leader>zz zfi{
+nmap <Tab>zz    zfa{
 nmap <leader>zi zfii
-nmap ,zi        zfai
+nmap <Tab>zi    zfai
 nmap <leader>zc zfic
-nmap ,zc        zfac
+nmap <Tab>zc    zfac
 nmap <leader>zf zfif
-nmap ,zf        zfaf
+nmap <Tab>zf    zfaf
 nmap <leader>zb zfiB
-nmap ,zb        zfaB
+nmap <Tab>zb    zfaB
 if Installed('nvim-ufo', 'promise-async')
     if Installed('coc.nvim')
         let s:map_ufo = 1

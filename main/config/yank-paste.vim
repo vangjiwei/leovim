@@ -75,8 +75,8 @@ else
     xnoremap <M-X> S
 endif
 " yank from beginning / to ending
-nnoremap ,y :0,-y<Cr>
-nnoremap ,Y vGy
+nnoremap <Tab>y :0,-y<Cr>
+nnoremap <Tab>Y vGy
 " del/bs
 inoremap <M-x> <Del>
 inoremap <M-y> <BS>

@@ -1,4 +1,4 @@
-update" --------------------------
+" --------------------------
 " repl
 " --------------------------
 imap <M-e> # %%
@@ -64,13 +64,14 @@ endif
 " --------------------------
 " debug
 " --------------------------
+nnoremap m <Nop>
 if Installed('nvim-dap', 'nvim-dap-ui')
     let g:debug_tool = 'nvim-dap'
     if get(g:, 'leovim_loaded', 0) == 0
         luafile $LUA_PATH/dap.lua
     endif
     if InstalledTelescope()
-        nnoremap ,<Cr> :tabe ~/.leovim.conf/adapter.lua<Cr>:lua require'telescope.builtin'.find_files({ cwd = '~/.leovim.conf/nvim-dap', prompt_title = 'nvim-dap-template' })<Cr>
+        nnoremap m<Space> :tabe ~/.leovim.conf/adapter.lua<Cr>:lua require'telescope.builtin'.find_files({ cwd = '~/.leovim.conf/nvim-dap', prompt_title = 'nvim-dap-template' })<Cr>
     elseif InstalledFZF()
         if WINDOWS()
             command! -bang -nargs=* LoadNvimDapTemplate call fzf#run(extend(g:fzf_layout, {
@@ -83,59 +84,59 @@ if Installed('nvim-dap', 'nvim-dap-ui')
                         \ 'sink': function('<sid>read_template')
                         \ }))
         endif
-        nnoremap ,<Cr> :tabe ../.vimspector.json<Cr>:LoadNvimDapTemplate<Cr>
+        nnoremap m<Space> :tabe ../.vimspector.json<Cr>:LoadNvimDapTemplate<Cr>
     endif
     if filereadable(expand("~/.leovim.conf/adapter.lua"))
         luafile ~/.leovim.conf/adapter.lua
     endif
-    nnoremap ,d :lua require("dap").
+    nnoremap md :lua require("dap").
     " basic
-    nnoremap <silent> ,c <cmd>lua require("dap").run_to_cursor()<CR>
-    nnoremap <silent> ,n <cmd>lua require("dap").continue()<CR>
-    nnoremap <silent> ,s <cmd>lua require("dap").step_into()<CR>
-    nnoremap <silent> ,S <cmd>lua require("dap").step_back()<CR>
-    nnoremap <silent> ,o <cmd>lua require("dap").step_over()<CR>
-    nnoremap <silent> ,u <cmd>lua require("dap").step_out()<CR>
-    nnoremap <silent> ,q <cmd>lua require("dap").close()<Cr>
-    nnoremap <silent> ,a <cmd>lua require("dap").attach(vim.fn.input('Attatch to: '))<CR>
-    nnoremap <silent> ,p <cmd>lua require("dap").pause()<Cr>
-    nnoremap <silent> ,r <cmd>lua require("dap").run_last()<CR>
-    nnoremap <silent> ,R <cmd>lua require("dap").disconnect({ terminateDebuggee = true });require"dap".close()<CR>
+    nnoremap <silent>mm <cmd>lua require("dap").continue()<CR>
+    nnoremap <silent>mc <cmd>lua require("dap").run_to_cursor()<CR>
+    nnoremap <silent>ms <cmd>lua require("dap").step_into()<CR>
+    nnoremap <silent>mS <cmd>lua require("dap").step_back()<CR>
+    nnoremap <silent>mo <cmd>lua require("dap").step_over()<CR>
+    nnoremap <silent>mu <cmd>lua require("dap").step_out()<CR>
+    nnoremap <silent>mq <cmd>lua require("dap").close()<Cr>
+    nnoremap <silent>ma <cmd>lua require("dap").attach(vim.fn.input('Attatch to: '))<CR>
+    nnoremap <silent>mp <cmd>lua require("dap").pause()<Cr>
+    nnoremap <silent>mr <cmd>lua require("dap").run_last()<CR>
+    nnoremap <silent>mR <cmd>lua require("dap").disconnect({ terminateDebuggee = true });require"dap".close()<CR>
     " view
-    nnoremap <silent> ,w <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.scopes)<CRupdate>
-    nnoremap <silent> ,f <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.frames)<CR>
-    nnoremap <silent> ,i <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.expression)<CR>
-    nnoremap <silent> ,h <cmd>lua local widgets=require("dap.ui.widgets");widgets.hover()<CR>
+    nnoremap <silent>mw <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.scopes)<CRupdate>
+    nnoremap <silent>mf <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.frames)<CR>
+    nnoremap <silent>mi <cmd>lua local widgets=require("dap.ui.widgets");widgets.centered_float(widgets.expression)<CR>
+    nnoremap <silent>mh <cmd>lua local widgets=require("dap.ui.widgets");widgets.hover()<CR>
     " breakpoint
-    nnoremap <silent> ,b <cmd>lua require("dap").toggle_breakpoint()<CR>
-    nnoremap <silent> ,C <cmd>lua require("dap").clear_breakpoints()<CR>
-    nnoremap <silent> ,l <cmd>lua require("dap").list_breakpoints()<Cr>
-    nnoremap <silent> <M-d>i <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints info: '))<CR>
-    nnoremap <silent> <M-d>e <cmd>lua require("dap").set_exception_breakpoints("")<left><left>
-    nnoremap <silent> <M-d>b <cmd>lua require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+    nnoremap <silent>mL <cmd>lua require("dap").clear_breakpoints()<CR>
+    nnoremap <silent>mb <cmd>lua require("dap").toggle_breakpoint()<CR>
+    nnoremap <silent>ml <cmd>lua require("dap").list_breakpoints()<Cr>
+    nnoremap <silent><M-d>i <cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input('Breakpoints info: '))<CR>
+    nnoremap <silent><M-d>e <cmd>lua require("dap").set_exception_breakpoints("")<left><left>
+    nnoremap <silent><M-d>b <cmd>lua require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
     " debug
-    nnoremap <silent> <M-d>u <cmd>lua require("dap").up()<Cr>
-    nnoremap <silent> <M-d>d <cmd>lua require("dap").down()<Cr>
-    nnoremap <silent> <M-d>g <cmd>lua require("dap").launch(vim.fn.input('Get config: '))<Cr>
+    nnoremap <silent><M-d>u <cmd>lua require("dap").up()<Cr>
+    nnoremap <silent><M-d>d <cmd>lua require("dap").down()<Cr>
+    nnoremap <silent><M-d>g <cmd>lua require("dap").launch(vim.fn.input('Get config: '))<Cr>
     " repl
-    nnoremap <silent> <M-d>t <cmd>lua require("dap").repl.toggle()<CR>
-    nnoremap <silent> <M-d>s <cmd>lua require("dap").repl.open({}, 'split')<CR>
-    nnoremap <silent> <M-d>v <cmd>lua require("dap").repl.open({}, 'vsplit')<CR>
+    nnoremap <silent><M-d>t <cmd>lua require("dap").repl.toggle()<CR>
+    nnoremap <silent><M-d>s <cmd>lua require("dap").repl.open({}, 'split')<CR>
+    nnoremap <silent><M-d>v <cmd>lua require("dap").repl.open({}, 'vsplit')<CR>
     " auto attach
     au FileType dap-repl lua require('dap.ext.autocompl').attach()
     " --------------------------------------
     " nvim-dap-ui
     " ---------------------------------------
-    nnoremap ,v :lua require("dapui").
-    nnoremap <silent> ,t <cmd>lua require("dapui").toggle()<CR>
+    nnoremap mv :lua require("dapui").
+    nnoremap <silent>mt <cmd>lua require("dapui").toggle()<CR>
     " watch
-    nnoremap <silent> ,e <cmd>lua require("dapui").eval()<CR>
-    nnoremap <silent> <M-m>f <cmd>lua require("dapui").float_element()<Cr>
-    nnoremap <silent> <M-m>r <cmd>lua require("dapui").float_element('repl')<Cr>
-    nnoremap <silent> <M-m>b <cmd>lua require("dapui").float_element('breakpoints')<Cr>
-    nnoremap <silent> <M-m>s <cmd>lua require("dapui").float_element('stacks')<Cr>
-    nnoremap <silent> <M-m>c <cmd>lua require("dapui").float_element('console')<Cr>
-    nnoremap <silent> <M-m>w <cmd>lua require("dapui").float_element('watches')<Cr>
+    nnoremap <silent>me <cmd>lua require("dapui").eval()<CR>
+    nnoremap <silent><M-m>f <cmd>lua require("dapui").float_element()<Cr>
+    nnoremap <silent><M-m>r <cmd>lua require("dapui").float_element('repl')<Cr>
+    nnoremap <silent><M-m>b <cmd>lua require("dapui").float_element('breakpoints')<Cr>
+    nnoremap <silent><M-m>s <cmd>lua require("dapui").float_element('stacks')<Cr>
+    nnoremap <silent><M-m>c <cmd>lua require("dapui").float_element('console')<Cr>
+    nnoremap <silent><M-m>w <cmd>lua require("dapui").float_element('watches')<Cr>
     " jump to windows in dapui
     nnoremap <silent><M-m>1 :call GoToDAPWindows("DAP Scopes")<Cr>
     nnoremap <silent><M-m>2 :call GoToDAPWindows("DAP Watches")<Cr>
@@ -178,36 +179,36 @@ elseif Installed('vimspector')
                         \ 'sink': function('<sid>read_template')
                         \ }))
         endif
-        nnoremap ,<Cr> :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
+        nnoremap m<Space> :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
     elseif InstalledTelescope()
-        nnoremap ,<Cr> :tabe ../.vimspector.json<Cr>:lua require'telescope.builtin'.find_files({ cwd = '~/.leovim.conf/vimspector', prompt_title = 'vimspector-template' })<Cr>
+        nnoremap m<Space> :tabe ../.vimspector.json<Cr>:lua require'telescope.builtin'.find_files({ cwd = '~/.leovim.conf/vimspector', prompt_title = 'vimspector-template' })<Cr>
     endif
     " core shortcuts
-    nnoremap ,v :call vimspector#
-    nnoremap ,d :Vimspector
-    nnoremap ,e :VimspectorEval<Space>
-    nnoremap ,w :VimspectorWatch<Space>
-    nnoremap ,a :call vimspector#AddWatch("")<Left><Left>
-    nnoremap ,p :call vimspector#Pause()<Cr>
-    nmap <silent>,E <Plug>VimspectorBalloonEval
+    nnoremap mv :call vimspector#
+    nnoremap md :Vimspector
+    nnoremap me :VimspectorEval<Space>
+    nnoremap mw :VimspectorWatch<Space>
+    nnoremap ma :call vimspector#AddWatch("")<Left><Left>
+    nnoremap mp :call vimspector#Pause()<Cr>
+    nmap <silent>mE <Plug>VimspectorBalloonEval
     " run
-    nmap <silent>,c <Plug>VimspectorRunToCursor
-    nmap <silent>,n <Plug>VimspectorContinue
-    nmap <silent>,s <Plug>VimspectorStepInto
-    nmap <silent>,o <Plug>VimspectorStepOver
-    nmap <silent>,u <Plug>VimspectorStepOut
+    nmap <silent>mc <Plug>VimspectorRunToCursor
+    nmap <silent>mm <Plug>VimspectorContinue
+    nmap <silent>ms <Plug>VimspectorStepInto
+    nmap <silent>mo <Plug>VimspectorStepOver
+    nmap <silent>mu <Plug>VimspectorStepOut
     " breakpoint
-    nmap <silent>,b <Plug>VimspectorToggleBreakpoint
-    nmap <silent>,C :call vimspector#ToggleAllBreakpointsViewBreakpoint()<Cr>
-    nmap <silent>,l :call vimspector#ListBreakpoints()<Cr>
+    nmap <silent>mb <Plug>VimspectorToggleBreakpoint
+    nmap <silent>mB :call vimspector#ToggleAllBreakpointsViewBreakpoint()<Cr>
+    nmap <silent>ml :call vimspector#ListBreakpoints()<Cr>
     nmap <silent><M-d>f <Plug>VimspectorAddFunctionBreakpoint
     nmap <silent><M-d>c <Plug>VimspectorToggleConditionalBreakpoint
     nmap <silent><F7>   <Plug>VimspectorToggleConditionalBreakpoint
     " del / stop
-    nnoremap <silent>,x :call vimspector#DeleteWatch()<Cr>
-    nnoremap <silent>,q :call vimspector#Stop()<Cr>
-    nnoremap <silent>,R :call vimspector#Reset()<Cr>
-    nnoremap <silent>,r :call vimspector#Restart()<Cr>
+    nnoremap <silent>mx :call vimspector#DeleteWatch()<Cr>
+    nnoremap <silent>mq :call vimspector#Stop()<Cr>
+    nnoremap <silent>mR :call vimspector#Reset()<Cr>
+    nnoremap <silent>mr :call vimspector#Restart()<Cr>
     " important functions
     nnoremap <silent><M-d>u :call vimspector#UpFrame()<Cr>
     nnoremap <silent><M-d>d :call vimspector#DownFrame()<Cr>
@@ -256,18 +257,18 @@ elseif v:version >= 801 && !has('nvim') && Require('deubg') && executable('gdb')
     let g:termdebug_map_K = 0
     let g:termdebug_use_prompt = 1
     " breakpoint
-    nnoremap ,b :Break<Cr>
-    nnoremap ,C :Clear<Cr>
+    nnoremap mL :Clear<Cr>
+    nnoremap mb :Break<Cr>
     " debug
-    nnoremap ,d :Termdebug
-    nnoremap ,D :TermdebugCommand<Space>
-    nnoremap ,n :Continue<Cr>
-    nnoremap ,s :Step<Cr>
-    nnoremap ,o :Over<Cr>
-    nnoremap ,u :Finish<Cr>
-    nnoremap ,r :Run<Space>
-    nnoremap ,a :Arguments<Space>
-    nnoremap ,e :Evaluate<Space>
+    nnoremap md :Termdebug
+    nnoremap mc :TermdebugCommand<Space>
+    nnoremap mm :Continue<Cr>
+    nnoremap ms :Step<Cr>
+    nnoremap mo :Over<Cr>
+    nnoremap mu :Finish<Cr>
+    nnoremap mr :Run<Space>
+    nnoremap ma :Arguments<Space>
+    nnoremap me :Evaluate<Space>
     nnoremap <M-d>p :Program<Cr>
     nnoremap <M-d>o :Source<Cr>
     nnoremap <M-d>d :Gdb<Cr>

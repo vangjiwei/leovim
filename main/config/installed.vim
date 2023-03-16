@@ -149,12 +149,14 @@ elseif has('patch-7.4.330')
     let g:which_key_group_dicts      = ''
     let g:which_key_use_floating_win = g:has_popup_floating
     " basic keys
+    nnoremap m       :WhichKey "m"<Cr>
     nnoremap <Space> :WhichKey       " "<Cr>
     nnoremap <Tab>   :WhichKey       "\<Tab\>"<Cr>
     nnoremap ,       :WhichKey       ","<Cr>
     nnoremap \       :WhichKey       "\\"<Cr>
     nnoremap [       :WhichKey       "["<Cr>
     nnoremap ]       :WhichKey       "]"<Cr>
+    xnoremap m       :WhichKeyVisual "m"<Cr>
     xnoremap <Space> :WhichKeyVisual " "<Cr>
     xnoremap <Tab>   :WhichKeyVisual "\<Tab\>"<Cr>
     xnoremap ,       :WhichKeyVisual ","<Cr>
@@ -167,7 +169,6 @@ elseif has('patch-7.4.330')
     else
         nnoremap g<Space> :WhichKey "g"<Cr>
     endif
-    nnoremap m<Space> :WhichKey "m"<Cr>
     nnoremap s<Space> :WhichKey "s"<Cr>
     nnoremap S<Space> :WhichKey "S"<Cr>
     nnoremap c<Space> :WhichKey "c"<Cr>

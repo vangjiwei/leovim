@@ -1,3 +1,4 @@
+nnoremap M m
 if Installed('vim-signature')
     nnoremap [1 :call signature#marker#Goto('prev', 1, v:count)<Cr>
     nnoremap ]1 :call signature#marker#Goto('next', 1, v:count)<Cr>
@@ -25,6 +26,8 @@ if Installed('vim-signature')
           \ 'DeleteMark'        : "m,",
           \ 'PurgeMarks'        : "m-",
           \ 'PurgeMarkers'      : "m=",
+          \ 'ListBufferMarks'   : "m/",
+          \ 'ListBufferMarkers' : "m?",
           \ 'GotoNextLineAlpha' : "']",
           \ 'GotoPrevLineAlpha' : "'[",
           \ 'GotoNextSpotAlpha' : "`]",
@@ -37,8 +40,6 @@ if Installed('vim-signature')
           \ 'GotoPrevMarker'    : "[-",
           \ 'GotoNextMarkerAny' : "]=",
           \ 'GotoPrevMarkerAny' : "[=",
-          \ 'ListBufferMarks'   : "m/",
-          \ 'ListBufferMarkers' : "m?"
           \ }
 endif
 if Installed('leaderf-marks')

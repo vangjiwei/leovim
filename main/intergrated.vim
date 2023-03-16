@@ -41,8 +41,8 @@ xnoremap <sid>(std-I) I
 xnoremap <sid>(std-A) A
 xmap <expr> I mode()=='<c-v>'?'<sid>(std-I)':(v:count?'':'1').'i'
 xmap <expr> A mode()=='<c-v>'?'<sid>(std-A)':(v:count?'':'1').'a'
-nnoremap <silent>M :MatchupWhereAmI??<Cr>
-xnoremap <silent>M <ESC>:MatchupWhereAmI??<Cr>
+nnoremap <silent><M-M> :MatchupWhereAmI??<Cr>
+xnoremap <silent><M-M> <ESC>:MatchupWhereAmI??<Cr>
 function! s:matchup_convenience_maps()
     for l:v in ['', 'v', 'V', '<c-v>']
         execute 'omap <expr>' l:v.'I%' "(v:count?'':'1').'".l:v."i%'"
@@ -69,13 +69,8 @@ let g:clever_f_repeat_last_char_inputs = ['<Tab>']
 PackAdd 'clever-f.vim'
 nmap ; <Plug>(clever-f-repeat-forward)
 xmap ; <Plug>(clever-f-repeat-forward)
-if exists('g:vscode')
-    nmap , <Plug>(clever-f-repeat-back)
-    xmap , <Plug>(clever-f-repeat-back)
-else
-    nmap ,, <Plug>(clever-f-repeat-back)
-    xmap ,, <Plug>(clever-f-repeat-back)
-endif
+nmap , <Plug>(clever-f-repeat-back)
+xmap , <Plug>(clever-f-repeat-back)
 " ------------------------
 " surround
 " ------------------------
