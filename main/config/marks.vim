@@ -20,12 +20,12 @@ if Installed('vim-signature')
     nnoremap ]9 :call signature#marker#Goto('next', 9, v:count)<Cr>
     let g:SignatureMap = {
           \ 'Leader'            : "m",
+          \ 'DeleteMark'        : "dm",
           \ 'ToggleMarkAtLine'  : "m<Cr>",
-          \ 'PurgeMarksAtLine'  : "m.",
           \ 'PlaceNextMark'     : "m;",
-          \ 'DeleteMark'        : "m,",
-          \ 'PurgeMarks'        : "m-",
-          \ 'PurgeMarkers'      : "m=",
+          \ 'PurgeMarksAtLine'  : "m,",
+          \ 'PurgeMarks'        : "m.",
+          \ 'PurgeMarkers'      : "m<Bs>",
           \ 'ListBufferMarks'   : "m/",
           \ 'ListBufferMarkers' : "m?",
           \ 'GotoNextLineAlpha' : "']",

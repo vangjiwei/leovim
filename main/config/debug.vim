@@ -71,7 +71,7 @@ if Installed('nvim-dap', 'nvim-dap-ui')
         luafile $LUA_PATH/dap.lua
     endif
     if InstalledTelescope()
-        nnoremap m<Space> :tabe ~/.leovim.conf/adapter.lua<Cr>:lua require'telescope.builtin'.find_files({ cwd = '~/.leovim.conf/nvim-dap', prompt_title = 'nvim-dap-template' })<Cr>
+        nnoremap m\ :tabe ~/.leovim.conf/adapter.lua<Cr>:lua require'telescope.builtin'.find_files({ cwd = '~/.leovim.conf/nvim-dap', prompt_title = 'nvim-dap-template' })<Cr>
     elseif InstalledFZF()
         " load template
         function! s:read_lua_template(template)
@@ -88,7 +88,7 @@ if Installed('nvim-dap', 'nvim-dap-ui')
                         \ 'sink': function('<sid>read_lua_template')
                         \ }))
         endif
-        nnoremap m<Space> :tabe  ~/.leovim.conf/adapter.lua<Cr>:LoadNvimDapTemplate<Cr>
+        nnoremap m\ :tabe  ~/.leovim.conf/adapter.lua<Cr>:LoadNvimDapTemplate<Cr>
     endif
     if filereadable(expand("~/.leovim.conf/adapter.lua"))
         luafile ~/.leovim.conf/adapter.lua
@@ -183,9 +183,9 @@ elseif Installed('vimspector')
                         \ 'sink': function('<sid>read_template')
                         \ }))
         endif
-        nnoremap m<Space> :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
+        nnoremap m\ :tabe ../.vimspector.json<Cr>:LoadVimspectorJsonTemplate<Cr>
     elseif InstalledTelescope()
-        nnoremap m<Space> :tabe ../.vimspector.json<Cr>:lua require'telescope.builtin'.find_files({ cwd = '~/.leovim.conf/vimspector', prompt_title = 'vimspector-template' })<Cr>
+        nnoremap m\ :tabe ../.vimspector.json<Cr>:lua require'telescope.builtin'.find_files({ cwd = '~/.leovim.conf/vimspector', prompt_title = 'vimspector-template' })<Cr>
     endif
     " core shortcuts
     nnoremap mv :call vimspector#
