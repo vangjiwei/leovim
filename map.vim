@@ -104,3 +104,61 @@ nnoremap <leader>y{ ya}
 nnoremap <leader>y} yi}
 nnoremap <leader>y< ya>
 nnoremap <leader>y> yi>
+" ------------------------
+" some enhanced shortcuts
+" ------------------------
+nmap gb 2g;a
+nmap !  :!
+xmap !  :<C-u>!<C-R>=GetVisualSelection()<Cr>
+xmap .  :<C-u>normal .<Cr>
+xmap /  y/<C-R>"
+xmap ?  y?<C-R>"
+" ------------------------
+" yank
+" ------------------------
+if exists("##TextYankPost") && UNIX() && exists('*trim')
+    function! s:raw_echo(str)
+        if filewritable('/dev/fd/2')
+            call writefile([a:str], '/dev/fd/2', 'b')
+        else
+            exec("silent! !echo " . shellescape(a:str))
+            redraw!
+        endif
+    endfunction
+    function! s:copy() abort
+        let c = join(v:event.regcontents,"\n")
+        if len(trim(c)) == 0
+            return
+        endif
+        let c64 = system("base64", c)
+        if $TMUX == ''
+            let s = "\e]52;c;" . trim(c64) . "\x07"
+        else
+            let s = "\ePtmux;\e\e]52;c;" . trim(c64) . "\x07\e\\"
+        endif
+        call s:raw_echo(s)
+    endfunction
+    autocmd TextYankPost * call s:copy()
+endif
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+xnoremap zp "_c<ESC>p"
+xnoremap zP "_c<ESC>P"
+" Yank a line without leading whitespaces and line break
+nnoremap <leader>yu mp_yg_`p
+" Copy a line without leading whitespaces and line break to clipboard
+nnoremap <leader>yw mp_"+yg_`P
+" Copy file path
+nnoremap <leader>yp :let @*=expand("%:p")<cr>:echo '-= File path copied=-'<Cr>
+" Copy file name
+nnoremap <leader>yf :let @*=expand("%:t")<cr>:echo '-= File name copied=-'<Cr>
+" Copy bookmark position reference
+nnoremap <leader>yb :let @*=expand("%:p").':'.line(".").':'.col(".")<cr>:echo '-= Cursor bookmark copied=-'<cr>'
+" --------------------------
+" StripTrailingWhiteSpace
+" --------------------------
+augroup TrailSpace
+    autocmd FileType vim,c,cpp,java,go,php,javascript,typescript,python,rust,twig,xml,yml,perl,sql,r,conf,lua
+        \ autocmd! BufWritePre <buffer> :call TripTrailingWhiteSpace()
+augroup END
+command! TripTrailingWhiteSpace call TripTrailingWhiteSpace()
+nnoremap d<space> :TripTrailingWhiteSpace<Cr>

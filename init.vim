@@ -371,54 +371,8 @@ let g:todo_patterns = "(TODO|FIXME|WARN|ERROR|BUG|HELP)"
 let g:note_patterns = "(NOTE|XXX|HINT|STEP|ETC)"
 let g:root_patterns = get(g:, 'root_patterns', [".root/", ".env/", ".git/", ".hg/", ".svn/", ".vim/", ".vscode/", '.idea/', ".ccls/", "compile_commands.json"])
 " -----------------------------------
-" set
-" -----------------------------------
-source $MAIN_PATH/set.vim
-if WINDOWS()
-    set termencoding=gbk
-else
-    let &termencoding=&enc
-endif
-" -----------------------------------
-" wildmenu
-" -----------------------------------
-if has('patch-7.4.2201') || has('nvim')
-    setlocal signcolumn=yes
-endif
-if has('wildignore')
-    set wildignore+=*\\tmp\\*,*/tmp/*,*.swp,*.exe,*.dll,*.so,*.zip,*.tar*,*.7z,*.rar,*.gz,*.pyd,*.pyc,*.ipynb
-    set wildignore+=.ccls-cache/*,.idea/*,.vscode/*,__pycache__/*,.git/*,.svn/*,.hg/*
-endif
-" ------------------------
-" shortmess
-" ------------------------
-try
-    set shortmess+=a
-catch
-    " +a get use short messages
-endtry
-try
-    set shortmess+=c
-catch
-    " +c get rid of annoying completion notifications
-endtry
-" ------------------------
-" core remap
-" ------------------------
-source $MAIN_PATH/map.vim
-" some enhanced shortcuts
-nmap gb 2g;a
-nmap !  :!
-xmap !  :<C-u>!<C-R>=GetVisualSelection()<Cr>
-xmap .  :<C-u>normal .<Cr>
-xmap /  y/<C-R>"
-xmap ?  y?<C-R>"
-" --------------------------
-" filetype
-" --------------------------
-filetype plugin indent on
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Toggle modifiable for current buffer
+" -----------------------------------
 function! s:toggle_modify() abort
     if &modifiable
         setl nomodifiable
@@ -430,56 +384,18 @@ function! s:toggle_modify() abort
 endfunction
 command! ToggleModity call s:toggle_modify()
 nnoremap <silent> <space>e<space> :ToggleModity<Cr>
-" --------------------------
-" StripTrailingWhiteSpace
-" --------------------------
-augroup TrailSpace
-    autocmd FileType vim,c,cpp,java,go,php,javascript,typescript,python,rust,twig,xml,yml,perl,sql,r,conf,lua
-        \ autocmd! BufWritePre <buffer> :call TripTrailingWhiteSpace()
-augroup END
-command! TripTrailingWhiteSpace call TripTrailingWhiteSpace()
-nnoremap d<space> :TripTrailingWhiteSpace<Cr>
+" -----------------------------------
+" set
+" -----------------------------------
+source $LEOVIM_PATH/set.vim
 " ------------------------
-" yank
+" core map
 " ------------------------
-" osc52 yankpost
-if exists("##TextYankPost") && UNIX() && exists('*trim')
-    function! s:raw_echo(str)
-        if filewritable('/dev/fd/2')
-            call writefile([a:str], '/dev/fd/2', 'b')
-        else
-            exec("silent! !echo " . shellescape(a:str))
-            redraw!
-        endif
-    endfunction
-    function! s:copy() abort
-        let c = join(v:event.regcontents,"\n")
-        if len(trim(c)) == 0
-            return
-        endif
-        let c64 = system("base64", c)
-        if $TMUX == ''
-            let s = "\e]52;c;" . trim(c64) . "\x07"
-        else
-            let s = "\ePtmux;\e\e]52;c;" . trim(c64) . "\x07\e\\"
-        endif
-        call s:raw_echo(s)
-    endfunction
-    autocmd TextYankPost * call s:copy()
-endif
-nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-xnoremap zp "_c<ESC>p"
-xnoremap zP "_c<ESC>P"
-" Yank a line without leading whitespaces and line break
-nnoremap <leader>yu mp_yg_`p
-" Copy a line without leading whitespaces and line break to clipboard
-nnoremap <leader>yw mp_"+yg_`P
-" Copy file path
-nnoremap <leader>yp :let @*=expand("%:p")<cr>:echo '-= File path copied=-'<Cr>
-" Copy file name
-nnoremap <leader>yf :let @*=expand("%:t")<cr>:echo '-= File name copied=-'<Cr>
-" Copy bookmark position reference
-nnoremap <leader>yb :let @*=expand("%:p").':'.line(".").':'.col(".")<cr>:echo '-= Cursor bookmark copied=-'<cr>'
+source $LEOVIM_PATH/map.vim
+" ----------------------
+" intergrated packs
+" ---------------------
+source $LEOVIM_PATH/intergrated.vim
 " ------------------------
 " configs for vscode or neovim/vim
 " ------------------------
@@ -502,10 +418,6 @@ else
         source $CONFIG_PATH/terminal.vim
     endif
 endif
-" ----------------------
-" intergrated packs
-" ---------------------
-source $MAIN_PATH/intergrated.vim
 " ------------------------
 " set leovim loaded
 " ------------------------
