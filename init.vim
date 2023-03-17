@@ -1,7 +1,6 @@
 " ====================================================================================================
 " set Variables
 " ====================================================================================================
-" version require
 if v:version < 704 && !has('nvim')
     echoe 'vim 7.4 is at least required when uing leovim.'
     finish
@@ -12,24 +11,25 @@ elseif !exists('*system')
     echoe 'function system() is required when using leovim.'
     finish
 end
+" ------------------------
+" mapleader
+" ------------------------
+let g:mapleader      = ' '
+let g:maplocalleader = '\'
 " --------------------------
 " set dirs
 " --------------------------
 " set basic path
 let $LEOVIM_PATH = expand('~/.leovim.conf')
+" packpath
+let $PACK_PATH = expand($LEOVIM_PATH . '/pack')
 " set config path
-let $MAIN_PATH    = expand($LEOVIM_PATH . '/main')
-let $CONFIG_PATH  = expand($MAIN_PATH . '/config')
+let $MAIN_PATH = expand($LEOVIM_PATH . '/main')
 let $REQUIRE_PATH = expand($MAIN_PATH . '/require')
-let $LUA_PATH     = expand($CONFIG_PATH . '/lua')
-" ------------------------
+let $CONFIG_PATH = expand($MAIN_PATH . '/config')
+let $LUA_PATH = expand($CONFIG_PATH . '/lua')
 " set opt path which contains repos cloned.
-" ------------------------
-let $OPT_PATH = expand($LEOVIM_PATH . '/pack/repos/opt')
-" ------------------------
-" runtime packpath
-" ------------------------
-let $PACK_PATH = expand($LEOVIM_PATH . '/PACK_PATH')
+let $OPT_PATH = expand($PACK_PATH . '/repos/opt')
 set rtp=$VIMRUNTIME,$PACK_PATH
 if exists(':packadd')
     set packpath=$LEOVIM_PATH
@@ -149,9 +149,7 @@ if exists(':tnoremap') && !exists('g:vscode')
     else
         let g:has_terminal=1
     endif
-    " --------------------------
     " has popup or floating window
-    " --------------------------
     if has("popupwin") || exists('*nvim_open_win')
         let g:has_popup_floating = get(g:, 'has_popup_floating', 1)
     else
@@ -161,20 +159,6 @@ else
     let g:has_terminal = 0
     let g:has_popup_floating = 0
 endif
-" ----------------------------------------------------
-" source commom.vim for vim/neovim/vscode
-" ----------------------------------------------------
-function! StringToFloat(str)
-    let str = a:str
-    try
-        let lst   = split(str, "\\.")
-        let main  = lst[0]
-        let other = join(lst[1:], '')
-        return str2float(main . "\." . other)
-    catch
-        return str2float(str)
-    endtry
-endfunction
 " ------------------------
 " EnhancedSearch
 " ------------------------
@@ -189,11 +173,6 @@ endfunction
 nmap <silent> * :<C-u>call EnhancedSearch()<CR>/<C-R>=@/<CR><CR>N
 nmap <silent> # :<C-u>call EnhancedSearch()<CR>?<C-R>=@/<CR><CR>N
 inoremap <leader> <leader><c-g>u
-" ------------------------
-" mapleader
-" ------------------------
-let g:mapleader      = ' '
-let g:maplocalleader = '\'
 " -----------------------------------
 " delete tmp/swp files
 " -----------------------------------
@@ -205,6 +184,18 @@ endif
 " ------------------------------
 " git version
 " ------------------------------
+" important function to convert string to float
+function! StringToFloat(str)
+    let str = a:str
+    try
+        let lst   = split(str, "\\.")
+        let main  = lst[0]
+        let other = join(lst[1:], '')
+        return str2float(main . "\." . other)
+    catch
+        return str2float(str)
+    endtry
+endfunction
 if executable('git')
     let s:git_version_raw = matchstr(system('git --version'), '\v\zs\d{1,4}.\d{1,4}.\d{1,4}\ze')
     let g:git_version = StringToFloat(s:git_version_raw)
@@ -367,7 +358,9 @@ let g:highlight_filetypes = get(g:, 'highlight_filetypes', [
             \ 'r', 'python','bash',
             \ 'c', 'cpp', 'cmake', 'java', 'rust', 'go',
             \ ])
+" -----------------------------------
 " pattern
+" -----------------------------------
 let g:todo_patterns = "(TODO|FIXME|WARN|ERROR|BUG|HELP)"
 let g:note_patterns = "(NOTE|XXX|HINT|STEP|ETC)"
 let g:root_patterns = get(g:, 'root_patterns', [".root/", ".env/", ".git/", ".hg/", ".svn/", ".vim/", ".vscode/", '.idea/', ".ccls/", "compile_commands.json"])
@@ -720,14 +713,8 @@ nmap SJ vt<Space>S
 nmap SK vT<Space>S
 nmap SS T<Space>vt<Space>S
 " --------------------------
-" textobj need 704+
-" --------------------------
-if v:version < 704
-    finish
-endif
-" ------------------------
 " textobj
-" ------------------------
+" --------------------------
 PackAdd 'vim-textobj-user'
 PackAdd 'vim-textobj-syntax'
 PackAdd 'vim-textobj-uri'
@@ -812,28 +799,19 @@ call textobj#user#plugin('block', {
             \ })
 nmap <leader>vb viB
 nmap <leader>vB vaB
-
-
-
-
-
-" ------------------------
-" configs for
-" ------------------------
+" =========================================================================
+" source
+" =========================================================================
 if exists("g:vscode")
     source $LEOVIM_PATH/vscode/neovim.vim
 else
-    " ------------------------
     " vim-preview
-    " ------------------------
     let g:preview#preview_position = "rightbottom"
-    let g:preview#preview_size     = get(g:, 'asyncrun_open', 8)
+    let g:preview#preview_size = get(g:, 'asyncrun_open', 8)
     nnoremap <leader>ex Q
     nnoremap qq <C-w>z
     nnoremap <Tab>o cd:PreviewFile
-    " ------------------------
     " source
-    " ------------------------
     source $MAIN_PATH/common.vim
     if g:has_terminal > 0
         source $CONFIG_PATH/terminal.vim
