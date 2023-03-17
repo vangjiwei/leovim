@@ -898,7 +898,7 @@ nnoremap <leader>e<Cr> :source $LEOVIM_PATH/init.vim<Cr>
 " ------------------------
 nnoremap <leader>el :tabe $HOME/.vimrc.local<Cr>
 nnoremap <leader>ei :tabe $LEOVIM_PATH/init.vim<Cr>
-nnoremap <leader>ec :tabe $CONFIG_PATH/config.vim<Cr>
+nnoremap <leader>ec :tabe $MAIN_PATH/common.vim<Cr>
 nnoremap <leader>er :tabe ~/.leovim.conf/runtime/
 nnoremap <leader>em :tabe ~/.leovim.conf/main/
 nnoremap <leader>eu :tabe ~/.leovim.conf/main/config/lua/

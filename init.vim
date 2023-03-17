@@ -497,7 +497,7 @@ else
     " ------------------------
     " source
     " ------------------------
-    source $CONFIG_PATH/config.vim
+    source $MAIN_PATH/common.vim
     if g:has_terminal > 0
         source $CONFIG_PATH/terminal.vim
     endif
