@@ -5,4 +5,5 @@ catch
 endtry
 set norelativenumber
 nnoremap <silent><buffer>Q  :cclose<Cr><C-o>
+nnoremap <silent><buffer>p  <C-w>z
 nnoremap <silent><buffer>qq <C-w>z

@@ -26,116 +26,14 @@ if Installed('leaderf')
             nnoremap <leader>P :FZF
         endif
     endif
-    " leaderf sepcial
+    " leaderf sepcial map
     nnoremap <leader>; :Leaderf --next<Cr>
     nnoremap <leader>, :Leaderf --previous<Cr>
     nnoremap <leader>. :Leaderf --recall<Cr>
-elseif Installed('coc.nvim')
-    let g:fuzzy_finder = 'coc-fzf'
-    nnoremap <silent><C-p> :CocFzfList<Cr>
-elseif InstalledTelescope()
-    let g:fuzzy_finder = 'telescope'
-    nnoremap <silent><C-p> :Telescope<Cr>
-    nnoremap <silent><M-h>h :Telescope help_tags<Cr>
-elseif InstalledFZF()
-    let g:fuzzy_finder = 'fzf'
-    nnoremap <silent><C-p> :FZF
-else
-    let g:fuzzy_finder = ''
-endif
-" --------------------------
-" telescope and fzf
-" --------------------------
-if InstalledTelescope()
-    luafile $LUA_PATH/telescope.lua
-    nnoremap m<tab> <cmd>Telescope keymaps<Cr>
-    nnoremap <M-h>q <cmd>Telescope quickfixhistory<Cr>
-    nnoremap <M-h>. <cmd>Telescope resume<Cr>
-    nnoremap <leader>fp :lua project_files()<Cr>
-elseif InstalledFZF()
-    " --------------------------
-    " fzf basic settings
-    " --------------------------
-    let $FZF_DEFAULT_OPTS = '--layout=reverse-list --info=inline'
-    if has('nvim') || has('patch-8.2.191')
-        let g:fzf_layout = {'up':'~80%',
-            \ 'window': {'width': 0.9, 'height': 0.8, 'border': 'sharp'}
-            \ }
-        let g:fzf_preview_window = ['right,45%,<80(up,30%)', 'ctrl-/']
-    else
-        let g:fzf_layout = {'down': '~30%'}
-        let g:fzf_preview_window = ['right,45%', 'ctrl-/']
-    endif
-    au FileType fzf tnoremap <buffer> <C-j> <Down>
-    au FileType fzf tnoremap <buffer> <C-k> <Up>
-    au FileType fzf tnoremap <buffer> <C-n> <Nop>
-    au FileType fzf tnoremap <buffer> <C-p> <Nop>
-    " preview position
-    let g:fzf_command_prefix = 'FZF'
-    " [Buffers] Jump to the existing window if possible
-    let g:fzf_buffers_jump = 1
-    " [[B]Commits] Customize the options used by 'git log':
-    let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-    " [Commands] --expect expression for directly executing the command
-    let g:fzf_commands_expect = 'alt-enter'
-    function! s:build_quickfix_list(lines)
-        call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-        " call execute("copen " . g:asyncrun_open)
-        " cc
-    endfunction
-    let g:fzf_action = {
-                \ 'enter':  'edit',
-                \ 'ctrl-e': function('s:build_quickfix_list'),
-                \ 'ctrl-t': 'tab split',
-                \ 'ctrl-x': 'split',
-                \ 'ctrl-]': 'vsplit'
-                \ }
-    " --------------------------
-    " fzf maps
-    " --------------------------
-    nmap m<tab> <plug>(fzf-maps-n)
-    xmap m<tab> <plug>(fzf-maps-x)
-    omap m<tab> <plug>(fzf-maps-o)
-    " --------------------------
-    " fzf grep
-    " --------------------------
-    command! -bang -nargs=* FZFGGrep
-                \ call fzf#vim#grep(
-                \   'git grep -I --line-number --color=always -- ' . shellescape(empty(<q-args>) ? '^' : <q-args>),
-                \   0,
-                \   fzf#vim#with_preview(),
-                \   <bang>0)
-                " \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}),
-    command! -bang -nargs=* FZFRg
-                \ call fzf#vim#grep(
-                \   'rg --column --line-number --no-heading --color=always --smart-case -- ' . shellescape(empty(<q-args>) ? '^' : <q-args>),
-                \   1,
-                \   fzf#vim#with_preview(),
-                \   <bang>0)
-    " -------------------------
-    "  fzf files
-    " --------------------------
-    function! s:files_search()
-        if get(g:, 'coc_git_status', '') != '' || get(b:, 'git_root_path', '') != ''
-            FZFGitFiles
-        else
-            lcd %:p:h
-            if Installed('leaderf')
-                LeaderfFile
-            else
-                FZF
-            endif
-        endif
-    endfunction
-    command! ProjectFiles call s:files_search()
-    nnoremap <silent> <leader>fp :ProjectFiles<Cr>
-    " fzflocate
-    if UNIX() | nnoremap <leader>fl :FZFLocate<Space> | endif
-endif
-" --------------------------
-" using leaderf cache dir
-" --------------------------
-if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
+    nnoremap <leader>B :LeaderfTabBuffer<Cr>
+    nnoremap <leader>M :LeaderfMruCwd<Cr>
+    nnoremap <M-l>a :Leaderf line --all --no-sort<Cr>
+    nnoremap <M-l>l :Leaderf line --no-sort<Cr>
     " config
     au FileType leaderf set nonu
     let g:Lf_RootMarkers   = g:root_patterns
@@ -240,6 +138,107 @@ if get(g:, 'fuzzy_finder', '') =~ 'leaderf'
                 \}
     " Customize normal mode mapping using g:Lf_NormalMap
     let g:Lf_NormalMap.Filer = [['B', ':LeaderfBookmark<CR>']]
+elseif Installed('coc.nvim')
+    let g:fuzzy_finder = 'coc-fzf'
+    nnoremap <silent><C-p> :CocFzfList<Cr>
+elseif InstalledTelescope()
+    let g:fuzzy_finder = 'telescope'
+    nnoremap <silent><C-p> :Telescope<Cr>
+    nnoremap <silent><M-h>h :Telescope help_tags<Cr>
+elseif InstalledFZF()
+    let g:fuzzy_finder = 'fzf'
+    nnoremap <silent><C-p> :FZF
+else
+    let g:fuzzy_finder = ''
+endif
+" --------------------------
+" telescope and fzf
+" --------------------------
+if InstalledTelescope()
+    luafile $LUA_PATH/telescope.lua
+    nnoremap m<tab> <cmd>Telescope keymaps<Cr>
+    nnoremap <M-h>q <cmd>Telescope quickfixhistory<Cr>
+    nnoremap <M-h>. <cmd>Telescope resume<Cr>
+    nnoremap <leader>fp :lua project_files()<Cr>
+elseif InstalledFZF()
+    " --------------------------
+    " fzf basic settings
+    " --------------------------
+    let $FZF_DEFAULT_OPTS = '--layout=reverse-list --info=inline'
+    if has('nvim') || has('patch-8.2.191')
+        let g:fzf_layout = {'up':'~80%',
+            \ 'window': {'width': 0.9, 'height': 0.8, 'border': 'sharp'}
+            \ }
+        let g:fzf_preview_window = ['right,45%,<80(up,30%)', 'ctrl-/']
+    else
+        let g:fzf_layout = {'down': '~30%'}
+        let g:fzf_preview_window = ['right,45%', 'ctrl-/']
+    endif
+    au FileType fzf tnoremap <buffer> <C-j> <Down>
+    au FileType fzf tnoremap <buffer> <C-k> <Up>
+    au FileType fzf tnoremap <buffer> <C-n> <Nop>
+    au FileType fzf tnoremap <buffer> <C-p> <Nop>
+    " preview position
+    let g:fzf_command_prefix = 'FZF'
+    " [Buffers] Jump to the existing window if possible
+    let g:fzf_buffers_jump = 1
+    " [[B]Commits] Customize the options used by 'git log':
+    let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+    " [Commands] --expect expression for directly executing the command
+    let g:fzf_commands_expect = 'alt-enter'
+    function! s:build_quickfix_list(lines)
+        call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+        " call execute("copen " . g:asyncrun_open)
+        " cc
+    endfunction
+    let g:fzf_action = {
+                \ 'enter':  'edit',
+                \ 'ctrl-e': function('s:build_quickfix_list'),
+                \ 'ctrl-t': 'tab split',
+                \ 'ctrl-x': 'split',
+                \ 'ctrl-]': 'vsplit'
+                \ }
+    " --------------------------
+    " fzf maps
+    " --------------------------
+    nmap m<tab> <plug>(fzf-maps-n)
+    xmap m<tab> <plug>(fzf-maps-x)
+    omap m<tab> <plug>(fzf-maps-o)
+    " --------------------------
+    " fzf grep
+    " --------------------------
+    command! -bang -nargs=* FZFGGrep
+                \ call fzf#vim#grep(
+                \   'git grep -I --line-number --color=always -- ' . shellescape(empty(<q-args>) ? '^' : <q-args>),
+                \   0,
+                \   fzf#vim#with_preview(),
+                \   <bang>0)
+                " \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}),
+    command! -bang -nargs=* FZFRg
+                \ call fzf#vim#grep(
+                \   'rg --column --line-number --no-heading --color=always --smart-case -- ' . shellescape(empty(<q-args>) ? '^' : <q-args>),
+                \   1,
+                \   fzf#vim#with_preview(),
+                \   <bang>0)
+    " -------------------------
+    "  fzf files
+    " --------------------------
+    function! s:files_search()
+        if get(g:, 'coc_git_status', '') != '' || get(b:, 'git_root_path', '') != ''
+            FZFGitFiles
+        else
+            lcd %:p:h
+            if Installed('leaderf')
+                LeaderfFile
+            else
+                FZF
+            endif
+        endif
+    endfunction
+    command! ProjectFiles call s:files_search()
+    nnoremap <silent> <leader>fp :ProjectFiles<Cr>
+    " fzflocate
+    if UNIX() | nnoremap <leader>fl :FZFLocate<Space> | endif
 endif
 " -------------------------------------------
 " command maps
@@ -249,11 +248,12 @@ if InstalledTelescope()
     nnoremap <M-h>c <cmd>Telescope command_history<Cr>
     nnoremap <leader>b <cmd>Telescope buffers<Cr>
     nnoremap <leader>m <cmd>Telescope oldfiles<Cr>
+    " quickfix
+    nnoremap Z<S-Cr> :CloseQuickfix<Cr>:Telescope quickfix<CR>
+    nnoremap Z<Cr>   :CloseQuickfix<Cr>:Telescope loclist<CR>
     " replace origin command
     nnoremap <M-k>s <cmd>Telescope colorscheme<Cr>
     nnoremap <M-k>t <cmd>Telescope filetypes<Cr>
-    nnoremap Z<S-Cr> :CloseQuickfix<Cr>:Telescope quickfix<CR>
-    nnoremap Z<Cr>   :CloseQuickfix<Cr>:Telescope loclist<CR>
     " lines and commands
     nnoremap <M-l><M-l> <cmd>Telescope current_buffer_fuzzy_find<cr>
     nnoremap <M-k><M-k> <cmd>Telescope commands<cr>
@@ -263,23 +263,17 @@ elseif Installed('leaderf')
     " history
     nnoremap <M-h>/ :Leaderf searchHistory<Cr>
     nnoremap <M-h>c :Leaderf cmdHistory<Cr>
-    " buffers
     nnoremap <leader>b :LeaderfBuffer<Cr>
-    nnoremap <leader>B :LeaderfTabBuffer<Cr>
-    " mru cwd
     nnoremap <leader>m :LeaderfMru<Cr>
-    nnoremap <leader>M :LeaderfMruCwd<Cr>
+    " open leader quickfix/loclist
+    nnoremap Z<S-Cr> :CloseQuickfix<Cr>:Leaderf quickfix<Cr>
+    nnoremap Z<Cr>   :CloseQuickfix<Cr>:Leaderf loclist<Cr>
     " replace origin command
     nnoremap <M-k>s :Leaderf colorscheme<Cr>
     nnoremap <M-k>t :Leaderf filetype<Cr>
     nnoremap <M-k><M-k> :Leaderf command<Cr>
     " line
     nnoremap <M-l><M-l> :Leaderf line --all --no-sort --regexMode<Cr>
-    nnoremap <M-l>a :Leaderf line --all --no-sort<Cr>
-    nnoremap <M-l>l :Leaderf line --no-sort<Cr>
-    " open leader quickfix/loclist
-    nnoremap Z<S-Cr> :CloseQuickfix<Cr>:Leaderf quickfix<Cr>
-    nnoremap Z<Cr>   :CloseQuickfix<Cr>:Leaderf loclist<Cr>
     " jumps
     nnoremap <M-j><M-j> :Leaderf jumps<cr>
 elseif InstalledFZF()
