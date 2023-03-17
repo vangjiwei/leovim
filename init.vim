@@ -1,6 +1,7 @@
-" --------------------------
+" ====================================================================================================
+" set Variables
+" ====================================================================================================
 " version require
-" --------------------------
 if v:version < 704 && !has('nvim')
     echoe 'vim 7.4 is at least required when uing leovim.'
     finish
@@ -28,8 +29,8 @@ let $OPT_PATH = expand($LEOVIM_PATH . '/pack/repos/opt')
 " ------------------------
 " runtime packpath
 " ------------------------
-let $RUNTIME_PATH = expand($LEOVIM_PATH . '/runtime')
-set rtp=$VIMRUNTIME,$RUNTIME_PATH
+let $PACK_PATH = expand($LEOVIM_PATH . '/PACK_PATH')
+set rtp=$VIMRUNTIME,$PACK_PATH
 if exists(':packadd')
     set packpath=$LEOVIM_PATH
 endif
@@ -384,20 +385,440 @@ function! s:toggle_modify() abort
 endfunction
 command! ToggleModity call s:toggle_modify()
 nnoremap <silent> <space>e<space> :ToggleModity<Cr>
-" -----------------------------------
+" ========================================================================================================
 " set
+" ========================================================================================================
+set nocompatible
+set noai
+set nosi
+set noimdisable
+set nojoinspaces
+set nospell
+set noeb
+set nocursorcolumn
+set nowrap
+set nofoldenable
+set nolist
+set nobackup
+set nowritebackup
+set swapfile
+set splitright
+set splitbelow
+set cursorline
+set incsearch
+set ruler
+set hlsearch
+set showmode
+set vb
+set autochdir
+set smartcase
+set ignorecase
+set showmatch
+set wildchar=<Tab>
+set backspace=indent,eol,start
+set linespace=0
+set enc=utf8
+set fencs=utf-8,utf-16,ucs-bom,gbk,gb18030,big5,latin1
+set winminheight=0
+set scrolljump=5
+set scrolloff=3
+set mouse=a
+" tab
+set expandtab
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set textwidth=160
+" switchbuf
+set buftype=
+set switchbuf=useopen,usetab,newtab
+" number mode
+set number
+set relativenumber
+try
+    set nrformats+=unsigned
+catch
+    " pass
+endtry
 " -----------------------------------
-source $LEOVIM_PATH/set.vim
+" termencoding
+" -----------------------------------
+if WINDOWS()
+    set termencoding=gbk
+else
+    let &termencoding=&enc
+endif
+" -----------------------------------
+" wildmenu
+" -----------------------------------
+if has('patch-7.4.2201') || has('nvim')
+    setlocal signcolumn=yes
+endif
+if has('wildignore')
+    set wildignore+=*\\tmp\\*,*/tmp/*,*.swp,*.exe,*.dll,*.so,*.zip,*.tar*,*.7z,*.rar,*.gz,*.pyd,*.pyc,*.ipynb
+    set wildignore+=.ccls-cache/*,.idea/*,.vscode/*,__pycache__/*,.git/*,.svn/*,.hg/*
+endif
 " ------------------------
-" core map
+" shortmess
 " ------------------------
-source $LEOVIM_PATH/map.vim
-" ----------------------
+try
+    set shortmess+=a
+catch
+    " +a get use short messages
+endtry
+try
+    set shortmess+=c
+catch
+    " +c get rid of annoying completion notifications
+endtry
+" --------------------------
+" filetype
+" --------------------------
+filetype plugin indent on
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" =====================================================================================================
+" map
+" =====================================================================================================
+map ÏP <F1>
+map ÏQ <F2>
+map ÏR <F3>
+map ÏS <F4>
+map <F1>  <Nop>
+map <F2>  <Nop>
+map <F3>  <Nop>
+map <F4>  <Nop>
+map <F5>  <Nop>
+map <F6>  <Nop>
+map <F7>  <Nop>
+map <F8>  <Nop>
+map <F9>  <Nop>
+map <F10> <Nop>
+map <F11> <Nop>
+map <F12> <Nop>
+map <M-B> <Nop>
+map <M-O> <Nop>
+map <C-n> <Nop>
+map <C-q> <Nop>
+map <C-s> <Nop>
+map <C-i> <Nop>
+map <C-z> <Nop>
+nmap S    <Nop>
+nmap <C-j> %
+nmap <C-k> g%
+xmap <C-j> %
+xmap <C-k> g%
+nmap <BS> <C-h>
+" core remap
+xmap     >>       >gv
+xmap     <<       <gv
+nnoremap <silent> gj j
+nnoremap <silent> gk k
+nnoremap <silent> j gj
+nnoremap <silent> k gk
+" home end
+nnoremap H ^
+xnoremap H ^
+onoremap H ^
+nnoremap L g_
+xnoremap L g_
+onoremap L g_
+" z remap
+nnoremap zs <Nop>
+nnoremap zS <Nop>
+nnoremap zw <Nop>
+nnoremap zW <Nop>
+nnoremap zg <Nop>
+nnoremap zG <Nop>
+nnoremap zl zL
+nnoremap zh zH
+nnoremap zr zR
+nnoremap z= zT
+nnoremap z- zB
+nnoremap ZT zt
+nnoremap zt z<CR>
+" --------------------------
+" basic tetxobj
+" --------------------------
+nnoremap <leader>vp viwp
+nnoremap <leader>v' vi'
+nnoremap <leader>v" vi"
+nnoremap <leader>v( va)
+nnoremap <leader>v) vi)
+nnoremap <leader>v[ va]
+nnoremap <leader>v] vi]
+nnoremap <leader>v{ va}
+nnoremap <leader>v} vi}
+nnoremap <leader>v< va>
+nnoremap <leader>v> vi>
+nnoremap <leader>c' ci'
+nnoremap <leader>c" ci"
+nnoremap <leader>c( ca)
+nnoremap <leader>c) ci)
+nnoremap <leader>c[ ca]
+nnoremap <leader>c] ci]
+nnoremap <leader>c{ ca}
+nnoremap <leader>c} ci}
+nnoremap <leader>c< ca>
+nnoremap <leader>c> ci>
+nnoremap <leader>d' di'
+nnoremap <leader>d" di"
+nnoremap <leader>d( da)
+nnoremap <leader>d) di)
+nnoremap <leader>d[ da]
+nnoremap <leader>d] di]
+nnoremap <leader>d{ da}
+nnoremap <leader>d} di}
+nnoremap <leader>d< da>
+nnoremap <leader>d> di>
+nnoremap <leader>y' yi'
+nnoremap <leader>y" yi"
+nnoremap <leader>y( ya)
+nnoremap <leader>y) yi)
+nnoremap <leader>y[ ya]
+nnoremap <leader>y] yi]
+nnoremap <leader>y{ ya}
+nnoremap <leader>y} yi}
+nnoremap <leader>y< ya>
+nnoremap <leader>y> yi>
+" ------------------------
+" some enhanced shortcuts
+" ------------------------
+nmap gb 2g;a
+nmap !  :!
+xmap !  :<C-u>!<C-R>=GetVisualSelection()<Cr>
+xmap .  :<C-u>normal .<Cr>
+xmap /  y/<C-R>"
+xmap ?  y?<C-R>"
+" ------------------------
+" yank
+" ------------------------
+if exists("##TextYankPost") && UNIX() && exists('*trim')
+    function! s:raw_echo(str)
+        if filewritable('/dev/fd/2')
+            call writefile([a:str], '/dev/fd/2', 'b')
+        else
+            exec("silent! !echo " . shellescape(a:str))
+            redraw!
+        endif
+    endfunction
+    function! s:copy() abort
+        let c = join(v:event.regcontents,"\n")
+        if len(trim(c)) == 0
+            return
+        endif
+        let c64 = system("base64", c)
+        if $TMUX == ''
+            let s = "\e]52;c;" . trim(c64) . "\x07"
+        else
+            let s = "\ePtmux;\e\e]52;c;" . trim(c64) . "\x07\e\\"
+        endif
+        call s:raw_echo(s)
+    endfunction
+    autocmd TextYankPost * call s:copy()
+endif
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+xnoremap zp "_c<ESC>p"
+xnoremap zP "_c<ESC>P"
+" Yank a line without leading whitespaces and line break
+nnoremap <leader>yu mp_yg_`p
+" Copy a line without leading whitespaces and line break to clipboard
+nnoremap <leader>yw mp_"+yg_`P
+" Copy file path
+nnoremap <leader>yp :let @*=expand("%:p")<cr>:echo '-= File path copied=-'<Cr>
+" Copy file name
+nnoremap <leader>yf :let @*=expand("%:t")<cr>:echo '-= File name copied=-'<Cr>
+" Copy bookmark position reference
+nnoremap <leader>yb :let @*=expand("%:p").':'.line(".").':'.col(".")<cr>:echo '-= Cursor bookmark copied=-'<cr>'
+" --------------------------
+" StripTrailingWhiteSpace
+" --------------------------
+augroup TrailSpace
+    autocmd FileType vim,c,cpp,java,go,php,javascript,typescript,python,rust,twig,xml,yml,perl,sql,r,conf,lua
+        \ autocmd! BufWritePre <buffer> :call TripTrailingWhiteSpace()
+augroup END
+command! TripTrailingWhiteSpace call TripTrailingWhiteSpace()
+nnoremap d<space> :TripTrailingWhiteSpace<Cr>
+" ====================================================================================================
 " intergrated packs
-" ---------------------
-source $LEOVIM_PATH/intergrated.vim
+" ====================================================================================================
+PackAdd 'vim-eunuch'
 " ------------------------
-" configs for vscode or neovim/vim
+" Find merge conflict markers
+" ------------------------
+let g:conflict_marker_enable_mappings = 0
+PackAdd 'conflict-marker.vim'
+nnoremap <leader>c/ /\v^[<\|=>]{7}( .*\|$)<CR>
+nnoremap <leader>c? ?\v^[<\|=>]{7}( .*\|$)<CR>
+nnoremap <leader>ct :ConflictMarkerThemselves<Cr>
+nnoremap <leader>co :ConflictMarkerOurselves<Cr>
+nnoremap <leader>cn :ConflictMarkerNone<Cr>
+nnoremap <leader>cb :ConflictMarkerBoth<Cr>
+nnoremap <leader>c; :ConflictMarkerNextHunk<Cr>
+nnoremap <leader>c, :ConflictMarkerPrevHunk<Cr>
+" --------------------------
+" easyalign
+" --------------------------
+let g:easy_align_delimiters = {}
+let g:easy_align_delimiters['#'] = {'pattern': '#', 'ignore_groups': ['String']}
+let g:easy_align_delimiters['*'] = {'pattern': '*', 'ignore_groups': ['String']}
+PackAdd 'vim-easy-align'
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+xmap g, ga*,
+xmap g= ga*=
+xmap g: ga*:
+xmap g<Space> ga*<Space>
+" --------------------------
+" matchup
+" --------------------------
+if g:has_popup_floating
+    let g:matchup_matchparen_offscreen = {'methed': 'popup'}
+else
+    let g:matchup_matchparen_offscreen = {'methed': 'status_manual'}
+endif
+PackAdd 'vim-matchup'
+xnoremap <sid>(std-I) I
+xnoremap <sid>(std-A) A
+xmap <expr> I mode()=='<c-v>'?'<sid>(std-I)':(v:count?'':'1').'i'
+xmap <expr> A mode()=='<c-v>'?'<sid>(std-A)':(v:count?'':'1').'a'
+nnoremap <silent><M-M> :MatchupWhereAmI??<Cr>
+xnoremap <silent><M-M> <ESC>:MatchupWhereAmI??<Cr>
+function! s:matchup_convenience_maps()
+    for l:v in ['', 'v', 'V', '<c-v>']
+        execute 'omap <expr>' l:v.'I%' "(v:count?'':'1').'".l:v."i%'"
+        execute 'omap <expr>' l:v.'A%' "(v:count?'':'1').'".l:v."a%'"
+    endfor
+endfunction
+call s:matchup_convenience_maps()
+" ------------------------
+" easymotion
+" ------------------------
+let g:EasyMotion_keys = '123456789asdghklqwertyuiopzxcvbnmfj,;'
+if exists('g:vscode')
+    PackAdd 'vim-easymotion-vscode'
+else
+    PackAdd 'vim-easymotion'
+endif
+PackAdd 'vim-easymotion-chs'
+source $CONFIG_PATH/easymotion.vim
+" ------------------------
+" clever-f
+" ------------------------
+let g:clever_f_smart_case = 1
+let g:clever_f_repeat_last_char_inputs = ['<Tab>']
+PackAdd 'clever-f.vim'
+nmap ; <Plug>(clever-f-repeat-forward)
+xmap ; <Plug>(clever-f-repeat-forward)
+nmap , <Plug>(clever-f-repeat-back)
+xmap , <Plug>(clever-f-repeat-back)
+" ------------------------
+" surround
+" ------------------------
+nmap SL vg_S
+nmap SH v^S
+nmap SJ vt<Space>S
+nmap SK vT<Space>S
+nmap SS T<Space>vt<Space>S
+" --------------------------
+" textobj need 704+
+" --------------------------
+if v:version < 704
+    finish
+endif
+" ------------------------
+" textobj
+" ------------------------
+PackAdd 'vim-textobj-user'
+PackAdd 'vim-textobj-syntax'
+PackAdd 'vim-textobj-uri'
+PackAdd 'vim-textobj-line'
+nmap <leader>vf vif
+nmap <leader>vF vaf
+nmap <leader>vu viu
+nmap <leader>vU vau
+nmap <leader>vl vil
+nmap <leader>vL val
+nmap <leader>vt vi%
+nmap <leader>vT va%
+nmap <leader>va via
+nmap <leader>vA vaa
+nmap <leader>vi vii
+nmap <leader>vI vai
+" ------------------------
+" goto first/last indent
+" ------------------------
+nmap si viio<C-[>^
+nmap sg vii<C-[>^
+" --------------------------
+" sandwich
+" --------------------------
+PackAdd 'vim-sandwich'
+xmap is <Plug>(textobj-sandwich-auto-i)
+xmap as <Plug>(textobj-sandwich-auto-a)
+omap is <Plug>(textobj-sandwich-auto-i)
+omap as <Plug>(textobj-sandwich-auto-a)
+xmap iq <Plug>(textobj-sandwich-query-i)
+xmap aq <Plug>(textobj-sandwich-query-a)
+omap iq <Plug>(textobj-sandwich-query-i)
+omap aq <Plug>(textobj-sandwich-query-a)
+nmap <leader>vs vis
+nmap <leader>vS vas
+nmap <leader>vq viq
+nmap <leader>vQ vaq
+" ------------------------
+" find block
+" ------------------------
+let s:block_str = '^# In\[\|^# %%'
+function! BlockA()
+    let beginline = search(s:block_str, 'ebW')
+    if beginline == 0
+        normal! gg
+    endif
+    let head_pos = getpos('.')
+    let endline  = search(s:block_str, 'eW')
+    if endline == 0
+        normal! G
+    endif
+    let tail_pos = getpos('.')
+    return ['V', head_pos, tail_pos]
+endfunction
+function! BlockI()
+    let beginline = search(s:block_str, 'ebW')
+    if beginline == 0
+        normal! gg
+        let beginline = 1
+    else
+        normal! j
+    endif
+    let head_pos = getpos('.')
+    let endline = search(s:block_str, 'eW')
+    if endline == 0
+        normal! G
+    elseif endline > beginline
+        normal! k
+    endif
+    let tail_pos = getpos('.')
+    return ['V', head_pos, tail_pos]
+endfunction
+" vib vab to select a block
+call textobj#user#plugin('block', {
+            \   'block': {
+            \     'select-a-function': 'BlockA',
+            \     'select-a': 'aB',
+            \     'select-i-function': 'BlockI',
+            \     'select-i': 'iB',
+            \     'region-type': 'V'
+            \   },
+            \ })
+nmap <leader>vb viB
+nmap <leader>vB vaB
+
+
+
+
+
+" ------------------------
+" configs for
 " ------------------------
 if exists("g:vscode")
     source $LEOVIM_PATH/vscode/neovim.vim
