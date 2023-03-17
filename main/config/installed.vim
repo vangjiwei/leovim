@@ -149,21 +149,19 @@ elseif has('patch-7.4.330')
     let g:which_key_group_dicts      = ''
     let g:which_key_use_floating_win = g:has_popup_floating
     " basic keys
-    nnoremap m<space> :WhichKey       "m"<Cr>
     nnoremap <Space>  :WhichKey       " "<Cr>
     nnoremap <Tab>    :WhichKey       "\<Tab\>"<Cr>
     nnoremap ,        :WhichKey       ","<Cr>
     nnoremap \        :WhichKey       "\\"<Cr>
     nnoremap [        :WhichKey       "["<Cr>
     nnoremap ]        :WhichKey       "]"<Cr>
-    xnoremap m<space> :WhichKeyVisual "m"<Cr>
     xnoremap <Space>  :WhichKeyVisual " "<Cr>
     xnoremap <Tab>    :WhichKeyVisual "\<Tab\>"<Cr>
     xnoremap ,        :WhichKeyVisual ","<Cr>
     xnoremap \        :WhichKeyVisual "\\"<Cr>
     xnoremap [        :WhichKeyVisual "["<Cr>
     xnoremap ]        :WhichKeyVisual "]"<Cr>
-    " gszc whichkey
+    " gszcm whichkey
     if g:complete_engine == 'cmp'
         nnoremap g<Space> :map g<Cr>
     else
@@ -174,6 +172,8 @@ elseif has('patch-7.4.330')
     nnoremap c<Space> :WhichKey "c"<Cr>
     nnoremap z<Space> :WhichKey "z"<Cr>
     nnoremap Z<Space> :WhichKey "Z"<Cr>
+    nnoremap m<space> :WhichKey "m"<Cr>
+    xnoremap m<space> :WhichKeyVisual "m"<Cr>
     " C-f
     nnoremap <C-f> :WhichKey "\<C-f\>"<Cr>
     xnoremap <C-f> :WhichKeyVisual "\<C-f\>"<Cr>
