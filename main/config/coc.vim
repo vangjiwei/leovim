@@ -252,31 +252,6 @@ xmap ag <Plug>(coc-git-chunk-outer)
 nmap <leader>vg vig
 nmap <leader>vG vag
 " ------------------------
-" mason
-" ------------------------
-nnoremap <silent><Tab>M :CocFzfList marketplace<Cr>
-if Installed('mason.nvim', 'mason-lspconfig.nvim')
-    nnoremap <silent><Tab>m :Mason<Cr>
-    lua << EOF
-    require('mason').setup({
-    ui = {
-        icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗"
-        }
-        }
-    })
-    require('mason-lspconfig').setup({})
-EOF
-else
-    if WINDOWS()
-        let $PATH = $NVIM_DATA_PATH . "\\mason\\bin;" . $PATH
-    else
-        let $PATH = $NVIM_DATA_PATH . "/mason/bin:" . $PATH
-    endif
-endif
-" ------------------------
 " coc-fzf
 " ------------------------
 if Installed('coc-fzf')
@@ -287,9 +262,35 @@ endif
 " ------------------------
 " coc config for nvim-0.8.1+
 " ------------------------
-if has('nvim-0.8.1')
-    call coc#config("coc.preferences.currentFunctionSymbolAutoUpdate", v:false)
-    luafile $LUA_PATH/coc.lua
+" ------------------------
+" mason
+" ------------------------
+nnoremap <silent><M-l>M :CocFzfList marketplace<Cr>
+if has('nvim')
+    if Installed('mason.nvim', 'mason-lspconfig.nvim')
+        nnoremap <silent><M-l>m :Mason<Cr>
+        lua << EOF
+        require('mason').setup({
+        ui = {
+            icons = {
+                package_installed = "✓",
+                package_pending = "➜",
+                package_uninstalled = "✗"
+            }
+            }
+        })
+        require('mason-lspconfig').setup({})
+EOF
+    endif
+    if has('nvim-0.8.1')
+        call coc#config("coc.preferences.currentFunctionSymbolAutoUpdate", v:false)
+        luafile $LUA_PATH/coc.lua
+    endif
 else
+    if WINDOWS()
+        let $PATH = $NVIM_DATA_PATH . "\\mason\\bin;" . $PATH
+    else
+        let $PATH = $NVIM_DATA_PATH . "/mason/bin:" . $PATH
+    endif
     call coc#config("coc.preferences.currentFunctionSymbolAutoUpdate", v:true)
 endif

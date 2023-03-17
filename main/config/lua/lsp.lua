@@ -46,7 +46,7 @@ end
 -- keymaps
 -----------------
 -- Mason
-map('n', ',m', [[<cmd>Mason<CR>]], opts)
+map('n', '<M-l>m', [[<cmd>Mason<CR>]], opts)
 -- Telescope symbols
 map('n', '<leader>o', [[<cmd>Telescope lsp_document_symbols<CR>]], opts)
 map('n', 'f<Cr>', [[<cmd>Telescope lsp_document_symbols symbols=function,class,method<CR>]], opts)
