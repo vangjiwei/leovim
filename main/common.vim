@@ -39,41 +39,6 @@ function! Execute(cmd)
     redir END
     return l:output
 endfunction
-" --------------------------
-" GetPyxVersion
-" --------------------------
-function! GetPyxVersion()
-    if CYGWIN()
-        return 0
-    endif
-    if has('python3')
-        let l:pyx_version_raw = Execute('py3 print(sys.version)')
-    elseif has('python')
-        let l:pyx_version_raw = Execute('py print(sys.version)')
-    else
-        return 0
-    endif
-    let l:pyx_version_raw = matchstr(l:pyx_version_raw, '\v\zs\d{1,}.\d{1,}.\d{1,}\ze')
-    if l:pyx_version_raw == ''
-        return 0
-    endif
-    let l:pyx_version = StringToFloat(l:pyx_version_raw)
-" --------------------------
-" python import
-" --------------------------
-    if l:pyx_version > 3
-        python3 << Python3EOF
-try:
-    import vim
-    import pygments
-except Exception:
-    pass
-else:
-    vim.command('let g:pygments_import = 1')
-Python3EOF
-    endif
-    return l:pyx_version
-endfunction
 " ------------------------------
 " node_install_tool
 " ------------------------------
@@ -306,9 +271,52 @@ inoremap <silent><M-Y> <C-o>:call Tools_PreviousCursor('ctrly')<Cr>
 " --------------------------
 " python_support
 " --------------------------
+function! GetPyxVersion()
+    if CYGWIN()
+        return 0
+    endif
+    if has('python3')
+        let l:pyx_version_raw = Execute('py3 print(sys.version)')
+    elseif has('python')
+        let l:pyx_version_raw = Execute('py print(sys.version)')
+    else
+        return 0
+    endif
+    let l:pyx_version_raw = matchstr(l:pyx_version_raw, '\v\zs\d{1,}.\d{1,}.\d{1,}\ze')
+    if l:pyx_version_raw == ''
+        return 0
+    endif
+    let l:pyx_version = StringToFloat(l:pyx_version_raw)
+    if l:pyx_version > 3
+        python3 << Python3EOF
+try:
+    import vim
+    import pygments
+except Exception:
+    pass
+else:
+    vim.command('let g:pygments_import = 1')
+Python3EOF
+    endif
+    return l:pyx_version
+endfunction
 let g:python3_host_prog = get(g:, 'python3_host_prog', '')
 let g:python_host_prog  = get(g:, 'python_host_prog', '')
 let g:python_version = get(g:, 'python_version', GetPyxVersion())
+" ------------------------
+" EnhancedSearch
+" ------------------------
+function! EnhancedSearch() range
+    let l:saved_reg = @"
+    execute 'normal! vgvy'
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+nmap <silent> * :<C-u>call EnhancedSearch()<CR>/<C-R>=@/<CR><CR>N
+nmap <silent> # :<C-u>call EnhancedSearch()<CR>?<C-R>=@/<CR><CR>N
+inoremap <leader> <leader><c-g>u
 " --------------------------
 " set python_host_prog
 " --------------------------

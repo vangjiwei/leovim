@@ -45,11 +45,11 @@ if Installed('vim-gutentags')
     else
         let g:gutentags_ctags_extra_args += ['--c-kinds=+px', '--c++-kinds=+pxI']
     endif
-    nnoremap ,g<Cr> :GutentagsUpdate<Cr>
+    nnoremap <Tab>g<Cr> :GutentagsUpdate<Cr>
     if WINDOWS()
-        nnoremap ,g<Space> :!del ~<Tab>\.leovim.d\.LfCache\gtags\*.* /a /q<Cr><Cr>
+        nnoremap <Tab>g<Space> :!del ~<Tab>\.leovim.d\.LfCache\gtags\*.* /a /q<Cr><Cr>
     else
-        nnoremap ,g<Space> :!rm -rf ~/.leovim.d/.LfCache/gtags/* <Cr>
+        nnoremap <Tab>g<Space> :!rm -rf ~/.leovim.d/.LfCache/gtags/* <Cr>
     endif
 endif
 " --------------------------
@@ -114,16 +114,16 @@ if Installed('gutentags_plus')
     let g:gutentags_plus_switch              = 1
     let g:gutentags_plus_nomap               = 1
     let g:gutentags_auto_add_gtags_cscope    = 0
-    nnoremap <silent>,gs :GscopeFind s <C-r>=expand('<cword>')<Cr><cr>
-    nnoremap <silent>,gg :GscopeFind g <C-r>=expand('<cword>')<Cr><cr>
-    nnoremap <silent>,gd :GscopeFind d <C-r>=expand('<cword>')<Cr><cr>
-    nnoremap <silent>,gc :GscopeFind c <C-r>=expand('<cword>')<Cr><cr>
-    nnoremap <silent>,gt :GscopeFind t <C-r>=expand('<cword>')<Cr><cr>
-    nnoremap <silent>,ge :GscopeFind e <C-r>=expand('<cword>')<Cr><cr>
-    nnoremap <silent>,gf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
-    nnoremap <silent>,gi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
-    nnoremap <silent>,ga :GscopeFind a <C-r>=expand('<cword>')<Cr><cr>
-    nnoremap <silent>,gz :GscopeFind z <C-r>=expand('<cword>')<Cr><cr>
+    nnoremap <silent><Tab>gs :GscopeFind s <C-r>=expand('<cword>')<Cr><cr>
+    nnoremap <silent><Tab>gg :GscopeFind g <C-r>=expand('<cword>')<Cr><cr>
+    nnoremap <silent><Tab>gd :GscopeFind d <C-r>=expand('<cword>')<Cr><cr>
+    nnoremap <silent><Tab>gc :GscopeFind c <C-r>=expand('<cword>')<Cr><cr>
+    nnoremap <silent><Tab>gt :GscopeFind t <C-r>=expand('<cword>')<Cr><cr>
+    nnoremap <silent><Tab>ge :GscopeFind e <C-r>=expand('<cword>')<Cr><cr>
+    nnoremap <silent><Tab>gf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
+    nnoremap <silent><Tab>gi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
+    nnoremap <silent><Tab>ga :GscopeFind a <C-r>=expand('<cword>')<Cr><cr>
+    nnoremap <silent><Tab>gz :GscopeFind z <C-r>=expand('<cword>')<Cr><cr>
 endif
 if g:symbol_tool =~ 'leaderfgtags'
     " leaderf gtags comparable
