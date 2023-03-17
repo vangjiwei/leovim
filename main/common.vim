@@ -40,6 +40,26 @@ function! Execute(cmd)
     return l:output
 endfunction
 " ------------------------------
+" StringToFloat
+" ------------------------------
+function! StringToFloat(str)
+    let str = a:str
+    try
+        let lst   = split(str, "\\.")
+        let main  = lst[0]
+        let other = join(lst[1:], '')
+        return str2float(main . "\." . other)
+    catch
+        return str2float(str)
+    endtry
+endfunction
+if executable('git')
+    let s:git_version_raw = matchstr(system('git --version'), '\v\zs\d{1,4}.\d{1,4}.\d{1,4}\ze')
+    let g:git_version = StringToFloat(s:git_version_raw)
+else
+    let g:git_version = 0
+endif
+" ------------------------------
 " node_install_tool
 " ------------------------------
 if executable('node') && executable('npm')

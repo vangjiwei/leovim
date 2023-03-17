@@ -167,10 +167,14 @@ if WINDOWS()
 else
     nnoremap <leader>X :!bash <C-r>=expand("~/.leovim.clean")<Cr><Cr><C-l>
 endif
+" --------------------------
+" XXX: read .vimrc.local file to plugs settings
+" --------------------------
+let g:require_group = []
+if filereadable(expand("~/.vimrc.local")) | source $HOME/.vimrc.local | endif
 " ------------------------------
-" git version
+" StringToFloat
 " ------------------------------
-" important function to convert string to float
 function! StringToFloat(str)
     let str = a:str
     try
@@ -188,19 +192,6 @@ if executable('git')
 else
     let g:git_version = 0
 endif
-" --------------------------
-" XXX: read .vimrc.local file to plugs settings
-" --------------------------
-let g:require_group = []
-if filereadable(expand("~/.vimrc.local")) | source $HOME/.vimrc.local | endif
-function! Require(plug)
-    return count(g:require_group, a:plug)
-endfunction
-function! AddRequire(plug)
-    if !Require(a:plug)
-        let g:require_group += [a:plug]
-    endif
-endfunction
 " -----------------------------------
 " set pack_tool
 " -----------------------------------
@@ -289,6 +280,9 @@ function! Installed(...)
         endif
     endfor
     return 1
+endfunction
+function! Require(plug)
+    return count(g:require_group, a:plug)
 endfunction
 function! Planned(...)
     for l:pack in a:000
