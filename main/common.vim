@@ -915,7 +915,7 @@ xnoremap <silent><leader>Q <ESC>Bclose<Cr>
 command! BdOther silent! execute "%bd|e#|bd#"
 nnoremap <silent><leader>O :BdOther<Cr>
 " close
-nnoremap <silent><leader>q    :q!<Cr>
+nnoremap <silent><leader>q :q!<Cr>
 nnoremap <silent><leader><BS> :qall!<Cr>
 " ------------------------
 " source init.vim

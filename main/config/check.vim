@@ -7,20 +7,29 @@ catch
 endtry
 if Installed('lspsaga.nvim')
     luafile $LUA_PATH/check.lua
+    nnoremap <silent>[e <cmd>lua LspsagaJumpError(0)<Cr>
+    nnoremap <silent>]e <cmd>lua LspsagaJumpError(1)<Cr>
+    nnoremap <silent>[d <cmd>Lspsaga diagnostic_jump_prev<Cr>
+    nnoremap <silent>]d <cmd>Lspsaga diagnostic_jump_next<Cr>
+    nnoremap <silent><leader>d <cmd>Telescope diagnostics<Cr>
+    nnoremap <silent><leader>D <cmd>lua toggle_diagnostics()<Cr>
+    nnoremap <silent><leader>t <cmd>lua toggle_diagnostics_highlight()<Cr>
+    nnoremap <silent><M-h>d <cmd>Lspsaga show_cursor_diagnostics<Cr>
+    nnoremap <silent><M-h>l <cmd>Lspsaga show_line_diagnostics<Cr>
 elseif Installed('coc.nvim')
     if g:check_tool == 'ale'
         call coc#config('diagnostic.displayByAle', v:true)
     else
         if WINDOWS()
             if has('nvim') || !has('nvim') && !Installed('leaderf')
-                nnoremap <silent> <leader>l :CocDiagnostics<CR>
+                nnoremap <silent><leader>d :CocDiagnostics<CR>
             elseif Installed('leaderf')
-                nnoremap <silent> <leader>l :CocDiagnostics<CR>:lclose<Cr>:LeaderfLocList<Cr>
+                nnoremap <silent><leader>d :CocDiagnostics<CR>:lclose<Cr>:LeaderfLocList<Cr>
             else
-                nnoremap <silent> <leader>l :CocFzfList diagnostics<CR>
+                nnoremap <silent><leader>d :CocFzfList diagnostics<CR>
             endif
         else
-            nnoremap <silent> <leader>l :CocFzfList diagnostics<CR>
+            nnoremap <silent><leader>d :CocFzfList diagnostics<CR>
         endif
         nmap <silent>]d <Plug>(coc-diagnostic-next)
         nmap <silent>[d <Plug>(coc-diagnostic-prev)
@@ -47,13 +56,13 @@ elseif Installed('coc.nvim')
             endif
         endfunction
         command! CocDiagnosticToggleBuffer call s:CocDiagnosticToggleBuffer()
-        nnoremap <leader>t :CocDiagnosticToggleBuffer<Cr>
+        nnoremap <silent><leader>D :CocDiagnosticToggleBuffer<Cr>
         " highlight group
         highlight def link CocErrorHighlight   NONE
         highlight def link CocWarningHighlight NONE
         highlight def link CocInfoHighlight    NONE
         highlight def link CocHintHighlight    NONE
-        function! s:toggle_diagnostics_hightlights()
+        function! s:toggle_diagnostics_highlight()
             if g:diagnostic_virtualtext_underline
                 echo "virtualtext_underline off"
                 let g:diagnostic_virtualtext_underline = v:false
@@ -70,8 +79,8 @@ elseif Installed('coc.nvim')
                 highlight! def link CocHintHighlight    DiagnosticUnderLineHint
             endif
         endfunction
-        command! ToggleDiagnosticsVirtualtext call s:toggle_diagnostics_hightlights()
-        nnoremap <silent><leader>L :ToggleDiagnosticsVirtualtext<Cr>
+        command! ToggleDiagnosticsHighLight call s:toggle_diagnostics_highlight()
+        nnoremap <silent><leader>t :ToggleDiagnosticsHighLight<Cr>
     endif
 endif
 if Installed('ale')
@@ -120,10 +129,10 @@ if Installed('ale')
         endif
     endfunction
     command! -bang -nargs=* ShowLint call s:showLint()
-    nnoremap <silent><leader>l :ShowLint<Cr>
+    nnoremap <silent><leader>d :ShowLint<Cr>
     nmap ]e <Plug>(ale_next_error)
     nmap [e <Plug>(ale_previous_error)
     nmap ]d <Plug>(ale_next)
     nmap [d <Plug>(ale_previous)
-    nmap <silent><leader>t :ALEToggle<Cr>
+    nmap <silent><leader>D :ALEToggle<Cr>
 endif

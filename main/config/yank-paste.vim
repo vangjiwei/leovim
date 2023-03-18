@@ -74,6 +74,7 @@ else
     nnoremap <M-X> S
     xnoremap <M-X> S
 endif
+nnoremap <leader>vp viwp
 " yank from beginning / to ending
 nnoremap <Tab>y :0,-y<Cr>
 nnoremap <Tab>Y vGy
