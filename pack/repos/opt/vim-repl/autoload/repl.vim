@@ -11,29 +11,18 @@ function! repl#GetConsoleName()
 endfunction
 
 function! repl#Trim(value)
-    if has('python3')
-python3 << EOF
-import vim
-value = vim.eval("a:value").strip()
-EOF
-        return py3eval("value")
-    elseif has('python')
-python << EOF
-import vim
-value = vim.eval("a:value").strip()
-EOF
-        return pyeval("value")
-    else
-        return trim(a:value)
-    end
+    return trim(a:value)
 endfunction
 
 function! repl#ReverseStr(string)
-pythonx << EOF
-import vim
-value = vim.eval("a:string")[::-1]
-EOF
-return pyxeval("value")
+    let string = a:string
+    let len = len(string)
+    let reversed_string = ""
+    while len > 0
+      let reversed_string .= strcharpart(string, len-1, 1)
+      let len -= 1
+    endwhile
+    return string
 endfunction
 
 function! repl#RStrip(string)
