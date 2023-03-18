@@ -42,6 +42,15 @@ for _, server_name in ipairs(get_servers()) do
     capabilities = lsp_capabilities
   })
 end
+lspconfig["lua_ls"].setup ({
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' }
+      }
+    }
+  }
+})
 -----------------
 -- keymaps
 -----------------

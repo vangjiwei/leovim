@@ -1,4 +1,3 @@
-local opts = { noremap = true, silent = true }
 function _G.LspsagaJumpError(direction)
   if direction > 0 then
     require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
