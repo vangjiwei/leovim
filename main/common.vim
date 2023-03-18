@@ -929,6 +929,7 @@ nnoremap <leader>ei :tabe $LEOVIM_PATH/init.vim<Cr>
 nnoremap <leader>ec :tabe $MAIN_PATH/common.vim<Cr>
 nnoremap <leader>er :tabe ~/.leovim.conf/pack/
 nnoremap <leader>em :tabe ~/.leovim.conf/main/
+nnoremap <leader>eo :tabe ~/.leovim.conf/main/config/
 nnoremap <leader>eu :tabe ~/.leovim.conf/main/config/lua/
 " ------------------------
 " set filetype unix and trim \r
