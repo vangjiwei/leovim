@@ -1,13 +1,14 @@
 " --------------------------
 " Important plugins
 " --------------------------
-"  NOTE: assist shuould be installed before complete_engine
+"  NOTE: assist must be installed before complete_engine
 source $INSTALL_PATH/assist.vim
 if get(g:, "complete_engine", '') != ''
     source $INSTALL_PATH/program.vim
     source $INSTALL_PATH/languages.vim
 endif
 source $INSTALL_PATH/tag.vim
+source $INSTALL_PATH/schemes-textobj.vim
 " ------------------------------
 " fullscreen
 " ------------------------------
@@ -85,10 +86,6 @@ if Require('query') && v:version >= 800
         PackAdd 'KabbAmine/zeavim.vim'
     endif
 endif
-" ------------------------------
-" schemes
-" ------------------------------
-source $INSTALL_PATH/schemes-textobj.vim
 " ------------------------------
 " tmux
 " ------------------------------
