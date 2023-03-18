@@ -28,8 +28,12 @@
 /build
 /dist
 /target
+/release
 GPATH
 GRTAGS
 GTAGS
 __pycache__
 core.[0-9]*
+*.tags
+tags
+tag-ja

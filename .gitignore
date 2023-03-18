@@ -1,10 +1,10 @@
+.*Store*
 *.gif
 *.bmp
 *.png
 *.jpg
 *.jpg
 *.swp
-.*Store*
 *.so
 *.dll
 *.o
@@ -21,7 +21,6 @@ __pycache__
 .github
 expand*
 *tmp*
-.*tags*
 *backup*
 core.[0-9]*
 adapter.lua
@@ -30,3 +29,6 @@ Gemfile
 GPATH
 GRTAGS
 GTAGS
+*.tags
+tags
+tags-ja

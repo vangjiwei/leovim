@@ -196,6 +196,12 @@
     "command": "-selectPrevSuggestion",
     "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
   },
+  // focus one editor
+  {
+    "key": "shift+alt+\\",
+    "command": "workbench.files.action.focusOpenEditorsView",
+    "when": "workbench.explorer.openEditorsView.active"
+  },
   // panel
   {
     "key": "shift+alt+=",
@@ -204,11 +210,6 @@
   {
     "key": "shift+alt+-",
     "command": "workbench.action.previousPanelView"
-  },
-  {
-    "key": "ctrl+; e",
-    "command": "workbench.files.action.focusOpenEditorsView",
-    "when": "workbench.explorer.openEditorsView.active"
   },
   {
     "key": "ctrl+; t",
@@ -240,11 +241,6 @@
     "command": "editor.action.showContextMenu",
     "when": "editorTextFocus"
   },
-  // reun select text
-  {
-    "key": "shift+alt+\\",
-    "command": "workbench.action.terminal.runSelectedText"
-  },
   // R ->
   {
     "key": "ctrl+shift+,",
@@ -263,7 +259,7 @@
     }
   },
   {
-    "key": "ctrl+shift+m",
+    "key": "ctrl+shift+/",
     "command": "editor.action.insertSnippet",
     "when": "editorTextFocus && editorLangId == 'r'",
     "args": {
