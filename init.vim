@@ -243,6 +243,10 @@ function! PackAdd(repo, ...)
     endif
     if has_key(g:leovim_installed, pack)
         return
+    elseif a:0 > 0 && has_key(a:1, 'local') && a:1["local"] > 0
+        let dir = expand(repo)
+        execute "set rtp+=" . dir
+        let g:leovim_installed[tolower(pack)] = 1
     elseif stridx(repo, '/') < 0
         if exists(':packadd')
             execute "packadd " . pack
