@@ -7,7 +7,7 @@ autocmd BufAdd * if getfsize(expand('<afile>')) > 1024*1024 |
 " ----------------------------
 " set $PATH
 " ----------------------------
-let g:coc_config_home = expand("$MAIN_PATH")
+let g:coc_config_home = expand("$CONFIG_PATH")
 if WINDOWS()
     let g:coc_data_home = $NVIM_DATA_PATH . "\\coc"
 else

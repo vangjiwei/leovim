@@ -96,26 +96,11 @@ cp -n $APP_PATH/scripts/z.sh   $HOME/.local/bin
 cp -n $APP_PATH/scripts/nv.sh  $HOME/.local/bin
 cp -n $APP_PATH/scripts/nvi.sh $HOME/.local/bin
 
-# leovim command
-echo "#!/usr/bin/env bash" > $HOME/.local/bin/leovim
-echo "export LEOVIM_CONF=$HOME/.leovim.conf" >> $HOME/.local/bin/leovim
-echo 'cd $LEOVIM_CONF' >> $HOME/.local/bin/leovim
-echo 'vim -p  main/common.vim main/config/boostup.vim main/require/pack.vim vscode/neovim.vim jetbrains/idea.vim ~/.vimrc.local' >> $HOME/.local/bin/leovim
-echo '$SHELL' >> $HOME/.local/bin/leovim && chmod 755 $HOME/.local/bin/leovim
-
-# leonvim command
-echo "#!/usr/bin/env bash" > $HOME/.local/bin/leonvim
-echo "export LEOVIM_CONF=$HOME/.leovim.conf" >> $HOME/.local/bin/leonvim
-echo 'cd $LEOVIM_CONF' >> $HOME/.local/bin/leonvim
-echo 'nvim -p main/common.vim main/config/boostup.vim main/require/pack.vim vscode/neovim.vim jetbrains/idea.vim ~/.vimrc.local' >> $HOME/.local/bin/leonvim
-echo '$SHELL' >> $HOME/.local/bin/leonvim && chmod 755 $HOME/.local/bin/leonvim
-
 # LEOVIM command
 echo "#!/usr/bin/env bash" > $HOME/.local/bin/LEOVIM
 echo "export LEOVIM_CONF=$HOME/.leovim.conf" >> $HOME/.local/bin/LEOVIM
 echo 'cd $LEOVIM_CONF && git pull' >> $HOME/.local/bin/LEOVIM
 echo '$SHELL' >> $HOME/.local/bin/LEOVIM && chmod 755 $HOME/.local/bin/LEOVIM
-
 
 # set variable
 update_vim_plug='0'

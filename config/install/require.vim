@@ -2,12 +2,12 @@
 " Important plugins
 " --------------------------
 "  NOTE: assist shuould be installed before complete_engine
-source $REQUIRE_PATH/assist.vim
+source $INSTALL_PATH/assist.vim
 if get(g:, "complete_engine", '') != ''
-    source $REQUIRE_PATH/program.vim
-    source $REQUIRE_PATH/languages.vim
+    source $INSTALL_PATH/program.vim
+    source $INSTALL_PATH/languages.vim
 endif
-source $REQUIRE_PATH/tag.vim
+source $INSTALL_PATH/tag.vim
 " ------------------------------
 " fullscreen
 " ------------------------------
@@ -88,7 +88,7 @@ endif
 " ------------------------------
 " schemes
 " ------------------------------
-source $REQUIRE_PATH/schemes-textobj.vim
+source $INSTALL_PATH/schemes-textobj.vim
 " ------------------------------
 " tmux
 " ------------------------------

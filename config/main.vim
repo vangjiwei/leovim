@@ -717,27 +717,27 @@ endif
 " pack_tool
 " ------------------------------
 if g:pack_tool == 'jetpack'
-    let $INSTALL_PATH = expand('~/.leovim.d/' . g:complete_engine)
+    let $DEPLOY_PATH = expand('~/.leovim.d/' . g:complete_engine)
 elseif g:pack_tool == 'plug'
-    let $INSTALL_PATH = expand('~/.leovim.d/plug/' . g:complete_engine)
+    let $DEPLOY_PATH = expand('~/.leovim.d/plug/' . g:complete_engine)
 endif
 if has('nvim')
-    let $INSTALL_PATH .= ".nvim"
+    let $DEPLOY_PATH .= ".nvim"
     luafile $LUA_PATH/utils.lua
 else
-    let $INSTALL_PATH .= ".vim"
+    let $DEPLOY_PATH .= ".vim"
 endif
 " --------------------------
 " install plugins
 " --------------------------
 " pack begin
 if g:pack_tool =~ 'jetpack'
-    call jetpack#begin($INSTALL_PATH)
+    call jetpack#begin($DEPLOY_PATH)
 else
-    call plug#begin($INSTALL_PATH)
+    call plug#begin($DEPLOY_PATH)
 endif
-source $REQUIRE_PATH/pack.vim
-nnoremap <leader>ep :tabe $REQUIRE_PATH/pack.vim<Cr>
+source $INSTALL_PATH/require.vim
+nnoremap <leader>er :tabe $INSTALL_PATH/require.vim<Cr>
 nnoremap <leader>eP :tabe ~/.leovim.conf/plus.vim<Cr>
 if filereadable(expand("~/.leovim.conf/plus.vim")) | source $HOME/.leovim.conf/plus.vim | endif
 " pack end, check installed
@@ -926,16 +926,16 @@ nnoremap <leader>e<Cr> :source $LEOVIM_PATH/init.vim<Cr>
 " ------------------------
 nnoremap <leader>el :tabe $HOME/.vimrc.local<Cr>
 nnoremap <leader>ei :tabe $LEOVIM_PATH/init.vim<Cr>
-nnoremap <leader>ec :tabe $MAIN_PATH/common.vim<Cr>
-nnoremap <leader>er :tabe ~/.leovim.conf/pack/
-nnoremap <leader>em :tabe ~/.leovim.conf/main/
-nnoremap <leader>eo :tabe ~/.leovim.conf/main/config/
-nnoremap <leader>eu :tabe ~/.leovim.conf/main/config/lua/
+nnoremap <leader>em :tabe $CONFIG_PATH/main.vim<Cr>
+nnoremap <leader>ep :tabe ~/.leovim.conf/pack/
+nnoremap <leader>ec :tabe ~/.leovim.conf/config/
+nnoremap <leader>ea :tabe ~/.leovim.conf/config/autoload/
+nnoremap <leader>eu :tabe ~/.leovim.conf/config/autoload/lua/
 " ------------------------
 " set filetype unix and trim \r
 " ------------------------
 nnoremap <leader>ef :set ff=unix<Cr>:%s/\r//g<Cr>
-source $CONFIG_PATH/installed.vim
+source $AUTOLOAD_PATH/installed.vim
 " ------------------------
 " after config
 " ------------------------
