@@ -21,7 +21,7 @@ __pycache__
 .github
 expand*
 *tmp*
-*tags*
+.*tags*
 *backup*
 core.[0-9]*
 adapter.lua

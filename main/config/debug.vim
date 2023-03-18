@@ -50,7 +50,7 @@ elseif Installed("vim-repl")
         xmap cl cngvo
         nmap <leader>C Vggocn
         nmap <leader>E VGocn
-        nmap <leader>S ggVGcn<C-o><C-o>
+        nmap <leader>S :REPLSendAll<Cr>
     endfunction
     au Filetype python call s:set_ipdb_map()
     function! s:set_ipdb_map() abort
