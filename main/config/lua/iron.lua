@@ -10,9 +10,6 @@ iron.setup({
     repl_definition = {
       sh = {
         command = { "bash" }
-      },
-      python = {
-        command = { "ipython", "--no-autoindent" }
       }
     },
     repl_open_cmd = require('iron.view').split.vertical.botright('44%', {
@@ -43,14 +40,56 @@ iron.setup({
     italic = false
   }
 })
+--- setup for each ft
 if vim.fn.executable('radian') then
   iron.setup{
     config = {
       repl_definition = {
         r = {
           command = {"radian"}
-        },
-      },
+        }
+      }
+    }
+  }
+elseif vim.fn.executable('R') then
+  iron.setup{
+    config = {
+      repl_definition = {
+        r = {
+          command = {"R"}
+        }
+      }
+    }
+  }
+end
+if vim.fn.executable('ipython') then
+  iron.setup{
+    config = {
+      repl_definition = {
+        python = {
+          command = { "ipython", "--no-autoindent" }
+        }
+      }
+    }
+  }
+elseif vim.fn.executable('python3') then
+  iron.setup{
+    config = {
+      repl_definition = {
+        python = {
+          command = {"python3"}
+        }
+      }
+    }
+  }
+elseif vim.fn.executable('python') then
+  iron.setup{
+    config = {
+      repl_definition = {
+        python = {
+          command = {"python"}
+        }
+      }
     }
   }
 end
