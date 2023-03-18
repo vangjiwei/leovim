@@ -23,8 +23,6 @@ expand*
 *tmp*
 *backup*
 core.[0-9]*
-adapter.lua
-plus.vim
 Gemfile
 GPATH
 GRTAGS
@@ -32,3 +30,7 @@ GTAGS
 *.tags
 tags
 tags-ja
+
+adapter.lua
+before.vim
+after.vim

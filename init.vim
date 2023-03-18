@@ -235,7 +235,7 @@ let g:leovim_installed = {}
 function! PackAdd(repo, ...)
     " delete last / or \
     let repo = substitute(a:repo, '[\/]\+$', '', '')
-    " if not / included, local plugin will be loaded
+    " if not / included, local plugin will be packadded
     if stridx(repo, '/') < 0
         let pack = repo
     else

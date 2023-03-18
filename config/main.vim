@@ -736,10 +736,8 @@ if g:pack_tool =~ 'jetpack'
 else
     call plug#begin($DEPLOY_PATH)
 endif
+if filereadable(expand("~/.leovim.conf/before.vim")) | source $HOME/.leovim.conf/before.vim | endif
 source $INSTALL_PATH/require.vim
-nnoremap <leader>er :tabe $INSTALL_PATH/require.vim<Cr>
-nnoremap <leader>eP :tabe ~/.leovim.conf/plus.vim<Cr>
-if filereadable(expand("~/.leovim.conf/plus.vim")) | source $HOME/.leovim.conf/plus.vim | endif
 " pack end, check installed
 if g:pack_tool =~ 'jetpack'
     call jetpack#end()
@@ -927,10 +925,11 @@ nnoremap <leader>e<Cr> :source $LEOVIM_PATH/init.vim<Cr>
 nnoremap <leader>el :tabe $HOME/.vimrc.local<Cr>
 nnoremap <leader>ei :tabe $LEOVIM_PATH/init.vim<Cr>
 nnoremap <leader>em :tabe $CONFIG_PATH/main.vim<Cr>
+nnoremap <leader>er :tabe $INSTALL_PATH/require.vim<Cr>
 nnoremap <leader>ep :tabe ~/.leovim.conf/pack/
 nnoremap <leader>ec :tabe ~/.leovim.conf/config/
 nnoremap <leader>ea :tabe ~/.leovim.conf/config/autoload/
-nnoremap <leader>eu :tabe ~/.leovim.conf/config/autoload/lua/
+nnoremap <leader>eL :tabe ~/.leovim.conf/config/autoload/lua/
 " ------------------------
 " set filetype unix and trim \r
 " ------------------------
@@ -939,7 +938,8 @@ source $AUTOLOAD_PATH/installed.vim
 " ------------------------
 " after config
 " ------------------------
-nnoremap <leader>eA :tabe ~/.vimrc.after<Cr>
-if filereadable(expand('~/.vimrc.after'))
-    source ~/.vimrc.after
+nnoremap <leader>eB :tabe ~/.leovim.conf/before.vim<Cr>
+nnoremap <leader>eA :tabe ~/.leovim.conf/after.vim<Cr>
+if filereadable(expand('~/.leovim.conf/after.vim'))
+    source ~/.leovim.conf/after.vim
 endif
