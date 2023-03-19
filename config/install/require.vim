@@ -55,6 +55,7 @@ endif
 " indentline
 " --------------------------
 PackAdd 'Yggdroot/indentLine'
+PackAdd 'dhruvasagar/vim-table-mode'
 " ------------------------------
 " pairs
 " ------------------------------

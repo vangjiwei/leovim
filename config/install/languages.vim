@@ -74,9 +74,10 @@ endif
 " ------------------------------
 " writing
 " ------------------------------
-PackAdd 'dhruvasagar/vim-table-mode'
 if Require('writing')
+    " ------------------------------
     " markdown
+    " ------------------------------
     PackAdd 'junegunn/vim-journal', {'for': 'markdown'}
     PackAdd 'ferrine/md-img-paste.vim', {'for': 'markdown'}
     " markdown preview
