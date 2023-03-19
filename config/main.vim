@@ -928,8 +928,8 @@ nnoremap <leader>em :tabe $CONFIG_PATH/main.vim<Cr>
 nnoremap <leader>er :tabe $INSTALL_PATH/require.vim<Cr>
 nnoremap <leader>ep :tabe ~/.leovim.conf/pack/
 nnoremap <leader>ec :tabe ~/.leovim.conf/config/
-nnoremap <leader>ea :tabe ~/.leovim.conf/config/autoload/
-nnoremap <leader>eL :tabe ~/.leovim.conf/config/autoload/lua/
+nnoremap <leader>es :tabe ~/.leovim.conf/config/settings/
+nnoremap <leader>eu :tabe ~/.leovim.conf/config/autoload/lua/
 " ------------------------
 " set filetype unix and trim \r
 " ------------------------
