@@ -13,15 +13,13 @@
 __pycache__
 .netrwhist
 .vscode
+.fleet
 .idea
 .root
 .svn
 .asynctasks
 .vim
 .github
-expand*
-*tmp*
-*backup*
 core.[0-9]*
 Gemfile
 GPATH
@@ -30,7 +28,6 @@ GTAGS
 *.tags
 tags
 tags-ja
-
-adapter.lua
-before.vim
-after.vim
+/adapter.lua
+/before.vim
+/after.vim
