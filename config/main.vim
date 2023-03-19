@@ -934,7 +934,7 @@ nnoremap <leader>eL :tabe ~/.leovim.conf/config/autoload/lua/
 " set filetype unix and trim \r
 " ------------------------
 nnoremap <leader>ef :set ff=unix<Cr>:%s/\r//g<Cr>
-source $AUTOLOAD_PATH/installed.vim
+source $SETTINGS_PATH/installed.vim
 " ------------------------
 " after config
 " ------------------------

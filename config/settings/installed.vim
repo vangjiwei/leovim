@@ -2,7 +2,7 @@
 " git
 " --------------------------
 if executable('git')
-    source $AUTOLOAD_PATH/git.vim
+    source $SETTINGS_PATH/git.vim
 endif
 " ------------------------------
 " pairs
@@ -16,7 +16,7 @@ endif
 try
     set laststatus=2
     PackAdd 'lightline.vim'
-    source $AUTOLOAD_PATH/lightline.vim
+    source $SETTINGS_PATH/lightline.vim
 catch
     let g:currentmode={
                 \ 'n':      'NORMAL ',
@@ -89,7 +89,7 @@ endif
 " ------------------------
 " home end
 " ------------------------
-source $AUTOLOAD_PATH/finder.vim
+source $SETTINGS_PATH/finder.vim
 cmap <C-a> <Home>
 cmap <C-e> <End>
 imap <expr><C-b> pumvisible()? "\<C-b>":"\<C-o>I"
@@ -99,38 +99,38 @@ imap <expr><C-a> pumvisible()? "\<C-a>":"\<C-o>0"
 " complete_engine settings
 " --------------------------
 if Installed('coc.nvim')
-    source $AUTOLOAD_PATH/coc.vim
+    source $SETTINGS_PATH/coc.vim
 elseif InstalledCmp()
-    source $AUTOLOAD_PATH/cmp.vim
+    source $SETTINGS_PATH/cmp.vim
 elseif Installed('vim-mucomplete')
-    source $AUTOLOAD_PATH/mcm.vim
+    source $SETTINGS_PATH/mcm.vim
 elseif g:complete_engine != 'non' && v:version >= 800
     let g:complete_engine = 'apc'
-    source $AUTOLOAD_PATH/apc.vim
+    source $SETTINGS_PATH/apc.vim
 else
     let g:complete_engine = 'non'
 endif
-source $AUTOLOAD_PATH/snippets.vim
-source $AUTOLOAD_PATH/format.vim
-source $AUTOLOAD_PATH/debug.vim
+source $SETTINGS_PATH/snippets.vim
+source $SETTINGS_PATH/format.vim
+source $SETTINGS_PATH/debug.vim
 " --------------------------
 " settings
 " --------------------------
-source $AUTOLOAD_PATH/differ.vim
-source $AUTOLOAD_PATH/search-replace.vim
-source $AUTOLOAD_PATH/sidebar.vim
-source $AUTOLOAD_PATH/run.vim
-source $AUTOLOAD_PATH/marks.vim
-source $AUTOLOAD_PATH/query.vim
-source $AUTOLOAD_PATH/fold.vim
-source $AUTOLOAD_PATH/yank-paste.vim
-source $AUTOLOAD_PATH/lsp-tag-search.vim
-source $AUTOLOAD_PATH/schemes.vim
-source $AUTOLOAD_PATH/check.vim
+source $SETTINGS_PATH/differ.vim
+source $SETTINGS_PATH/search-replace.vim
+source $SETTINGS_PATH/sidebar.vim
+source $SETTINGS_PATH/run.vim
+source $SETTINGS_PATH/marks.vim
+source $SETTINGS_PATH/query.vim
+source $SETTINGS_PATH/fold.vim
+source $SETTINGS_PATH/yank-paste.vim
+source $SETTINGS_PATH/lsp-tag-search.vim
+source $SETTINGS_PATH/schemes.vim
+source $SETTINGS_PATH/check.vim
 " ------------------------
 " zfvime is for chs input
 " ------------------------
-source $AUTOLOAD_PATH/zfvime.vim
+source $SETTINGS_PATH/zfvime.vim
 " --------------------------
 " whichkey
 " --------------------------
@@ -264,7 +264,7 @@ nnoremap <M-k>V :version<Cr>
 " --------------------------
 " autocmd
 " --------------------------
-source $AUTOLOAD_PATH/autocmd.vim
+source $SETTINGS_PATH/autocmd.vim
 " --------------------------
 " startify
 " --------------------------

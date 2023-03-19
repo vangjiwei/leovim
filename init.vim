@@ -26,8 +26,8 @@ let $PACK_PATH = expand($LEOVIM_PATH . '/pack')
 " set config path
 let $CONFIG_PATH = expand($LEOVIM_PATH . '/config')
 let $INSTALL_PATH = expand($CONFIG_PATH . '/install')
-let $AUTOLOAD_PATH = expand($CONFIG_PATH . '/autoload')
-let $LUA_PATH = expand($AUTOLOAD_PATH . '/lua')
+let $SETTINGS_PATH = expand($CONFIG_PATH . '/settings')
+let $LUA_PATH = expand($SETTINGS_PATH . '/lua')
 " set opt path which contains repos cloned.
 let $OPT_PATH = expand($PACK_PATH . '/packs/opt')
 set rtp=$VIMRUNTIME,$PACK_PATH
@@ -633,7 +633,7 @@ else
     PackAdd 'vim-easymotion'
 endif
 PackAdd 'vim-easymotion-chs'
-source $AUTOLOAD_PATH/easymotion.vim
+source $SETTINGS_PATH/easymotion.vim
 " ------------------------
 " clever-f
 " ------------------------
@@ -753,7 +753,7 @@ else
     " source
     source $CONFIG_PATH/main.vim
     if g:has_terminal > 0
-        source $AUTOLOAD_PATH/terminal.vim
+        source $SETTINGS_PATH/terminal.vim
     endif
 endif
 " ------------------------
