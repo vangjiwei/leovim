@@ -276,7 +276,7 @@ nnoremap <silent>g/ :call LspOrTagOrSearchAll()<Cr>
 " --------------------------
 if Installed("coc.nvim")
     nmap <silent><M-/> :call LspOrTagOrSearchAll("jumpReferences", "float")<Cr>
-    nmap <silent>gm <Plug>(coc-refactor)
+    nmap <silent>gr <Plug>(coc-refactor)
     au User CocLocationsChange let g:coc_locations_change = v:true
     " jumpDefinition
     nnoremap <silent><C-g>  :call LspOrTagOrSearchAll("", "jumpDefinition")<Cr>
@@ -305,7 +305,7 @@ else
         endif
     endif
     if g:search_tool =~ 'grepper'
-        nnoremap <silent>gm :GrepperSearchAll <C-r>=expand('<cword>')<Cr><Cr>
+        nnoremap <silent>gr :GrepperSearchAll <C-r>=expand('<cword>')<Cr><Cr>
     endif
 endif
 " --------------------------

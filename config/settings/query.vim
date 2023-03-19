@@ -11,15 +11,15 @@ if Installed('vim-translator')
 endif
 if Installed('dash.vim')
     nmap g: :Dash<Space>
-    nmap gs <Plug>DashSearch
+    nmap gy <Plug>DashSearch
     nmap gx <Plug>DashGlobalSearch
 elseif Installed('zeavim.vim')
     nmap g: :Zeavim<Space>
-    nmap gs <Plug>Zeavim
-    xmap gs <Plug>ZVVisSelection
-    nmap gx <Plug>ZVKeyDocset
     nmap gz <Plug>ZVOperator
     omap gz <Plug>ZVOperator
+    nmap gy <Plug>Zeavim
+    xmap gy <Plug>ZVVisSelection
+    nmap gx <Plug>ZVKeyDocset
 endif
 if Installed('vim-cppman')
     au FileType c,cpp,cuda nnoremap <C-h> :Cppman <C-r>=expand('<cword>')<Cr>
