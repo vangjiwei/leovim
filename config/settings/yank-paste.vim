@@ -1,25 +1,21 @@
 " ------------------------
 " yank && paste
 " ------------------------
+" yank from beginning / to ending
+nnoremap <Tab>y :0,-y<Cr>
+nnoremap <Tab>Y vGy
 function! YankFromBeginning() abort
     let original_cursor_position = getpos('.')
     if has('clipboard')
         exec('normal! v^"*y')
-        echo "Yank from line beginning to clipboard"
+        echo "Yank from line beginning to clipboard."
     else
         exec('normal! v^y')
+        echo "Yank from line beginning."
     endif
     call setpos('.', original_cursor_position)
 endfunction
-nnoremap <Leader>Y :call YankFromBeginning()<Cr>
-cnoremap <M-'> <C-r>"
-inoremap <M-'> <C-r>"
-cnoremap <C-y> <C-r>"
-" for complete engine
-if index(['', 'apc'], g:complete_engine) >= 0
-    imap <expr><C-y> pumvisible()? "\<C-y>":"\<C-r>\""
-    imap <expr><C-e> pumvisible()? "\<C-e>":"\<C-o>A"
-endif
+nnoremap <silent><Leader>Y :call YankFromBeginning()<Cr>
 if has('clipboard')
     nnoremap <M-a> :%y*<Cr>
     " autocmd
@@ -75,14 +71,21 @@ else
     xnoremap <M-X> S
 endif
 nnoremap <leader>vp viwp
-" yank from beginning / to ending
-nnoremap <Tab>y :0,-y<Cr>
-nnoremap <Tab>Y vGy
 " del/bs
 inoremap <M-x> <Del>
 inoremap <M-y> <BS>
 " switch 2 words
 xnoremap <M-V> <Esc>`.``gvp``P
+" ------------------------
+" for complete engine
+" ------------------------
+if index(['', 'apc'], g:complete_engine) >= 0
+    imap <expr><C-y> pumvisible()? "\<C-y>":"\<C-r>\""
+    imap <expr><C-e> pumvisible()? "\<C-e>":"\<C-o>A"
+endif
+inoremap <M-'> <C-r>"
+cnoremap <M-'> <C-r>"
+cnoremap <C-y> <C-r>"
 " ------------------------
 " pastemode toggle
 " ------------------------

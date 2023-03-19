@@ -169,8 +169,8 @@ xmap <silent><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\g%"
 " call hierarchy
 nnoremap <silent>gl :call CocAction('showIncomingCalls')<Cr>
 nnoremap <silent>gh :call CocAction('showOutgoingCalls')<Cr>
-nnoremap <silent>gm :call CocAction('showSubTypes')<Cr>
-nnoremap <silent>gM :call CocAction('showSuperTypes')<Cr>
+nnoremap <silent>gy :call CocAction('showSubTypes')<Cr>
+nnoremap <silent>gY :call CocAction('showSuperTypes')<Cr>
 " --------------------------
 " coc snippets
 " --------------------------
