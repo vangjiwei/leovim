@@ -9,7 +9,7 @@ xnoremap gQ gw
 " ----------------------------
 " table_mode
 " ----------------------------
-if Installed(dhruvasagar/vim-table-mode)
+if Installed("dhruvasagar/vim-table-mode")
     let g:table_mode_map_prefix      = '<Space>T'
     let g:table_mode_corner          = '|'
     let g:table_mode_corner_corner   = '+'
