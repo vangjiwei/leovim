@@ -36,7 +36,7 @@ function! formatpythoncode#AutoStop(line, pythonprogram, version)
             return 0
         endif
     elseif a:pythonprogram ==# 'ipython'
-        if string2float(a:version[0]) >= 7
+        if str2float(a:version[0]) >= 7
             return 0
         elseif repl#StartWithAny(a:version, ['pass ', 'return ', 'raise ', 'continue ', 'break '])
             return 1
