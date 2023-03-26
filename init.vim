@@ -479,7 +479,7 @@ map <C-q> <Nop>
 map <C-s> <Nop>
 map <C-i> <Nop>
 map <C-z> <Nop>
-nmap S    <Nop>
+nmap S <Nop>
 nmap <C-j> %
 nmap <C-k> g%
 xmap <C-j> %
@@ -649,8 +649,8 @@ xmap , <Plug>(clever-f-repeat-back)
 " ------------------------
 nmap SL vg_S
 nmap SH v^S
-nmap SJ vt<Space>S
-nmap SK vT<Space>S
+nmap SK vt<Space>S
+nmap SJ vT<Space>S
 nmap SS T<Space>vt<Space>S
 " --------------------------
 " textobj
