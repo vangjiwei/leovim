@@ -639,19 +639,19 @@ source $SETTINGS_PATH/easymotion.vim
 " ------------------------
 let g:clever_f_smart_case = 1
 let g:clever_f_repeat_last_char_inputs = ['<Tab>']
-PackAdd 'clever-f.vim'
 nmap ; <Plug>(clever-f-repeat-forward)
 xmap ; <Plug>(clever-f-repeat-forward)
 nmap , <Plug>(clever-f-repeat-back)
 xmap , <Plug>(clever-f-repeat-back)
+PackAdd 'clever-f.vim'
 " ------------------------
 " surround
 " ------------------------
-nmap SL vg_S
-nmap SH v^S
-nmap SK vt<Space>S
-nmap SJ vT<Space>S
-nmap SS T<Space>vt<Space>S
+nmap SL vg_<Plug>VSurround
+nmap SH v^<Plug>VSurround
+nmap SK vT<Space><Plug>VSurround
+nmap SJ vt<Space><Plug>VSurround
+nmap SS T<Space>vt<Space><Plug>VSurround
 " --------------------------
 " textobj
 " --------------------------
