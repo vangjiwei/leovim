@@ -42,10 +42,10 @@ if Installed('vim-signature')
           \ 'GotoPrevMarkerAny' : "[=",
           \ }
 endif
-if Installed('leaderf-marks')
-    nnoremap <C-f>m :Leaderf marks<Cr>
-elseif InstalledTelescope()
+if InstalledTelescope()
     nnoremap <C-f>m :Telescope marks<Cr>
+elseif Installed('leaderf-marks')
+    nnoremap <C-f>m :Leaderf marks<Cr>
 elseif InstalledFZF()
     nnoremap <C-f>m :FZFMarks<CR>
 endif
