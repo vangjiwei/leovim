@@ -151,13 +151,11 @@ elseif has('patch-7.4.330')
     " basic keys
     nnoremap <Space>  :WhichKey       " "<Cr>
     nnoremap <Tab>    :WhichKey       "\<Tab\>"<Cr>
-    nnoremap ,        :WhichKey       ","<Cr>
     nnoremap \        :WhichKey       "\\"<Cr>
     nnoremap [        :WhichKey       "["<Cr>
     nnoremap ]        :WhichKey       "]"<Cr>
     xnoremap <Space>  :WhichKeyVisual " "<Cr>
     xnoremap <Tab>    :WhichKeyVisual "\<Tab\>"<Cr>
-    xnoremap ,        :WhichKeyVisual ","<Cr>
     xnoremap \        :WhichKeyVisual "\\"<Cr>
     xnoremap [        :WhichKeyVisual "["<Cr>
     xnoremap ]        :WhichKeyVisual "]"<Cr>

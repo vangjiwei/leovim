@@ -1,6 +1,17 @@
 " --------------------------
 " basic functions
 " --------------------------
+function! StringToFloat(str)
+    let str = a:str
+    try
+        let lst   = split(str, "\\.")
+        let main  = lst[0]
+        let other = join(lst[1:], '')
+        return str2float(main . "\." . other)
+    catch
+        return str2float(str)
+    endtry
+endfunction
 function! TripTrailingWhiteSpace()
     let _s=@/
     let l = line(".")
@@ -29,9 +40,6 @@ endfunction
 function! FileReadonly()
     return &readonly && &filetype !=# 'help' ? 'RO' : ''
 endfunction
-" --------------------------
-" Execute function
-" --------------------------
 function! Execute(cmd)
     let cmd = a:cmd
     redir => l:output
@@ -39,20 +47,9 @@ function! Execute(cmd)
     redir END
     return l:output
 endfunction
-" ------------------------------
-" StringToFloat
-" ------------------------------
-function! StringToFloat(str)
-    let str = a:str
-    try
-        let lst   = split(str, "\\.")
-        let main  = lst[0]
-        let other = join(lst[1:], '')
-        return str2float(main . "\." . other)
-    catch
-        return str2float(str)
-    endtry
-endfunction
+" --------------------------
+" git_version
+" --------------------------
 if executable('git')
     let s:git_version_raw = matchstr(system('git --version'), '\v\zs\d{1,4}.\d{1,4}.\d{1,4}\ze')
     let g:git_version = StringToFloat(s:git_version_raw)
