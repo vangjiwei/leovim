@@ -1,4 +1,21 @@
 [
+  // focusGroup
+  {
+    "key": "shift+alt+right",
+    "command": "workbench.action.focusRightGroupWithoutWrap"
+  },
+  {
+    "key": "shift+alt+left",
+    "command": "workbench.action.focusLeftGroupWithoutWrap"
+  },
+  {
+    "key": "shift+alt+up",
+    "command": "workbench.action.focusAboveGroupWithoutWrap"
+  },
+  {
+    "key": "shift+alt+down",
+    "command": "workbench.action.focusBelowGroupWithoutWrap"
+  },
   // jupyter
   {
     "key": "ctrl+shift+j",
