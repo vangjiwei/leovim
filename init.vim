@@ -347,6 +347,12 @@ let g:highlight_filetypes = get(g:, 'highlight_filetypes', [
 " -----------------------------------
 let g:todo_patterns = "(TODO|FIXME|WARN|ERROR|BUG|HELP)"
 let g:note_patterns = "(NOTE|XXX|HINT|STEP|ETC)"
+" Comment highlighting
+augroup SPECIALSTINGS
+    autocmd!
+    autocmd Syntax * call matchadd('Todo', '\v\W\zs' . g:todo_patterns . '(\(.{-}\))?:?', -1)
+    autocmd Syntax * call matchadd('Todo', '\v\W\zs' . g:note_patterns . '(\(.{-}\))?:?', -2)
+augroup END
 let g:root_patterns = get(g:, 'root_patterns', [".root/", ".env/", ".git/", ".hg/", ".svn/", ".vim/", ".vscode/", '.idea/', ".ccls/", "compile_commands.json"])
 " -----------------------------------
 " Toggle modifiable for current buffer

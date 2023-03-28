@@ -42,12 +42,6 @@ if has('nvim')
         let g:fix_cursorhold_nvim_timer = timer_start(g:cursorhold_updatetime, 'CursorHoldI_Cb')
     endfunction
 endif
-" Comment highlighting
-augroup SPECIALSTINGS
-    autocmd!
-    autocmd Syntax * call matchadd('Todo', '\v\W\zs' . g:todo_patterns . '(\(.{-}\))?:?', -1)
-    autocmd Syntax * call matchadd('Todo', '\v\W\zs' . g:note_patterns . '(\(.{-}\))?:?', -2)
-augroup END
 " FOLDS
 augroup FOLDS
     autocmd!
