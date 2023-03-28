@@ -21,20 +21,6 @@
     "key": "ctrl+shift+j",
     "command": "jupyter.openVariableView"
   },
-  // terminal 
-  {
-    "key": "ctrl+shift+\\`",
-    "command": "workbench.action.terminal.openNativeConsole"
-  },
-  {
-    "key": "alt+-",
-    "command": "workbench.action.togglePanel"
-  },
-  {
-    "key": "alt+=",
-    "command": "workbench.action.terminal.newWithProfile",
-    "when": "!terminalFocus"
-  },
   // goto error
   {
     "key": "alt+[",
@@ -216,8 +202,21 @@
   // focus one editor
   {
     "key": "shift+alt+\\",
-    "command": "workbench.files.action.focusOpenEditorsView",
-    "when": "workbench.explorer.openEditorsView.active"
+    "command": "workbench.files.action.focusOpenEditorsView"
+  },
+  // terminal 
+  {
+    "key": "ctrl+shift+\\",
+    "command": "terminal.focus",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "alt+-",
+    "command": "workbench.action.togglePanel"
+  },
+  {
+    "key": "alt+=",
+    "command": "workbench.action.terminal.newWithProfile"
   },
   // panel
   {
@@ -227,10 +226,6 @@
   {
     "key": "shift+alt+-",
     "command": "workbench.action.previousPanelView"
-  },
-  {
-    "key": "ctrl+; t",
-    "command": "terminal.focus"
   },
   {
     "key": "ctrl+; p",
