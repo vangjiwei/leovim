@@ -36,57 +36,28 @@ function! Execute(cmd)
     redir END
     return l:output
 endfunction
-" --------------------------
-" git_version
-" --------------------------
-if executable('git')
-    let s:git_version_raw = matchstr(system('git --version'), '\v\zs\d{1,4}.\d{1,4}.\d{1,4}\ze')
-    let g:git_version = StringToFloat(s:git_version_raw)
-else
-    let g:git_version = 0
-endif
-" ------------------------------
-" node_install_tool
-" ------------------------------
-if executable('node') && executable('npm')
-    let s:node_version_raw = matchstr(system('node --version'), '\vv\zs\d{1,4}.\d{1,4}\ze')
-    let s:node_version = StringToFloat(s:node_version_raw)
-    if s:node_version == 14.15 || s:node_version == 16.10 || s:node_version >= 18.0
-        if executable('yarn')
-            let s:yarn_version_raw = system('yarn --version')
-            let s:yarn_version = StringToFloat(s:yarn_version_raw)
-            if s:yarn_version >= 1.2218
-                let g:node_install_tool = 'yarn'
-            else
-                let g:node_install_tool = 'npm_latest'
-            endif
-        else
-            let g:node_install_tool = 'npm_latest'
+" ------------------------
+" tab is used as a leaderkey
+" ------------------------
+nnoremap <Tab><Tab> <Tab>
+" ------------------------
+" has_truecolor
+" ------------------------
+if get(g:, 'has_truecolor', 1) != 0 && (has('termguicolors') || WINDOWS() || g:gui_running)
+    try
+        set termguicolors
+        hi LineNr ctermbg=NONE guibg=NONE
+        nnoremap <M-k>g :set notermguicolors! notermguicolors?<Cr>
+        let g:has_truecolor = 1
+        if !has('nvim')
+            let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+            let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
         endif
-    else
-        let g:node_install_tool = 'npm_legacy'
-    endif
+    catch
+        let g:has_truecolor = 0
+    endtry
 else
-    let g:node_install_tool = ''
-endif
-" ------------------------------
-" ctags_type
-" ------------------------------
-if WINDOWS() && Require('tags') || UNIX()
-    if WINDOWS() && filereadable(expand("~/.leovim.windows/tools/ctags.exe"))
-        let g:ctags_type = 'Universal-json'
-    elseif has('patch-7.4.330') && executable('ctags')
-        let g:ctags_type = system('ctags --version')
-        if g:ctags_type =~ 'Universal'
-            if system('ctags --list-features | grep json') =~ 'json'
-                let g:ctags_type = 'Universal-json'
-            endif
-        endif
-    else
-        let g:ctags_type = ''
-    endif
-else
-    let g:ctags_type = ''
+    let g:has_truecolor = 0
 endif
 " --------------------------
 " set TERM && screen
@@ -157,27 +128,51 @@ else
         endif
     endif
 endif
-" ------------------------
-" has_truecolor
-" ------------------------
-if get(g:, 'has_truecolor', 1) != 0 && (has('termguicolors') || WINDOWS() || g:gui_running)
-    try
-        set termguicolors
-        hi LineNr ctermbg=NONE guibg=NONE
-        nnoremap <M-k>g :set notermguicolors! notermguicolors?<Cr>
-        let g:has_truecolor = 1
-        if !has('nvim')
-            let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-            let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" ------------------------------
+" node install tool
+" ------------------------------
+if executable('node') && executable('npm')
+    let s:node_version_raw = matchstr(system('node --version'), '\vv\zs\d{1,4}.\d{1,4}\ze')
+    let s:node_version = StringToFloat(s:node_version_raw)
+    if s:node_version == 14.15 || s:node_version == 16.10 || s:node_version >= 18.0
+        if executable('yarn')
+            let s:yarn_version_raw = system('yarn --version')
+            let s:yarn_version = StringToFloat(s:yarn_version_raw)
+            if s:yarn_version >= 1.2218
+                let g:node_install_tool = 'yarn'
+            else
+                let g:node_install_tool = 'npm_latest'
+            endif
+        else
+            let g:node_install_tool = 'npm_latest'
         endif
-    catch
-        let g:has_truecolor = 0
-    endtry
+    else
+        let g:node_install_tool = 'npm_legacy'
+    endif
 else
-    let g:has_truecolor = 0
+    let g:node_install_tool = ''
+endif
+" ------------------------------
+" ctags_type
+" ------------------------------
+if WINDOWS() && Require('tags') || UNIX()
+    if WINDOWS() && filereadable(expand("~/.leovim.windows/tools/ctags.exe"))
+        let g:ctags_type = 'Universal-json'
+    elseif has('patch-7.4.330') && executable('ctags')
+        let g:ctags_type = system('ctags --version')
+        if g:ctags_type =~ 'Universal'
+            if system('ctags --list-features | grep json') =~ 'json'
+                let g:ctags_type = 'Universal-json'
+            endif
+        endif
+    else
+        let g:ctags_type = ''
+    endif
+else
+    let g:ctags_type = ''
 endif
 " --------------------------
-" TMUX config, must writen after packopt.vim for Alt_to_meta function
+" TMUX config, must writen for Alt_to_meta function
 " --------------------------
 if $TMUX != ''
     set ttimeoutlen=30
@@ -230,7 +225,7 @@ nmap <M-A> ggVG
 " ------------------------
 " second window
 " ------------------------
-function! Tools_PreviousCursor(mode)
+function! PreviousCursor(mode)
     if winnr('$') <= 1
         return
     endif
@@ -264,16 +259,16 @@ function! Tools_PreviousCursor(mode)
     endif
     noautocmd silent! wincmd p
 endfunction
-nnoremap <silent><M-Q> :call Tools_PreviousCursor('quit')<Cr>
-nnoremap <silent><M-U> :call Tools_PreviousCursor('ctrlu')<Cr>
-nnoremap <silent><M-D> :call Tools_PreviousCursor('ctrld')<Cr>
-nnoremap <silent><M-E> :call Tools_PreviousCursor('ctrle')<Cr>
-nnoremap <silent><M-Y> :call Tools_PreviousCursor('ctrly')<Cr>
-inoremap <silent><M-Q> <C-o>:call Tools_PreviousCursor('quit')<Cr>
-inoremap <silent><M-U> <C-o>:call Tools_PreviousCursor('ctrlu')<Cr>
-inoremap <silent><M-D> <C-o>:call Tools_PreviousCursor('ctrld')<Cr>
-inoremap <silent><M-E> <C-o>:call Tools_PreviousCursor('ctrle')<Cr>
-inoremap <silent><M-Y> <C-o>:call Tools_PreviousCursor('ctrly')<Cr>
+nnoremap <silent><M-Q> :call PreviousCursor('quit')<Cr>
+nnoremap <silent><M-U> :call PreviousCursor('ctrlu')<Cr>
+nnoremap <silent><M-D> :call PreviousCursor('ctrld')<Cr>
+nnoremap <silent><M-E> :call PreviousCursor('ctrle')<Cr>
+nnoremap <silent><M-Y> :call PreviousCursor('ctrly')<Cr>
+inoremap <silent><M-Q> <C-o>:call PreviousCursor('quit')<Cr>
+inoremap <silent><M-U> <C-o>:call PreviousCursor('ctrlu')<Cr>
+inoremap <silent><M-D> <C-o>:call PreviousCursor('ctrld')<Cr>
+inoremap <silent><M-E> <C-o>:call PreviousCursor('ctrle')<Cr>
+inoremap <silent><M-Y> <C-o>:call PreviousCursor('ctrly')<Cr>
 " --------------------------
 " python_support
 " --------------------------
@@ -309,20 +304,6 @@ endfunction
 let g:python3_host_prog = get(g:, 'python3_host_prog', '')
 let g:python_host_prog  = get(g:, 'python_host_prog', '')
 let g:python_version = get(g:, 'python_version', GetPyxVersion())
-" ------------------------
-" EnhancedSearch
-" ------------------------
-function! EnhancedSearch() range
-    let l:saved_reg = @"
-    execute 'normal! vgvy'
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-nmap <silent> * :<C-u>call EnhancedSearch()<CR>/<C-R>=@/<CR><CR>N
-nmap <silent> # :<C-u>call EnhancedSearch()<CR>?<C-R>=@/<CR><CR>N
-inoremap <leader> <leader><c-g>u
 " --------------------------
 " set python_host_prog
 " --------------------------
@@ -374,6 +355,20 @@ else
     let g:python_exe_path = ''
 endif
 " ------------------------
+" EnhancedSearch
+" ------------------------
+function! EnhancedSearch() range
+    let l:saved_reg = @"
+    execute 'normal! vgvy'
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+nmap <silent> * :<C-u>call EnhancedSearch()<CR>/<C-R>=@/<CR><CR>N
+nmap <silent> # :<C-u>call EnhancedSearch()<CR>?<C-R>=@/<CR><CR>N
+inoremap <leader> <leader><c-g>u
+" ------------------------
 " remap for cusor move insert mode
 " ------------------------
 inoremap <M-l> <Right>
@@ -391,10 +386,6 @@ xmap <M-f> e
 imap <M-f> <C-o>e
 cmap <M-b> <C-left>
 cmap <M-f> <C-right>
-" ------------------------
-" tab is used as a leaderkey
-" ------------------------
-nnoremap <Tab><Tab> <Tab>
 " ------------------------
 " panel jump
 " ------------------------
