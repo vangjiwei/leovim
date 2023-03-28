@@ -11,6 +11,20 @@ elseif !exists('*system')
     echoe 'function system() is required when using leovim.'
     finish
 end
+" ------------------------------
+" NOTE: StringToFloat is a import function
+" ------------------------------
+function! StringToFloat(str)
+    let str = a:str
+    try
+        let lst   = split(str, "\\.")
+        let main  = lst[0]
+        let other = join(lst[1:], '')
+        return str2float(main . "\." . other)
+    catch
+        return str2float(str)
+    endtry
+endfunction
 " ------------------------
 " mapleader
 " ------------------------
@@ -167,25 +181,9 @@ if WINDOWS()
 else
     nnoremap <leader>X :!bash <C-r>=expand("~/.leovim.clean")<Cr><Cr><C-l>
 endif
-" --------------------------
-" XXX: read .vimrc.local file to plugs settings
-" --------------------------
-let g:require_group = []
-if filereadable(expand("~/.vimrc.local")) | source $HOME/.vimrc.local | endif
-" ------------------------------
-" StringToFloat
-" ------------------------------
-function! StringToFloat(str)
-    let str = a:str
-    try
-        let lst   = split(str, "\\.")
-        let main  = lst[0]
-        let other = join(lst[1:], '')
-        return str2float(main . "\." . other)
-    catch
-        return str2float(str)
-    endtry
-endfunction
+" -----------------------------------
+" git version
+" -----------------------------------
 if executable('git')
     let s:git_version_raw = matchstr(system('git --version'), '\v\zs\d{1,4}.\d{1,4}.\d{1,4}\ze')
     let g:git_version = StringToFloat(s:git_version_raw)
@@ -231,7 +229,10 @@ noremap <silent><leader>u :PackSync<Cr>
 " ---------------------------------------
 " PackAdd local opt packs or github repos
 " ---------------------------------------
+" XXX: read .vimrc.local file to plugs settings
+let g:require_group = []
 let g:leovim_installed = {}
+if filereadable(expand("~/.vimrc.local")) | source $HOME/.vimrc.local | endif
 function! PackAdd(repo, ...)
     " delete last / or \
     let repo = substitute(a:repo, '[\/]\+$', '', '')

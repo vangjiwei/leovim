@@ -1,17 +1,6 @@
 " --------------------------
 " basic functions
 " --------------------------
-function! StringToFloat(str)
-    let str = a:str
-    try
-        let lst   = split(str, "\\.")
-        let main  = lst[0]
-        let other = join(lst[1:], '')
-        return str2float(main . "\." . other)
-    catch
-        return str2float(str)
-    endtry
-endfunction
 function! TripTrailingWhiteSpace()
     let _s=@/
     let l = line(".")
