@@ -199,11 +199,6 @@
     "command": "-selectPrevSuggestion",
     "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
   },
-  // focus one editor
-  {
-    "key": "shift+alt+\\",
-    "command": "workbench.files.action.focusOpenEditorsView"
-  },
   // terminal 
   {
     "key": "ctrl+shift+\\",
@@ -217,6 +212,12 @@
   {
     "key": "alt+=",
     "command": "workbench.action.terminal.newWithProfile"
+  },
+  // focus one editorsView
+  {
+    "key": "shift+alt+\\",
+    "command": "workbench.files.action.focusOpenEditorsView",
+    "when": "workbench.explorer.openEditorsView.active"
   },
   // panel
   {
