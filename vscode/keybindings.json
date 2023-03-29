@@ -32,15 +32,6 @@
     "command": "editor.action.marker.nextInFiles",
     "when": "editorTextFocus && !isInEmbeddedEditor"
   },
-  // select terminal 
-  {
-    "key": "shift+alt+[",
-      "command": "workbench.action.terminal.focusPrevious"
-  },
-  {
-    "key": "shift+alt+]",
-    "command": "workbench.action.terminal.focusNext"
-  },
   // outline focus, NOTE c-s-o still work
   {
     "key": "ctrl+shift+t",
@@ -51,9 +42,13 @@
     "key": "ctrl+shift+g",
     "command": "timeline.focus"
   },
-  // browser and find
+  // sidebartoggle 
   {
     "key": "ctrl+b",
+    "command": "-workbench.action.toggleSidebarVisibility"
+  },
+  {
+    "key": "shift+alt+\\",
     "command": "workbench.action.toggleSidebarVisibility"
   },
   // ctrl n
@@ -199,11 +194,19 @@
     "command": "-selectPrevSuggestion",
     "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
   },
-  // terminal 
+  // select terminal 
   {
     "key": "ctrl+shift+\\",
     "command": "terminal.focus",
-    "when": "!terminalFocus"
+    "when": "!terminalfocus"
+  },
+  {
+    "key": "shift+alt+[",
+      "command": "workbench.action.terminal.focusPrevious"
+  },
+  {
+    "key": "shift+alt+]",
+    "command": "workbench.action.terminal.focusNext"
   },
   {
     "key": "alt+-",
@@ -212,12 +215,6 @@
   {
     "key": "alt+=",
     "command": "workbench.action.terminal.newWithProfile"
-  },
-  // focus one editorsView
-  {
-    "key": "shift+alt+\\",
-    "command": "workbench.files.action.focusOpenEditorsView",
-    "when": "workbench.explorer.openEditorsView.active"
   },
   // panel
   {
