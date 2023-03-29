@@ -48,7 +48,7 @@
     "command": "-workbench.action.toggleSidebarVisibility"
   },
   {
-    "key": "shift+alt+\\",
+    "key": "ctrl+shift+\\",
     "command": "workbench.action.toggleSidebarVisibility"
   },
   // ctrl n
@@ -196,7 +196,7 @@
   },
   // select terminal 
   {
-    "key": "ctrl+shift+\\",
+    "key": "shift+alt+\\",
     "command": "terminal.focus",
     "when": "!terminalfocus"
   },
