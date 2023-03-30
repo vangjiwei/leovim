@@ -238,7 +238,7 @@ elseif exists(':packadd') && (g:git_version >= 1.85 || executable('curl') || exe
 else
     let g:pack_tool = 'plug'
     let g:plug_threads = get(g:, 'plug_threads', 8)
-    source ~/.leovim.conf/pack/downloaded/plug.vim
+    source ~/.leovim.conf/pack/_/plug.vim
     command! PackSync PlugClean | PlugUpdate
 endif
 noremap <silent><leader>u :PackSync<Cr>
