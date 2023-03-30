@@ -1,10 +1,14 @@
-# plug.vim 
+# plug.vim
 curl -fLo ../plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 sed -i -e 's/ *$//g' ../plug.vim
 
-# eregex.vim 
-rm -rf eregex.vim 
-git clone --depth 1 https://github.com/ZSaberLv0/eregex.vim  
+# vim-preview
+rm -rf vim-preview
+git clone --depth 1 https://github.com/leoatchina/vim-preview.git
+
+# eregex.vim
+rm -rf eregex.vim
+git clone --depth 1 https://github.com/ZSaberLv0/eregex.vim.git
 
 # easy-align
 rm -rf vim-easy-align
@@ -72,8 +76,8 @@ rm -rf vim-sidebar-manager
 git clone --depth 1 https://github.com/brglng/vim-sidebar-manager.git
 
 # which-key
-rm -rf which-key.nvim 
-git clone --depth 1 https://github.com/folke/which-key.nvim.git  
+rm -rf which-key.nvim
+git clone --depth 1 https://github.com/folke/which-key.nvim.git
 rm -rf vim-which-key
 git clone --depth 1 --single-branch --branch meta_key https://github.com/leoatchina/vim-which-key.git
 
@@ -94,7 +98,7 @@ rm -rf iron.nvim
 git clone --depth 1 https://github.com/leoatchina/iron.nvim.git
 
 # vim-quickui
-rm -rf vim-quickui 
+rm -rf vim-quickui
 git clone --depth 1 https://github.com/skywind3000/vim-quickui
 
 # delete files and dirs

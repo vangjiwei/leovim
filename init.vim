@@ -752,12 +752,6 @@ nmap <leader>vB vaB
 if exists("g:vscode")
     source $LEOVIM_PATH/vscode/neovim.vim
 else
-    " vim-preview
-    let g:preview#preview_position = "rightbottom"
-    let g:preview#preview_size = get(g:, 'asyncrun_open', 8)
-    nnoremap qq <C-w>z
-    nnoremap <Tab>o cd:PreviewFile
-    " source
     source $CONFIG_PATH/main.vim
     if g:has_terminal > 0
         source $SETTINGS_PATH/terminal.vim

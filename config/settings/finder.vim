@@ -1,4 +1,11 @@
 " --------------------------
+" vim-preview
+" --------------------------
+let g:preview#preview_position = "rightbottom"
+let g:preview#preview_size = get(g:, 'asyncrun_open', 8)
+nnoremap qq <C-w>z
+nnoremap <Tab>o cd:PreviewFile
+" --------------------------
 " fuzzy_finder config
 " --------------------------
 let g:Lf_CacheDirectory = expand("~")
