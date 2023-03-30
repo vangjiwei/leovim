@@ -203,7 +203,7 @@
   },
   // select terminal 
   {
-    "key": "ctrl+shift+\\",
+    "key": "shift+alt+\\",
     "command": "terminal.focus",
     "when": "!terminalfocus"
   },
