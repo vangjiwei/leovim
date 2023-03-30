@@ -141,7 +141,7 @@
     "command": "editor.action.peekDeclaration",
     "when": "editorTextFocus && !isInEmbeddedEditor",
   },
-  // implementation 
+  // implementation
   {
     "key": "shift+alt+/",
     "command": "editor.action.peekImplementation",
@@ -201,7 +201,15 @@
     "command": "editor.action.startFindReplaceAction",
     "when": "editorFocus || editorIsOpen"
   },
-  // select terminal 
+  // terminal
+  {
+    "key": "alt+-",
+    "command": "workbench.action.togglePanel"
+  },
+  {
+    "key": "alt+=",
+    "command": "workbench.action.terminal.newWithProfile"
+  },
   {
     "key": "shift+alt+\\",
     "command": "terminal.focus",
@@ -215,14 +223,6 @@
     "key": "shift+alt+]",
     "command": "workbench.action.terminal.focusNext"
   },
-  {
-    "key": "alt+-",
-    "command": "workbench.action.togglePanel"
-  },
-  {
-    "key": "alt+=",
-    "command": "workbench.action.terminal.newWithProfile"
-  },
   // panel
   {
     "key": "shift+alt+=",
@@ -233,24 +233,8 @@
     "command": "workbench.action.previousPanelView"
   },
   {
-    "key": "ctrl+; p",
-    "command": "workbench.actions.view.problems"
-  },
-  {
-    "key": "ctrl+; o",
-    "command": "workbench.action.output.toggleOutput"
-  },
-  {
-    "key": "ctrl+; r",
+    "key": "ctrl+shift+\\",
     "command": "workbench.debug.action.toggleRepl"
-  },
-  {
-    "key": "ctrl+; g",
-    "command": "workbench.view.scm"
-  },
-  {
-    "key": "ctrl+; d",
-    "command": "workbench.action.debug.selectDebugConsole"
   },
   // contextMenu, like right mouse click
   {
