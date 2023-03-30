@@ -24,8 +24,8 @@
   // goto error
   {
     "key": "alt+[",
-    "command": "editor.action.marker.prevInFiles",
-    "when": "editorTextFocus && !isInEmbeddedEditor"
+      "command": "editor.action.marker.prevInFiles",
+      "when": "editorTextFocus && !isInEmbeddedEditor"
   },
   {
     "key": "alt+]",
@@ -217,11 +217,17 @@
   },
   {
     "key": "shift+alt+[",
-    "command": "workbench.action.terminal.focusPrevious"
+      "command": "workbench.action.terminal.focusPrevious"
   },
   {
     "key": "shift+alt+]",
     "command": "workbench.action.terminal.focusNext"
+  },
+  // breakpoint
+  {
+    "key": "ctrl+shift+\\",
+    "command": "editor.debug.action.toggleBreakpoint",
+    "when": "debuggersAvailable && editorTextFocus"
   },
   // panel
   {
@@ -231,10 +237,6 @@
   {
     "key": "shift+alt+-",
     "command": "workbench.action.previousPanelView"
-  },
-  {
-    "key": "ctrl+shift+\\",
-    "command": "workbench.debug.action.toggleRepl"
   },
   // contextMenu, like right mouse click
   {

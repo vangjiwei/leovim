@@ -1,3 +1,8 @@
+nmap <C-j> %
+xmap <C-j> %
+nmap <C-k> g%
+xmap <C-k> g%
+nmap <BS> <C-h>
 " --------------------------
 " basic functions
 " --------------------------

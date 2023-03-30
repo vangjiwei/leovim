@@ -502,12 +502,7 @@ map <C-q> <Nop>
 map <C-s> <Nop>
 map <C-i> <Nop>
 map <C-z> <Nop>
-nmap S <Nop>
-nmap <C-j> %
-nmap <C-k> g%
-xmap <C-j> %
-xmap <C-k> g%
-nmap <BS> <C-h>
+nmap S    <Nop>
 " core remap
 xmap     >>       >gv
 xmap     <<       <gv

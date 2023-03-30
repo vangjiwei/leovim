@@ -1,3 +1,5 @@
+nmap <C-j> %
+xmap <C-j> %
 " ------------------------
 " Find in files for word under cursor in vscode
 " ------------------------
@@ -75,8 +77,7 @@ nnoremap <leader>C <Cmd>call VSCodeNotify("workbench.action.debug.configure")<Cr
 " breakpoint
 nnoremap <leader>; <Cmd>call VSCodeNotify("workbench.action.debug.gotoNextBreakpoint")<Cr>
 nnoremap <leader>, <Cmd>call VSCodeNotify("workbench.action.debug.gotoPreviousBreakpoint")<Cr>
-nnoremap <leader>b <Cmd>call VSCodeNotify("editor.debug.action.toggleBreakpoint")<Cr>
-nnoremap <leader>c <Cmd>call VSCodeNotify("editor.debug.action.conditionalBreakpoint")<Cr>
+nnoremap <leader>b <Cmd>call VSCodeNotify("editor.debug.action.conditionalBreakpoint")<Cr>
 nnoremap <leader>f <Cmd>call VSCodeNotify("workbench.debug.viewlet.action.addFunctionBreakpointAction")<Cr>
 nnoremap <leader>E <Cmd>call VSCodeNotify("workbench.debug.viewlet.action.enableAllBreakpoints")<Cr>
 nnoremap <leader>D <Cmd>call VSCodeNotify("workbench.debug.viewlet.action.disableAllBreakpoints")<Cr>
