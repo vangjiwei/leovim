@@ -57,11 +57,12 @@ else
     PackAdd 'vim-searchindex'
 endif
 " ------------------------------
-" quickui
+" vim-preview and quickui
 " ------------------------------
 if v:version >= 802 || has('nvim')
     PackAdd 'vim-quickui'
 endif
+PackAdd 'vim-preview'
 " ------------------------------
 " devicons
 " ------------------------------
