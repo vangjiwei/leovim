@@ -47,12 +47,11 @@ else
     endif
 endif
 " ------------------------------
-" search hl && index && notify
+" search hl && index
 " ------------------------------
 if has('nvim')
     PackAdd 'kevinhwang91/nvim-bqf'
     PackAdd 'kevinhwang91/nvim-hlslens'
-    PackAdd 'rcarriga/nvim-notify'
 else
     PackAdd 'vim-searchindex'
 endif

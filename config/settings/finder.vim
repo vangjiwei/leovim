@@ -4,7 +4,7 @@
 let g:preview#preview_position = "rightbottom"
 let g:preview#preview_size = get(g:, 'asyncrun_open', 8)
 nnoremap qq <C-w>z
-nnoremap <Tab>o cd:PreviewFile
+nnoremap <Tab>o :PreviewFile
 " --------------------------
 " fuzzy_finder config
 " --------------------------
@@ -376,6 +376,9 @@ if Installed('vim-quickui')
     endfunction
     command! -nargs=1 -complete=file PreviewFileO call s:PreviewFileO(<f-args>)
     nnoremap <Tab>O :PreviewFileO
+    " --------------------------
+    " scroll
+    " --------------------------
     nnoremap <F13> :call quickui#preview#scroll(1)<Cr>
     nnoremap <F14> :call quickui#preview#scroll(-1)<Cr>
     if Installed('coc.nvim')
@@ -386,24 +389,8 @@ if Installed('vim-quickui')
         nmap <silent><expr> <C-k> quickui#preview#visible() > 0 ? "\<F14>" : "\g%"
     endif
     au FileType python nnoremap <C-h> call quickui#tools#python_help("")
-endif
-" --------------------------
-" notify
-" --------------------------
-if Installed("nvim-notify")
-    function! Notify_messages() abort
-        let g:notify_messages=split(execute('messages'), "\n")
-        if empty(g:notify_messages)
-            echo "No messages"
-            return
-        endif
-        lua require('notify')(vim.g.notify_messages, 'info', {title = 'messages'})
-        unlet g:notify_messages
-    endfunction
-    if !InstalledTelescope()
-        nnoremap <silent><M-h>n :lua require("notify").history()<Cr>
-    endif
-    nnoremap <silent><M-h>M :call Notify_messages()<Cr>
+else
+    nnoremap <silent><M-h>m :messages<Cr>
 endif
 " --------------------------
 " changes

@@ -1,6 +1,3 @@
-" ====================================================================================================
-" set Variables
-" ====================================================================================================
 if v:version < 704 && !has('nvim')
     echoe 'vim 7.4 is at least required when uing leovim.'
     finish
@@ -11,9 +8,9 @@ elseif !exists('*system')
     echoe 'function system() is required when using leovim.'
     finish
 end
-" ------------------------------
-" NOTE: StringToFloat is a import function
-" ------------------------------
+" ====================================================================================================
+" functions
+" ====================================================================================================
 function! StringToFloat(str)
     let str = a:str
     try
@@ -22,9 +19,28 @@ function! StringToFloat(str)
         let other = join(lst[1:], '')
         return str2float(main . "\." . other)
     catch
-        return str2float(str)
+        try
+            return str2float(str)
+        catch
+            return 0
+        endtry
     endtry
 endfunction
+function! TripTrailingWhiteSpace()
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " do the business:
+    %s/\s\+$//e
+    " clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+augroup TripSpaces
+    autocmd FileType vim,c,cpp,java,go,php,javascript,typescript,python,rust,twig,xml,yml,perl,sql,r,conf,lua
+        \ autocmd! BufWritePre <buffer> :call TripTrailingWhiteSpace()
+augroup END
+nnoremap <silent>d<space> :call TripTrailingWhiteSpace<Cr>
 " ------------------------
 " mapleader
 " ------------------------
@@ -569,16 +585,6 @@ nnoremap <leader>yp :let @*=expand("%:p")<cr>:echo '-= File path copied=-'<Cr>
 nnoremap <leader>yf :let @*=expand("%:t")<cr>:echo '-= File name copied=-'<Cr>
 " Copy bookmark position reference
 nnoremap <leader>ym :let @*=expand("%:p").':'.line(".").':'.col(".")<cr>:echo '-= Cursor bookmark copied=-'<cr>'
-" --------------------------
-" StripTrailingWhiteSpace
-" --------------------------
-augroup TrailSpace
-    autocmd FileType vim,c,cpp,java,go,php,javascript,typescript,python,rust,twig,xml,yml,perl,sql,r,conf,lua
-        \ autocmd! BufWritePre <buffer> :call TripTrailingWhiteSpace()
-augroup END
-command! TripTrailingWhiteSpace call TripTrailingWhiteSpace()
-nnoremap d<space> :TripTrailingWhiteSpace<Cr>
-" ====================================================================================================
 " intergrated packs
 " ====================================================================================================
 PackAdd 'vim-eunuch'
