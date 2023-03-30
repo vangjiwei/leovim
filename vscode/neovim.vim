@@ -1,4 +1,9 @@
 " ------------------------
+" Find in files for word under cursor in vscode
+" ------------------------
+nnoremap s<Cr> <Cmd>call VSCodeNotify("workbench.action.findInFiles", {'query': expand('<cword>')})<CR>
+nnoremap s/    <Cmd>call VSCodeNotify("editor.action.startFindReplaceAction")<Cr>
+" ------------------------
 " hl * # S
 " ------------------------
 nnoremap *  *``
@@ -42,12 +47,6 @@ nnoremap g$ <Cmd>call <SID>toLastCharOfScreenLine()<CR>
 " Note: Using these in macro will break it
 nnoremap gk <Cmd>call VSCodeNotify('cursorMove', { 'to': 'up', 'by': 'wrappedLine', 'value': v:count1 })<CR>
 nnoremap gj <Cmd>call VSCodeNotify('cursorMove', { 'to': 'down', 'by': 'wrappedLine', 'value': v:count1 })<CR>
-" ------------------------
-" Find in files for word under cursor in vscode
-" ------------------------
-nnoremap s<Cr> <Cmd>call VSCodeNotify("workbench.action.findInFiles", {'query': expand('<cword>')})<CR>
-nnoremap s;    <Cmd>call VSCodeNotify("editor.action.startFindReplaceAction")<Cr>
-nnoremap s/    <Cmd>call VSCodeNotify("actions.find")<Cr>
 " quickfix
 nnoremap <C-.> <Cmd>call VSCodeNotify("keyboard-quickfix.openQuickFix")<CR>
 nnoremap <C-a> <Cmd>call VSCodeNotify("editor.action.selectAll")<Cr>

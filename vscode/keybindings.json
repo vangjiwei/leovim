@@ -24,8 +24,8 @@
   // goto error
   {
     "key": "alt+[",
-      "command": "editor.action.marker.prevInFiles",
-      "when": "editorTextFocus && !isInEmbeddedEditor"
+    "command": "editor.action.marker.prevInFiles",
+    "when": "editorTextFocus && !isInEmbeddedEditor"
   },
   {
     "key": "alt+]",
@@ -41,15 +41,6 @@
   {
     "key": "ctrl+shift+g",
     "command": "timeline.focus"
-  },
-  // sidebartoggle 
-  {
-    "key": "ctrl+b",
-    "command": "-workbench.action.toggleSidebarVisibility"
-  },
-  {
-    "key": "ctrl+shift+\\",
-    "command": "workbench.action.toggleSidebarVisibility"
   },
   // ctrl n
   {
@@ -194,15 +185,31 @@
     "command": "-selectPrevSuggestion",
     "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
   },
+  // sidebartoggle
+  {
+    "key": "ctrl+b",
+    "command": "workbench.action.toggleSidebarVisibility"
+  },
+  // find
+  {
+    "key": "ctrl+f",
+    "command": "actions.find",
+    "when": "editorFocus || editorIsOpen"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "editor.action.startFindReplaceAction",
+    "when": "editorFocus || editorIsOpen"
+  },
   // select terminal 
   {
-    "key": "shift+alt+\\",
+    "key": "ctrl+shift+\\",
     "command": "terminal.focus",
     "when": "!terminalfocus"
   },
   {
     "key": "shift+alt+[",
-      "command": "workbench.action.terminal.focusPrevious"
+    "command": "workbench.action.terminal.focusPrevious"
   },
   {
     "key": "shift+alt+]",
