@@ -80,7 +80,6 @@ if Require('writing')
     " ------------------------------
     PackAdd 'junegunn/vim-journal', {'for': 'markdown'}
     PackAdd 'ferrine/md-img-paste.vim', {'for': 'markdown'}
-    " markdown preview
     if executable('node') && (has('nvim') || v:version >= 801) && executable('yarn')
         let g:markdown_tool = 'markdown-preview.nvim'
         PackAdd 'iamcco/markdown-preview.nvim', {'for': ['markdown'], 'do': 'cd app & yarn install'}
