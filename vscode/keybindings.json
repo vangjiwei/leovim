@@ -225,6 +225,30 @@
   },
   // debug
   {
+    "key": "ctrl+shift+alt+d",
+    "command": "workbench.action.debug.configure"
+  },
+  {
+    "key": "alt+d",
+    "command": "workbench.action.debug.continue",
+    "when": "debugState == 'stopped'"
+  },
+  {
+    "key": "alt+shift+d",
+    "command": "workbench.debug.action.toggleRepl",
+    "when": "workbench.panel.repl.view.active"
+  },
+  {
+    "key": "ctrl+alt+d",
+    "command": "debug.openBreakpointToSide",
+    "when": "breakpointsFocused"
+  },
+  {
+    "key": "ctrl+shift+y",
+    "command": "-workbench.debug.action.toggleRepl",
+    "when": "workbench.panel.repl.view.active"
+  },
+  {
     "key": "ctrl+h",
     "command": "editor.debug.action.showDebugHover",
     "when": "editorTextFocus && inDebugMode"
