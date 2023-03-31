@@ -1,5 +1,6 @@
 nnoremap M m
-if Installed('vim-signature')
+if has('nvim') || has('patch-8.0.902')
+    PackAdd 'mhinz/vim-signify'
     nnoremap <silent>[1 :call signature#marker#Goto('prev', 1, v:count)<Cr>
     nnoremap <silent>]1 :call signature#marker#Goto('next', 1, v:count)<Cr>
     nnoremap <silent>[2 :call signature#marker#Goto('prev', 2, v:count)<Cr>

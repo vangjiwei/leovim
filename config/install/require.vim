@@ -39,12 +39,6 @@ if executable('git') && v:version >= 800 && g:git_version >= 1.85
     endif
 endif
 " ------------------------------
-" signify
-" ------------------------------
-if has('nvim') || has('patch-8.0.902')
-    PackAdd 'mhinz/vim-signify'
-endif
-" ------------------------------
 " status
 " ------------------------------
 if has('signs')

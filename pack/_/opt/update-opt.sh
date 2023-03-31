@@ -6,6 +6,10 @@ sed -i -e 's/ *$//g' ../plug.vim
 rm -rf vim-preview
 git clone --depth 1 https://github.com/leoatchina/vim-preview.git
 
+# vim-signify for marks 
+rm -rf vim-signify
+git clone --depth 1 https://github.com/mhinz/vim-signify.git
+
 # eregex.vim
 rm -rf eregex.vim
 git clone --depth 1 https://github.com/ZSaberLv0/eregex.vim.git
