@@ -201,17 +201,19 @@
     "command": "editor.action.startFindReplaceAction",
     "when": "editorFocus || editorIsOpen"
   },
-  // terminal
+  // contextMenu, like right mouse click
   {
-    "key": "alt+-",
-    "command": "workbench.action.togglePanel"
+    "key": "shift+alt+enter",
+    "command": "editor.action.showContextMenu",
+    "when": "editorTextFocus"
   },
+  // terminal
   {
     "key": "alt+=",
     "command": "workbench.action.terminal.newWithProfile"
   },
   {
-    "key": "shift+alt+\\",
+    "key": "alt+-",
     "command": "terminal.focus",
     "when": "!terminalfocus"
   },
@@ -223,13 +225,11 @@
     "key": "shift+alt+]",
     "command": "workbench.action.terminal.focusNext"
   },
-  // breakpoint
-  {
-    "key": "ctrl+shift+\\",
-    "command": "editor.debug.action.toggleBreakpoint",
-    "when": "debuggersAvailable && editorTextFocus"
-  },
   // panel
+  {
+    "key": "alt+\\",
+    "command": "workbench.action.togglePanel"
+  },
   {
     "key": "shift+alt+=",
     "command": "workbench.action.nextPanelView"
@@ -238,11 +238,26 @@
     "key": "shift+alt+-",
     "command": "workbench.action.previousPanelView"
   },
-  // contextMenu, like right mouse click
+  // breakpoint
   {
-    "key": "alt+\\",
-    "command": "editor.action.showContextMenu",
-    "when": "editorTextFocus"
+    "key": "ctrl+shift+\\",
+    "command": "editor.debug.action.toggleBreakpoint",
+    "when": "debuggersAvailable && editorTextFocus"
+  },
+  {
+    "key": "ctrl+alt+\\",
+    "command": "workbench.debug.viewlet.action.enableAllBreakpoints",
+    "when": "debuggersAvailable && editorTextFocus"
+  },
+  {
+    "key": "shift+alt+\\",
+    "command": "workbench.debug.viewlet.action.disableAllBreakpoints",
+    "when": "debuggersAvailable && editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+alt+\\",
+    "command": "workbench.debug.viewlet.action.removeAllBreakpoints",
+    "when": "debuggersAvailable && editorTextFocus"
   },
   // R ->
   {
