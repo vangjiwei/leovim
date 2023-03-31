@@ -63,11 +63,6 @@
     "key": "ctrl+alt+n",
     "command": "-code-runner.run"
   },
-  // debug toggle reple
-  {
-    "key": "ctrl+shift+r",
-    "command": "workbench.debug.action.toggleRepl"
-  },
   // ctrl o
   {
     "key": "ctrl+alt+o",
@@ -228,6 +223,12 @@
     "key": "shift+alt+-",
     "command": "workbench.action.previousPanelView"
   },
+  // debug
+  {
+    "key": "ctrl+h",
+    "command": "editor.debug.action.showDebugHover",
+    "when": "editorTextFocus && inDebugMode"
+  },
   // breakpoint
   {
     "key": "ctrl+shift+\\",
@@ -249,13 +250,6 @@
     "command": "workbench.debug.viewlet.action.removeAllBreakpoints",
     "when": "debuggersAvailable && editorTextFocus"
   },
-  // debug
-  {
-    "key": "ctrl+h",
-    "command": "editor.debug.action.showDebugHover",
-    "when": "editorTextFocus && inDebugMode"
-  },
-
   // jupyter
   {
     "key": "ctrl+shift+j",
@@ -265,6 +259,11 @@
   {
     "key": "ctrl+shift+enter",
     "command": "jupyter.runallcellsabove.palette",
+    "when": "editorTextFocus && isWorkspaceTrusted && jupyter.hascodecells"
+  },
+  {
+    "key": "ctrl+shift+alt+enter",
+    "command": "jupyter.debugcurrentcell.palette",
     "when": "editorTextFocus && isWorkspaceTrusted && jupyter.hascodecells"
   },
   // R ->
