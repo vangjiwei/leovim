@@ -1,4 +1,7 @@
-if has('nvim') && (UNIX() && get(g:, 'nvim_treesitter_install', 1) || WINDOWS() && get(g:, 'nvim_treesitter_install', 0))
+if has('nvim') && (UNIX() &&
+            \ get(g:, 'nvim_treesitter_install', 1) && g:complete_engine == 'cmp' ||
+            \ get(g:, 'nvim_treesitter_install', 0) ||
+            \ WINDOWS() && get(g:, 'nvim_treesitter_install', 0))
     let g:nvim_treesitter_install = 1
     PackAdd 'kevinhwang91/nvim-treesitter'
                 \| PackAdd 'm-demare/hlargs.nvim'
