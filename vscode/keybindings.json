@@ -196,11 +196,6 @@
     "command": "actions.find",
     "when": "editorFocus || editorIsOpen"
   },
-  {
-    "key": "ctrl+h",
-    "command": "editor.action.startFindReplaceAction",
-    "when": "editorFocus || editorIsOpen"
-  },
   // contextMenu, like right mouse click
   {
     "key": "shift+alt+enter",
@@ -258,6 +253,12 @@
     "key": "ctrl+shift+alt+\\",
     "command": "workbench.debug.viewlet.action.removeAllBreakpoints",
     "when": "debuggersAvailable && editorTextFocus"
+  },
+  // debug
+  {
+    "key": "ctrl+h",
+    "command": "editor.debug.action.showDebugHover",
+    "when": "editorTextFocus && inDebugMode"
   },
   // R ->
   {
