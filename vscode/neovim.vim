@@ -33,6 +33,7 @@ xnoremap <C-S-P> <Cmd>call VSCodeNotifyVisual("workbench.action.showCommands", 1
 nnoremap \| <Cmd>call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>')})<CR>
 nnoremap <C-o> <Cmd>call VSCodeNotify("workbench.action.navigateBack")<CR>
 nnoremap <C-i> <Cmd>call VSCodeNotify("workbench.action.navigateForward")<CR>
+nnoremap <C-h> <Cmd>call VSCodeNotify("editor.debug.action.showDebugHover")<CR>
 " ------------------------
 " movement
 " ------------------------

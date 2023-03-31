@@ -3,6 +3,10 @@ xmap <C-j> %
 nmap <C-k> g%
 xmap <C-k> g%
 nmap <BS> <C-h>
+" ------------------------
+" tab is used as one leaderkey
+" ------------------------
+nnoremap <Tab><Tab> <Tab>
 " --------------------------
 " basic functions
 " --------------------------
@@ -31,10 +35,6 @@ function! Execute(cmd)
     redir END
     return l:output
 endfunction
-" ------------------------
-" tab is used as a leaderkey
-" ------------------------
-nnoremap <Tab><Tab> <Tab>
 " ------------------------
 " has_truecolor
 " ------------------------
