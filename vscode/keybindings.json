@@ -16,11 +16,6 @@
     "key": "shift+alt+down",
     "command": "workbench.action.focusBelowGroupWithoutWrap"
   },
-  // jupyter
-  {
-    "key": "ctrl+shift+j",
-    "command": "jupyter.openVariableView"
-  },
   // goto error
   {
     "key": "alt+[",
@@ -259,6 +254,18 @@
     "key": "ctrl+h",
     "command": "editor.debug.action.showDebugHover",
     "when": "editorTextFocus && inDebugMode"
+  },
+
+  // jupyter
+  {
+    "key": "ctrl+shift+j",
+    "command": "jupyter.openVariableView",
+    "when": "editorTextFocus && isWorkspaceTrusted && jupyter.hascodecells"
+  },
+  {
+    "key": "ctrl+shift+enter",
+    "command": "jupyter.runallcellsabove.palette",
+    "when": "editorTextFocus && isWorkspaceTrusted && jupyter.hascodecells"
   },
   // R ->
   {
