@@ -30,6 +30,10 @@
   // outline focus, NOTE c-s-o still work
   {
     "key": "ctrl+shift+t",
+    "command": "workbench.action.reopenClosedEditor"
+  },
+  {
+    "key": "ctrl+shift+t",
     "command": "outline.focus"
   },
   // timeline

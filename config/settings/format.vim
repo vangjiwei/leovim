@@ -1,15 +1,16 @@
 " ----------------------------
 " map
 " ----------------------------
-nnoremap <leader>ex Q
+xmap = gq
 nmap Q gq
 xmap Q gq
 nnoremap gQ gw
 xnoremap gQ gw
+nnoremap <leader>ex Q
 " ----------------------------
 " table_mode
 " ----------------------------
-if Installed("dhruvasagar/vim-table-mode")
+if Installed("vim-table-mode")
     let g:table_mode_map_prefix      = '<Space>T'
     let g:table_mode_corner          = '|'
     let g:table_mode_corner_corner   = '+'
