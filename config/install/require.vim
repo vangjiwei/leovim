@@ -84,7 +84,7 @@ endif
 " ------------------------------
 " tmux
 " ------------------------------
-if executable('tmux') && g:gui_running == 0 && (has('nvim') || has('patch-8.0.1394'))
+if UNIX() && executable('tmux') && g:gui_running == 0 && (has('nvim') || has('patch-8.0.1394'))
     PackAdd 'preservim/vimux'
     PackAdd 'roxma/vim-tmux-clipboard'
     PackAdd 'tmux-plugins/vim-tmux-focus-events'
