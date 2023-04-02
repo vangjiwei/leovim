@@ -46,8 +46,18 @@
     "command": "git.viewFileHistory"
   },
   {
-    "key": "ctrl+shift+alt+g",
+    "key": "ctrl+shift+g",
+    "command": "-workbench.view.scm",
+    "when": "workbench.scm.active"
+  },
+  {
+    "key": "ctrl+shift+g",
     "command": "timeline.focus"
+  },
+  {
+    "key": "ctrl+shift+alt+g",
+    "command": "workbench.view.scm",
+    "when": "workbench.scm.active"
   },
   // ctrl n
   {
