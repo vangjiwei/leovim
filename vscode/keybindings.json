@@ -19,8 +19,8 @@
   // goto error
   {
     "key": "alt+[",
-    "command": "editor.action.marker.prevInFiles",
-    "when": "editorTextFocus && !isInEmbeddedEditor"
+      "command": "editor.action.marker.prevInFiles",
+      "when": "editorTextFocus && !isInEmbeddedEditor"
   },
   {
     "key": "alt+]",
@@ -163,9 +163,32 @@
   },
   // incoming outgoing calls
   {
+    "key": "shift+alt+h",
+    "command": "-editor.showCallHierarchy",
+    "when": "editorHasCallHierarchyProvider && editorTextFocus && !inReferenceSearchEditor"
+  },
+  {
+    "key": "alt+`",
+    "command": "-editor.showCallHierarchy",
+    "when": "editorHasCallHierarchyProvider && editorTextFocus && !inReferenceSearchEditor"
+  },
+  {
+    "key": "shift+alt+h",
+    "command": "-references-view.showCallHierarchy",
+    "when": "editorHasCallHierarchyProvider"
+  },
+  {
     "key": "alt+'",
     "command": "references-view.showCallHierarchy",
     "when": "editorHasCallHierarchyProvider"
+  },
+  {
+    "key": "alt+l",
+    "command": "references-view.showIncomingCalls"
+  },
+  {
+    "key": "alt+h",
+    "command": "references-view.showOutgoingCalls"
   },
   // insert mode up/down
   {
@@ -217,7 +240,7 @@
   },
   {
     "key": "shift+alt+[",
-    "command": "workbench.action.terminal.focusPrevious"
+      "command": "workbench.action.terminal.focusPrevious"
   },
   {
     "key": "shift+alt+]",
