@@ -145,9 +145,8 @@ lspsaga.setup({
 -- Show symbols in winbar
 vim.wo.winbar = require('lspsaga.symbolwinbar'):get_winbar()
 -- lspsaga maps
-map('n', 'K', [[<Cmd>Lspsaga hover_doc<Cr>]], opts)
-map('n', '<leader>ar', [[<cmd>Lspsaga rename<Cr>]], opts)
-map('n', '<F2>', [[<cmd>Lspsaga rename<Cr>]], opts)
+map('n', 'K',  [[<Cmd>Lspsaga hover_doc<Cr>]], opts)
+map('n', 'gr', [[<cmd>Lspsaga rename<Cr>]],    opts)
 map('n', '<M-;>', [[<cmd>Lspsaga lsp_finder<Cr>]], opts)
 map('n', '<M-:>', [[<cmd>Lspsaga peek_definition<CR>]], opts)
 map('n', "<leader>a<cr>", [[<cmd>Lspsaga code_action<Cr>]], opts)

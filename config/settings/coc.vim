@@ -169,8 +169,8 @@ xmap <silent><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\g%"
 " call hierarchy
 nnoremap <silent>gl :call CocAction('showIncomingCalls')<Cr>
 nnoremap <silent>gh :call CocAction('showOutgoingCalls')<Cr>
-nnoremap <silent>gm :call CocAction('showSubTypes')<Cr>
-nnoremap <silent>gM :call CocAction('showSuperTypes')<Cr>
+nnoremap <silent>gt :call CocAction('showSubTypes')<Cr>
+nnoremap <silent>gT :call CocAction('showSuperTypes')<Cr>
 " --------------------------
 " coc snippets
 " --------------------------
@@ -216,8 +216,7 @@ if has('nvim') || has('patch-9.0.0252')
 else
     call coc#config('codeLens.enable', v:false)
 endif
-nnoremap <silent><F2>          <Plug>(coc-rename)
-nnoremap <silent><leader>ar    <Plug>(coc-rename)
+nnoremap <silent>gr            <Plug>(coc-rename)
 nnoremap <silent><leader>a<Cr> <Plug>(coc-codeaction-line)
 xnoremap <silent><leader>a<Cr> <Plug>(coc-codeaction-selected)
 nnoremap <silent><leader>A     :CocFzfList actions<Cr>
