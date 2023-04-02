@@ -91,11 +91,11 @@
     "command": "workbench.action.closeAllEditors"
   },
   {
-    "key": "alt+w",
+    "key": "shift+alt+w",
     "command": "workbench.action.closeAllGroups"
   },
   {
-    "key": "shift+alt+w",
+    "key": "alt+w",
     "command": "workbench.action.closeEditorsInGroup"
   },
   // definition
@@ -221,8 +221,8 @@
     "when": "terminalFocus && terminalProcessSupported || terminalFocus && terminalWebExtensionContributedProfile"
   },
   {
-    "key": "ctrl+shift+-",
-    "command": "-workbench.action.zoomOut"
+      "key": "ctrl+shift+-",
+      "command": "-workbench.action.zoomOut"
   },
   // focus on editor
   {
