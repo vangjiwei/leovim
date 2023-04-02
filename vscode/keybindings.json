@@ -36,6 +36,14 @@
     "key": "ctrl+shift+t",
     "command": "outline.focus"
   },
+  {
+    "key": "ctrl+t",
+    "command": "-workbench.action.showAllSymbols"
+  },
+  {
+    "key": "ctrl+alt+g",
+    "command": "workbench.action.showAllSymbols"
+  },
   // git
   {
     "key": "alt+h",
