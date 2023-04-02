@@ -215,6 +215,15 @@
     "key": "shift+alt+]",
     "command": "workbench.action.terminal.focusNext"
   },
+  {
+    "key": "ctrl+shift+-",
+    "command": "workbench.action.terminal.split",
+    "when": "terminalFocus && terminalProcessSupported || terminalFocus && terminalWebExtensionContributedProfile"
+  },
+  {
+    "key": "ctrl+shift+-",
+    "command": "-workbench.action.zoomOut"
+  },
   // focus on editor
   {
     "key": "ctrl+shift+alt+e",
