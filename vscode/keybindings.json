@@ -246,6 +246,12 @@
     "command": "editor.action.showContextMenu",
     "when": "editorTextFocus"
   },
+  // focus on editor
+  {
+    "key": "ctrl+shift+alt+e",
+    "command": "workbench.files.action.focusOpenEditorsView",
+    "when": "workbench.explorer.openEditorsView.active"
+  },
   // terminal
   {
     "key": "alt+=",
@@ -265,24 +271,29 @@
     "command": "workbench.action.terminal.focusNext"
   },
   {
-    "key": "ctrl+shift+=",
-    "command": "workbench.action.terminal.split",
-    "when": "terminalFocus && terminalProcessSupported || terminalFocus && terminalWebExtensionContributedProfile"
+    "key": "ctrl+shift+c",
+    "command": "-workbench.action.terminal.openNativeConsole",
+    "when": "!terminalFocus"
   },
-  // focus on editor
   {
-    "key": "ctrl+shift+alt+e",
-    "command": "workbench.files.action.focusOpenEditorsView",
-    "when": "workbench.explorer.openEditorsView.active"
+    "key": "ctrl+shift+=",
+    "command": "-workbench.action.zoomIn"
+  },
+  {
+    "key": "ctrl+shift+=",
+    "command": "workbench.action.terminal.openNativeConsole",
+    "when": "!terminalFocus"
+  },
+  // copy
+  {
+    "key": "ctrl+shift+c",
+    "command": "editor.action.clipboardCopyAction",
+    "when": "editorTextFocus"
   },
   // panel
   {
     "key": "ctrl+shift+-",
     "command": "-workbench.action.zoomOut"
-  },
-  {
-    "key": "ctrl+shift+=",
-    "command": "-workbench.action.zoomIn"
   },
   {
     "key": "ctrl+shift+-",
