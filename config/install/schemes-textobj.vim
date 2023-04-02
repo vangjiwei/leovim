@@ -3,7 +3,7 @@ if has('nvim') && (UNIX() &&
             \ get(g:, 'nvim_treesitter_install', 0))
             \ || WINDOWS() && get(g:, 'nvim_treesitter_install', 0))
     let g:nvim_treesitter_install = 1
-    PackAdd 'kevinhwang91/nvim-treesitter'
+    PackAdd 'nvim-treesitter/nvim-treesitter'
                 \| PackAdd 'm-demare/hlargs.nvim'
                 \| PackAdd 'spywhere/detect-language.nvim'
                 \| PackAdd 'mfussenegger/nvim-treehopper'
