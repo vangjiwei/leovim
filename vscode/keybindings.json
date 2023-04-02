@@ -45,6 +45,10 @@
     "key": "shift+alt+g",
     "command": "git.viewFileHistory"
   },
+  {
+    "key": "ctrl+shift+alt+g",
+    "command": "timeline.focus"
+  },
   // ctrl n
   {
     "key": "ctrl+n",
