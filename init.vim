@@ -671,6 +671,8 @@ PackAdd 'vim-textobj-uri'
 PackAdd 'vim-textobj-line'
 nmap <leader>vf vif
 nmap <leader>vF vaf
+nmap <leader>vc vic
+nmap <leader>vC vac
 nmap <leader>vu viu
 nmap <leader>vU vau
 nmap <leader>vl vil
@@ -681,9 +683,7 @@ nmap <leader>va via
 nmap <leader>vA vaa
 nmap <leader>vi vii
 nmap <leader>vI vai
-" ------------------------
 " goto first/last indent
-" ------------------------
 nmap si viio<C-[>^
 nmap sg vii<C-[>^
 " --------------------------

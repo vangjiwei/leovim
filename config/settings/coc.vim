@@ -228,15 +228,11 @@ xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
-nmap <leader>vf vif
-nmap <leader>vF vaf
 " class
 xmap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ic <Plug>(coc-classobj-i)
 omap ac <Plug>(coc-classobj-a)
-nmap <leader>vc vic
-nmap <leader>vC vac
 " ------------------------
 " coc git
 " ------------------------
